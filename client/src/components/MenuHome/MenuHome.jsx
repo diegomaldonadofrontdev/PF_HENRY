@@ -28,6 +28,26 @@ export default function MenuHome() {
 							<p>Comprar</p>
 						</div>
 					</div>
+					<div className={styles.menu__card}>
+						<div className={styles.fondo}>
+							<img src={img} alt="" />
+						</div>
+						<div className={styles.card__info}>
+							<h4>Pizza Italiana</h4>
+							<p>$100</p>
+							<p>Comprar</p>
+						</div>
+					</div>
+					<div className={styles.menu__card}>
+						<div className={styles.fondo}>
+							<img src={img} alt="" />
+						</div>
+						<div className={styles.card__info}>
+							<h4>Pizza Italiana</h4>
+							<p>$100</p>
+							<p>Comprar</p>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
