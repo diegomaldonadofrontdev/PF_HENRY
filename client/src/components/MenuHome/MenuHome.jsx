@@ -1,0 +1,22 @@
+import React from "react";
+import styles from "./MenuHome.module.css";
+
+export default function MenuHome() {
+	return (
+		<div className={styles.menu__home}>
+			<div className={styles.container}>
+				<div className={styles.menu__header}>
+					<p>Nuestro Menu</p>
+					<h2>Un menu que siempre es tentador</h2>
+				</div>
+				<div className={styles.menu__nav}>
+					<a href="a">Hamburguesas</a>
+					<a href="a">Pizzas</a>
+					<a href="a">Pastas</a>
+					<a href="a">Sanguches</a>
+					<a href="a">Bebidas</a>
+				</div>
+			</div>
+		</div>
+	);
+}

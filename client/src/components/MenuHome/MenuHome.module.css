@@ -1,0 +1,45 @@
+.menu__home {
+	margin: 200px 0;
+}
+
+.menu__home .container {
+	max-width: 65%;
+
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	gap: 2em;
+}
+
+.container p {
+	color: #f54749;
+	text-transform: uppercase;
+	font-weight: 700;
+	text-align: start;
+}
+
+.container h2 {
+	text-align: start;
+	font-size: 4em;
+	max-width: 50%;
+}
+
+.menu__header {
+	text-align: center;
+}
+
+.menu__nav {
+	display: flex;
+	justify-content: space-between;
+}
+
+.menu__nav a {
+	color: black;
+	background-color: #f54749;
+	padding: 0.5em 1.5em;
+	border-radius: 100px;
+}
+
+.menu__nav a:first-child {
+	color: white;
+}
