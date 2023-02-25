@@ -35,11 +35,88 @@
 
 .menu__nav a {
 	color: black;
-	background-color: #f54749;
 	padding: 0.5em 1.5em;
 	border-radius: 100px;
 }
 
 .menu__nav a:first-child {
 	color: white;
+	background-color: #f54749;
+}
+
+.menu__card {
+	width: 300px;
+	height: 400px;
+	position: relative;
+	border-radius: 1.2em;
+	overflow: hidden;
+	display: flex;
+	align-items: end;
+}
+
+.menu__card .fondo {
+	position: absolute;
+	height: 100%;
+	z-index: -1;
+}
+
+.menu__card .fondo img {
+	height: 100%;
+	object-fit: cover;
+}
+
+.menu__card .card__info {
+	width: 100%;
+	padding: 1em;
+	color: white;
+	font-size: 1.5em;
+	background: rgb(0, 0, 0);
+	background: linear-gradient(
+		0deg,
+		rgba(0, 0, 0, 1) 0%,
+		rgba(19, 19, 19, 0.068) 100%
+	);
+	display: flex;
+	flex-direction: column;
+	gap: 0.5em;
+}
+
+.card__info p {
+	color: white;
+}
+
+.card__info p:last-child {
+	font-size: 0.5em;
+	font-weight: 400;
+}
+
+@media (max-width: 700px) {
+	.container h2 {
+		text-align: start;
+		font-size: 2.5em;
+		max-width: 100%;
+	}
+	.menu__nav {
+		overflow-x: scroll;
+	}
+	/* Works on Firefox */
+	.menu__nav {
+		scrollbar-width: thin;
+		padding: 10px 0;
+		scrollbar-color: #f54749;
+	}
+
+	/* Works on Chrome, Edge, and Safari */
+	.menu__nav::-webkit-scrollbar {
+		width: 10px;
+		height: 5px;
+	}
+
+	.menu__nav::-webkit-scrollbar-track {
+	}
+
+	.menu__nav::-webkit-scrollbar-thumb {
+		background-color: #f54749;
+		border-radius: 20px;
+	}
 }
