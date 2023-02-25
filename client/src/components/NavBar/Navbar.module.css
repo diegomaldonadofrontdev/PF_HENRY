@@ -1,0 +1,13 @@
+.nav {
+	display: flex;
+	flex-direction: row-reverse;
+	align-items: center;
+	gap: 0.5em;
+}
+
+.nav i {
+	padding: 5px;
+	border-radius: 5px;
+	font-size: 1.7em;
+	color: #f54749;
+}
