@@ -8,6 +8,7 @@ export default function Header() {
 			<div className={styles.container}>
 				<div className={styles.logo}>
 					<h1>PEDI-VERY</h1>
+					<h2>AAAAAAAAA</h2>
 				</div>
 
 				<Navbar />
