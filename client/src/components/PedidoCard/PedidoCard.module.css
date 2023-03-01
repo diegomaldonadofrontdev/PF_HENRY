@@ -1,0 +1,79 @@
+.pedidoCard {
+	display: flex;
+	align-items: center;
+	gap: 1em;
+	background-color: white;
+	border-radius: 1em;
+	padding: 15px;
+	flex-direction: row;
+	justify-content: space-between;
+	width: 100%;
+	box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
+}
+
+.datosPedido {
+	display: flex;
+	flex-direction: row;
+	gap: 1em;
+	width: 80%;
+	justify-content: space-around;
+}
+
+.datosPedido div {
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	padding: 10px;
+	height: 100%;
+	border-radius: 10px;
+	gap: 1em;
+}
+
+.imgContainer {
+	border-radius: 1em;
+	overflow: hidden;
+	width: 250px;
+	height: 200px;
+}
+
+.imgContainer img {
+	width: 250px;
+	height: 200px;
+	object-fit: cover;
+}
+
+@media (max-witdh: 700px) {
+	.pedidoCard {
+		display: flex;
+		align-items: center;
+		gap: 1em;
+		border: 1px solid black;
+		border-radius: 1em;
+		padding: 15px;
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	.datosPedido {
+		display: flex;
+		flex-direction: column;
+		gap: 1em;
+	}
+
+	.datosPedido div {
+		margin: auto;
+	}
+
+	.imgContainer {
+		border-radius: 1em;
+		overflow: hidden;
+		width: 200px;
+		height: 200px;
+	}
+
+	.imgContainer img {
+		height: 200px;
+		object-fit: cover;
+	}
+}
