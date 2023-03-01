@@ -8,7 +8,8 @@ h2 span {
 }
 
 .hero {
-	padding: 100px 0;
+	padding-top: 100px;
+	margin-bottom: 100px;
 }
 
 .hero .container {
@@ -16,13 +17,19 @@ h2 span {
 	flex-direction: row;
 	gap: 3em;
 	margin: auto;
-	max-width: 80%;
+	max-width: 65%;
+	justify-content: space-between;
 }
 
 .text {
 	display: flex;
 	flex-direction: column;
 	gap: 1em;
+	justify-content: center;
+	max-width: 600px;
+}
+
+.text h2 {
 }
 
 .hero .container p {
@@ -58,7 +65,7 @@ h2 span {
 }
 
 img {
-	width: 50%;
+	width: 40%;
 	object-fit: cover;
 }
 
@@ -73,7 +80,8 @@ img {
 	}
 
 	.hero {
-		padding: 100px 0;
+		padding-top: 100px;
+		margin-bottom: 100px;
 	}
 
 	.hero .container {
