@@ -1,6 +1,6 @@
 import React from "react";
+import HomeCard from "../HomeCard/HomeCard";
 import styles from "./MenuHome.module.css";
-import img from "../../images/pizza.jpg";
 
 export default function MenuHome() {
 	return (
@@ -11,43 +11,50 @@ export default function MenuHome() {
 					<h2>Un menu que siempre es tentador</h2>
 				</div>
 				<div className={styles.menu__nav}>
-					<a href="a">Hamburguesas</a>
-					<a href="a">Pizzas</a>
-					<a href="a">Pastas</a>
-					<a href="a">Sanguches</a>
-					<a href="a">Bebidas</a>
+					<div className={styles.filtros}>
+						<p>Filtrar por comida:</p>
+						<select name="comida" id="">
+							<option value="default">Inicio</option>
+							<option value="default">Pizzas</option>
+							<option value="default">Hamburguesas</option>
+							<option value="default">Vegetariano</option>
+							<option value="default">Pastas</option>
+						</select>
+					</div>
+					<div className={styles.filtros}>
+						<p>Filtrar por barrio:</p>
+						<select name="zona" id="">
+							<option value="default">Almagro</option>
+							<option value="default">Recoleta</option>
+							<option value="default">Caballito</option>
+							<option value="default">Lanús</option>
+							<option value="default">Boedo</option>
+						</select>
+					</div>
+					<div className={styles.filtros}>
+						<p>Ordenar por precio:</p>
+						<select name="ordenamientos" id="">
+							<option value="default">Inicio</option>
+							<option value="default">A-z</option>
+							<option value="default">Z-a</option>
+							<option value="default">Menor precio</option>
+							<option value="default">Mayor precio</option>
+						</select>
+					</div>
 				</div>
 				<div className={styles.menu__cards}>
-					<div className={styles.menu__card}>
-						<div className={styles.fondo}>
-							<img src={img} alt="" />
-						</div>
-						<div className={styles.card__info}>
-							<h4>Pizza Italiana</h4>
-							<p>$100</p>
-							<p>Comprar</p>
-						</div>
-					</div>
-					<div className={styles.menu__card}>
-						<div className={styles.fondo}>
-							<img src={img} alt="" />
-						</div>
-						<div className={styles.card__info}>
-							<h4>Pizza Italiana</h4>
-							<p>$100</p>
-							<p>Comprar</p>
-						</div>
-					</div>
-					<div className={styles.menu__card}>
-						<div className={styles.fondo}>
-							<img src={img} alt="" />
-						</div>
-						<div className={styles.card__info}>
-							<h4>Pizza Italiana</h4>
-							<p>$100</p>
-							<p>Comprar</p>
-						</div>
-					</div>
+					<HomeCard />
+					<HomeCard />
+					<HomeCard />
+					<HomeCard />
+					<HomeCard />
+					<HomeCard />
+					<HomeCard />
+					<HomeCard />
+					<HomeCard />
+					<HomeCard />
+					<HomeCard />
+					<HomeCard />
 				</div>
 			</div>
 		</div>
