@@ -1,0 +1,10 @@
+.buttonPrimary {
+	width: 200px;
+	background-color: #f54749;
+	border: none;
+	font-size: 1em;
+	color: white;
+	padding: 0.5em 2em;
+	border-radius: 0.5em;
+	text-align: center;
+}

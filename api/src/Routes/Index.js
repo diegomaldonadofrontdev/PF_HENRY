@@ -1,8 +1,9 @@
-/*
-            ACA DEFINIREMOS LAS RUTAS GENERALES "/something" QUE APUNTEN A LOS ARCHIVOS ROUTES
-            ESPECIFICOS PARA CADA SUBRUTA PRINCIPAL.
-            EJEMPLO:    router.use("/something1", something1Router)
-                        router.use("/something2", something2Router)
+const express = require('express');
+const index = express();
+const login = require('../Routes/login');
 
-*/                        
-module.exports = router;
+
+index.use(login);
+
+
+module.exports = index;
