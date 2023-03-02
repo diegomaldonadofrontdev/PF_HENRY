@@ -8,4 +8,5 @@ const routes = Router();
 routes.use("/trades", tradesRouter)
 routes.use("/clients", clientsRouter)
 
+
 module.exports = routes;
