@@ -1,9 +1,10 @@
 .footer {
 	background-color: #fe161a;
 	padding: 1em 0;
+	padding-top: 100px;
 }
 .container {
-	max-width: 80%;
+	max-width: 60%;
 	margin: auto;
 	color: white;
 	font-weight: 600;
@@ -13,14 +14,15 @@
 }
 
 .footer .container:last-child p {
-	text-align: center;
+	text-align: start;
 }
 
 .faqs {
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	gap: 2em;
 	font-size: 0.9em;
+	justify-content: space-between;
 }
 
 .faqs div {
@@ -28,10 +30,50 @@
 	display: flex;
 	flex-direction: column;
 	gap: 0.5em;
-	text-align: center;
+	text-align: start;
 }
 
 .faq {
 	color: white;
 	font-weight: 500;
+}
+
+@media (max-width: 700px) {
+	.footer {
+		background-color: #fe161a;
+		padding: 1em 0;
+	}
+	.container {
+		max-width: 80%;
+		margin: auto;
+		color: white;
+		font-weight: 600;
+	}
+	.footer .container:last-child {
+		margin-top: 50px;
+	}
+
+	.footer .container:last-child p {
+		text-align: center;
+	}
+
+	.faqs {
+		display: flex;
+		flex-direction: column;
+		gap: 2em;
+		font-size: 0.9em;
+	}
+
+	.faqs div {
+		padding-top: 25px;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5em;
+		text-align: center;
+	}
+
+	.faq {
+		color: white;
+		font-weight: 500;
+	}
 }

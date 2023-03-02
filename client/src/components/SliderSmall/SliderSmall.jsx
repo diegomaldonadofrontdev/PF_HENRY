@@ -20,6 +20,18 @@ export default function SliderSmall() {
 					<div className={styles.container__img}>
 						<img src={img} alt="logo_burger" />
 					</div>
+					<div className={styles.container__img}>
+						<img src={img} alt="logo_burger" />
+					</div>
+					<div className={styles.container__img}>
+						<img src={img} alt="logo_burger" />
+					</div>
+					<div className={styles.container__img}>
+						<img src={img} alt="logo_burger" />
+					</div>
+					<div className={styles.container__img}>
+						<img src={img} alt="logo_burger" />
+					</div>
 				</div>
 			</div>
 		</div>
