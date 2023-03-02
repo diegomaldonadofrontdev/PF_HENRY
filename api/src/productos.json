@@ -1,0 +1,49 @@
+{
+    "Productos": [
+        {
+            "name":"Adermicina",
+            "category":"farmacia",
+            "description":"crema germicida, cicatrizante, regeneradora y revitalizadora de los tejidos.",
+            "price":"$500",
+            "image":"http://farmaciazentner.com.ar/wp-content/uploads/2021/08/7796285287856-1.jpg",
+            "rating":"8/10",
+            "stock":"250"
+        },
+        {
+            "name":"Calabresa",
+            "category":"Comida",
+            "description":"Muzzarella y salamin",
+            "price":"$1000",
+            "image":"https://tn.com.ar/resizer/XFTAWVNFjpzqUnsgs2qTXzzEAfk=/767x0/smart/filters:format(webp)/cloudfront-us-east-1.images.arcpublishing.com/artear/QQO4WNFYZNDB7E4QHDS725TGNU.jpg",
+            "rating":"9.5/10",
+            "stock":"300"
+        },
+        {
+            "name":"Fugazzeta",
+            "category":"Comida",
+            "description":"Cebolla y muzarella",
+            "price":"$900",
+            "image":"https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Fugazzeta_en_pizzeria_Guerrin%2C_Buenos_Aires.JPG/1200px-Fugazzeta_en_pizzeria_Guerrin%2C_Buenos_Aires.JPG",
+            "rating":"8/10",
+            "stock":"350"
+        },
+        {
+            "name":"Empanadas de jamon y queso",
+            "category":"Comida",
+            "description":"Empanadas de jamon y muzzarella",
+            "price":"$240",
+            "image":"https://www.recetas.com.bo/sites/default/files/2020-02/empanadas-de-jamon-y-queso-1012.jpg",
+            "rating":"10/10",
+            "stock":"600"
+        },
+        {
+            "name":"Manzanas",
+            "category":"Comida",
+            "description":"Manzanas naturales de granja",
+            "price":"$150",
+            "image":"https://biotrendies.com/wp-content/uploads/2015/06/manzana.jpg",
+            "rating":"7.5/10",
+            "stock":"250"
+        }
+    ]
+}
