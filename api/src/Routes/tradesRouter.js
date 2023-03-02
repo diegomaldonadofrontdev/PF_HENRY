@@ -3,11 +3,15 @@ const {
   getProductsHandler,
   getProductHandler,
   createProductHandler,
+  deleteProductHandler,
+  putProductHandler
 } = require("../handlers/productsHandler");
 const {
         getUsersHandler,
         getUserHandler,
-        createUserHandler
+        createUserHandler,
+        deleteUserHandler,
+        putUserHandler
 } = require ("../Handlers/usersHandlers")
 const { validateProducts, validateUsers } = require("../middlewares/validate");
 
@@ -22,8 +26,8 @@ tradesRouter.get("/users/:id", getUserHandler);
 tradesRouter.get("/membership", getMembershipHandler);
 
 // POST
-tradesRouter.post("/products", validateProducts, createProductHandler);
 tradesRouter.post("/users", validateUsers, createUserHandler);
+tradesRouter.post("/products", validateProducts, createProductHandler);
 
 //DELETE
 tradesRouter.delete("/users/:id", validateUsers, deleteUserHandler);
