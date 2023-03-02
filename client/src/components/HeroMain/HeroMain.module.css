@@ -14,13 +14,43 @@
 	color: white;
 }
 
-.container div {
+.container > div {
 	background-color: rgba(0, 0, 0, 0.693);
 	padding: 1em;
+	display: flex;
+	flex-direction: column;
 }
 
 .container div h2 {
 	color: white;
+}
+
+.buscador {
+	margin-top: 35px;
+}
+
+.buscador .input {
+	display: flex;
+	align-items: center;
+	background-color: white;
+	padding: 10px 20px;
+	margin-top: 10px;
+	border-radius: 100px;
+}
+
+.buscador input {
+	border: none;
+	width: 100%;
+	outline: none;
+	font-size: 1em;
+}
+
+input::placeholder {
+	color: rgb(34, 34, 34);
+}
+
+.buscador .input i {
+	color: rgb(34, 34, 34);
 }
 
 @media (max-width: 700px) {
