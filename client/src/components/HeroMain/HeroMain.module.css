@@ -1,0 +1,33 @@
+.hero__main {
+	min-height: 100vh;
+	background-position: center;
+	background-image: url("../../images/bghome.avif");
+	display: flex;
+	align-items: center;
+}
+
+.container {
+	margin: auto;
+	display: flex;
+	min-height: 100% !important;
+	max-width: 80%;
+	color: white;
+}
+
+.container div {
+	background-color: rgba(0, 0, 0, 0.693);
+	padding: 1em;
+}
+
+.container div h2 {
+	color: white;
+}
+
+@media (max-width: 700px) {
+	.hero__main {
+		min-height: 50vh;
+		background-position: center;
+		background-size: cover;
+		background-image: url("../../images/bghome.avif");
+	}
+}
