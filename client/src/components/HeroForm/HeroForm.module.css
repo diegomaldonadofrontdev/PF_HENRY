@@ -1,0 +1,160 @@
+.hero__form {
+	background: url("../../images/fondo_form.avif");
+	background-size: cover;
+}
+
+.container {
+	max-width: 60%;
+	margin: auto;
+	padding: 100px 0;
+	display: flex;
+	align-items: center;
+	gap: 50px;
+}
+
+form {
+	background-color: white;
+	padding: 25px;
+	margin-top: 50px;
+	display: flex;
+	flex-direction: column;
+	gap: 3em;
+	width: 50%;
+}
+
+.texto__form {
+	background-color: rgba(0, 0, 0, 0.649);
+	padding: 25px;
+	width: 50%;
+	color: white;
+	display: flex;
+	flex-direction: column;
+	gap: 2em;
+}
+
+.texto__form h2 {
+	color: white;
+	font-weight: 400;
+}
+
+.texto__form h2 span {
+	font-weight: 700;
+	color: white;
+}
+
+form > div {
+	display: flex;
+	flex-direction: column;
+	position: relative;
+}
+
+form > div > label {
+	font-size: 0.9em;
+	background-color: white;
+	position: absolute;
+	left: 10px;
+	top: -10px;
+	padding: 0 10px;
+}
+
+form > div input {
+	height: 30px;
+	border: 1px solid rgb(212, 212, 212);
+	padding: 20px;
+}
+
+.twoColumns {
+	flex-direction: row;
+	gap: 1.5em;
+}
+
+.twoColumns div {
+	position: relative;
+	width: 100%;
+}
+.twoColumns div label {
+	font-size: 0.9em;
+	background-color: white;
+	position: absolute;
+	left: 10px;
+	top: -10px;
+	padding: 0 10px;
+}
+
+.twoColumns input {
+	width: 100%;
+}
+
+.form__button {
+	border: none;
+	background-color: #f54749;
+	color: white;
+	padding: 20px 0;
+}
+
+@media (max-width: 700px) {
+	.hero__form {
+		background: url("../../images/fondo_form.avif");
+	}
+
+	.container {
+		max-width: 80%;
+		margin: auto;
+		padding: 100px 0;
+		flex-direction: column;
+	}
+
+	form {
+		background-color: white;
+		padding: 25px;
+		margin-top: 50px;
+		display: flex;
+		flex-direction: column;
+		gap: 3em;
+		width: 100%;
+	}
+
+	form > div {
+		display: flex;
+		flex-direction: column;
+		position: relative;
+	}
+
+	form > div > label {
+		font-size: 0.9em;
+		background-color: white;
+		position: absolute;
+		left: 10px;
+		top: -10px;
+		padding: 0 10px;
+	}
+
+	form > div input {
+		height: 30px;
+		border: 1px solid rgb(212, 212, 212);
+		padding: 20px;
+	}
+
+	.twoColumns {
+		flex-direction: row;
+	}
+
+	.twoColumns div {
+		position: relative;
+	}
+	.twoColumns div label {
+		font-size: 0.9em;
+		background-color: white;
+		position: absolute;
+		left: 10px;
+		top: -10px;
+		padding: 0 10px;
+	}
+
+	.form__button {
+		border: none;
+		background-color: #f54749;
+		color: white;
+		padding: 20px 0;
+	}
+}
