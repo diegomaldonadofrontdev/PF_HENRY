@@ -4,7 +4,7 @@ h2 {
 }
 
 h2 span {
-	color: #f54749;
+	color: #fe161a;
 }
 
 .hero {
@@ -45,18 +45,18 @@ h2 span {
 .botones .btn:last-child {
 	display: flex;
 	gap: 0.5em;
-	color: #f54749;
+	color: #fe161a;
 	font-weight: 600;
 	background-color: white;
-	border: 1px solid #f54749;
+	border: 1px solid #fe161a;
 }
 
 .btn i {
-	color: #f54749;
+	color: #fe161a;
 }
 
 .btn {
-	background-color: #f54749;
+	background-color: #fe161a;
 	align-self: start;
 	color: white;
 	font-weight: 500;
@@ -76,7 +76,7 @@ img {
 	}
 
 	h2 span {
-		color: #f54749;
+		color: #fe161a;
 	}
 
 	.hero {
@@ -104,7 +104,7 @@ img {
 	}
 
 	.btn {
-		background-color: #f54749;
+		background-color: #fe161a;
 		align-self: start;
 		color: white;
 		font-weight: 500;
