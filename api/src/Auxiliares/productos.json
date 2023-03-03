@@ -1,6 +1,7 @@
 {
     "Productos": [
         {
+            "id": 1,
             "name":"Adermicina",
             "category":"farmacia",
             "description":"crema germicida, cicatrizante, regeneradora y revitalizadora de los tejidos.",
@@ -10,6 +11,7 @@
             "stock":"250"
         },
         {
+            "id":2, 
             "name":"Calabresa",
             "category":"Comida",
             "description":"Muzzarella y salamin",
@@ -19,6 +21,7 @@
             "stock":"300"
         },
         {
+            "id":3,
             "name":"Fugazzeta",
             "category":"Comida",
             "description":"Cebolla y muzarella",
@@ -28,6 +31,7 @@
             "stock":"350"
         },
         {
+            "id":4,
             "name":"Empanadas de jamon y queso",
             "category":"Comida",
             "description":"Empanadas de jamon y muzzarella",
@@ -37,6 +41,7 @@
             "stock":"600"
         },
         {
+            "id":5,
             "name":"Manzanas",
             "category":"Comida",
             "description":"Manzanas naturales de granja",

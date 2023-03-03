@@ -1,16 +1,40 @@
 const {
-    // IMPORTAR CONTROLLERS
-  } = require("../controllers/recipeController");
-  const { Model1 } = require("../db");
+  searchProdcutByName,
+  searchProductByCategory,
+  getAllProducts,
+  getProductById,
+} = require("../controllers/productControllers");
 
+// GET ---------> products/
+const getProductsHandler = async (req, res) => {
+  const { name } = req.query;
+  const { category } = req.query;
+  try {
+    const products = name
+      ? await searchProdcutByName(name)
+      : category
+      ? await searchProductByCategory(category)
+      : await getAllProducts();
+    res.status(200).json(products);
+  } catch (error) {
+    res.status(404).json({ error: `Error al buscar el/los producto/s` });
+  }
+};
 
-  /*
-  ACA DEBEN IR TODOS LOS HANDLERS QUE INVOCAN A LOS CONTROLLERS QUE HACEN LA BUSQUEDA.
-  RESPONSABILIDADES:
-  EL HANDLER ES QUIEN SE COMUNICA CON LAS ACTIONS DEL FRONT.
-  LOS CONTROLLERS SON QUIENES SE COMUNICAN CON LA DATABASE.  
-  */
+// GET --------> recipes/:id
+const getProductHandler = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const product = await getProductById(id);
+    res.status(200).json(product);
+  } catch (error) {
+    res
+      .status(404)
+      .json({ error: `No se pudo mostrar el producto especificada` });
+  }
+};
 
-  module.exports = {
-   // EXPORTAR HANDLERS
-  };
+module.exports = {
+  getProductsHandler,
+  getProductHandler,
+};
