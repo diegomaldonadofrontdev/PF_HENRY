@@ -1,14 +1,14 @@
-import { GET_USERS } from "./types";
+import { GET_COMERCIOS } from "./types";
 
 const initialState = {
-    users: [],
-}
-
-export default function rootReducer(state = initialState, {type, payload}){
-    switch(type) {
-        case GET_USERS:
-            return {...state, users: payload}
-        default:
-            return {...state}
-    }
+	users: [],
 };
+
+export default function rootReducer(state = initialState, { type, payload }) {
+	switch (type) {
+		case GET_COMERCIOS:
+			return { ...state, users: payload };
+		default:
+			return { ...state };
+	}
+}

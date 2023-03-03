@@ -1,19 +1,78 @@
 import React from "react";
 import styles from "./UserSearch.module.css";
 import { Link } from "react-router-dom";
-import ComercioCard from "../../components/ComercioCard/ComercioCard";
+
+import CardStoreContainer from "../../components/CardStoreContainer/CardStoreContainer";
 
 export default function UserSearch() {
+	const categorias = [
+		{
+			id: 1,
+			category: "verduleria",
+		},
+		{
+			id: 2,
+			category: "farmacia",
+		},
+		{
+			id: 3,
+			category: "limpieza",
+		},
+		{
+			id: 4,
+			category: "hamburgueseria",
+		},
+		{
+			id: 5,
+			category: "Pizzeria",
+		},
+		{
+			id: 6,
+			category: "Restaurant",
+		},
+	];
+	const citys = [
+		{
+			id: 1,
+			city: "Rosario",
+		},
+		{
+			id: 2,
+			city: "Asuncion",
+		},
+		{
+			id: 3,
+			city: "Tucuman",
+		},
+		{
+			id: 4,
+			city: "Medellin",
+		},
+		{
+			id: 5,
+			city: "Montevideo",
+		},
+		{
+			id: 6,
+			city: "Posadas",
+		},
+		{
+			id: 7,
+			city: "Buenos Aires",
+		},
+	];
+
 	return (
 		<div className={styles.user__search}>
 			<header className={styles.header}>
 				<div className={styles.container}>
 					<h1>Logo</h1>
 					<select name="" id="">
-						<option value="">Barrio 1</option>
-						<option value="">Barrio 2</option>
-						<option value="">Barrio 3</option>
-						<option value="">Barrio 4</option>
+						{citys.map((x) => (
+							<option id={x.id} value={x.city}>
+								{x.city}
+							</option>
+						))}
 					</select>
 					<Link className={styles.btn_market} to="/s">
 						<i class="bx bx-store"></i>Registrá tu negocio
@@ -49,7 +108,8 @@ export default function UserSearch() {
 					</div>
 					<div className={styles.search__results}>
 						<p>600 Restaurantes</p>
-						<ComercioCard />
+
+						<CardStoreContainer />
 					</div>
 				</div>
 
@@ -57,23 +117,18 @@ export default function UserSearch() {
 					<div>
 						<label htmlFor="">Medio de Pago</label>
 						<select name="" id="">
-							<option value="">Efectivo</option>
-							<option value="">Pago online</option>
-							<option value="">American Express</option>
+							<option value="Efectivo">Efectivo</option>
+							<option value="Tajeta">Pago online</option>
 						</select>
 					</div>
 					<div>
 						<label htmlFor="">Categorias</label>
 						<select name="" id="">
-							<option value="">Arepas</option>
-							<option value="">Bebidas</option>
-							<option value="">Cafeteria</option>
-							<option value="">Calzones</option>
-							<option value="">Carnes</option>
-							<option value="">Lomitos</option>
-							<option value="">Sushi</option>
-							<option value="">Comida China</option>
-							<option value="">Comida Vegetarian</option>
+							{categorias.map((x) => (
+								<option id={x.id} value={x.category}>
+									{x.category}
+								</option>
+							))}
 						</select>
 					</div>
 				</div>
