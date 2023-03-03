@@ -1,7 +1,7 @@
-const {
-    // IMPORTAR CONTROLLERS
-} = require("../controllers/recipeController");
-const { Model2 } = require("../db");
+// const {
+//     // IMPORTAR CONTROLLERS
+// } = require("../controllers/recipeController");
+// const { Model2 } = require("../db");
 
 
 /*

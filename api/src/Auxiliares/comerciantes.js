@@ -1,8 +1,9 @@
 const trades = {
-  Categories: [
+  item: [
     {
       Gastronomía: [
         {
+          id: 1,
           commerceName: "Los hijos de fruta",
           category: "verdulerias",
           description: "Las verduras frescas de mejor calidad de la zona",
@@ -73,6 +74,7 @@ const trades = {
           active: true,
         },
         {
+          id: 2,
           commerceName: "Hambur-heros",
           category: "Fast food",
           description:
@@ -145,6 +147,7 @@ const trades = {
           active: true,
         },
         {
+          id: 3,
           commerceName: "La Pizza-Nostra",
           category: "Pizzeria",
           description:
@@ -217,6 +220,7 @@ const trades = {
           active: true,
         },
         {
+          id: 4,
           commerceName: "El pinar",
           category: "Restaurant",
           description: "Los mejores platos, a delivery y en el lugar",
@@ -289,6 +293,7 @@ const trades = {
           active: true,
         },
         {
+          id: 5,
           commerceName: "Pizzteros",
           category: "Pizzeria",
           description:
@@ -364,6 +369,7 @@ const trades = {
       ],
       Salud: [
         {
+          id: 6,
           commerceName: "Farmacito",
           category: "Farmacias",
           description: "Los precios mas baratos ante cualquier urgencia",
@@ -438,6 +444,7 @@ const trades = {
       ],
       Limpieza: [
         {
+          id: 7,
           commerceName: "Fregadito",
           category: "Limpieza",
           description: "Los productos para el hogar, al precio mas accesible",

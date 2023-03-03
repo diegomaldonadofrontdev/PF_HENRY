@@ -1,21 +1,31 @@
 const {
-    getAllTradesFiltered,
-    getTradesByCategory,
-    getTradesBySubCategory
-  } = require("../controllers/productControllers");
-  
-  // GET ---------> trades/
-  const getAllTradesFiltered = async (req, res) => {
-    
-    const { category } = req.query;
-    try {
-      const products = name
-        ? await searchProdcutByName(name)
-        : category
-        ? await searchProductByCategory(category)
-        : await getAllProducts();
-      res.status(200).json(products);
-    } catch (error) {
-      res.status(404).json({ error: `Error al buscar el/los producto/s` });
-    }
-  };
+  searchTradesByItem,
+  getAllTrades,
+  searchTradeById,
+} = require("../Controllers/tradesController");
+
+// GET ---------> trades/
+const getTradesHandler = async (req, res) => {
+  const { item } = req.query;
+  try {
+    const result = item ? await searchTradesByItem(item) : await getAllTrades();
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(404).json({ error: `Error al buscar el rubro` });
+  }
+};
+
+const getTradeHandler = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const result = await searchTradeById(id);
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(404).json({ error: `Error al buscar el comercio` });
+  }
+};
+
+module.exports = {
+  getTradesHandler,
+  getTradeHandler,
+};

@@ -1,4 +1,4 @@
-const {comercios} = require ("../Auxiliares/comerciantes")
+const {trades} = require ("../Auxiliares/comerciantes")
 
 
 
