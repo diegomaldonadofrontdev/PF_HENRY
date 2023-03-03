@@ -1,4 +1,4 @@
-const {comercios} = require ("../Auxiliares/comerciantes")
+const {trades} = require ("../Auxiliares/comerciantes")
 
 
 
@@ -7,17 +7,17 @@ const getAllProducts = () => {
 };
 
 const searchProdcutByName = (name) => {
-  const productsByName = comercios.filter((p) => p.name === name);
+  const productsByName = comercios.filter(p => p.name === name);
   return productsByName;
 };
 
 const searchProductByCategory = (category) => {
-  const productsByCategory = comercios.filter((p) => p.category === category);
+  const productsByCategory = comercios.filter(p => p.category === category);
   return productsByCategory;
 };
 
 const getProductById = (id) => {
-  const productsById = comercios.filter((p === p.id) === id);
+  const productsById = comercios.filter((p => p.id) === id);
   return productsById;
 };
 

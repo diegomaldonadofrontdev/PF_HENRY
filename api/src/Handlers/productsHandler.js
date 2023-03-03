@@ -3,7 +3,7 @@ const {
   searchProductByCategory,
   getAllProducts,
   getProductById,
-} = require("../controllers/productControllers");
+} = require("../Controllers/productController");
 
 // GET ---------> products/
 const getProductsHandler = async (req, res) => {
