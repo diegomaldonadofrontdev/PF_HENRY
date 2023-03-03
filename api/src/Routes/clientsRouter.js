@@ -16,6 +16,7 @@ const clientsRouter = Router();
 
 // GET
 clientsRouter.get("/products", getProductsHandler);
+clientsRouter.get("/products", getProductsHandler);
 clientsRouter.get("/products/:id", getProductHandler);
 
 // POST

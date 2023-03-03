@@ -1,5 +1,5 @@
-export const comercios = {
-    "comerciantes":[
+const trades = {
+    "Gastronomía":[
         {
            "commerceName":"Los hijos de fruta",
            "category":"verdulerias",
@@ -65,139 +65,7 @@ export const comercios = {
         ],
            "active":true
 
-        },
-        {
-           "commerceName":"Farmacito",
-           "category":"Farmacias",
-           "description":"Los precios mas baratos ante cualquier urgencia",
-           "userName":"farmaboys",
-           "email":"farmacito08@gmail.com",
-           "password":"farma321",
-           "country":"Paraguay",
-           "city":"Asuncion",
-           "address":"Romero 3543",
-           "phone":"01245009483",
-           "Productos": [
-            {
-               "id": 1,
-               "name":"Adermicina",
-               "category":"Cremas",
-               "description":"Crema germicida, cicatrizante, regeneradora y revitalizadora de los tejidos.",
-               "price":"$500",
-               "image":"http://farmaciazentner.com.ar/wp-content/uploads/2021/08/7796285287856-1.jpg",
-               "rating":"8/10",
-               "stock":"250"
-           },
-            {
-               "id": 2,
-               "name":"Voltarem",
-               "category":"Cremas",
-               "description":"Crema antinflamatoria con activo de Diclofenac sódico.",
-               "price":"$500",
-               "image":"https://www.zonafarma.com.ar/wp-content/uploads/2021/10/40382409-01-BASEIMAGE-Midres.jpg",
-               "rating":"8/10",
-               "stock":"250"
-           },
-            {
-               "id": 3,
-               "name":"Diclofenac Sódico",
-               "category":"Comprimidos",
-               "description":"Diclofenac 50 mg. caja x 16 comprimidos",
-               "price":"$500",
-               "image":"https://www.zonafarma.com.ar/wp-content/uploads/2021/10/40382409-01-BASEIMAGE-Midres.jpg",
-               "rating":"8/10",
-               "stock":"250"
-           },
-            {
-               "id": 4,
-               "name":"Lorazepam",
-               "category":"Comprimidos",
-               "description":"Lorazepam 1 mg. tira x 8 comprimidos",
-               "price":"$900",
-               "image":"https://quefarmacia.com/wp-content/uploads/2018/05/IMG_1012-300x258.png",
-               "rating":"8/10",
-               "stock":"250"
-           },
-            {
-               "id": 5,
-               "name":"Ibuprofeno",
-               "category":"Jarabe",
-               "description":"Ibuprofeno 4% x 120 ml. sabor frutilla.",
-               "price":"$1500",
-               "image":"https://images.rappi.com.ar/products/436892210298_igmfaxzgbbpm_585391217122_skywvqoveysm_97719_1.jpeg",
-               "rating":"8/10",
-               "stock":"250"
-           }
-           ],
-           "active":true
-
-        },
-        {
-           "commerceName":"Fregadito",
-           "category":"Limpieza",
-           "description":"Los productos para el hogar, al precio mas accesible",
-           "userName":"lavaditoelmate",
-           "email":"fregandoporunmañana@gmail.com",
-           "password":"detergen3",
-           "country":"Argentina",
-           "city":"Tucuman",
-           "address":"Juan Manuel Dorrego 2394",
-           "phone":"029348510",
-           "Productos": [
-            {
-               "id": 1,
-               "name":"Detergente",
-               "category":"Cocina",
-               "description":"Detergente Ala x 300cc.",
-               "price":"$500",
-               "image":"https://statics.dinoonline.com.ar/imagenes/full_600x600_ma/2790704_f.jpg",
-               "rating":"8/10",
-               "stock":"250"
-           },
-            {
-               "id": 2,
-               "name":"Esponja",
-               "category":"Cocina",
-               "description":"Esponja Scotch Brite Limpieza Pesada x 1u.",
-               "price":"$300",
-               "image":"https://multimedia.3m.com/mws/media/1385972P/scotch-brite-heavy-duty-scrub-spong-pack.jpg",
-               "rating":"8/10",
-               "stock":"250"
-           },
-            {
-               "id": 3,
-               "name":"Echo",
-               "category":"Pisos",
-               "description":"Echo en el Balde 3 en 1 - Blem - x 5L",
-               "price":"$500",
-               "image":"https://masbrillo.com.ar/wp-content/uploads/2022/02/echo-en-el-balde-5-litros1-aefa10334db057398315831643361918-640-0.jpg",
-               "rating":"8/10",
-               "stock":"250"
-           },
-            {
-               "id": 4,
-               "name":"Pinoluz",
-               "category":"Pisos",
-               "description":"Pinoluz x 4L",
-               "price":"$1300",
-               "image":"https://statics.dinoonline.com.ar/imagenes/full_600x600_ma/2750449_f.jpg",
-               "rating":"8/10",
-               "stock":"250"
-           },
-            {
-               "id": 5,
-               "name":"Mr. Musculo Baños",
-               "category":"Baño",
-               "description":"Limpiador para baños Mr. Musculo x 500 ml.",
-               "price":"$1500",
-               "image":"https://bahiaoffice.com/images/prods/7790520012388.jpg",
-               "rating":"8/10",
-               "stock":"250"
-           }
-           ],
-           "active":false
-
-        },
+        },        
         {
            "commerceName":"Hambur-heros",
            "category":"Fast food",
@@ -327,7 +195,7 @@ export const comercios = {
                 "stock":"250"
             }
         ],
-           "active":false
+           "active":true
 
         },
         {
@@ -459,8 +327,148 @@ export const comercios = {
                 "stock":"250"
             }
         ],
-           "active":false
+           "active":true
 
         }  
-    ]
+    ],
+    "Salud": [
+        {
+        "commerceName":"Farmacito",
+        "category":"Farmacias",
+        "description":"Los precios mas baratos ante cualquier urgencia",
+        "userName":"farmaboys",
+        "email":"farmacito08@gmail.com",
+        "password":"farma321",
+        "country":"Paraguay",
+        "city":"Asuncion",
+        "address":"Romero 3543",
+        "phone":"01245009483",
+        "Productos": [
+         {
+            "id": 1,
+            "name":"Adermicina",
+            "category":"Cremas",
+            "description":"Crema germicida, cicatrizante, regeneradora y revitalizadora de los tejidos.",
+            "price":"$500",
+            "image":"http://farmaciazentner.com.ar/wp-content/uploads/2021/08/7796285287856-1.jpg",
+            "rating":"8/10",
+            "stock":"250"
+        },
+         {
+            "id": 2,
+            "name":"Voltarem",
+            "category":"Cremas",
+            "description":"Crema antinflamatoria con activo de Diclofenac sódico.",
+            "price":"$500",
+            "image":"https://www.zonafarma.com.ar/wp-content/uploads/2021/10/40382409-01-BASEIMAGE-Midres.jpg",
+            "rating":"8/10",
+            "stock":"250"
+        },
+         {
+            "id": 3,
+            "name":"Diclofenac Sódico",
+            "category":"Comprimidos",
+            "description":"Diclofenac 50 mg. caja x 16 comprimidos",
+            "price":"$500",
+            "image":"https://www.zonafarma.com.ar/wp-content/uploads/2021/10/40382409-01-BASEIMAGE-Midres.jpg",
+            "rating":"8/10",
+            "stock":"250"
+        },
+         {
+            "id": 4,
+            "name":"Lorazepam",
+            "category":"Comprimidos",
+            "description":"Lorazepam 1 mg. tira x 8 comprimidos",
+            "price":"$900",
+            "image":"https://quefarmacia.com/wp-content/uploads/2018/05/IMG_1012-300x258.png",
+            "rating":"8/10",
+            "stock":"250"
+        },
+         {
+            "id": 5,
+            "name":"Ibuprofeno",
+            "category":"Jarabe",
+            "description":"Ibuprofeno 4% x 120 ml. sabor frutilla.",
+            "price":"$1500",
+            "image":"https://images.rappi.com.ar/products/436892210298_igmfaxzgbbpm_585391217122_skywvqoveysm_97719_1.jpeg",
+            "rating":"8/10",
+            "stock":"250"
+        }
+        ],
+        "active":true
+
+     }
+     ],
+     "Limpieza":[
+        {
+            "commerceName":"Fregadito",
+            "category":"Limpieza",
+            "description":"Los productos para el hogar, al precio mas accesible",
+            "userName":"lavaditoelmate",
+            "email":"fregandoporunmañana@gmail.com",
+            "password":"detergen3",
+            "country":"Argentina",
+            "city":"Tucuman",
+            "address":"Juan Manuel Dorrego 2394",
+            "phone":"029348510",
+            "Productos": [
+             {
+                "id": 1,
+                "name":"Detergente",
+                "category":"Cocina",
+                "description":"Detergente Ala x 300cc.",
+                "price":"$500",
+                "image":"https://statics.dinoonline.com.ar/imagenes/full_600x600_ma/2790704_f.jpg",
+                "rating":"8/10",
+                "stock":"250"
+            },
+             {
+                "id": 2,
+                "name":"Esponja",
+                "category":"Cocina",
+                "description":"Esponja Scotch Brite Limpieza Pesada x 1u.",
+                "price":"$300",
+                "image":"https://multimedia.3m.com/mws/media/1385972P/scotch-brite-heavy-duty-scrub-spong-pack.jpg",
+                "rating":"8/10",
+                "stock":"250"
+            },
+             {
+                "id": 3,
+                "name":"Echo",
+                "category":"Pisos",
+                "description":"Echo en el Balde 3 en 1 - Blem - x 5L",
+                "price":"$500",
+                "image":"https://masbrillo.com.ar/wp-content/uploads/2022/02/echo-en-el-balde-5-litros1-aefa10334db057398315831643361918-640-0.jpg",
+                "rating":"8/10",
+                "stock":"250"
+            },
+             {
+                "id": 4,
+                "name":"Pinoluz",
+                "category":"Pisos",
+                "description":"Pinoluz x 4L",
+                "price":"$1300",
+                "image":"https://statics.dinoonline.com.ar/imagenes/full_600x600_ma/2750449_f.jpg",
+                "rating":"8/10",
+                "stock":"250"
+            },
+             {
+                "id": 5,
+                "name":"Mr. Musculo Baños",
+                "category":"Baño",
+                "description":"Limpiador para baños Mr. Musculo x 500 ml.",
+                "price":"$1500",
+                "image":"https://bahiaoffice.com/images/prods/7790520012388.jpg",
+                "rating":"8/10",
+                "stock":"250"
+            }
+            ],
+            "active":true
+    
+         },
+     ]
+}
+
+module.exports = {
+trades
 }
