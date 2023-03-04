@@ -1,20 +1,30 @@
 const { trades } = require("../Auxiliares/comerciantes");
 
-const searchTradesByItem = () => {
+const searchTradesByItem = (item) => {
   const tradesfilt = trades.filter((t) => t.item === item);
-  return tradesfilt;
+  return tradesfilt.comercios;
 };
 
 const getAllTrades = () => {
-  const allTrades = trades.item;
+  const allTrades = trades;
   return allTrades;
 };
 
 const searchTradeById = (id) => {
-  const result = []
-  const tradeById = trades.item.map(i.map((t) => t.id === id ? result.push(t) : null));
-  return result;
+  const result = [];
+  for (let i = 0; i < trades.length; i++) {
+    for (let j = 0; j < trades[i].comercios.length; j++) {
+      if (trades[i].comercios[j].id === id) result.push(trades[i].comercios[j]);
+    }
+  }
+  if (result.length) {
+    return result;
+  } else return "Lo sentimos, el comercio no está disponible.";
 };
+
+const getAllCategories = () => {
+  
+}
 
 module.exports = {
   searchTradesByItem,
