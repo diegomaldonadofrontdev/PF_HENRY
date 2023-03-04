@@ -2,14 +2,14 @@ import React from "react";
 import styles from "./ComercioCard.module.css";
 import img from "../../images/logo_burger.png";
 
-export default function ComercioCard() {
+export default function ComercioCard(props) {
 	return (
 		<div className={styles.card__store}>
 			<div className={styles.logo}>
 				<img src={img} alt="" />
 			</div>
 			<div className={styles.card__info}>
-				<h3>Burger King</h3>
+				<h3>{props.name}</h3>
 				<p>Acepta pago online</p>
 				<div className={styles.rating}>
 					<i class="bx bxs-star"></i>

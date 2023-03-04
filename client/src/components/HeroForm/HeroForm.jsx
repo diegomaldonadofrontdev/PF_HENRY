@@ -45,7 +45,7 @@ export default function HeroForm() {
 						</div>
 						<div className={styles.input__mail}>
 							<label htmlFor="">Mail</label>
-							<input type="text" />
+							<input type="email" />
 						</div>
 					</div>
 					<button className={styles.form__button}>Comenzar</button>
