@@ -1,30 +1,30 @@
 const { Router } = require("express");
 // const {
 //   getProductsHandler,
-//   getProductHandler 
+//   getProductHandler
 // } = require("../handlers/productsHandler");
 // const {
-//     createClientHandler 
+//     createClientHandler
 // } = require("../handlers/clientsHandler");
 // const {
-//     createOrderHandler 
+//     createOrderHandler
 // } = require("../handlers/orderHandler");
-const {getTradesHandler, getTradeHandler} = require ("../Handlers/tradesHandler")
+const {
+  getTradesHandler,
+  getTradeHandler,
+  getCategoriesHandler,
+} = require("../Handlers/tradesHandler");
 // const { validateClients, validateOrder } = require("../middlewares/validate");
-
 
 const clientsRouter = Router();
 
 // GET
 clientsRouter.get("/trades", getTradesHandler);
 clientsRouter.get("/trades/:id", getTradeHandler);
-// clientsRouter.get("/trades/products", getProductsHandler);
-// clientsRouter.get("/products/:id", getProductHandler);
+clientsRouter.get("/trades/categories", getCategoriesHandler);
 
 // POST
 // clientsRouter.post("/client", validateClients, createClientHandler);
 // clientsRouter.post("/order", validateOrder, createOrderHandler);
-
-
 
 module.exports = clientsRouter;
