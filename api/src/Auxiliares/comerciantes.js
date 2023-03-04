@@ -1,6 +1,6 @@
 const trades = [
   {
-    category: "Gastronomía",
+    category: "Gastronomia",
     comercios: [
       {
         id: 1,
