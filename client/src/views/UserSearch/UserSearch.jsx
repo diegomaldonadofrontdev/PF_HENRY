@@ -2,24 +2,31 @@ import React from "react";
 import styles from "./UserSearch.module.css";
 import { Link } from "react-router-dom";
 import ComercioCard from "../../components/ComercioCard/ComercioCard";
+import ContainerSearchComercio from "../../components/ContainerSearchComercio/ContainerSearchComercio";
 
 export default function UserSearch() {
 	return (
 		<div className={styles.user__search}>
 			<header className={styles.header}>
 				<div className={styles.container}>
-					<h1>Logo</h1>
-					<select name="" id="">
-						<option value="">Barrio 1</option>
-						<option value="">Barrio 2</option>
-						<option value="">Barrio 3</option>
-						<option value="">Barrio 4</option>
-					</select>
+					<div className={styles.logo}>
+						<h1>PEDI-VERY</h1>
+					</div>
+
 					<Link className={styles.btn_market} to="/s">
 						<i class="bx bx-store"></i>Registrá tu negocio
 					</Link>
 				</div>
 			</header>
+			<div className={styles.barrio__container}>
+				<p>Zona:</p>
+				<select name="" id="">
+					<option value="">Barrio 1</option>
+					<option value="">Barrio 2</option>
+					<option value="">Barrio 3</option>
+					<option value="">Barrio 4</option>
+				</select>
+			</div>
 			<div className={styles.search__container}>
 				<div className={styles.filtros__container}>
 					<div className={styles.categorias}>
@@ -49,7 +56,7 @@ export default function UserSearch() {
 					</div>
 					<div className={styles.search__results}>
 						<p>600 Restaurantes</p>
-						<ComercioCard />
+						<ContainerSearchComercio />
 					</div>
 				</div>
 
