@@ -4,6 +4,8 @@ import styles from "./HomeLocal.module.css";
 import { Link } from "react-router-dom";
 import ButtonPrimary from "./../../components/ButtonPrimary/ButtonPrimary";
 import img from "../../images/icon.webp";
+import Footer from "../../components/Footer/Footer";
+import img2 from "./../../images/logo_burger.png";
 
 export default function HomeLocal() {
 	return (
@@ -73,6 +75,21 @@ export default function HomeLocal() {
 					</div>
 				</div>
 			</div>
+
+			<div className={styles.features__owner}>
+				<div className={styles.container}>
+					<h2>
+						Marcas que nos <span>eligen</span>
+					</h2>
+					<div className={styles.marcas}>
+						<img src={img2} alt="" />
+						<img src={img2} alt="" />
+						<img src={img2} alt="" />
+						<img src={img2} alt="" />
+					</div>
+				</div>
+			</div>
+			<Footer />
 		</div>
 	);
 }
