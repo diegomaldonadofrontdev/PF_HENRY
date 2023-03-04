@@ -1,5 +1,4 @@
 const feedbacks = [];
-console.log(feedbacks);
 
 const postFeedbackController = (name, opinion, rating, image) => {  
   const newFeedback = {
@@ -17,6 +16,11 @@ const postFeedbackController = (name, opinion, rating, image) => {
   } else return false;
 };
 
+const getFeedbacksController = () => {
+    return feedbacks
+}
+
 module.exports = {
-    postFeedbackController
+    postFeedbackController,
+    getFeedbacksController
 }

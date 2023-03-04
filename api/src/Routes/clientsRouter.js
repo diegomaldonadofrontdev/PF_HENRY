@@ -4,7 +4,8 @@ const { Router } = require("express");
 //   getProductHandler
 // } = require("../handlers/productsHandler");
 const {
-    createFeedbackHandler
+  createFeedbackHandler,
+  getFeedbacksHandler,
 } = require("../handlers/clientsHandler");
 // const {
 //     createOrderHandler
@@ -22,6 +23,7 @@ const clientsRouter = Router();
 clientsRouter.get("/trades", getTradesHandler);
 clientsRouter.get("/trades/:id", getTradeHandler);
 clientsRouter.get("/categories", getCategoriesHandler);
+clientsRouter.get("/feedbacks", getFeedbacksHandler);
 
 // POST
 clientsRouter.post("/feedback", validateFeedback, createFeedbackHandler);
