@@ -23,7 +23,7 @@ const searchTradeById = (id) => {
 };
 
 const getAllCategories = () => {
-  const categories = [];
+  let categories = [];
   for (let i = 0; i < trades.length; i++) {
     categories.push(trades[i].category);
   }

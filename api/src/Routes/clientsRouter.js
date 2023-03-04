@@ -21,7 +21,7 @@ const clientsRouter = Router();
 // GET
 clientsRouter.get("/trades", getTradesHandler);
 clientsRouter.get("/trades/:id", getTradeHandler);
-clientsRouter.get("/trades/categories", getCategoriesHandler);
+clientsRouter.get("/categories", getCategoriesHandler);
 
 // POST
 // clientsRouter.post("/client", validateClients, createClientHandler);
