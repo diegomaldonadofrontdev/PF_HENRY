@@ -1,11 +1,11 @@
 import axios from 'axios'
 
-const host = "http://localhost:3000/"
+const host = "http://localhost:3001"
 
 export function getProductById (id) {
 return async function (dispatch){
     if (id) {
-        const response = await axios(`${host}/product/${id}`)
+        const response = await axios(`${host}/products/${id}`)
         dispatch({
             type: "GET_PRODUCT_BY_ID",
             payload: response.data
@@ -39,3 +39,14 @@ export function getProducts(){
       }
     }
   };
+
+  export function getTrades(){
+    return async function(dispatch){
+      try {
+        const trades = await axios.get(`${host}/clients/trades`);
+        return dispatch({type: "GET_TRADES", payload: trades.data})
+      } catch (e) {
+        console.log(e)
+      }
+    }
+  }
