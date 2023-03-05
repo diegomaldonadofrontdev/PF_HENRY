@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import styles from "./UserSearch.module.css";
 import { Link } from "react-router-dom";
 import ContainerSearchComercio from "../../components/ContainerSearchComercio/ContainerSearchComercio";
-import { getCategories } from "../../redux/actions/actions";
+import { getCategories, getTrades } from "../../redux/actions/actions";
 import { useDispatch, useSelector } from "react-redux";
 import img1 from "../../images/gastronomy_icon.png";
 import img2 from "../../images/health_icon.png";
@@ -17,19 +17,13 @@ export default function UserSearch() {
 		dispatch(getCategories());
 	}, [dispatch]);
 
+	const trades = useSelector((state) => state.trades);
+
+	useEffect(() => {
+		dispatch(getTrades());
+	}, [dispatch]);
+
 	console.log(categories);
-
-	// let img;
-
-	// for (let i = 0; i < categories.length; i++) {
-	// 	if (categories[i] === "Gastronomia") {
-	// 		img = "../../images/gastronomy_icon.png";
-	// 	} else if (categories[i] === "Salud") {
-	// 		img = "../../images/health_icon.png";
-	// 	} else {
-	// 		img = "../../images/clean_icon.png";
-	// 	}
-	// }
 
 	return (
 		<div className={styles.user__search}>
@@ -47,24 +41,23 @@ export default function UserSearch() {
 			<div className={styles.barrio__container}>
 				<p>Zona:</p>
 				<select name="" id="">
-					<option value="">Barrio 1</option>
-					<option value="">Barrio 2</option>
-					<option value="">Barrio 3</option>
-					<option value="">Barrio 4</option>
+					{trades?.map((x) =>
+						x.comercios.map((x) => <option>{x.city}</option>)
+					)}
 				</select>
 			</div>
 			<div className={styles.search__container}>
 				<div className={styles.filtros__container}>
 					<div className={styles.categorias}>
 						{categories?.map((x) => (
-							<div>
+							<div onClick={() => {}}>
 								<img
 									src={
 										x === "Gastronomia"
 											? img1
 											: x === "Salud"
 											? img2
-											: x === "Limpieza"
+											: x === "Hogar"
 											? img3
 											: null
 									}
@@ -76,32 +69,15 @@ export default function UserSearch() {
 					</div>
 					<div className={styles.filtros}>
 						<select name="" id="">
-							<option value="">Mejor Puntuados</option>
-							<option value="">Menor tiempo de entrega</option>
-							<option value="">Tajerta</option>
-							<option value="">Descuentos</option>
+							<option value="mejor">Mejor Puntuados</option>
+							<option value="menor">Menor Puntuado</option>
 						</select>
 					</div>
 					<div>
 						<label htmlFor="">Medio de Pago</label>
 						<select name="" id="">
 							<option value="">Efectivo</option>
-							<option value="">Pago online</option>
-							<option value="">American Express</option>
-						</select>
-					</div>
-					<div>
-						<label htmlFor="">Categorias</label>
-						<select name="" id="">
-							<option value="">Arepas</option>
-							<option value="">Bebidas</option>
-							<option value="">Cafeteria</option>
-							<option value="">Calzones</option>
-							<option value="">Carnes</option>
-							<option value="">Lomitos</option>
-							<option value="">Sushi</option>
-							<option value="">Comida China</option>
-							<option value="">Comida Vegetarian</option>
+							<option value="">Tarjeta</option>
 						</select>
 					</div>
 				</div>
@@ -113,7 +89,7 @@ export default function UserSearch() {
 					</div>
 					<div className={styles.search__results}>
 						<p>600 Restaurantes</p>
-						<ContainerSearchComercio />
+						<ContainerSearchComercio trades={trades} />
 					</div>
 				</div>
 			</div>
