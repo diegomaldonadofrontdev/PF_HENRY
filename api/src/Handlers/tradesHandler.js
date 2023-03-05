@@ -1,4 +1,7 @@
 const {
+  searchTradesByCityAndCatAndSC,
+  searchTradesByCityAndCat,
+  searchTradesByCity,
   searchTradesByCategory,
   searchTradesBySubCategory,
   getAllTrades,
@@ -9,11 +12,16 @@ const {
 
 // GET ---------> /trades/search
 const getTradesHandler = async (req, res) => {
-  const { category } = req.query;
-  const { subcategory } = req.query;
+  const { deliveryCity, category, subcategory } = req.query;
   try {
     const result =
-      category && subcategory
+    deliveryCity && category && subcategory
+        ? await searchTradesByCityAndCatAndSC(deliveryCity, category, subcategory)
+        : deliveryCity && category
+        ? await searchTradesByCityAndCat(deliveryCity, category)
+        : deliveryCity
+        ? await searchTradesByCity(deliveryCity)
+        : category && subcategory
         ? await searchTradesBySubCategory(category, subcategory)
         : category
         ? await searchTradesByCategory(category)

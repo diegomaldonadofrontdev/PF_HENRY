@@ -32,7 +32,7 @@ clientsRouter.get("/feedbacks", getFeedbacksHandler);
 
 // POST
 clientsRouter.post("/feedback", validateFeedback, createFeedbackHandler);
-// clientsRouter.post("/client", validateClients, createClientHandler);
+// clientsRouter.post("/login", validateClients, createClientHandler);
 // clientsRouter.post("/order", validateOrder, createOrderHandler);
 
 module.exports = clientsRouter;
