@@ -62,24 +62,24 @@ export function getTrades() {
 	};
 }
 
-export function postReview (payload) {
-	return async function (){
-	  try{
-		const reviewPost = await axios.post(`${host}/clients/feedback`, payload)
-		return reviewPost
-	  } catch (e) {
-		console.log(e)
-	  }
-	}
-	}
-	
-	export const getReview = () => {
-	  return async function(dispatch){
+export function postReview(payload) {
+	return async function () {
 		try {
-		  const json = await axios.get(`${host}/clients/feedback`);
-		  return dispatch({type:"GET_REVIEW", payload: json.data});
+			const reviewPost = await axios.post(`${host}/clients/feedback`, payload);
+			return reviewPost;
 		} catch (e) {
-		  console.log(e);
+			console.log(e);
 		}
-	  }
 	};
+}
+
+export const getReview = () => {
+	return async function (dispatch) {
+		try {
+			const json = await axios.get(`${host}/clients/feedback`);
+			return dispatch({ type: "GET_REVIEW", payload: json.data });
+		} catch (e) {
+			console.log(e);
+		}
+	};
+};
