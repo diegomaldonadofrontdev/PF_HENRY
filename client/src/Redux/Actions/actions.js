@@ -41,7 +41,7 @@ export const getCategories = () => {
 
 export function getTrades() {
 	return async function (dispatch) {
-		const trades = await axios.get(`${host}/clients/trades`);
+		const trades = await axios.get(`${host}/clients/trades/search`);
 		return dispatch({ type: "GET_TRADES", payload: trades.data });
 	};
 }
@@ -59,6 +59,16 @@ export const getReview = () => {
 		return dispatch({ type: "GET_REVIEW", payload: json.data });
 	};
 };
+
+export function filterByCategory(categoria) {
+	return async function (dispatch) {
+		dispatch({
+			type: "FILTER_CATEGORY",
+			payload: categoria,
+		});
+	};
+}
+
 // }
 
 // export const getReview = () => {

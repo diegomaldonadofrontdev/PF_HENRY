@@ -2,7 +2,11 @@ import React, { useEffect } from "react";
 import styles from "./UserSearch.module.css";
 import { Link } from "react-router-dom";
 import ContainerSearchComercio from "../../components/ContainerSearchComercio/ContainerSearchComercio";
-import { getCategories, getTrades } from "../../Redux/Actions/actions";
+import {
+	filterByCategory,
+	getCategories,
+	getTrades,
+} from "../../redux/actions/actions";
 import { useDispatch, useSelector } from "react-redux";
 import img1 from "../../images/gastronomy_icon.png";
 import img2 from "../../images/health_icon.png";
@@ -17,13 +21,17 @@ export default function UserSearch() {
 		dispatch(getCategories());
 	}, [dispatch]);
 
-	const trades = useSelector((state) => state.trades);
+	const comercios = useSelector((state) => state.trades);
 
 	useEffect(() => {
 		dispatch(getTrades());
 	}, [dispatch]);
 
-	console.log(categories);
+	useEffect(() => {
+		dispatch(filterByCategory("Gastronomia"));
+	}, [dispatch]);
+
+	console.log(comercios);
 
 	return (
 		<div className={styles.user__search}>
@@ -41,7 +49,7 @@ export default function UserSearch() {
 			<div className={styles.barrio__container}>
 				<p>Zona:</p>
 				<select name="" id="">
-					{trades?.map((x) =>
+					{comercios?.map((x) =>
 						x.comercios.map((x) => <option>{x.city}</option>)
 					)}
 				</select>
@@ -50,7 +58,7 @@ export default function UserSearch() {
 				<div className={styles.filtros__container}>
 					<div className={styles.categorias}>
 						{categories?.map((x) => (
-							<div onClick={() => {}}>
+							<div onClick={() => {}} key={x}>
 								<img
 									src={
 										x === "Gastronomia"
@@ -88,8 +96,8 @@ export default function UserSearch() {
 						<input type="text" placeholder="Buscar..." />
 					</div>
 					<div className={styles.search__results}>
-						<p>600 Restaurantes</p>
-						<ContainerSearchComercio trades={trades} />
+						<p>{comercios.comercios?.length} Locales encontrados:</p>
+						<ContainerSearchComercio comercios={comercios} />
 					</div>
 				</div>
 			</div>

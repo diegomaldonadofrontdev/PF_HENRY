@@ -1,14 +1,18 @@
 import React from "react";
 import styles from "./ContainerSearchComercio.module.css";
-import { getTrades } from "../../Redux/Actions/actions";
 import ComercioCard from "../../components/ComercioCard/ComercioCard";
+import { Link } from "react-router-dom";
 
 export default function ContainerSearchComercio(props) {
-	const { trades } = props;
+	const { comercios} = props;
 	return (
 		<div className={styles.container__search}>
-			{trades?.map((x) =>
-				x.comercios.map((x) => <ComercioCard name={x.commerceName} />)
+			{comercios?.map((x) =>
+				x.comercios.map((x) => (
+					<Link to={`../comercio/${x.id}`}>
+						<ComercioCard name={x.commerceName} />
+					</Link>
+				))
 			)}
 		</div>
 	);
