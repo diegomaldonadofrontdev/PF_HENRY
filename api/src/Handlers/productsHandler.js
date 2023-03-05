@@ -1,6 +1,7 @@
 const {
   searchProdcutByName,
-  searchProductByCategory,
+  searchProductByNameAndSC,
+  searchProductBySubcategory,
   getAllProducts,
   getProductById,
 } = require("../Controllers/productController");
@@ -8,12 +9,14 @@ const {
 // GET ---------> products/
 const getProductsHandler = async (req, res) => {
   const { name } = req.query;
-  const { category } = req.query;
+  const { subcategory } = req.query;
   try {
-    const products = name
+    const products = name && subcategory
+    ? await searchProductByNameAndSC(name, subcategory)
+    : name
       ? await searchProdcutByName(name)
       : category
-      ? await searchProductByCategory(category)
+      ? await searchProductBySubcategory(subcategory)
       : await getAllProducts();
     res.status(200).json(products);
   } catch (error) {
@@ -21,7 +24,7 @@ const getProductsHandler = async (req, res) => {
   }
 };
 
-// GET --------> recipes/:id
+// GET --------> products/:id
 const getProductHandler = async (req, res) => {
   const { id } = req.params;
   try {
