@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import styles from "./UserSearch.module.css";
 import { Link } from "react-router-dom";
 import ContainerSearchComercio from "../../components/ContainerSearchComercio/ContainerSearchComercio";
-import { getCategories } from "../../redux/actions/actions";
+import { getCategories } from "../../Redux/Actions/actions";
 import { useDispatch, useSelector } from "react-redux";
 import img1 from "../../images/gastronomy_icon.png";
 import img2 from "../../images/health_icon.png";
