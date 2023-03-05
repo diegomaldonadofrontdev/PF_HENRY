@@ -1,7 +1,5 @@
 const { trades } = require("../Auxiliares/comerciantes");
 
-const categories = [];
-const subcategories = [];
 
 const searchTradesByCategory = (category) => {
   const tradesfilt = trades.find((trade) => trade.category === category);

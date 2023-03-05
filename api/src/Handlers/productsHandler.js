@@ -1,22 +1,26 @@
-const {
+const {  
+  searchProductByNameAndCat,
   searchProdcutByName,
-  searchProductByNameAndSC,
-  searchProductBySubcategory,
+  searchProductByCatAndSC,
+  searchProductByCat,
   getAllProducts,
   getProductById,
 } = require("../Controllers/productController");
 
 // GET ---------> products/
 const getProductsHandler = async (req, res) => {
-  const { name } = req.query;
-  const { subcategory } = req.query;
+  const { name, category, subcategory } = req.query;  
   try {
-    const products = name && subcategory
-    ? await searchProductByNameAndSC(name, subcategory)
+    const products = name && category && subcategory
+    ? await searchProductByNameAndCatAndSC(name, category, subcategory)
+    : name && category
+    ? await searchProductByNameAndCat(name, category)
     : name
       ? await searchProdcutByName(name)
+      : category && subcategory
+      ? await searchProductByCatAndSC(category, subcategory)
       : category
-      ? await searchProductBySubcategory(subcategory)
+      ? await searchProductByCat(category)      
       : await getAllProducts();
     res.status(200).json(products);
   } catch (error) {

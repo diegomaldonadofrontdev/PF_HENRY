@@ -14,7 +14,7 @@ const trades = [
         city: "Rosario",
         address: "belgrano 1324",
         phone: "03428901929",
-        Productos: [
+        productos: [
           {
             id: 100,
             name: "Banana",
@@ -88,7 +88,7 @@ const trades = [
         city: "Medellin",
         address: "Bolivar 857",
         phone: "08958839219",
-        Productos: [
+        productos: [
           {
             id: 105,
             name: "Doble cuarto",
@@ -163,7 +163,7 @@ const trades = [
         city: "Montevideo",
         address: "Artigas 2563",
         phone: "028575643",
-        Productos: [
+        productos: [
           {
             id: 110,
             name: "Napolitana",
@@ -237,7 +237,7 @@ const trades = [
         city: "Posadas",
         address: "Entre Rios 6329",
         phone: "045829394",
-        Productos: [
+        productos: [
           {
             id: 115,
             name: "Canelones de verdura a la bolognesa",
@@ -313,7 +313,7 @@ const trades = [
         city: "Buenos Aires",
         address: "Rosas",
         phone: "074372894",
-        Productos: [
+        productos: [
           {
             id: 120,
             name: "Rucula",
@@ -393,7 +393,7 @@ const trades = [
         city: "Asuncion",
         address: "Romero 3543",
         phone: "01245009483",
-        Productos: [
+        productos: [
           {
             id: 125,
             name: "Adermicina",
@@ -468,9 +468,9 @@ const trades = [
         city: "Salsipuedes",
         address: "Romero 3543",
         phone: "01245009483",
-        Productos: [
+        productos: [
           {
-            id: 1,
+            id: 130,
             name: "Faja lumbar",
             category: "Elementos de contención",
             description:
@@ -482,7 +482,7 @@ const trades = [
             stock: "5",
           },
           {
-            id: 2,
+            id: 131,
             name: "Muñequera",
             category: "Elementos de contención",
             description:
@@ -494,7 +494,7 @@ const trades = [
             stock: "20",
           },
           {
-            id: 3,
+            id: 132,
             name: "Muletas",
             category: "Elementos de desplazamiento",
             description: "Muletas regulables en altura de 1,50 a 1,90 mts. con apoyo antideslizante y axilares ergonómicos",
@@ -505,7 +505,7 @@ const trades = [
             stock: "10",
           },
           {
-            id: 4,
+            id: 133,
             name: "Silla de ruedas",
             category: "Elementos de desplazamiento",
             description: "Silla de ruedas ergonomica plegable con apoya pies, frenos, agarres antideslizantes y armadura para autodesplazamiento",
@@ -516,7 +516,7 @@ const trades = [
             stock: "2",
           },
           {
-            id: 5,
+            id: 134,
             name: "Venda elástica",
             category: "Varios",
             description: "Venda elástica de 15 cm x 2 mts. Confección de alta calidad.",
@@ -548,9 +548,9 @@ const trades = [
         city: "Tucuman",
         address: "Juan Manuel Dorrego 2394",
         phone: "029348510",
-        Productos: [
+        productos: [
           {
-            id: 130,
+            id: 135,
             name: "Detergente",
             category: "Cocina",
             description: "Detergente Ala x 300cc.",
@@ -561,7 +561,7 @@ const trades = [
             stock: "250",
           },
           {
-            id: 131,
+            id: 136,
             name: "Esponja",
             category: "Cocina",
             description: "Esponja Scotch Brite Limpieza Pesada x 1u.",
@@ -572,7 +572,7 @@ const trades = [
             stock: "250",
           },
           {
-            id: 132,
+            id: 137,
             name: "Echo",
             category: "Pisos",
             description: "Echo en el Balde 3 en 1 - Blem - x 5L",
@@ -583,7 +583,7 @@ const trades = [
             stock: "250",
           },
           {
-            id: 133,
+            id: 138,
             name: "Pinoluz",
             category: "Pisos",
             description: "Pinoluz x 4L",
@@ -594,7 +594,7 @@ const trades = [
             stock: "250",
           },
           {
-            id: 134,
+            id: 139,
             name: "Mr. Musculo Baños",
             category: "Baño",
             description: "Limpiador para baños Mr. Musculo x 500 ml.",
@@ -620,7 +620,7 @@ const trades = [
         city: "Salsipuedes",
         address: "Juan Manuel Dorrego 2394",
         phone: "029348510",
-        Productos: [
+        productos: [
           {
             id: 135,
             name: "Reloj de pared Tressa",
