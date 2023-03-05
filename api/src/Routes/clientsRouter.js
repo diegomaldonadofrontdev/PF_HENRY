@@ -25,6 +25,7 @@ clientsRouter.get("/trades/:id", getTradeHandler);
 clientsRouter.get("/categories", getCategoriesHandler);
 clientsRouter.get("/feedbacks", getFeedbacksHandler);
 
+
 // POST
 clientsRouter.post("/feedback", validateFeedback, createFeedbackHandler);
 // clientsRouter.post("/client", validateClients, createClientHandler);

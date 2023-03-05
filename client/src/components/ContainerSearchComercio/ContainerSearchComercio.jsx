@@ -1,24 +1,26 @@
 import React, { useEffect } from "react";
-import ComercioCard from "../ComercioCard/ComercioCard";
 import styles from "./ContainerSearchComercio.module.css";
 import { getTrades } from "../../redux/actions/actions";
+import ComercioCard from "../../components/ComercioCard/ComercioCard";
+
 import { useSelector, useDispatch } from "react-redux";
 
 export default function ContainerSearchComercio() {
 	const dispatch = useDispatch();
 
-	const trades = useSelector((state) => state);
+	const trades = useSelector((state) => state.trades);
 
 	useEffect(() => {
 		dispatch(getTrades());
 	}, [dispatch]);
 
-	console.log(trades);
+	console.log("Esto es: trades: " + trades);
+
 	return (
 		<div className={styles.container__search}>
-			{/* {trades.trades[0]?.map((x) => (
-					<ComercioCard name={x.commerceName} />
-				))} */}
+			{trades?.map((x) =>
+				x.comercios.map((x) => <ComercioCard name={x.commerceName} />)
+			)}
 		</div>
 	);
 }
