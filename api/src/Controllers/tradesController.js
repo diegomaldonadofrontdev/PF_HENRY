@@ -1,8 +1,19 @@
 const { trades } = require("../Auxiliares/comerciantes");
 
+const categories = [];
+const subcategories = [];
+
 const searchTradesByCategory = (category) => {
   const tradesfilt = trades.find((trade) => trade.category === category);
   return tradesfilt.comercios;
+};
+
+const searchTradesBySubCategory = (category, subcategory) => {
+  const tradesByCategory = searchTradesByCategory(category);
+  const tradesBySubcategories = tradesByCategory.filter(
+    (t) => t.subcategory === subcategory
+  );
+  return tradesBySubcategories;
 };
 
 const getAllTrades = () => {
@@ -30,9 +41,20 @@ const getAllCategories = () => {
   return categories;
 };
 
+const getSubCategories = (category) => {
+  const tradesByCategory = searchTradesByCategory(category);
+  const subcategories = [];
+  for (let i = 0; i < tradesByCategory.length; i++) {
+    subcategories.push(tradesByCategory[i].subcategory);
+  }
+  return subcategories;
+};
+
 module.exports = {
   searchTradesByCategory,
   getAllTrades,
   searchTradeById,
-  getAllCategories
+  getAllCategories,
+  getSubCategories,
+  searchTradesBySubCategory,
 };
