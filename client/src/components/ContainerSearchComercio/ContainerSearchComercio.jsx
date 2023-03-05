@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./ContainerSearchComercio.module.css";
+import { getTrades } from "../../Redux/Actions/actions";
 import ComercioCard from "../../components/ComercioCard/ComercioCard";
 
 export default function ContainerSearchComercio(props) {
