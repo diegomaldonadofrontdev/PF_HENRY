@@ -40,6 +40,17 @@ export const getUsers = () => {
 	};
 };
 
+export const getCategories = () => {
+	return async function (dispatch) {
+		try {
+			const json = await axios.get(`${host}/clients/categories`);
+			return dispatch({ type: "GET_CATEGORIES", payload: json.data });
+		} catch (e) {
+			console.log(e);
+		}
+	};
+};
+
 export function getTrades() {
 	return async function (dispatch) {
 		try {

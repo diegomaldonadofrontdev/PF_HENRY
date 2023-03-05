@@ -1,10 +1,36 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./UserSearch.module.css";
 import { Link } from "react-router-dom";
-import ComercioCard from "../../components/ComercioCard/ComercioCard";
 import ContainerSearchComercio from "../../components/ContainerSearchComercio/ContainerSearchComercio";
+import { getCategories } from "../../redux/actions/actions";
+import { useDispatch, useSelector } from "react-redux";
+import img1 from "../../images/gastronomy_icon.png";
+import img2 from "../../images/health_icon.png";
+import img3 from "../../images/clean_icon.png";
 
 export default function UserSearch() {
+	const dispatch = useDispatch();
+
+	const categories = useSelector((state) => state.categories);
+
+	useEffect(() => {
+		dispatch(getCategories());
+	}, [dispatch]);
+
+	console.log(categories);
+
+	// let img;
+
+	// for (let i = 0; i < categories.length; i++) {
+	// 	if (categories[i] === "Gastronomia") {
+	// 		img = "../../images/gastronomy_icon.png";
+	// 	} else if (categories[i] === "Salud") {
+	// 		img = "../../images/health_icon.png";
+	// 	} else {
+	// 		img = "../../images/clean_icon.png";
+	// 	}
+	// }
+
 	return (
 		<div className={styles.user__search}>
 			<header className={styles.header}>
@@ -30,14 +56,23 @@ export default function UserSearch() {
 			<div className={styles.search__container}>
 				<div className={styles.filtros__container}>
 					<div className={styles.categorias}>
-						<div>Cat 1</div>
-						<div>Cat 2</div>
-						<div>Cat 3</div>
-						<div>Cat 4</div>
-						<div>Cat 1</div>
-						<div>Cat 2</div>
-						<div>Cat 3</div>
-						<div>Cat 4</div>
+						{categories?.map((x) => (
+							<div>
+								<img
+									src={
+										x === "Gastronomia"
+											? img1
+											: x === "Salud"
+											? img2
+											: x === "Limpieza"
+											? img3
+											: null
+									}
+									alt=""
+								/>
+								<h3>{x}</h3>
+							</div>
+						))}
 					</div>
 					<div className={styles.filtros}>
 						<select name="" id="">
@@ -47,20 +82,6 @@ export default function UserSearch() {
 							<option value="">Descuentos</option>
 						</select>
 					</div>
-				</div>
-
-				<div className={styles.cards__container}>
-					<div className={styles.search__input}>
-						<i class="bx bx-search"></i>
-						<input type="text" placeholder="Buscar..." />
-					</div>
-					<div className={styles.search__results}>
-						<p>600 Restaurantes</p>
-						<ContainerSearchComercio />
-					</div>
-				</div>
-
-				<div className={styles.filtros__container}>
 					<div>
 						<label htmlFor="">Medio de Pago</label>
 						<select name="" id="">
@@ -82,6 +103,17 @@ export default function UserSearch() {
 							<option value="">Comida China</option>
 							<option value="">Comida Vegetarian</option>
 						</select>
+					</div>
+				</div>
+
+				<div className={styles.cards__container}>
+					<div className={styles.search__input}>
+						<i class="bx bx-search"></i>
+						<input type="text" placeholder="Buscar..." />
+					</div>
+					<div className={styles.search__results}>
+						<p>600 Restaurantes</p>
+						<ContainerSearchComercio />
 					</div>
 				</div>
 			</div>
