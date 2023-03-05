@@ -16,7 +16,7 @@ const trades = [
         phone: "03428901929",
         Productos: [
           {
-            id: 1,
+            id: 100,
             name: "Banana",
             category: "Frutas",
             description: "Bananas del Ecuador",
@@ -27,7 +27,7 @@ const trades = [
             stock: "250",
           },
           {
-            id: 2,
+            id: 101,
             name: "Mandarinas",
             category: "Frutas",
             description: "Mandarinas Dancing",
@@ -38,7 +38,7 @@ const trades = [
             stock: "300",
           },
           {
-            id: 3,
+            id: 102,
             name: "Calabaza",
             category: "Verduras",
             description: "Calabazas medianas",
@@ -49,7 +49,7 @@ const trades = [
             stock: "350",
           },
           {
-            id: 4,
+            id: 103,
             name: "Morron",
             category: "Verduras",
             description: "Morrones verdes, rojos o amarillos",
@@ -60,7 +60,7 @@ const trades = [
             stock: "600",
           },
           {
-            id: 5,
+            id: 104,
             name: "Carbon",
             category: "Varios",
             description: "Carbon en bolsa 4kg.",
@@ -71,6 +71,8 @@ const trades = [
             stock: "250",
           },
         ],
+        rating: 5,
+        epagos: true,
         active: true,
       },
       {
@@ -88,7 +90,7 @@ const trades = [
         phone: "08958839219",
         Productos: [
           {
-            id: 1,
+            id: 105,
             name: "Doble cuarto",
             category: "Hamburguesas",
             description:
@@ -100,7 +102,7 @@ const trades = [
             stock: "250",
           },
           {
-            id: 2,
+            id: 106,
             name: "Calabresa",
             category: "Pizzas",
             description: "Muzzarella y salamin",
@@ -111,7 +113,7 @@ const trades = [
             stock: "300",
           },
           {
-            id: 3,
+            id: 107,
             name: "Fugazzeta",
             category: "Pizzas",
             description: "Cebolla y muzarella",
@@ -122,7 +124,7 @@ const trades = [
             stock: "350",
           },
           {
-            id: 4,
+            id: 108,
             name: "Empanadas de jamon y queso",
             category: "Empanadas",
             description: "Empanadas de jamon y muzzarella",
@@ -133,7 +135,7 @@ const trades = [
             stock: "600",
           },
           {
-            id: 5,
+            id: 109,
             name: "Hamburlomo",
             category: "Hamburguesas",
             description: "Hamburguesa con carne de lomo",
@@ -144,6 +146,8 @@ const trades = [
             stock: "250",
           },
         ],
+        rating: 4,
+        epagos: true,
         active: true,
       },
       {
@@ -161,7 +165,7 @@ const trades = [
         phone: "028575643",
         Productos: [
           {
-            id: 1,
+            id: 110,
             name: "Napolitana",
             category: "Pizzas",
             description:
@@ -173,7 +177,7 @@ const trades = [
             stock: "250",
           },
           {
-            id: 2,
+            id: 111,
             name: "Calabresa",
             category: "Pizzas",
             description: "Muzzarella y salamin",
@@ -184,7 +188,7 @@ const trades = [
             stock: "300",
           },
           {
-            id: 3,
+            id: 112,
             name: "Fugazzeta",
             category: "Pizzas",
             description: "Cebolla y muzarella",
@@ -195,7 +199,7 @@ const trades = [
             stock: "350",
           },
           {
-            id: 4,
+            id: 113,
             name: "Empanadas de jamon y queso",
             category: "Empanadas",
             description: "Empanadas de jamon y muzzarella",
@@ -206,7 +210,7 @@ const trades = [
             stock: "600",
           },
           {
-            id: 5,
+            id: 114,
             name: "Empanadas de cebolla y queso",
             category: "Empanadas",
             description: "Empanadas de cebolla y queso",
@@ -217,6 +221,8 @@ const trades = [
             stock: "250",
           },
         ],
+        rating: 3,
+        epagos: false,
         active: true,
       },
       {
@@ -233,7 +239,7 @@ const trades = [
         phone: "045829394",
         Productos: [
           {
-            id: 1,
+            id: 115,
             name: "Canelones de verdura a la bolognesa",
             category: "Pastas",
             description: "Canelones de verdura a la bolognesa.",
@@ -244,7 +250,7 @@ const trades = [
             stock: "250",
           },
           {
-            id: 2,
+            id: 116,
             name: "Tarta de atún",
             category: "Tartas",
             description: "Atún, queso, cebolla, morrón, pimentón.",
@@ -255,7 +261,7 @@ const trades = [
             stock: "300",
           },
           {
-            id: 3,
+            id: 117,
             name: "Ñoquis a la Parissienne",
             category: "Pastas",
             description: "Ñoquis a la Parissienne",
@@ -266,7 +272,7 @@ const trades = [
             stock: "350",
           },
           {
-            id: 4,
+            id: 118,
             name: "Albondigas con puré",
             category: "Carnes",
             description:
@@ -278,7 +284,7 @@ const trades = [
             stock: "600",
           },
           {
-            id: 5,
+            id: 119,
             name: "Suprema a caballo con papas fritas",
             category: "Carnes",
             description:
@@ -290,6 +296,8 @@ const trades = [
             stock: "250",
           },
         ],
+        rating: 5,
+        epagos: false,
         active: true,
       },
       {
@@ -307,7 +315,7 @@ const trades = [
         phone: "074372894",
         Productos: [
           {
-            id: 1,
+            id: 120,
             name: "Rucula",
             category: "Pizzas",
             description:
@@ -319,7 +327,7 @@ const trades = [
             stock: "250",
           },
           {
-            id: 2,
+            id: 121,
             name: "Especial de morrones",
             category: "Pizzas",
             description:
@@ -331,7 +339,7 @@ const trades = [
             stock: "300",
           },
           {
-            id: 3,
+            id: 122,
             name: "Fugazzeta",
             category: "Pizzas",
             description: "Cebolla y muzarella",
@@ -342,7 +350,7 @@ const trades = [
             stock: "350",
           },
           {
-            id: 4,
+            id: 123,
             name: "Especial de huevo",
             category: "Pizzas",
             description: "Muzzarella, salsa de tomates, huevo.",
@@ -353,7 +361,7 @@ const trades = [
             stock: "600",
           },
           {
-            id: 5,
+            id: 124,
             name: "Empanadas de cebolla y queso",
             category: "Empanadas",
             description: "Empanadas de cebolla y queso",
@@ -364,6 +372,8 @@ const trades = [
             stock: "250",
           },
         ],
+        rating: 2,
+        epagos: true,
         active: true,
       },
     ],
@@ -385,7 +395,7 @@ const trades = [
         phone: "01245009483",
         Productos: [
           {
-            id: 1,
+            id: 125,
             name: "Adermicina",
             category: "Cremas",
             description:
@@ -397,7 +407,7 @@ const trades = [
             stock: "250",
           },
           {
-            id: 2,
+            id: 126,
             name: "Voltarem",
             category: "Cremas",
             description:
@@ -409,7 +419,7 @@ const trades = [
             stock: "250",
           },
           {
-            id: 3,
+            id: 127,
             name: "Diclofenac Sódico",
             category: "Comprimidos",
             description: "Diclofenac 50 mg. caja x 16 comprimidos",
@@ -420,7 +430,7 @@ const trades = [
             stock: "250",
           },
           {
-            id: 4,
+            id: 128,
             name: "Lorazepam",
             category: "Comprimidos",
             description: "Lorazepam 1 mg. tira x 8 comprimidos",
@@ -431,7 +441,7 @@ const trades = [
             stock: "250",
           },
           {
-            id: 5,
+            id: 129,
             name: "Ibuprofeno",
             category: "Jarabe",
             description: "Ibuprofeno 4% x 120 ml. sabor frutilla.",
@@ -442,15 +452,92 @@ const trades = [
             stock: "250",
           },
         ],
+        rating: 5,
+        epagos: false,
+        active: true,
+      },
+      {
+        id: 7,
+        commerceName: "La Muleta Renga",
+        subcategory: "Ortopedia",
+        description: "Si existe en el rubro, nosotros lo tenemos",
+        userName: "Ortorenga",
+        email: "Ortorenga@gmail.com",
+        password: "orto321",
+        country: "Argentina",
+        city: "Salsipuedes",
+        address: "Romero 3543",
+        phone: "01245009483",
+        Productos: [
+          {
+            id: 1,
+            name: "Faja lumbar",
+            category: "Elementos de contención",
+            description:
+              "Faja lumbar con tutores metalicos para corrección de postura y rotección de columna lumbar ante esfuerzos",
+            price: "$3500",
+            image:
+              "https://www.lubeseguridad.com.ar/images/faja4.jpg",
+            rating: "10/10",
+            stock: "5",
+          },
+          {
+            id: 2,
+            name: "Muñequera",
+            category: "Elementos de contención",
+            description:
+              "Muñequera para la limitación de movimientos en caso de lesiones.",
+            price: "$2900",
+            image:
+              "https://www.americansurgerysa.com/wp/wp-content/uploads/2020/03/9513-000-AS-SoporteYEstabilidad-Mu%C3%B1equera-Boomerang-Pulgar-02.jpg",
+            rating: "8/10",
+            stock: "20",
+          },
+          {
+            id: 3,
+            name: "Muletas",
+            category: "Elementos de desplazamiento",
+            description: "Muletas regulables en altura de 1,50 a 1,90 mts. con apoyo antideslizante y axilares ergonómicos",
+            price: "$4700",
+            image:
+              "https://http2.mlstatic.com/D_NQ_NP_694376-MLA52557942063_112022-O.jpg",
+            rating: "8/10",
+            stock: "10",
+          },
+          {
+            id: 4,
+            name: "Silla de ruedas",
+            category: "Elementos de desplazamiento",
+            description: "Silla de ruedas ergonomica plegable con apoya pies, frenos, agarres antideslizantes y armadura para autodesplazamiento",
+            price: "$12000",
+            image:
+              "https://www.silfab.com.ar/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/s/3/s3011a_1.jpg",
+            rating: "9/10",
+            stock: "2",
+          },
+          {
+            id: 5,
+            name: "Venda elástica",
+            category: "Varios",
+            description: "Venda elástica de 15 cm x 2 mts. Confección de alta calidad.",
+            price: "$1500",
+            image:
+              "https://tienda.gelombardozzi.com.ar/wp-content/uploads/2018/06/VENDA-ELASTICA-2.jpg",
+            rating: "7/10",
+            stock: "15",
+          },
+        ],
+        rating: 5,
+        epagos: false,
         active: true,
       },
     ],
   },
   {
-    category: "Limpieza",
+    category: "Hogar",
     comercios: [
       {
-        id: 7,
+        id: 8,
         commerceName: "Fregadito",
         subcategory: "Limpieza",
         description: "Los productos para el hogar, al precio mas accesible",
@@ -463,7 +550,7 @@ const trades = [
         phone: "029348510",
         Productos: [
           {
-            id: 1,
+            id: 130,
             name: "Detergente",
             category: "Cocina",
             description: "Detergente Ala x 300cc.",
@@ -474,7 +561,7 @@ const trades = [
             stock: "250",
           },
           {
-            id: 2,
+            id: 131,
             name: "Esponja",
             category: "Cocina",
             description: "Esponja Scotch Brite Limpieza Pesada x 1u.",
@@ -485,7 +572,7 @@ const trades = [
             stock: "250",
           },
           {
-            id: 3,
+            id: 132,
             name: "Echo",
             category: "Pisos",
             description: "Echo en el Balde 3 en 1 - Blem - x 5L",
@@ -496,7 +583,7 @@ const trades = [
             stock: "250",
           },
           {
-            id: 4,
+            id: 133,
             name: "Pinoluz",
             category: "Pisos",
             description: "Pinoluz x 4L",
@@ -507,7 +594,7 @@ const trades = [
             stock: "250",
           },
           {
-            id: 5,
+            id: 134,
             name: "Mr. Musculo Baños",
             category: "Baño",
             description: "Limpiador para baños Mr. Musculo x 500 ml.",
@@ -517,6 +604,80 @@ const trades = [
             stock: "250",
           },
         ],
+        rating: 5,
+        epagos: false,
+        active: true,
+      },
+      {
+        id: 9,
+        commerceName: "Tuqui-eres",
+        subcategory: "Bazar",
+        description: "Todo lo que buscas para tu hogar, en un solo lugar.",
+        userName: "tuquieres",
+        email: "tuquieres@gmail.com",
+        password: "allbazan",
+        country: "Argentina",
+        city: "Salsipuedes",
+        address: "Juan Manuel Dorrego 2394",
+        phone: "029348510",
+        Productos: [
+          {
+            id: 135,
+            name: "Reloj de pared Tressa",
+            category: "Living",
+            description: "Reloj de pared Tressa.",
+            price: "$3600",
+            image:
+              "https://casatagger.com.ar/wp-content/uploads/2022/02/T-RP101-MD.jpg",
+            rating: "10/10",
+            stock: "3",
+          },
+          {
+            id: 136,
+            name: "Sommier y colchon Belmo Belsping",
+            category: "Dormitorio",
+            description: "Colchón y sommier de 2 plazas 190 x 130 cm, gomaespuma de alta densidad.",
+            price: "$101000",
+            image:
+              "https://simmonsarg.vteximg.com.br/arquivos/ids/155797-1000-1000/sommier-belspring2-2plazas-190-130.jpg?v=637147142836570000",
+            rating: "7/10",
+            stock: "2",
+          },
+          {
+            id: 137,
+            name: "Fuente de agua Deco",
+            category: "Living",
+            description: "Fuente de agua Deco - 220v.",
+            price: "$500",
+            image:
+              "https://abanicobazar.com/wp-content/uploads/2022/08/c029b443-dbad-4252-8ac6-2341d9b08828-PhotoRoom.png",
+            rating: "8/10",
+            stock: "250",
+          },
+          {
+            id: 138,
+            name: "Martillo ablanda carne",
+            category: "Cocina",
+            description: "Martillo de madera para ablandar la carne",
+            price: "$550",
+            image:
+              "https://abanicobazar.com/wp-content/uploads/2020/05/WhatsApp-Image-2020-05-19-at-14.59.44-300x300.jpeg",
+            rating: "6/10",
+            stock: "5",
+          },
+          {
+            id: 139,
+            name: "Abrelatas con uña",
+            category: "Baño",
+            description: "Abrelatas con uña marca Chef Houseware.",
+            price: "$360",
+            image: "https://abanicobazar.com/wp-content/uploads/2021/06/e0a93411-b678-4a84-b21e-7883094dbbf9-300x300.jpg",
+            rating: "9/10",
+            stock: "10",
+          },
+        ],
+        rating: 3,
+        epagos: true,
         active: true,
       },
     ],
