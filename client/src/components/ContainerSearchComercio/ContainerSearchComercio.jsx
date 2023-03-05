@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styles from "./ContainerSearchComercio.module.css";
-import { getTrades } from "../../redux/actions/actions";
+import { getTrades } from "../../Redux/Actions/actions";
 import ComercioCard from "../../components/ComercioCard/ComercioCard";
 
 import { useSelector, useDispatch } from "react-redux";
