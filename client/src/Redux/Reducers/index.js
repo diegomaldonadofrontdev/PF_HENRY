@@ -60,6 +60,11 @@ export default function rootReducer(state = initialState, action) {
 				...state,
 				categories: action.payload,
 			};
+			case "GET_TRADES_BY_CATEGORY":
+				return{
+					...state,
+					category: action.payload
+				}
 		case "GET_TRADES":
 			const res = action.payload;
 			const comercios = res.map((x) => x.comercios);
