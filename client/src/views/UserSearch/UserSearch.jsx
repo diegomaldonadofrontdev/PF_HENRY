@@ -15,6 +15,7 @@ import img1 from "../../images/gastronomy_icon.png";
 import img2 from "../../images/health_icon.png";
 import img3 from "../../images/clean_icon.png";
 import Header from "../../components/Header/Header";
+import SearchBar from "../../components/SearchBar/SearchBar";
 
 export default function UserSearch() {
 	const dispatch = useDispatch();
@@ -144,6 +145,7 @@ export default function UserSearch() {
 				</div>
 
 				<div className={styles.cards__container}>
+					<SearchBar />
 					<div className={styles.search__results}>
 						<p>{comercios.comercios?.length} Locales encontrados:</p>
 						<ContainerSearchComercio
