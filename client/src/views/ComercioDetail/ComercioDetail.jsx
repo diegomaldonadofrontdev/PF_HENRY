@@ -29,17 +29,21 @@ export default function ComercioDetail() {
 	return (
 		<div className={styles.comercio_detail}>
 			<Header />
-
-			<div className={styles.container}>
-				<div className={styles.comercio__header}>
+			<div className={styles.comercio__header}>
+				<div className={styles.container}>
 					<h2>{commerce?.commerceName}</h2>
-					<div className="rating">
-						Rating: {commerce?.rating} <i class="bx bxs-star"></i>
+					<div className={styles.rating}>
+						<p>
+							{" "}
+							Rating: {commerce?.rating} <i class="bx bxs-star"></i>
+						</p>
 					</div>
 					<Link to="/busqueda" className={styles.btn__volver}>
 						<ButtonPrimary texto="Volver" />
 					</Link>
 				</div>
+			</div>
+			<div className={styles.container}>
 				<SearchBar />
 
 				<div className={styles.results}>
