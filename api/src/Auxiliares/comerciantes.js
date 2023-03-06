@@ -14,6 +14,7 @@ const trades = [
         city: "Rosario",
         address: "belgrano 1324",
         phone: "03428901929",
+        deliveryzone: ["Salsipuedes", "Rio Ceballos", "Unquillo", "Agua de Oro", "Mendiolaza", "El Manzano", "La Granja"],
         productos: [
           {
             id: 100,
@@ -88,6 +89,7 @@ const trades = [
         city: "Medellin",
         address: "Bolivar 857",
         phone: "08958839219",
+        deliveryzone: ["Salsipuedes", "Rio Ceballos", "Unquillo", "Agua de Oro", "Mendiolaza", "El Manzano"],
         productos: [
           {
             id: 105,
@@ -163,6 +165,7 @@ const trades = [
         city: "Montevideo",
         address: "Artigas 2563",
         phone: "028575643",
+        deliveryzone: ["Salsipuedes", "Rio Ceballos", "Unquillo", "Agua de Oro", "La Granja"],
         productos: [
           {
             id: 110,
@@ -237,6 +240,7 @@ const trades = [
         city: "Posadas",
         address: "Entre Rios 6329",
         phone: "045829394",
+        deliveryzone: ["Unquillo", "Agua de Oro", "Mendiolaza", "El Manzano", "La Granja"],
         productos: [
           {
             id: 115,
@@ -313,6 +317,7 @@ const trades = [
         city: "Buenos Aires",
         address: "Rosas",
         phone: "074372894",
+        deliveryzone: ["Salsipuedes", "Rio Ceballos", "Agua de Oro", "Mendiolaza", "El Manzano", "La Granja"],
         productos: [
           {
             id: 120,
@@ -393,6 +398,7 @@ const trades = [
         city: "Asuncion",
         address: "Romero 3543",
         phone: "01245009483",
+        deliveryzone: ["Salsipuedes", "Rio Ceballos", "Unquillo", "Agua de Oro", "Mendiolaza", "El Manzano", "La Granja"],
         productos: [
           {
             id: 125,
@@ -468,6 +474,7 @@ const trades = [
         city: "Salsipuedes",
         address: "Romero 3543",
         phone: "01245009483",
+        deliveryzone: ["Salsipuedes", "Rio Ceballos", "Unquillo"],
         productos: [
           {
             id: 130,
@@ -548,6 +555,7 @@ const trades = [
         city: "Tucuman",
         address: "Juan Manuel Dorrego 2394",
         phone: "029348510",
+        deliveryzone: ["Salsipuedes", "Rio Ceballos", "El Manzano", "La Granja"],
         productos: [
           {
             id: 135,
@@ -620,6 +628,7 @@ const trades = [
         city: "Salsipuedes",
         address: "Juan Manuel Dorrego 2394",
         phone: "029348510",
+        deliveryzone: ["Unquillo", "Agua de Oro", "Mendiolaza"],
         productos: [
           {
             id: 135,

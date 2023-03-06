@@ -1,27 +1,35 @@
 const {
-	searchTradesByCategory,
-	searchTradesBySubCategory,
-	getAllTrades,
-	searchTradeById,
-	getAllCategories,
-	getSubCategories,
+  searchTradesByCityAndCatAndSC,
+  searchTradesByCityAndCat,
+  searchTradesByCity,
+  searchTradesByCategory,
+  searchTradesBySubCategory,
+  getAllTrades,
+  searchTradeById,
+  getAllCategories,
+  getSubCategories,
 } = require("../Controllers/tradesController");
 
 // GET ---------> /trades/search
 const getTradesHandler = async (req, res) => {
-	const { category } = req.query;
-	const { subcategory } = req.query;
-	try {
-		const result =
-			category && subcategory
-				? await searchTradesBySubCategory(category, subcategory)
-				: category
-				? await searchTradesByCategory(category)
-				: await getAllTrades();
-		res.status(200).json(result);
-	} catch (error) {
-		res.status(404).json({ error: `Error al buscar los comercios` });
-	}
+  const { deliveryCity, category, subcategory } = req.query;
+  try {
+    const result =
+    deliveryCity && category && subcategory
+        ? await searchTradesByCityAndCatAndSC(deliveryCity, category, subcategory)
+        : deliveryCity && category
+        ? await searchTradesByCityAndCat(deliveryCity, category)
+        : deliveryCity
+        ? await searchTradesByCity(deliveryCity)
+        : category && subcategory
+        ? await searchTradesBySubCategory(category, subcategory)
+        : category
+        ? await searchTradesByCategory(category)
+        : await getAllTrades();
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(404).json({ error: `Error al buscar los comercios` });
+  }
 };
 
 // GET ---------> /trades/search/:id
