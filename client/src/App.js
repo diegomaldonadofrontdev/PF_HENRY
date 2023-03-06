@@ -6,6 +6,7 @@ import HomeLocal from "./views/HomeLocal/HomeLocal";
 import Login from "./views/Login/Login";
 import OpinionForm from "./views/OpinionForm/OpinionForm";
 import UserSearch from "./views/UserSearch/UserSearch";
+import Sigin from "./views/Sigin/Sigin";
 
 function App() {
 	return (
@@ -17,6 +18,7 @@ function App() {
 				<Route path="/s" element={<HomeLocal />} />
 				<Route path="/busqueda" element={<UserSearch />} />
 				<Route path="/opinion" element={<OpinionForm />} />
+				<Route path="/sigin" element={<Sigin />}/> 
 			</Routes>
 		</div>
 	);
