@@ -5,16 +5,26 @@ const host = "http://localhost:3001";
 export function getProductById(id) {
 	return async function (dispatch) {
 		if (id) {
-			const response = await axios(`${host}/products/${id}`);
+			const response = await axios(`${host}/clients/trades/search/${id}`);
 			dispatch({
 				type: "GET_PRODUCT_BY_ID",
 				payload: response.data,
 			});
-		} else {
-			dispatch({
-				type: "void",
-			});
 		}
+	};
+}
+
+export function filterByAscOrDesc(payload) {
+	return {
+		type: "FILTER_BY_ASC_OR_DESC",
+		payload,
+	};
+}
+
+export function getTradesByName(commerceName) {
+	return async function (dispatch) {
+		const trades = await axios.get(`${host}/trades/search/${commerceName}`);
+		return dispatch({ type: "GET_TRADES", payload: trades.data });
 	};
 }
 
@@ -69,15 +79,32 @@ export function filterByCategory(categoria) {
 	};
 }
 
-// }
+export function getProductsFilter(name) {
+	return async (dispatch) => {
+		let filtredProd = await axios.get(
+			`${host}/clients/products/search?name=${name}`
+		);
+		dispatch({
+			type: "FILTER_CATEGORY",
+			payload: filtredProd.data,
+		});
+	};
+}
 
-// export const getReview = () => {
-// 	return async function (dispatch) {
-// 		try {
-// 			const json = await axios.get(`${host}/clients/feedback`);
-// 			return dispatch({ type: "GET_REVIEW", payload: json.data });
-// 		} catch (e) {
-// 			console.log(e);
-// 		}
-// 	};
-// };
+export function filterByTarjeta(valor) {
+	return async function (dispatch) {
+		dispatch({
+			type: "FILTER_BY_TARJETA",
+			payload: valor,
+		});
+	};
+}
+
+export function filterByCity(city) {
+	return async function (dispatch) {
+		dispatch({
+			type: "FILTER_BY_CITY",
+			payload: city,
+		});
+	};
+}

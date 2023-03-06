@@ -10,10 +10,17 @@ export default function ComercioCard(props) {
 			</div>
 			<div className={styles.card__info} key={props.id}>
 				<h3>{props.name}</h3>
-				<p>Acepta pago online</p>
+				<p className={styles.epago}>
+					{props.epagos === true ? (
+						<i class="bx bx-credit-card"></i>
+					) : (
+						<i class="bx bx-money"></i>
+					)}
+					{props.epagos === true ? "Acepta pagos con tarjeta" : "Solo efectivo"}
+				</p>
 				<div className={styles.rating}>
 					<i class="bx bxs-star"></i>
-					<p>4.2</p>
+					<p>{props.rating}</p>
 				</div>
 			</div>
 		</div>

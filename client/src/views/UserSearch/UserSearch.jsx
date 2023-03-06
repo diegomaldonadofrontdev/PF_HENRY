@@ -1,11 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./UserSearch.module.css";
 import { Link } from "react-router-dom";
 import ContainerSearchComercio from "../../components/ContainerSearchComercio/ContainerSearchComercio";
 import {
-	filterByCategory,
 	getCategories,
 	getTrades,
+	filterByAscOrDesc,
+	filterByTarjeta,
+	filterByCity,
+	filterByCategory,
 } from "../../redux/actions/actions";
 import { useDispatch, useSelector } from "react-redux";
 import img1 from "../../images/gastronomy_icon.png";
@@ -14,32 +17,52 @@ import img3 from "../../images/clean_icon.png";
 
 export default function UserSearch() {
 	const dispatch = useDispatch();
-
+	const [currentAscAndDesc, setCurrentAscAndDesc] = useState("");
 	const categories = useSelector((state) => state.categories);
 
 	useEffect(() => {
 		dispatch(getCategories());
 	}, [dispatch]);
 
-	const comercios = useSelector((state) => state.trades);
+	const comercios = useSelector((state) => state.allCommerces);
+
+	const filters = useSelector((state) => state.filters);
 
 	useEffect(() => {
 		dispatch(getTrades());
 	}, [dispatch]);
 
-	useEffect(() => {
-		dispatch(filterByCategory("Gastronomia"));
-	}, [dispatch]);
+	function handlerFilterByAscOrDesc(ev) {
+		ev.preventDefault();
+		dispatch(filterByAscOrDesc(ev.target.value));
+		// setCurrentStatePage(1);
+		setCurrentAscAndDesc(ev.target.value);
+	}
 
-	console.log(comercios);
+	function handlerFilterTarjeta(ev) {
+		ev.preventDefault();
+		dispatch(filterByTarjeta(ev.target.value));
+		console.log(ev.target.value);
+	}
+
+	function handlerFilterByCity(ev) {
+		ev.preventDefault();
+		dispatch(filterByCity(ev.target.value));
+	}
+
+	function handlerCategory(categoria) {
+		dispatch(filterByCategory(categoria));
+	}
 
 	return (
 		<div className={styles.user__search}>
 			<header className={styles.header}>
 				<div className={styles.container}>
-					<div className={styles.logo}>
-						<h1>PEDI-VERY</h1>
-					</div>
+					<Link to="../">
+						<div className={styles.logo}>
+							<h1>PEDI-VERY</h1>
+						</div>
+					</Link>
 
 					<Link className={styles.btn_market} to="/s">
 						<i class="bx bx-store"></i>Registrá tu negocio
@@ -48,17 +71,27 @@ export default function UserSearch() {
 			</header>
 			<div className={styles.barrio__container}>
 				<p>Zona:</p>
-				<select name="" id="">
-					{comercios?.map((x) =>
-						x.comercios.map((x) => <option>{x.city}</option>)
-					)}
+				<select
+					name=""
+					id=""
+					onChange={(ev) => {
+						handlerFilterByCity(ev);
+					}}
+				>
+					<option>Todas</option>
+					{comercios.map((x) => x.map((x) => <option>{x.city}</option>))}
 				</select>
 			</div>
 			<div className={styles.search__container}>
 				<div className={styles.filtros__container}>
 					<div className={styles.categorias}>
 						{categories?.map((x) => (
-							<div onClick={() => {}} key={x}>
+							<div
+								onClick={() => {
+									handlerCategory(x);
+								}}
+								key={x}
+							>
 								<img
 									src={
 										x === "Gastronomia"
@@ -71,33 +104,42 @@ export default function UserSearch() {
 									}
 									alt=""
 								/>
-								<h3>{x}</h3>
+								<h3
+									onClick={(x) => {
+										handlerCategory(x);
+									}}
+								>
+									{x}
+								</h3>
 							</div>
 						))}
 					</div>
 					<div className={styles.filtros}>
-						<select name="" id="">
-							<option value="mejor">Mejor Puntuados</option>
-							<option value="menor">Menor Puntuado</option>
+						<select
+							name=""
+							id=""
+							onChange={(ev) => handlerFilterByAscOrDesc(ev)}
+						>
+							<option value="Asc">Mejor Puntuados</option>
+							<option value="Desc">Menor Puntuado</option>
 						</select>
 					</div>
 					<div>
 						<label htmlFor="">Medio de Pago</label>
-						<select name="" id="">
-							<option value="">Efectivo</option>
-							<option value="">Tarjeta</option>
+						<select name="" id="" onChange={(ev) => handlerFilterTarjeta(ev)}>
+							<option value="Todos">Todos</option>
+							<option value="Efectivo">Efectivo</option>
+							<option value="Tarjeta">Tarjeta</option>
 						</select>
 					</div>
 				</div>
 
 				<div className={styles.cards__container}>
-					<div className={styles.search__input}>
-						<i class="bx bx-search"></i>
-						<input type="text" placeholder="Buscar..." />
-					</div>
 					<div className={styles.search__results}>
 						<p>{comercios.comercios?.length} Locales encontrados:</p>
-						<ContainerSearchComercio comercios={comercios} />
+						<ContainerSearchComercio
+							comercios={filters.length ? filters : comercios}
+						/>
 					</div>
 				</div>
 			</div>

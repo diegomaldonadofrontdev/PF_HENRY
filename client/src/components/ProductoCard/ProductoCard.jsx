@@ -1,16 +1,15 @@
 import React from "react";
 import styles from "./ProductoCard.module.css";
-import img from "../../images/pizza.jpg";
 
-export default function ProductoCard() {
+export default function ProductoCard(props) {
 	return (
 		<div className={styles.product__card}>
 			<div className={styles.producto__info}>
-				<h3>Nombre de producto</h3>
-				<p>$10.000</p>
+				<h3>{props.name}</h3>
+				<p>{props.price}</p>
 			</div>
 			<div className={styles.img__container}>
-				<img src={img} alt="" />
+				<img src={props.img} alt="" />
 			</div>
 		</div>
 	);

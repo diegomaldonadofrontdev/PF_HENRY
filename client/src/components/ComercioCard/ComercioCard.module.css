@@ -2,7 +2,6 @@
 	width: 100%;
 	display: flex;
 	justify-content: flex-start;
-
 	gap: 25px;
 	background-color: white;
 	padding: 1.5em;
@@ -14,8 +13,9 @@
 .logo {
 	width: 100px;
 	height: 100px;
-	border: 1px solid black;
+	border: 1px solid rgb(230, 230, 230);
 	padding: 10px;
+	border-radius: 0.5em;
 	background-color: white;
 	display: flex;
 	align-items: center;
@@ -31,6 +31,10 @@
 	width: 100%;
 }
 
+.card__info p {
+	font-size: 0.9em;
+}
+
 .rating {
 	position: absolute;
 	top: 0;
@@ -40,4 +44,15 @@
 
 .rating i {
 	color: rgb(255, 162, 0);
+}
+
+.epago {
+	display: flex;
+	align-items: center;
+	margin: 5px 0;
+	gap: 0.5em;
+}
+
+.epago i {
+	font-size: 1.2em;
 }
