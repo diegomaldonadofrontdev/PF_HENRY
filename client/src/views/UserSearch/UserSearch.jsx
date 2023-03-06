@@ -24,14 +24,25 @@ export default function UserSearch() {
 	useEffect(() => {
 		dispatch(getCategories());
 	}, [dispatch]);
-
-	const comercios = useSelector((state) => state.allCommerces);
-
-	const filters = useSelector((state) => state.filters);
-
 	useEffect(() => {
 		dispatch(getTrades());
 	}, [dispatch]);
+
+	const comercios = useSelector((state) => state.allCommerces);
+
+	const cities = [];
+	if (comercios)
+		for (let i = 0; i < comercios.length; i++) {
+			for (let j = 0; j < comercios[i].length; j++) {
+				for (let k = 0; k < comercios[i][j].deliveryzone.length; k++) {
+					cities.push(comercios[i][j].deliveryzone[k]);
+				}
+			}
+		}
+
+	const citiesUnrepeat = [...new Set(cities)];
+
+	const filters = useSelector((state) => state.filters);
 
 	function handlerFilterByAscOrDesc(ev) {
 		ev.preventDefault();
@@ -51,25 +62,13 @@ export default function UserSearch() {
 		dispatch(filterByCity(ev.target.value));
 	}
 
-	function handlerCategory(categoria) {
-		dispatch(filterByCategory(categoria));
-	}
+	// function handlerByCategory(categoria) {
+	// 	ev.preventDefault();
+	// 	dispatch(getTradesByCategory(ev.target.value));
+	// }
 
 	return (
 		<div className={styles.user__search}>
-			{/* <header className={styles.header}>
-				<div className={styles.container}>
-					<Link to="../">
-						<div className={styles.logo}>
-							<h1>PEDI-VERY</h1>
-						</div>
-					</Link>
-
-					<Link className={styles.btn_market} to="/s">
-						<i class="bx bx-store"></i>Registrá tu negocio
-					</Link>
-				</div>
-			</header> */}
 			<Header />
 			<div className={styles.banner}>
 				<div className={styles.container}>
@@ -86,40 +85,20 @@ export default function UserSearch() {
 					}}
 				>
 					<option>Todas</option>
-					{comercios.map((x) => x.map((x) => <option>{x.city}</option>))}
+					{citiesUnrepeat.map((x) => (
+						<option>{x}</option>
+					))}
 				</select>
 			</div>
 			<div className={styles.search__container}>
 				<div className={styles.filtros__container}>
 					<div className={styles.categorias}>
-						{categories?.map((x) => (
-							<div
-								onClick={() => {
-									handlerCategory(x);
-								}}
-								key={x}
-							>
-								<img
-									src={
-										x === "Gastronomia"
-											? img1
-											: x === "Salud"
-											? img2
-											: x === "Hogar"
-											? img3
-											: null
-									}
-									alt=""
-								/>
-								<h3
-									onClick={(x) => {
-										handlerCategory(x);
-									}}
-								>
-									{x}
-								</h3>
-							</div>
-						))}
+						<select name="" id="">
+							<option value="Todas">Todas</option>
+							{categories?.map((x) => (
+								<option value={x}>{x}</option>
+							))}
+						</select>
 					</div>
 					<div className={styles.filtros}>
 						<p className={styles.label_filtro}>Ordenar Por Rating:</p>
