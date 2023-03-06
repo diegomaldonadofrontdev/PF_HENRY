@@ -55,6 +55,11 @@ export default function rootReducer(state = initialState, action) {
 				...state,
 				users: action.payload,
 			};
+		case "GET_TRADES_BY_CATEGORY":
+			return {
+				...state,
+				filter: action.payload,
+			};
 		case "GET_CATEGORIES":
 			return {
 				...state,
@@ -116,13 +121,11 @@ export default function rootReducer(state = initialState, action) {
 			}
 
 		case "FILTER_BY_CITY":
-			if (action.payload === "Todas") {
+			if (action.payload === "vacio") {
 				return { ...state, filters: allCommerces };
+			} else {
+				return { ...state, filters: action.payload };
 			}
-			const filtrado = allCommerces.map((x) =>
-				x.filter((x) => x.city === action.payload)
-			);
-			return { ...state, filters: filtrado };
 
 		case "FILTER_BY_ASC_OR_DESC":
 			console.log(allCommerces);
