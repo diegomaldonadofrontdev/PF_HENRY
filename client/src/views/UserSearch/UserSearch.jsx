@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import img1 from "../../images/gastronomy_icon.png";
 import img2 from "../../images/health_icon.png";
 import img3 from "../../images/clean_icon.png";
+import Header from "../../components/Header/Header";
 
 export default function UserSearch() {
 	const dispatch = useDispatch();
@@ -56,7 +57,7 @@ export default function UserSearch() {
 
 	return (
 		<div className={styles.user__search}>
-			<header className={styles.header}>
+			{/* <header className={styles.header}>
 				<div className={styles.container}>
 					<Link to="../">
 						<div className={styles.logo}>
@@ -68,9 +69,15 @@ export default function UserSearch() {
 						<i class="bx bx-store"></i>Registrá tu negocio
 					</Link>
 				</div>
-			</header>
+			</header> */}
+			<Header />
+			<div className={styles.banner}>
+				<div className={styles.container}>
+					<h2>Encontrá lo que buscás</h2>
+				</div>
+			</div>
 			<div className={styles.barrio__container}>
-				<p>Zona:</p>
+				<p>Buscá por zona:</p>
 				<select
 					name=""
 					id=""
@@ -115,6 +122,7 @@ export default function UserSearch() {
 						))}
 					</div>
 					<div className={styles.filtros}>
+						<p className={styles.label_filtro}>Ordenar Por Rating:</p>
 						<select
 							name=""
 							id=""
@@ -125,7 +133,8 @@ export default function UserSearch() {
 						</select>
 					</div>
 					<div>
-						<label htmlFor="">Medio de Pago</label>
+						<p className={styles.label_filtro}>Filtrar por medio de pago:</p>
+
 						<select name="" id="" onChange={(ev) => handlerFilterTarjeta(ev)}>
 							<option value="Todos">Todos</option>
 							<option value="Efectivo">Efectivo</option>

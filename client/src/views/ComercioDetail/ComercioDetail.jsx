@@ -5,6 +5,8 @@ import ProductoCard from "../../components/ProductoCard/ProductoCard";
 import { getProductById } from "../../redux/actions/actions";
 import styles from "./ComercioDetail.module.css";
 import SearchBar from "../../components/SearchBar/SearchBar";
+import Header from "../../components/Header/Header";
+import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
 
 export default function ComercioDetail() {
 	const dispatch = useDispatch();
@@ -15,9 +17,9 @@ export default function ComercioDetail() {
 	}, [dispatch]);
 
 	const commerce = useSelector((state) => state.product[0]);
-	
+
 	console.log(commerce);
-	
+
 	const categorias = commerce?.productos.map((x) => x.category);
 
 	const unicos = categorias?.filter((valor, indice) => {
@@ -26,17 +28,17 @@ export default function ComercioDetail() {
 
 	return (
 		<div className={styles.comercio_detail}>
-			<header className={styles.header}>
-				<div className={styles.container}>
-					<Link to="/busqueda">Volver</Link>
-				</div>
-			</header>
+			<Header />
+
 			<div className={styles.container}>
 				<div className={styles.comercio__header}>
 					<h2>{commerce?.commerceName}</h2>
 					<div className="rating">
 						Rating: {commerce?.rating} <i class="bx bxs-star"></i>
 					</div>
+					<Link to="/busqueda" className={styles.btn__volver}>
+						<ButtonPrimary texto="Volver" />
+					</Link>
 				</div>
 				<SearchBar />
 

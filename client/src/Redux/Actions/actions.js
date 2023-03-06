@@ -65,7 +65,7 @@ export function postReview(payload) {
 
 export const getReview = () => {
 	return async function (dispatch) {
-		const json = await axios.get(`${host}/clients/feedback`);
+		const json = await axios.get(`${host}/clients/feedbacks`);
 		return dispatch({ type: "GET_REVIEW", payload: json.data });
 	};
 };
