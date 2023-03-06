@@ -79,18 +79,10 @@ export default function rootReducer(state = initialState, action) {
 				feedback: action.payload,
 			};
 		case "FILTER_CATEGORY":
-			console.log(allTrades);
-			if (action.payload === "Gastronomia") {
-				const filtrado = allTrades.filter((x) => x.category === action.payload);
-
-				return { ...state, filters: filtrado[0].comercios };
-			} else if (action.payload === "Salud") {
-				return { ...state, filters: allTrades[1] };
-			} else if (action.payload === "Hogar") {
-				return { ...state, filters: allTrades[2] };
-			} else {
-				return { ...state, filters: allCommerces };
-			}
+			const todosComercios = state.filters[0].filter(
+				(x) => x.category === action.payload
+			);
+			return { ...state, filters: state.filters };
 
 		case "FILTER_BY_TARJETA":
 			let valor;
