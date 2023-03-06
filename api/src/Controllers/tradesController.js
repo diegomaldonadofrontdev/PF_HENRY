@@ -1,5 +1,9 @@
 const { trades } = require("../Auxiliares/comerciantes");
 
+const getAllTrades = () => {
+  const allTrades = trades;
+  return allTrades;
+};
 
 const searchTradesByCategory = (category) => {
   const tradesfilt = trades.find((trade) => trade.category === category);
@@ -14,9 +18,26 @@ const searchTradesBySubCategory = (category, subcategory) => {
   return tradesBySubcategories;
 };
 
-const getAllTrades = () => {
-  const allTrades = trades;
-  return allTrades;
+const searchTradesByCityAndCatAndSC = (deliveryCity, category, subcategory) => {
+  const firstFilter = searchTradesBySubCategory(category, subcategory);
+  return firstFilter.filter((t) => t.deliveryzone.includes(deliveryCity));
+};
+
+const searchTradesByCityAndCat = (deliveryCity, category) => {
+  const firstFilter = searchTradesByCategory(category);
+  return firstFilter.filter((t) => t.deliveryzone.includes(deliveryCity));
+};
+
+const searchTradesByCity = (deliveryCity) => {
+  const tradeByCity = [];
+  for (let i = 0; i < trades.length; i++) {
+    for (let j = 0; j < trades[i].comercios.length; j++) {
+      if (trades[i].comercios[j].deliveryzone.includes(deliveryCity)) {
+        tradeByCity.push(trades[i].comercios[j]);
+      }
+    }
+  }
+  return tradeByCity;
 };
 
 const searchTradeById = (id) => {
@@ -49,6 +70,9 @@ const getSubCategories = (category) => {
 };
 
 module.exports = {
+  searchTradesByCityAndCatAndSC,
+  searchTradesByCityAndCat,
+  searchTradesByCity,
   searchTradesByCategory,
   getAllTrades,
   searchTradeById,
