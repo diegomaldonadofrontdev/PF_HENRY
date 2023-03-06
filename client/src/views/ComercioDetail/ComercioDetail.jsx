@@ -1,9 +1,12 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import ProductoCard from "../../components/ProductoCard/ProductoCard";
 import { getProductById } from "../../Redux/actions/actions";
 import styles from "./ComercioDetail.module.css";
+import SearchBar from "../../components/SearchBar/SearchBar";
+import Header from "../../components/Header/Header";
+import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
 
 export default function ComercioDetail() {
 	const dispatch = useDispatch();
@@ -13,32 +16,45 @@ export default function ComercioDetail() {
 		dispatch(getProductById(id));
 	}, [dispatch]);
 
+	const commerce = useSelector((state) => state.product[0]);
+
+	console.log(commerce);
+
+	const categorias = commerce?.productos.map((x) => x.category);
+
+	const unicos = categorias?.filter((valor, indice) => {
+		return categorias.indexOf(valor) === indice;
+	});
+
 	return (
 		<div className={styles.comercio_detail}>
-			<header className={styles.header}>
-				<div className={styles.container}>
-					<Link to="/busqueda">Volver</Link>
-				</div>
-			</header>
+			<Header />
+
 			<div className={styles.container}>
 				<div className={styles.comercio__header}>
-					<h2>Nombre del Comercio</h2>
-					<div className="rating">Rating del comercio</div>
+					<h2>{commerce?.commerceName}</h2>
+					<div className="rating">
+						Rating: {commerce?.rating} <i class="bx bxs-star"></i>
+					</div>
+					<Link to="/busqueda" className={styles.btn__volver}>
+						<ButtonPrimary texto="Volver" />
+					</Link>
 				</div>
+				<SearchBar />
+
 				<div className={styles.results}>
 					<div className={styles.subcategorias}>
 						<h3>Categorias:</h3>
-						<div>
-							<p>Categoria 1</p>
-							<p>Categoria 2</p>
-							<p>Categoria 3</p>
-							<p>Categoria 4</p>
-							<p>Categoria 5</p>
-							<p>Categoria 6</p>
-						</div>
+						<ul>
+							{unicos?.map((x) => (
+								<li>{x}</li>
+							))}
+						</ul>
 					</div>
 					<div className={styles.productCard__container}>
-						<ProductoCard />
+						{commerce?.productos.map((x) => (
+							<ProductoCard name={x.name} price={x.price} img={x.image} />
+						))}
 					</div>
 				</div>
 			</div>

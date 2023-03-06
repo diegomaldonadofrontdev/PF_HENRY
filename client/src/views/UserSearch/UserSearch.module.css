@@ -1,36 +1,41 @@
-.logo {
+.banner {
+	padding-top: 150px;
+	background: url("../../images/bg_search.jpg");
+	background-position: center center;
+	background-size: cover;
+	height: 300px;
+	text-shadow: 4px 4px 6px rgba(0, 0, 0, 1);
+}
+
+.container {
 	display: flex;
-	align-items: center;
+	text-align: center;
 	justify-content: center;
-	font-size: 1em;
-	padding: 5px 20px;
-	background-color: #fe161a;
+}
+
+.container h2 {
 	color: white;
-	font-weight: bold;
-	border-radius: 10px;
-}
-
-h1 {
-	font-size: 1.5em;
-}
-.header {
-	background-color: white;
-}
-
-.header .container {
-	display: flex;
-	max-width: 65%;
-	padding: 0px 0;
-	margin: auto;
-	justify-content: space-between;
+	font-size: 2.5em !important;
 }
 
 .barrio__container {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin-top: 100px;
+	padding-top: 100px;
 	gap: 1em;
+}
+
+.barrio__container p {
+	font-size: 1.5em;
+}
+
+select {
+	border-radius: 0.5em;
+	font-size: 1em;
+	padding: 5px;
+	border-color: rgb(217, 217, 217);
+	outline: none;
 }
 
 .btn_market {
@@ -137,12 +142,24 @@ h1 {
 	gap: 0.5em;
 	border-radius: 0.5em;
 	justify-content: center;
+	border: 1px solid rgb(236, 236, 236);
 }
 
 .categorias div img {
-	width: 80px;
+	width: 70px;
 }
 
 .categorias div h3 {
+	font-size: 0.8em;
+}
+
+.form {
+	margin: 0;
+	padding: 0;
+}
+
+.label_filtro {
 	font-size: 1.1em;
+	font-weight: 600;
+	margin-bottom: 10px;
 }

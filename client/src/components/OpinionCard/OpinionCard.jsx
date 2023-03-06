@@ -1,12 +1,11 @@
 import React from "react";
 import styles from "./OpinionCard.module.css";
-import img from "../../images/avatar.jpeg";
 
 export default function OpinionCard(props) {
 	return (
 		<div className={styles.opinion__card}>
 			<div className={styles.container__img}>
-				<img src={img} alt="" />
+				<img src={props.image} alt="" />
 			</div>
 			<div className={styles.texto}>
 				<h4>{props.name}</h4>
