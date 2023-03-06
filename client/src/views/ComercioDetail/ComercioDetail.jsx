@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import ProductoCard from "../../components/ProductoCard/ProductoCard";
-import { getProductById } from "../../redux/actions/actions";
+import { getProductById } from "../../Redux/actions/actions";
 import styles from "./ComercioDetail.module.css";
 
 export default function ComercioDetail() {

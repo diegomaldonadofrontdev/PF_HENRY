@@ -69,15 +69,6 @@ export function filterByCategory(categoria) {
 	};
 }
 
-// }
 
-// export const getReview = () => {
-// 	return async function (dispatch) {
-// 		try {
-// 			const json = await axios.get(`${host}/clients/feedback`);
-// 			return dispatch({ type: "GET_REVIEW", payload: json.data });
-// 		} catch (e) {
-// 			console.log(e);
-// 		}
-// 	};
-// };
+
+

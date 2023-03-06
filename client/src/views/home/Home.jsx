@@ -5,7 +5,7 @@ import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
 import HeroMain from "../../components/HeroMain/HeroMain";
 import OpinionesContainer from "../../components/OpinionesContainer/OpinionesContainer";
-import { getReview } from "../../redux/actions/actions";
+import { getReview } from "../../Redux/actions/actions";
 import SliderSmall from "../../components/SliderSmall/SliderSmall";
 
 export default function Home() {

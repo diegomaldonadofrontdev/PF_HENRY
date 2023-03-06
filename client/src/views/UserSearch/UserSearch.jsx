@@ -6,7 +6,7 @@ import {
 	filterByCategory,
 	getCategories,
 	getTrades,
-} from "../../redux/actions/actions";
+} from "../../Redux/actions/actions";
 import { useDispatch, useSelector } from "react-redux";
 import img1 from "../../images/gastronomy_icon.png";
 import img2 from "../../images/health_icon.png";

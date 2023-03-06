@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { postReview } from "../../redux/actions/actions";
+import { postReview } from "../../Redux/actions/actions";
 import swal from "sweetalert"; //npm i sweetalert
 import { FaStar } from "react-icons/fa";
 import styles from "./OpinionForm.module.css";
