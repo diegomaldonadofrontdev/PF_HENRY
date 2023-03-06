@@ -1,25 +1,24 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import styles from "./ContainerSearchComercio.module.css";
-import { getTrades } from "../../Redux/Actions/actions";
 import ComercioCard from "../../components/ComercioCard/ComercioCard";
+import { Link } from "react-router-dom";
 
-import { useSelector, useDispatch } from "react-redux";
-
-export default function ContainerSearchComercio() {
-	const dispatch = useDispatch();
-
-	const trades = useSelector((state) => state.trades);
-
-	useEffect(() => {
-		dispatch(getTrades());
-	}, [dispatch]);
-
-	console.log("Esto es: trades: " + trades);
+export default function ContainerSearchComercio(props) {
+	const { comercios } = props;
+	console.log(comercios);
 
 	return (
 		<div className={styles.container__search}>
-			{trades?.map((x) =>
-				x.comercios.map((x) => <ComercioCard name={x.commerceName} />)
+			{comercios?.map((x) =>
+				x.map((x) => (
+					<Link to={`../comercio/${x.id}`} className={styles.commerce}>
+						<ComercioCard
+							name={x.commerceName}
+							rating={x.rating}
+							epagos={x.epagos}
+						/>
+					</Link>
+				))
 			)}
 		</div>
 	);

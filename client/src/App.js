@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import AdminOwner from "./views/AdminOwner/AdminOwner";
+import ComercioDetail from "./views/ComercioDetail/ComercioDetail";
 import Home from "./views/home/Home";
 import HomeLocal from "./views/HomeLocal/HomeLocal";
 import Login from "./views/Login/Login";
@@ -17,6 +18,7 @@ function App() {
 				<Route path="/s" element={<HomeLocal />} />
 				<Route path="/busqueda" element={<UserSearch />} />
 				<Route path="/opinion" element={<OpinionForm />} />
+				<Route path="/comercio/:id" element={<ComercioDetail />} />
 			</Routes>
 		</div>
 	);

@@ -71,3 +71,13 @@ textarea {
 	color: white;
 	padding: 20px 0;
 }
+
+.label_rating {
+	position: initial;
+}
+
+.estrellas {
+	align-items: center;
+	display: flex !important;
+	flex-direction: row;
+}
