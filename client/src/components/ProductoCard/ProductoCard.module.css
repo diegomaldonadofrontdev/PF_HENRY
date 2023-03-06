@@ -1,6 +1,6 @@
 .product__card {
 	display: flex;
-	width: 100%;
+	width: 40%;
 	height: 200px;
 	gap: 50px;
 	justify-content: space-between;
