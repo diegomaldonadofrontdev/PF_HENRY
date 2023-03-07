@@ -9,7 +9,7 @@ import {
 	filterByTarjeta,
 	filterByCity,
 	filterByCategory,
-} from "../../redux/actions/actions";
+} from "../../Redux/Actions/actions";
 import { useDispatch, useSelector } from "react-redux";
 import img1 from "../../images/gastronomy_icon.png";
 import img2 from "../../images/health_icon.png";
@@ -25,14 +25,25 @@ export default function UserSearch() {
 	useEffect(() => {
 		dispatch(getCategories());
 	}, [dispatch]);
-
-	const comercios = useSelector((state) => state.allCommerces);
-
-	const filters = useSelector((state) => state.filters);
-
 	useEffect(() => {
 		dispatch(getTrades());
 	}, [dispatch]);
+
+	const comercios = useSelector((state) => state.allCommerces);
+	
+	const cities = []
+	if (comercios) for (let i = 0; i < comercios.length; i++) {
+		for (let j = 0; j < comercios[i].length; j++) {
+			for (let k = 0; k < comercios[i][j].deliveryzone.length; k++) {
+				cities.push(comercios[i][j].deliveryzone[k])				
+			}		
+		}		
+	}
+	
+	const citiesUnrepeat = [...new Set(cities)]
+	
+	const filters = useSelector((state) => state.filters);
+
 
 	function handlerFilterByAscOrDesc(ev) {
 		ev.preventDefault();
@@ -87,7 +98,8 @@ export default function UserSearch() {
 					}}
 				>
 					<option>Todas</option>
-					{comercios.map((x) => x.map((x) => <option>{x.city}</option>))}
+					{citiesUnrepeat.map((x) => (<option>{x}</option>))}
+					
 				</select>
 			</div>
 			<div className={styles.search__container}>
