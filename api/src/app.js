@@ -1,20 +1,10 @@
 const express = require('express');
-<<<<<<< HEAD
-const server = express();
-const index = require('./Routes/Index')
-
-server.use(express.json());
-server.use('/',index);
-
-module.exports = server;
-=======
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const routes = require('./Routes/Index');
 const cors = require ("cors")
 require('./db.js');
->>>>>>> fa71414f0bb8c18b3f91182b1efdc25f18f1cee6
 
 const server = express();
 
