@@ -101,10 +101,34 @@ export function filterByTarjeta(valor) {
 }
 
 export function filterByCity(city) {
+	if (city === "Todas") {
+		return async function (dispatch) {
+			return dispatch({
+				type: "FILTER_BY_CITY",
+				payload: "vacio",
+			});
+		};
+	} else {
+		return async function (dispatch) {
+			const citys = await axios.get(
+				`${host}/clients/trades/search?deliveryCity=${city}`
+			);
+			return dispatch({
+				type: "FILTER_BY_CITY",
+				payload: [citys.data],
+			});
+		};
+	}
+}
+
+export function getTradesByCategory(ciudad, category) {
 	return async function (dispatch) {
-		dispatch({
+		const cat = await axios.get(
+			`${host}/clients/trades/search?deliveryCity=${ciudad}&category=${category}`
+		);
+		return dispatch({
 			type: "FILTER_BY_CITY",
-			payload: city,
+			payload: [cat.data],
 		});
 	};
 }

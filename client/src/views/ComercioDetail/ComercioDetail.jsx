@@ -51,7 +51,9 @@ export default function ComercioDetail() {
 						<h3>Categorias:</h3>
 						<ul>
 							{unicos?.map((x) => (
-								<li>{x}</li>
+								<Link>
+									<li>{x}</li>
+								</Link>
 							))}
 						</ul>
 					</div>
