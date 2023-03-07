@@ -26,8 +26,13 @@
 	display: flex;
 	gap: 1em;
 	align-items: center;
-	border-bottom: 1px solid rgb(222, 222, 222);
 	padding-bottom: 0.5em;
+	border-bottom: 1px solid rgb(255, 255, 255);
+	transition: all 0.3s ease-in-out;
+}
+
+.select__container:hover {
+	border-bottom: 1px solid rgb(222, 222, 222);
 }
 
 .select__container h4 {
@@ -40,4 +45,9 @@
 	border: 1px solid rgb(255, 255, 255);
 	border-radius: 0.2em;
 	padding: 0.3em;
+	outline: none;
+}
+
+.select__container select:hover {
+	cursor: pointer;
 }

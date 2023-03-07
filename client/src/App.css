@@ -9,6 +9,11 @@
 	font-family: "Open Sans", sans-serif;
 }
 
+body {
+	background-color: #efefef;
+}
+
 :root {
 	--main-text-color: #272e32;
+	--light-gray: #f7f8f9;
 }

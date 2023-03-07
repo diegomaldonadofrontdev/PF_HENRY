@@ -22,7 +22,7 @@ export default function UserSearch() {
 	const citiesUnrepeat = [...new Set(cities)];
 
 	return (
-		<div className={styles.user__search}>
+		<>
 			<Header />
 			<div className={styles.banner}>
 				<div className={styles.container}>
@@ -43,6 +43,6 @@ export default function UserSearch() {
 					</div>
 				</div>
 			</div>
-		</div>
+		</>
 	);
 }

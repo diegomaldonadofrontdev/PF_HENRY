@@ -1,10 +1,10 @@
 .banner {
 	padding-top: 150px;
-	background: url("../../images/bg_search.jpg");
+	background: url("../../images/pattern.jpg");
 	background-position: center center;
-	background-size: cover;
+	background-size: contain;
 	height: 300px;
-	text-shadow: 4px 4px 6px rgba(0, 0, 0, 1);
+	text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.5);
 }
 
 .container {
@@ -56,7 +56,7 @@
 }
 .search__container {
 	display: flex;
-	width: 90%;
+	width: 80%;
 	margin: auto;
 	padding: 100px 0;
 	justify-content: space-between;
