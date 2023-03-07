@@ -56,16 +56,19 @@ export default function UserSearch() {
 		dispatch(filterByTarjeta(ev.target.value));
 		console.log(ev.target.value);
 	}
-
+	var city;
 	function handlerFilterByCity(ev) {
 		ev.preventDefault();
+		city = ev.target.value;
 		dispatch(filterByCity(ev.target.value));
 	}
 
-	// function handlerByCategory(categoria) {
-	// 	ev.preventDefault();
-	// 	dispatch(getTradesByCategory(ev.target.value));
-	// }
+	console.log(city);
+
+	function handlerByCategory(ev) {
+		ev.preventDefault();
+		dispatch(getTradesByCategory("Salsipuedes", ev.target.value));
+	}
 
 	return (
 		<div className={styles.user__search}>
@@ -93,7 +96,13 @@ export default function UserSearch() {
 			<div className={styles.search__container}>
 				<div className={styles.filtros__container}>
 					<div className={styles.categorias}>
-						<select name="" id="">
+						<select
+							name=""
+							id=""
+							onChange={(ev) => {
+								handlerByCategory(ev);
+							}}
+						>
 							<option value="Todas">Todas</option>
 							{categories?.map((x) => (
 								<option value={x}>{x}</option>

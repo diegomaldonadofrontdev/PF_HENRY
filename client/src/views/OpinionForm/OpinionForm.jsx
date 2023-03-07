@@ -4,6 +4,8 @@ import { postReview } from "../../Redux/actions/actions";
 import swal from "sweetalert"; //npm i sweetalert
 import { FaStar } from "react-icons/fa";
 import styles from "./OpinionForm.module.css";
+import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
+import { Link } from "react-router-dom";
 
 const colors = {
 	orange: "#ffef5a",
@@ -118,7 +120,10 @@ export default function OpinionForm() {
 						})}
 					</div>
 
-					<button className={styles.form__button}>Comenzar</button>
+					<button className={styles.form__button}>Enviar</button>
+					<Link to="/">
+						<ButtonPrimary texto="Volver" />
+					</Link>
 				</form>
 			</div>
 		</div>
