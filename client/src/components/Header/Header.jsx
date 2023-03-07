@@ -7,10 +7,11 @@ export default function Header() {
 	return (
 		<header className={styles.header}>
 			<div className={styles.container}>
-				<div className={styles.logo}>
-					<Link to="/"><h1>PEDI-VERY</h1></Link>
-				</div>
-
+				<Link to="/">
+					<div className={styles.logo}>
+						<h1>PEDI-VERY</h1>
+					</div>
+				</Link>
 				<Navbar />
 			</div>
 		</header>

@@ -1,9 +1,7 @@
 import React from "react";
 import styles from "./UserSearch.module.css";
 import ContainerSearchComercio from "../../components/ContainerSearchComercio/ContainerSearchComercio";
-
 import { useSelector } from "react-redux";
-
 import Header from "../../components/Header/Header";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import Filter__SearchView from "../../components/Filter__SearchView/Filter__SearchView";

@@ -5,6 +5,15 @@
 	position: fixed;
 	width: 100%;
 	z-index: 1;
+	display: flex;
+}
+
+.header .container {
+	display: flex;
+	margin: 0 auto !important;
+	width: 80%;
+	align-items: center;
+	justify-content: space-between;
 }
 
 .logo {
@@ -13,23 +22,20 @@
 	justify-content: center;
 	font-size: 1em;
 	padding: 5px 20px;
-	background-color: #fe161a;
+	background: url("../../images/logo.png");
+	background-size: contain;
+	background-repeat: no-repeat;
 	color: white;
 	font-weight: bold;
 	border-radius: 10px;
+	text-indent: -1000px;
+	width: 150px;
+	overflow: hidden;
 }
 
 h1 {
 	font-size: 1em;
 	color: white;
-}
-
-.header .container {
-	display: flex;
-	margin: auto;
-	max-width: 65%;
-	align-items: center;
-	justify-content: space-between;
 }
 
 @media (max-width: 700px) {

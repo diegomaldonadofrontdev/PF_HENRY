@@ -75,7 +75,7 @@
 }
 
 .filtros__container {
-	width: 20%;
+	min-width: 400px;
 }
 
 .filtros__container > div {
