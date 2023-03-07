@@ -1,33 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "./UserSearch.module.css";
-import { Link } from "react-router-dom";
 import ContainerSearchComercio from "../../components/ContainerSearchComercio/ContainerSearchComercio";
-import {
-	getCategories,
-	getTrades,
-	filterByAscOrDesc,
-	filterByTarjeta,
-	filterByCity,
-	filterByCategory,
-} from "../../Redux/actions/actions";
-import { useDispatch, useSelector } from "react-redux";
-import img1 from "../../images/gastronomy_icon.png";
-import img2 from "../../images/health_icon.png";
-import img3 from "../../images/clean_icon.png";
+
+import { useSelector } from "react-redux";
+
 import Header from "../../components/Header/Header";
+import SearchBar from "../../components/SearchBar/SearchBar";
+import Filter__SearchView from "../../components/Filter__SearchView/Filter__SearchView";
 
 export default function UserSearch() {
-	const dispatch = useDispatch();
-	const [currentAscAndDesc, setCurrentAscAndDesc] = useState("");
-	const categories = useSelector((state) => state.categories);
-
-	useEffect(() => {
-		dispatch(getCategories());
-	}, [dispatch]);
-	useEffect(() => {
-		dispatch(getTrades());
-	}, [dispatch]);
-
 	const comercios = useSelector((state) => state.allCommerces);
 
 	const cities = [];
@@ -42,34 +23,6 @@ export default function UserSearch() {
 
 	const citiesUnrepeat = [...new Set(cities)];
 
-	const filters = useSelector((state) => state.filters);
-
-	function handlerFilterByAscOrDesc(ev) {
-		ev.preventDefault();
-		dispatch(filterByAscOrDesc(ev.target.value));
-		// setCurrentStatePage(1);
-		setCurrentAscAndDesc(ev.target.value);
-	}
-
-	function handlerFilterTarjeta(ev) {
-		ev.preventDefault();
-		dispatch(filterByTarjeta(ev.target.value));
-		console.log(ev.target.value);
-	}
-	var city;
-	function handlerFilterByCity(ev) {
-		ev.preventDefault();
-		city = ev.target.value;
-		dispatch(filterByCity(ev.target.value));
-	}
-
-	console.log(city);
-
-	function handlerByCategory(ev) {
-		ev.preventDefault();
-		dispatch(getTradesByCategory("Salsipuedes", ev.target.value));
-	}
-
 	return (
 		<div className={styles.user__search}>
 			<Header />
@@ -78,65 +31,16 @@ export default function UserSearch() {
 					<h2>Encontrá lo que buscás</h2>
 				</div>
 			</div>
-			<div className={styles.barrio__container}>
-				<p>Buscá por zona:</p>
-				<select
-					name=""
-					id=""
-					onChange={(ev) => {
-						handlerFilterByCity(ev);
-					}}
-				>
-					<option>Todas</option>
-					{citiesUnrepeat.map((x) => (
-						<option>{x}</option>
-					))}
-				</select>
-			</div>
+
 			<div className={styles.search__container}>
 				<div className={styles.filtros__container}>
-					<div className={styles.categorias}>
-						<select
-							name=""
-							id=""
-							onChange={(ev) => {
-								handlerByCategory(ev);
-							}}
-						>
-							<option value="Todas">Todas</option>
-							{categories?.map((x) => (
-								<option value={x}>{x}</option>
-							))}
-						</select>
-					</div>
-					<div className={styles.filtros}>
-						<p className={styles.label_filtro}>Ordenar Por Rating:</p>
-						<select
-							name=""
-							id=""
-							onChange={(ev) => handlerFilterByAscOrDesc(ev)}
-						>
-							<option value="Asc">Mejor Puntuados</option>
-							<option value="Desc">Menor Puntuado</option>
-						</select>
-					</div>
-					<div>
-						<p className={styles.label_filtro}>Filtrar por medio de pago:</p>
-
-						<select name="" id="" onChange={(ev) => handlerFilterTarjeta(ev)}>
-							<option value="Todos">Todos</option>
-							<option value="Efectivo">Efectivo</option>
-							<option value="Tarjeta">Tarjeta</option>
-						</select>
-					</div>
+					<Filter__SearchView />
 				</div>
 
 				<div className={styles.cards__container}>
 					<div className={styles.search__results}>
 						<p>{comercios.comercios?.length} Locales encontrados:</p>
-						<ContainerSearchComercio
-							comercios={filters.length ? filters : comercios}
-						/>
+						<ContainerSearchComercio comercios={comercios} />
 					</div>
 				</div>
 			</div>
