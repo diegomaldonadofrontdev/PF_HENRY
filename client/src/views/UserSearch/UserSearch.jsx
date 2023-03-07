@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 import Header from "../../components/Header/Header";
 import SearchBar from "../../components/SearchBar/SearchBar";
-import FilterSearchView from "../../components/FilterSearchView/FilterSearchView";
+import Filter__SearchView from "../../components/Filter__SearchView/Filter__SearchView";
 
 export default function UserSearch() {
 	const comercios = useSelector((state) => state.allCommerces);
@@ -34,7 +34,7 @@ export default function UserSearch() {
 
 			<div className={styles.search__container}>
 				<div className={styles.filtros__container}>
-					<FilterSearchView />
+					<Filter__SearchView />
 				</div>
 
 				<div className={styles.cards__container}>

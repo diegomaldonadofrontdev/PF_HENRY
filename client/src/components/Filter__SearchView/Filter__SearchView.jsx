@@ -1,9 +1,9 @@
 import React from "react";
-import styles from "./FilterSearchView.module.css";
+import styles from "./Filter__SearchView.module.css";
 
 // Filtros que agregar: deliveryCity, category, subcategory, epago
 
-export default function FilterSearchView() {
+export default function Filter__SearchView() {
 	return (
 		<div className={styles.filterSearchView}>
 			<div className={styles.container}>
