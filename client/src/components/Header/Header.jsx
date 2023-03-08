@@ -1,9 +1,10 @@
 import React from "react";
 import Navbar from "../NavBar/Navbar";
 import styles from "./Header.module.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function Header() {
+	const location = useLocation();
 	return (
 		<header className={styles.header}>
 			<div className={styles.container}>
@@ -12,7 +13,10 @@ export default function Header() {
 						<h1>PEDI-VERY</h1>
 					</div>
 				</Link>
-				<Navbar />
+				{location.pathname !== "/login" &&
+					location.pathname !== "/registration" &&
+					location.pathname !== "/registration_product" &&
+					location.pathname !== "/registration_commerce" && <Navbar />}
 			</div>
 		</header>
 	);

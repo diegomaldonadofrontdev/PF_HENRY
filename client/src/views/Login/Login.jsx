@@ -1,13 +1,15 @@
 import React from "react";
 import styles from "./Login.module.css";
 import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
+import Header from "../../components/Header/Header";
 
 export default function Login() {
 	return (
 		<div className={styles.login}>
+			<Header />
 			<div className={styles.container}>
+				<h2>Registrá o ingresá para continuar</h2>
 				<ButtonPrimary texto="Registra tu negocio" />
-				<h2>PEDI VERY</h2>
 				<form className={styles.form}>
 					<div className={styles.user}>
 						<label htmlFor="">Usuario</label>

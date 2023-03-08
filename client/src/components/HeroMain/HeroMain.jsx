@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./HeroMain.module.css";
 import { Link } from "react-router-dom";
+import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
 
 export default function HeroMain() {
 	return (
@@ -11,8 +12,8 @@ export default function HeroMain() {
 					<p>Restaurantes, mercados, farmacias, kioscos y mucho más</p>
 					<div className={styles.buscador}>
 						<p>Veamos que tenemos cerca</p>
-						<Link to="/search" className={styles.btn__buscar}>
-							Comprar
+						<Link to="/search" className={styles.hero__button}>
+							<ButtonPrimary texto="Comprar" />
 						</Link>
 					</div>
 				</div>
