@@ -1,0 +1,31 @@
+.filterSearchView {
+	margin: 0 !important;
+	padding: 0 !important;
+	padding: 30px !important;
+}
+
+.filterSearchView .container {
+	display: flex;
+	flex-direction: column;
+	gap: 2em;
+}
+
+.filter__container {
+	display: flex;
+	flex-direction: column;
+	gap: 1em;
+}
+
+.select__container {
+	display: flex;
+	gap: 1em;
+}
+
+.select__container h4 {
+	width: 50%;
+	font-weight: 500;
+}
+
+.select__container select {
+	width: 50%;
+}

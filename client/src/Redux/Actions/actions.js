@@ -121,11 +121,14 @@ export function filterByCity(city) {
 	}
 }
 
-export function getTradesByCategory(category) {
+export function getTradesByCategory(ciudad, category) {
 	return async function (dispatch) {
-		const trades = await axios.get(
-			`${host}/clients/trades/search?category=${category}`
+		const cat = await axios.get(
+			`${host}/clients/trades/search?deliveryCity=${ciudad}&category=${category}`
 		);
-		return dispatch({ type: "GET_TRADES_BY_CATEGORY", payload: trades.data });
+		return dispatch({
+			type: "FILTER_BY_CITY",
+			payload: [cat.data],
+		});
 	};
 }
