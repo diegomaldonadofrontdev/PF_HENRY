@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const host = "http://localhost:3001";
+// const host = "http://localhost:3001";
 
 export function getProductById(id) {
 	return async function (dispatch) {
 		if (id) {
-			const response = await axios(`${host}/clients/trades/search/${id}`);
+			const response = await axios(`/clients/trades/search/${id}`);
 			dispatch({
 				type: "GET_PRODUCT_BY_ID",
 				payload: response.data,
@@ -23,49 +23,49 @@ export function filterByAscOrDesc(payload) {
 
 export function getTradesByName(commerceName) {
 	return async function (dispatch) {
-		const trades = await axios.get(`${host}/trades/search/${commerceName}`);
+		const trades = await axios.get(`/trades/search/${commerceName}`);
 		return dispatch({ type: "GET_TRADES", payload: trades.data });
 	};
 }
 
 export function getProducts() {
 	return async function (dispatch) {
-		const products = await axios.get(`${host}/products`);
+		const products = await axios.get(`/products`);
 		return dispatch({ type: "GET_PRODUCTS", payload: products.data });
 	};
 }
 
 export const getUsers = () => {
 	return async function (dispatch) {
-		const json = await axios.get(`${host}/users`);
+		const json = await axios.get(`/users`);
 		return dispatch({ type: "GET_USER", payload: json.data });
 	};
 };
 
 export const getCategories = () => {
 	return async function (dispatch) {
-		const json = await axios.get(`${host}/clients/categories`);
+		const json = await axios.get(`/clients/categories`);
 		return dispatch({ type: "GET_CATEGORIES", payload: json.data });
 	};
 };
 
 export function getTrades() {
 	return async function (dispatch) {
-		const trades = await axios.get(`${host}/clients/trades/search`);
+		const trades = await axios.get(`/clients/trades/search`);
 		return dispatch({ type: "GET_TRADES", payload: trades.data });
 	};
 }
 
 export function postReview(payload) {
 	return async function () {
-		const reviewPost = await axios.post(`${host}/clients/feedback`, payload);
+		const reviewPost = await axios.post(`/clients/feedback`, payload);
 		return reviewPost;
 	};
 }
 
 export const getReview = () => {
 	return async function (dispatch) {
-		const json = await axios.get(`${host}/clients/feedbacks`);
+		const json = await axios.get(`/clients/feedbacks`);
 		return dispatch({ type: "GET_REVIEW", payload: json.data });
 	};
 };
@@ -82,7 +82,7 @@ export function filterByCategory(categoria) {
 export function getProductsFilter(name) {
 	return async (dispatch) => {
 		let filtredProd = await axios.get(
-			`${host}/clients/products/search?name=${name}`
+			`/clients/products/search?name=${name}`
 		);
 		dispatch({
 			type: "FILTER_CATEGORY",
@@ -111,7 +111,7 @@ export function filterByCity(city) {
 	} else {
 		return async function (dispatch) {
 			const citys = await axios.get(
-				`${host}/clients/trades/search?deliveryCity=${city}`
+				`/clients/trades/search?deliveryCity=${city}`
 			);
 			return dispatch({
 				type: "FILTER_BY_CITY",
@@ -124,7 +124,7 @@ export function filterByCity(city) {
 export function getTradesByCategory(ciudad, category) {
 	return async function (dispatch) {
 		const cat = await axios.get(
-			`${host}/clients/trades/search?deliveryCity=${ciudad}&category=${category}`
+			`/clients/trades/search?deliveryCity=${ciudad}&category=${category}`
 		);
 		return dispatch({
 			type: "FILTER_BY_CITY",
