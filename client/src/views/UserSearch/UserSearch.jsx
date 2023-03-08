@@ -23,7 +23,7 @@ useEffect(()=>{
 	
 
 	return (
-		<div className={styles.user__search}>
+		<>
 			<Header />
 			<div className={styles.banner}>
 				<div className={styles.container}>
@@ -46,6 +46,6 @@ useEffect(()=>{
 					</div>
 				</div>
 			</div>
-		</div>
+		</>
 	);
 }

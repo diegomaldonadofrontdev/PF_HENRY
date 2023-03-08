@@ -6,6 +6,8 @@ const {
   searchTradesByCityAndCat,
   searchTradesByCity
 } = require("../Controllers/tradesController");
+const Product = require('../models/Products');
+const CategoryProduct = require('../models/CategoryProducts')
 
 let comercios = [];
 for (let i = 0; i < trades.length; i++) {
@@ -114,6 +116,67 @@ const getProductById = (id) => {
   return productsById;
 };
 
+const postCreateProduct = async(body) => {
+  try {
+    const product = new Product(body)
+    await product.save();
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
+const postCreateCategoryProduct = async(body) => {
+  try {
+    const product = new CategoryProduct( body )
+    await product.save();
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
+const getProducts = async() => {
+  try {
+    const products = Product.find();
+    return products
+    
+  } catch (error) {
+    return false;
+  }
+}
+
+const getCategoriesProducts = async() => {
+  try {
+    const categoriesProducts = CategoryProduct.find();
+    return categoriesProducts
+    
+  } catch (error) {
+    return false;
+  }
+}
+
+const updateProductC = async (id, product) => {
+  try {
+    const productU = Product.findByIdAndUpdate(id,product,{new: true})
+    return productU;
+  } catch (error) {
+    return false
+  }
+}
+
+const updateCategoryProductC = async (id, categoryproduct) => {
+  try {
+    const CategoryproductU = CategoryProduct.findByIdAndUpdate(id,categoryproduct,{new: true})
+    return CategoryproductU;
+  } catch (error) {
+    return false
+  }
+}
+
+
+
+
 module.exports = {
   getAllProducts,
   searchProductByAll,
@@ -126,4 +189,10 @@ module.exports = {
   searchProductByCatAndSC,
   searchProductByCat,
   getProductById,
+  postCreateProduct,
+  postCreateCategoryProduct,
+  getProducts,
+  getCategoriesProducts,
+  updateProductC,
+  updateCategoryProductC
 };
