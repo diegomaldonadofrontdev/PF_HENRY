@@ -6,6 +6,8 @@ const {
   searchTradesByCityAndCat,
   searchTradesByCity
 } = require("../Controllers/tradesController");
+const Product = require('../models/Products');
+const CategoryProduct = require('../models/CategoryProducts')
 
 let comercios = [];
 for (let i = 0; i < trades.length; i++) {
@@ -114,6 +116,26 @@ const getProductById = (id) => {
   return productsById;
 };
 
+const postCreateProduct = async(body) => {
+  try {
+    const product = new Product(body)
+    await product.save();
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
+const postCreateCategoryProduct = async(body) => {
+  try {
+    const product = new CategoryProduct( body )
+    await product.save();
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
 module.exports = {
   getAllProducts,
   searchProductByAll,
@@ -126,4 +148,6 @@ module.exports = {
   searchProductByCatAndSC,
   searchProductByCat,
   getProductById,
+  postCreateProduct,
+  postCreateCategoryProduct
 };

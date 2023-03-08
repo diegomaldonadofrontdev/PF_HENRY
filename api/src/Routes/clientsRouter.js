@@ -6,6 +6,8 @@ const {
 const {
   createFeedbackHandler,
   getFeedbacksHandler,
+  newRegister,
+  newOrder
 } = require("../handlers/clientsHandler");
 // const {
 //     createOrderHandler
@@ -14,9 +16,10 @@ const {
   getTradesHandler,
   getTradeHandler,
   getCategoriesHandler,
-  getSubCategoriesHandler
+  getSubCategoriesHandler,
+
 } = require("../Handlers/tradesHandler");
-const { validateFeedback } = require("../middlewares/validate");
+const { validateFeedback, validateClient, validateOrder } = require("../middlewares/validate");
 
 const clientsRouter = Router();
 
@@ -32,6 +35,10 @@ clientsRouter.get("/feedbacks", getFeedbacksHandler);
 
 // POST
 clientsRouter.post("/feedback", validateFeedback, createFeedbackHandler);
+clientsRouter.post("/register", validateClient, newRegister);
+clientsRouter.post("new-order", validateOrder, newOrder);
+
+
 // clientsRouter.post("/login", validateClients, createClientHandler);
 // clientsRouter.post("/order", validateOrder, createOrderHandler);
 

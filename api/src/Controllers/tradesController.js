@@ -1,4 +1,8 @@
 const { trades } = require("../Auxiliares/comerciantes");
+const Trade = require('../models/Trades');
+const Category = require('../models/Category');
+const DeliveryZone = require('../models/DeliveryZone')
+const Subcategory = require('../models/Subcategory');
 
 const getAllTrades = () => {
   const allTrades = trades;
@@ -69,6 +73,46 @@ const getSubCategories = (category) => {
   return subcategories;
 };
 
+const postCreateTrades = async (body) => {
+    try {
+    const newTrade = new Trade( body );
+    await newTrade.save();
+    return true;
+    } catch (error) {
+      return false;
+    }
+} 
+
+const postCreateCategory = async ( body ) => {
+  try {
+    const newCategory = new Category( body);
+    await newCategory.save();
+    return true
+  } catch (error) {
+    return false;
+  }
+}
+
+const postCreateDeliveryZone = async ( body ) => {
+  try {
+    const newDeliveryZone = new DeliveryZone( body );
+    await newDeliveryZone.save();
+    return true    
+  } catch (error) {
+    return false
+  }
+}
+
+const postCreateSubcategory = async ( body ) => {
+  try {
+    const newSubcategory = new Subcategory( body );
+    await newSubcategory.save();
+    return true    
+  } catch (error) {
+    return false
+  }
+}
+
 module.exports = {
   searchTradesByCityAndCatAndSC,
   searchTradesByCityAndCat,
@@ -79,4 +123,8 @@ module.exports = {
   getAllCategories,
   getSubCategories,
   searchTradesBySubCategory,
+  postCreateTrades,
+  postCreateCategory,
+  postCreateDeliveryZone,
+  postCreateSubcategory
 };
