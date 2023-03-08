@@ -79,6 +79,8 @@ const tradesRouter = Router();
     tradesRouter.put('/update-category-product',updateCategoryProduct)
     tradesRouter.put('/update-subcategory', updateSubcategory)
 
+    
+
 
 
 
