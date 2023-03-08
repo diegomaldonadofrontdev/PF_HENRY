@@ -1,3 +1,4 @@
+import { Action } from "@remix-run/router";
 import axios from "axios";
 
 const host = "http://localhost:3001";
@@ -100,31 +101,31 @@ export function filterByTarjeta(valor) {
 	};
 }
 
-export function filterByCity(city) {
-	if (city === "Todas") {
-		return async function (dispatch) {
-			return dispatch({
-				type: "FILTER_BY_CITY",
-				payload: "vacio",
-			});
-		};
-	} else {
-		return async function (dispatch) {
-			const citys = await axios.get(
-				`${host}/clients/trades/search?deliveryCity=${city}`
-			);
-			return dispatch({
-				type: "FILTER_BY_CITY",
-				payload: [citys.data],
-			});
-		};
-	}
-}
+// export function getCity(city) {
+// 	return async function (dispatch){
+// 		dispatch({
+// 			type: "FILTER_BY_CITY",
+// 			payload: payload,
+// 		})
+// 	}
+// }
 
-export function getTradesByCategory(ciudad, category) {
+export function getTradesByCategory( category) {
 	return async function (dispatch) {
 		const cat = await axios.get(
-			`${host}/clients/trades/search?deliveryCity=${ciudad}&category=${category}`
+			`${host}/clients/trades/search?category=${category}`
+		);
+		return dispatch({
+			type: "GET_TRADES_BY_CATEGORIES",
+			payload: cat.data,
+		});
+	};
+}
+
+export function getTradesBySubCategory( subcategory) {
+	return async function (dispatch) {
+		const cat = await axios.get(
+			`${host}/clients/trades/search?subcategory=${subcategory}`
 		);
 		return dispatch({
 			type: "FILTER_BY_CITY",

@@ -18,12 +18,12 @@
 // export default allReducers;
 
 const initialState = {
-	trades: [],
 	product: [],
 	products: [],
 	allCommerces: [],
 	category: [],
 	categories: [],
+	cities: [],
 	users: [],
 	feedback: [],
 	filters: [],
@@ -31,8 +31,8 @@ const initialState = {
 };
 
 export default function rootReducer(state = initialState, action) {
-	const allCommerces = state.allCommerces;
-	const allTrades = state.trades;
+	
+	
 
 	switch (action.type) {
 		case "GET_PRODUCT_BY_ID":
@@ -58,25 +58,17 @@ export default function rootReducer(state = initialState, action) {
 		case "GET_TRADES_BY_CATEGORY":
 			return {
 				...state,
-				filter: action.payload,
+				allCommerces: action.payload,
 			};
 		case "GET_CATEGORIES":
 			return {
 				...state,
 				categories: action.payload,
 			};
-			case "GET_TRADES_BY_CATEGORY":
-				return{
-					...state,
-					category: action.payload
-				}
 		case "GET_TRADES":
-			const res = action.payload;
-			const comercios = res.map((x) => x.comercios);
 			return {
 				...state,
-				allCommerces: comercios,
-				trades: res,
+				allCommerces: action.payload,
 			};
 		case "GET_REVIEW":
 			return {
@@ -84,76 +76,24 @@ export default function rootReducer(state = initialState, action) {
 				feedback: action.payload,
 			};
 		case "FILTER_CATEGORY":
-			const todosComercios = state.filters[0].filter(
-				(x) => x.category === action.payload
-			);
-			return { ...state, filters: state.filters };
+			return {
+				 ...state,
+				 allCommerces: action.payload 
+				};
 
 		case "FILTER_BY_TARJETA":
-			let valor;
-
-			if (action.payload === "Todos") {
+			
 				return {
 					...state,
-					filters: allCommerces,
+					allCommerces: action.payload,
 				};
-			} else if (action.payload === "Tarjeta") {
-				valor = true;
-				const resultado = allCommerces.map((x) =>
-					x.filter((x) => x.epagos === valor)
-				);
-				return {
-					...state,
-					filters: resultado,
-				};
-			} else {
-				valor = false;
-				const resultado = allCommerces.map((x) =>
-					x.filter((x) => x.epagos === valor)
-				);
-				return {
-					...state,
-					filters: resultado,
-				};
-			}
+			
 
 		case "FILTER_BY_CITY":
-			if (action.payload === "vacio") {
-				return { ...state, filters: allCommerces };
-			} else {
-				return { ...state, filters: action.payload };
-			}
-
-		case "FILTER_BY_ASC_OR_DESC":
-			console.log(allCommerces);
-			const sortAZ =
-				action.payload === "Asc"
-					? allCommerces.sort(function (a, b) {
-							console.log(a.rating);
-							console.log(b.rating);
-
-							if (a.rating > b.rating) {
-								return 0;
-							}
-							if (b.rating > a.rating) {
-								return -1;
-							}
-							return 0;
-					  })
-					: allCommerces.sort(function (a, b) {
-							if (a.rating > b.rating) {
-								return -1;
-							}
-							if (b.rating > a.rating) {
-								return 1;
-							}
-							return 0;
-					  });
-			console.log(sortAZ);
 			return {
 				...state,
-				filter: sortAZ,
-			};
+				allCommerces: action.payload
+			}
 		default:
 			return state;
 	}
