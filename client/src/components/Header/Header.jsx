@@ -1,18 +1,16 @@
 import React from "react";
 import Navbar from "../NavBar/Navbar";
 import styles from "./Header.module.css";
-import { Link, useNavigate } from "react-router-dom";
-import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
+import { Link } from "react-router-dom";
+import useUser from "../../Hooks/useUser";
 
 export default function Header() {
 
-	const navigate = useNavigate();
+	const { logout } = useUser();
 
-	const logout = () => {
-		window.localStorage.setItem(
-			'loggedNoteAppUser', JSON.stringify(null)
-		)
-		navigate("/login");
+	const handleClick = (e) => {
+		e.preventDefault();
+		logout();
 	}
 
 	return (
@@ -24,7 +22,7 @@ export default function Header() {
 
 				<Navbar />
 
-				<button onClick={logout}>Logout</button>
+				<button onClick={handleClick}>Logout</button>
 			</div>
 		</header>
 	);

@@ -4,7 +4,8 @@ const jwt = require("jsonwebtoken");
 
 const TOKEN_KEY = "x4TvnErxRt";
 
-const users = [{ username: "usuario1", password: "12345", nombre: "Usuario 1", id: "1", email: "usuario1@gmail.com" }]
+const users = [{ username: "usuario1", password: "12345", nombre: "Usuario 1", id: "1", email: "usuario1@gmail.com" },
+{ username: "usuario2", password: "23456", nombre: "Usuario 2", id: "2", email: "usuario2@gmail.com" }]
 
 usersRouter.post("/login", (req, res) => {
     const { username, password } = req.body;
@@ -25,13 +26,13 @@ usersRouter.get("/", (req, res) => {
 
 usersRouter.post("/sigin", (req, res) => {
     const { username, password, nombre, id, email } = req.body;
-    let user = { username, password, nombre, id, email};
+    let user = { username, password, nombre, id, email };
     const token = jwt.sign(
-        {userId: id, email: email},
+        { userId: id, email: email },
         TOKEN_KEY,
-        {expiresIn: "2h"}
+        { expiresIn: "2h" }
     )
-    let userJWT = { ...user, token};
+    let userJWT = { ...user, token };
     res.status(200).json(userJWT)
 })
 
