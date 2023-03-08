@@ -53,6 +53,9 @@ clientsRouter.put('/update-clients',updateClient);
 clientsRouter.put('/update-orders', updateOrder);
 
 
+
+// clientsRouter.get("/trades/feedback", validateFeedback, createFeedbackHandler );
+
 // clientsRouter.post("/login", validateClients, createClientHandler);
 // clientsRouter.post("/order", validateOrder, createOrderHandler);
 
