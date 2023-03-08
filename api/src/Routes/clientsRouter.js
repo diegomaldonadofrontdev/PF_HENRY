@@ -32,6 +32,7 @@ clientsRouter.get("/feedbacks", getFeedbacksHandler);
 
 // POST
 clientsRouter.post("/feedback", validateFeedback, createFeedbackHandler);
+// clientsRouter.get("/trades/feedback", validateFeedback, createFeedbackHandler );
 // clientsRouter.post("/login", validateClients, createClientHandler);
 // clientsRouter.post("/order", validateOrder, createOrderHandler);
 

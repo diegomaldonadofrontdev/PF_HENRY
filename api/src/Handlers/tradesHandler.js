@@ -1,9 +1,9 @@
 const {
+  searchProductosByCityAndCatAndSCCAndEpagos,
+  searchProductByCityAndCatAndEpagos,
   searchTradesByCityAndCatAndSC,
   searchTradesByCityAndCat,
   searchTradesByCity,
-  searchTradesByCategory,
-  searchTradesBySubCategory,
   getAllTrades,
   searchTradeById,
   getAllCategories,
@@ -12,19 +12,19 @@ const {
 
 // GET ---------> /trades/search
 const getTradesHandler = async (req, res) => {
-  const { deliveryCity, category, subcategory } = req.query;
+  const { deliveryCity, category, subcategory, epagos } = req.query;
   try {
-    const result =
-    deliveryCity && category && subcategory
+    const result =  
+    deliveryCity && category && subcategory && epagos
+        ? await searchProductosByCityAndCatAndSCCAndEpagos (deliveryCity, category, subcategory, epagos)
+        : deliveryCity && category && subcategory
         ? await searchTradesByCityAndCatAndSC(deliveryCity, category, subcategory)
+        : deliveryCity && category && epagos
+        ? await searchProductByCityAndCatAndEpagos (deliveryCity, category, epagos)
         : deliveryCity && category
         ? await searchTradesByCityAndCat(deliveryCity, category)
         : deliveryCity
-        ? await searchTradesByCity(deliveryCity)
-        : category && subcategory
-        ? await searchTradesBySubCategory(category, subcategory)
-        : category
-        ? await searchTradesByCategory(category)
+        ? await searchTradesByCity(deliveryCity)        
         : await getAllTrades();
     res.status(200).json(result);
   } catch (error) {
