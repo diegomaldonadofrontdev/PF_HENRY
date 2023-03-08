@@ -136,6 +136,47 @@ const postCreateCategoryProduct = async(body) => {
   }
 }
 
+const getProducts = async() => {
+  try {
+    const products = Product.find();
+    return products
+    
+  } catch (error) {
+    return false;
+  }
+}
+
+const getCategoriesProducts = async() => {
+  try {
+    const categoriesProducts = CategoryProduct.find();
+    return categoriesProducts
+    
+  } catch (error) {
+    return false;
+  }
+}
+
+const updateProductC = async (id, product) => {
+  try {
+    const productU = Product.findByIdAndUpdate(id,product,{new: true})
+    return productU;
+  } catch (error) {
+    return false
+  }
+}
+
+const updateCategoryProductC = async (id, categoryproduct) => {
+  try {
+    const CategoryproductU = CategoryProduct.findByIdAndUpdate(id,categoryproduct,{new: true})
+    return CategoryproductU;
+  } catch (error) {
+    return false
+  }
+}
+
+
+
+
 module.exports = {
   getAllProducts,
   searchProductByAll,
@@ -149,5 +190,9 @@ module.exports = {
   searchProductByCat,
   getProductById,
   postCreateProduct,
-  postCreateCategoryProduct
+  postCreateCategoryProduct,
+  getProducts,
+  getCategoriesProducts,
+  updateProductC,
+  updateCategoryProductC
 };

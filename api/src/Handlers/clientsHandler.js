@@ -2,7 +2,11 @@ const {
   postFeedbackController,
   getFeedbacksController,
   postCreateClientController,
-  postCreateOrder
+  postCreateOrder,
+  getClients,
+  getOrders,
+  updateClientC,
+  updateOrderC
 } = require("../Controllers/clientsController");
 
 
@@ -50,9 +54,59 @@ const newOrder = async (req,res) => {
   }
 }
 
+const getClients = async (req, res) => {
+  try {
+    const clients = await getClients();
+    res.status(200).json( clients )
+  } catch (error) {
+    res.status(404).json({Error: "Error al obtener a los clientes"})
+  }
+}
+
+const getOrders = async (req, res) => {
+  try {
+    const orders = await getOrders();
+    res.status(200).json( orders )
+  } catch (error) {
+    res.status(404).json({Error: "Error al obtener las ordenes"})
+  }
+}
+
+const updateClient = async(req, res) => {
+  const { id } = req.params;
+  const clientUpdate = {
+    ...req.body,
+    user: id
+  }
+  try {
+    const client = await  updateClientC(id,clientUpdate)
+    res.status(200).json(`Se actualizo el cliente`)
+  } catch (error) {
+    res.status(404).json(`Error al actualizar el cliente`)   
+  }
+}
+
+const updateOrder = async(req, res) => {
+  const { id } = req.params;
+  const orderUpdate = {
+    ...req.body,
+    user: id
+  }
+  try {
+    const order = await  updateOrderC(id,orderUpdate)
+    res.status(200).json(`Se actualizo la orden`)
+  } catch (error) {
+    res.status(404).json(`Error al actualizar la orden`)   
+  }
+}
+
 module.exports = {
   createFeedbackHandler,
   getFeedbacksHandler,
   newRegister,
-  newOrder
+  newOrder,
+  getOrders,
+  getClients,
+  updateClient,
+  updateOrder
 };

@@ -1,6 +1,19 @@
 const { Router } = require("express");
-const { trade, newCategoryTrade, newDeliveryZone, newSubcategory } = require("../handlers/tradesHandler");
-const { newProduct,newCategory } = require('../Handlers/productsHandler')
+const { 
+    trade,
+    newCategoryTrade, 
+    newDeliveryZone, 
+    newSubcategory, 
+    getTradesH,
+    getDeliveryZonesH,
+    getCategoriesH,
+    getSubCategoriesH,
+    updateTrade,
+    updateCategory,
+    updateDeliveryZone,
+    updateSubcategory 
+} = require("../Handlers/tradesHandler");
+const { newProduct,newCategory,getCategoryProducts,getProductsH,updateProduct,updateCategoryProduct } = require('../Handlers/productsHandler')
 const { validateTrade, validateProduct, validateCategory, validateDeliveryZone, validateCategoryProduct, validateSubcategory  } = require('../Middlewares/validate')
 // const {
 //   getProductsHandler,
@@ -52,7 +65,19 @@ const tradesRouter = Router();
     tradesRouter.post('/new-subcategory', validateSubcategory , newSubcategory );
 
 
-    
+    tradesRouter.get('/all-trades', getTradesH); 
+    tradesRouter.get('/products', getProductsH); 
+    tradesRouter.get('/categories',getCategoriesH) 
+    tradesRouter.get('/delivery-zones', getDeliveryZonesH) 
+    tradesRouter.get('/categories-products', getCategoryProducts)
+    tradesRouter.get('/subcategorys',getSubCategoriesH) 
+
+    tradesRouter.put('/update-trade',updateTrade) 
+    tradesRouter.put('/update-product',updateProduct)
+    tradesRouter.put('/update-category', updateCategory) 
+    tradesRouter.put('/update-delivery-zone', updateDeliveryZone) 
+    tradesRouter.put('/update-category-product',updateCategoryProduct)
+    tradesRouter.put('/update-subcategory', updateSubcategory)
 
 
 

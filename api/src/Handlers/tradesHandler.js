@@ -13,7 +13,15 @@ const {
   postCreateTrades,
   postCreateCategory,
   postCreateDeliveryZone,
-  postCreateSubcategory
+  postCreateSubcategory,
+  getTrades,
+  getCategories,
+  getDeliveryZone,
+  getSubCategoriesController,
+  updateTradeC,
+  updateCategoryC,
+  updateDeliveryC,
+  updateSubcategoryC
 } = require("../Controllers/tradesController");
 
 
@@ -122,6 +130,97 @@ const newSubcategory = async (req, res) => {
 
 }
 
+const getTradesH = async (req,res) => {
+  try {
+    const trades = await getTrades();
+    res.status(200).json( trades)
+  } catch (error) {
+    res.status(404).json({Error: "Error al obtener los comercios"})
+  }
+}
+
+const getCategoriesH = async (req,res) => {
+  try {
+    const categories = await getCategories();
+    res.status(200).json( categories)
+  } catch (error) {
+    res.status(404).json({Error: "Error al obtener las categorias"})
+  }
+}
+
+const getDeliveryZonesH = async (req,res) => {
+  try {
+    const deliveryZones = await getDeliveryZone();
+    res.status(200).json( deliveryZones)
+  } catch (error) {
+    res.status(404).json({Error: "Error al obtener las zonas"})
+  }
+}
+
+const getSubCategoriesH = async (req,res) => {
+  try {
+    const subcategories = await getSubCategoriesController();
+    res.status(200).json( subcategories)
+  } catch (error) {
+    res.status(404).json({Error: "Error al obtener las subcategorias"})
+  }
+}
+
+const updateTrade = async(req, res) => {
+  const { id } = req.params;
+  const tradeUpdate = {
+    ...req.body,
+    user: id
+  }
+  try {
+    const trade = await  updateTradeC(id,tradeUpdate)
+    res.status(200).json(`Se actualizo el comercio`)
+  } catch (error) {
+    res.status(404).json(`Error al actualizar el comercio`)   
+  }
+}
+
+const updateCategory = async(req, res) => {
+  const { id } = req.params;
+  const categoryUpdate = {
+    ...req.body,
+    user: id
+  }
+  try {
+    const category = await  updateCategoryC(id,categoryUpdate)
+    res.status(200).json(`Se actualizo la categoria`)
+  } catch (error) {
+    res.status(404).json(`Error al actualizar categoria`)   
+  }
+}
+
+const updateDeliveryZone = async(req, res) => {
+  const { id } = req.params;
+  const deliveryUpdate = {
+    ...req.body,
+    user: id
+  }
+  try {
+    const delivery = await  updateDeliveryC(id,deliveryUpdate)
+    res.status(200).json(`Se actualizo la zona`)
+  } catch (error) {
+    res.status(404).json(`Error al actualizar la zona`)   
+  }
+}
+
+const updateSubcategory = async(req, res) => {
+  const { id } = req.params;
+  const subcategoryUpdate = {
+    ...req.body,
+    user: id
+  }
+  try {
+    const subcategory = await  updateSubcategoryC(id,subcategoryUpdate)
+    res.status(200).json(`Se actualizo la subcategoria`)
+  } catch (error) {
+    res.status(404).json(`Error al actualizar la subcategoria`)   
+  }
+}
 
 
 module.exports = {
@@ -132,5 +231,13 @@ module.exports = {
   trade,
   newCategoryTrade,
   newDeliveryZone,
-  newSubcategory
+  newSubcategory,
+  getTradesH,
+  getCategoriesH,
+  getDeliveryZonesH,
+  getSubCategoriesH,
+  updateTrade,
+  updateCategory,
+  updateDeliveryZone,
+  updateSubcategory
 };

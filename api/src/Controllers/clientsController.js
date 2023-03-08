@@ -39,11 +39,50 @@ const postCreateOrder = async (body) => {
   }
 }
 
+const getClients = async() => {
+  try {
+    const clients = await Clients.find()
+    return clients;
+  } catch (error) {
+    return false
+  }
+}
+
+const getOrders = async() => {
+  try {
+    const orders = await Order.find();
+    return orders;
+  } catch (error) {
+    return false;
+  }
+}
+
+const updateClientC = async (id, updateClient) => {
+  try {
+    const client = Clients.findByIdAndUpdate(id,updateClient,{new: true})
+    return client;
+  } catch (error) {
+    return false
+  }
+}
+
+const updateOrderC = async (id, updateOrder) => {
+  try {
+    const order = Order.findByIdAndUpdate(id,updateOrder,{new: true})
+    return order;
+  } catch (error) {
+    return false
+  }
+}
 
 
 module.exports = {
     postFeedbackController,
     getFeedbacksController,
     postCreateClientController,
-    postCreateOrder
+    postCreateOrder,
+    getClients,
+    getOrders,
+    updateClientC,
+    updateOrderC
 }
