@@ -1,7 +1,8 @@
 .hero__main {
 	min-height: 100vh;
+	background-size: cover;
 	background-position: center;
-	background-image: url("../../images/bghome.avif");
+	background-image: url("../../images/bghome_.jpg");
 	display: flex;
 	align-items: center;
 }
@@ -14,11 +15,19 @@
 	color: white;
 }
 
-.container > div {
-	background-color: rgba(0, 0, 0, 0.693);
+.searchContainer {
+	width: 1000px;
 	padding: 1em;
 	display: flex;
 	flex-direction: column;
+}
+
+.btn__buscar {
+	background-color: red;
+	color: white;
+	padding: 1em 2em;
+	align-self: self-start;
+	border-radius: 0.5em;
 }
 
 .container div h2 {
@@ -26,7 +35,10 @@
 }
 
 .buscador {
-	margin-top: 35px;
+	padding-top: 35px;
+	display: flex;
+	gap: 1em;
+	flex-direction: column;
 }
 
 .buscador .input {

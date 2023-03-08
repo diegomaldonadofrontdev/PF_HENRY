@@ -35,11 +35,11 @@ const usersSchema= new mongoose.Schema (
       type: String,
       required: true,
     },
-    adress: {
+    address: {
       type: String,
       required: true
     },
-    telephone: {
+    phone: {
       type: Number,
       required: true,
     },

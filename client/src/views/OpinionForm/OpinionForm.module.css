@@ -1,0 +1,83 @@
+.container {
+	display: flex;
+	justify-content: center;
+	width: 80%;
+	margin: auto;
+	text-align: center;
+}
+
+form {
+	background-color: white;
+	padding: 25px;
+	margin-top: 50px;
+	display: flex;
+	flex-direction: column;
+	gap: 3em;
+	width: 50%;
+}
+
+.texto__form {
+	background-color: rgba(0, 0, 0, 0.649);
+	padding: 25px;
+	width: 50%;
+	color: white;
+	display: flex;
+	flex-direction: column;
+	gap: 2em;
+}
+
+.texto__form h2 {
+	color: white;
+	font-weight: 400;
+}
+
+.texto__form h2 span {
+	font-weight: 700;
+	color: white;
+}
+
+form > div {
+	display: flex;
+	flex-direction: column;
+	position: relative;
+}
+
+form > div > label {
+	font-size: 0.9em;
+	background-color: white;
+	position: absolute;
+	left: 10px;
+	top: -10px;
+	padding: 0 10px;
+}
+
+form > div input {
+	font-size: 1em;
+	height: 30px;
+	border: 1px solid rgb(212, 212, 212);
+	padding: 25px 20px;
+}
+
+textarea {
+	resize: none;
+	height: 200px;
+	font-size: 1em;
+	padding: 25px 15px;
+}
+
+.form__button {
+	border: none;
+	background-color: #f54749;
+	color: white;
+	padding: 20px 0;
+}
+
+.label_rating {
+	position: initial;
+}
+
+.estrellas {
+	align-items: center;
+	display: flex !important;
+	flex-direction: row;
+}
