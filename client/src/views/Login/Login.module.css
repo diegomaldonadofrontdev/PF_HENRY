@@ -1,10 +1,10 @@
 .login {
 	display: flex;
 	width: 100%;
-	padding: 50px 0;
 }
 
 .login .container {
+	padding: 150px 0;
 	margin: auto;
 	width: 80%;
 	display: flex;
@@ -14,13 +14,12 @@
 }
 
 .form {
-	border: 1px solid black;
-	border-radius: 1em;
+	border-radius: 0.3em;
 	display: flex;
 	flex-direction: column;
 	gap: 1em;
 	width: 500px;
-	padding: 25px;
+	padding: 50px;
 	align-items: center;
 }
 

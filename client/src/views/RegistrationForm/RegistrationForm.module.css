@@ -1,0 +1,33 @@
+.registration__form {
+	width: 100%;
+}
+
+.registration__form .container {
+	width: 80%;
+	padding: 150px 0;
+	margin: auto;
+	display: flex;
+	justify-content: center;
+}
+
+.twoColumns {
+	flex-direction: row;
+	gap: 1.5em;
+}
+
+.twoColumns div {
+	position: relative;
+	width: 100%;
+}
+.twoColumns div label {
+	font-size: 0.9em;
+	background-color: white;
+	position: absolute;
+	left: 10px;
+	top: -10px;
+	padding: 0 10px;
+}
+
+.twoColumns input {
+	width: 100%;
+}
