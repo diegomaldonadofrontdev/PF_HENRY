@@ -2,9 +2,9 @@
   "name": "api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "Index.JS",
   "scripts": {
-    "start": "node index.js",
+    "start": "node ./Index.JS",
     "test": "mocha -w ./tests/**/*.spec.js"
   },
   "author": "",
