@@ -28,13 +28,14 @@ const getFeedbacksController = () => {
 const postCreateClientController = async (body) => {
 
   const { password } = body
+  console.log(password);
   
   newClient = new Clients( body);
-  await newClient.save();
   
   const salt = bcrypt.genSaltSync(10);
   newClient.password = bcrypt.hashSync(password,salt)
   
+  await newClient.save();
   return true;
 }
 
