@@ -99,11 +99,11 @@ const searchTradesByCategory = (category) => {
   return trades[0].categories[category]
 };
 
-// // [comercios de la subcategoria buscada]
-// const searchTradesBySubCategory = (category, subcategory) => {
-//   const tradesByCategory = searchTradesByCategory(category);
-//   return tradesByCategory.filter((t) => t.subcategory === subcategory);  
-// };
+// [comercios de la subcategoria buscada]
+const searchTradesBySubCategory = (category, subcategory) => {
+  const tradesByCategory = searchTradesByCategory(category);
+  return tradesByCategory.filter((t) => t.subcategory === subcategory);  
+};
 
 
 
@@ -230,18 +230,7 @@ module.exports = {
   getAllTrades,
   searchTradeById,
   getAllCategories,
-  
-  postCreateTrades,
-  postCreateCategory,
-  postCreateDeliveryZone,
-  postCreateSubcategory,
-  getTrades,
-  getCategories,
-  getDeliveryZone,
-  getSubCategoriesController,
-  updateTradeC,
-  updateCategoryC,
-  updateDeliveryC,
-  updateSubcategoryC,
-  getSubCategories,  
+  getSubCategories,
+  searchTradesBySubCategory,
+  searchTradesByCategory
 };
