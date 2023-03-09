@@ -23,7 +23,7 @@ const initialState = {
 	allCommerces: [],
 	category: [],
 	categories: [],
-	cities: [],
+	city: [],
 	users: [],
 	feedback: [],
 	filters: [],
@@ -58,7 +58,7 @@ export default function rootReducer(state = initialState, action) {
 		case "GET_TRADES_BY_CATEGORY":
 			return {
 				...state,
-				allCommerces: action.payload,
+				filters: action.payload,
 			};
 		case "GET_CATEGORIES":
 			return {
@@ -78,22 +78,26 @@ export default function rootReducer(state = initialState, action) {
 		case "FILTER_CATEGORY":
 			return {
 				 ...state,
-				 allCommerces: action.payload 
+				 filters: action.payload 
 				};
 
 		case "FILTER_BY_TARJETA":
 			
 				return {
 					...state,
-					allCommerces: action.payload,
+					filters: action.payload,
 				};
 			
-
 		case "FILTER_BY_CITY":
 			return {
 				...state,
-				allCommerces: action.payload
+				filters: action.payload
 			}
+		case "COMBINED_FILTERS":
+			return{
+				...state,
+				filters: action.payload
+			}	
 		default:
 			return state;
 	}

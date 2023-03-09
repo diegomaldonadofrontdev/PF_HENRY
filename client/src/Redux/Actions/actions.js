@@ -1,4 +1,3 @@
-import { Action } from "@remix-run/router";
 import axios from "axios";
 
 const host = "http://localhost:3001";
@@ -121,11 +120,21 @@ export function getTradesBySubCategory( subcategory) {
 export function getTradesByCity(city) {
 	return async function (dispatch) {
 		const citydata = await axios.get(
-			`${host}/clients/trades/search?city=${city}`
+			`${host}/clients/trades/search?deliveryCity=${city}`
 		);
 		return dispatch({
 			type: "FILTER_BY_CITY",
 			payload: [citydata.data],
 		});
 	};
+}
+
+export function getTradesFilter(city, category, subcategory){
+	return async function (dispatch){
+		const filterData = await axios.get(`${host}/clients/trades/search?deliveryCity=${city}&category=${category}&subcategory=${subcategory}`)
+		return dispatch({
+			type: "COMBINED_FILTERS",
+			payload: [filterData.data]
+		})
+	}
 }

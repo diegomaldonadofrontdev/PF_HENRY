@@ -10,7 +10,7 @@ import {
 } from "../../Redux/actions/actions"
 // Filtros que agregar: deliveryCity, category, subcategory, epago
 
-export default function Filter__SearchView() {
+export default function Filter__SearchView({setCity, setCategory, setSubCategory}) {
     const dispatch = useDispatch()
 	const allCommerces = useSelector((state) => state.allCommerces);
 	console.log(allCommerces)
@@ -28,19 +28,19 @@ export default function Filter__SearchView() {
 
 	
 //registra los values en los selects
-const handleFilterByCity = (e) => {
+const onChangeCity = (e) => {
 	e.preventDefault();	
 	dispatch(getTradesByCity(e.target.value))
 	setCurrentFilterByCity(e.target.value)
 }
 
-const handleFilterByCategory = (e) => {
+const onChangeCategory = (e) => {
 	e.preventDefault();
 	dispatch(getTradesByCategory(e.target.value))
 	setCurrentFilterByCategory(e.target.value)
 }
 
-const handleFilterBySubCategory = (e) => {
+const OnChangeSubCategory = (e) => {
 	e.preventDefault();	
 	dispatch(getTradesBySubCategory(e.target.value))
 	setCurrentFilterBySubCategory(e.target.value)
@@ -50,6 +50,9 @@ const handleFilterByePago = (e) => {
 	e.preventDefault();	
 }
 
+//manejo del filtrado
+
+
 
 	return (
 		<div className={styles.filterSearchView}>
@@ -58,21 +61,21 @@ const handleFilterByePago = (e) => {
 				<div className={styles.filter__container}>
 					<div className={styles.select__container}>
 						<h4>Ciudad:</h4>
-						<select name="" id="" onChange={handleFilterByCity}>
+						<select name="" id="" onChange={onChangeCity} >
 							<option value="">Ciudad</option>
-							{allCommerces.map((e)=>(<option value={e.city}>{e.city}</option>))}
+							{allCommerces.map((e)=>(e.deliveryzone.map((i)=>(<option value={i}>{i}</option>))))}
 						</select>
 					</div>
 					<div className={styles.select__container}>
 						<h4>Categoria</h4>
-						<select name="" id="" onChange={handleFilterByCategory}>
+						<select name="" id="" onChange={onChangeCategory} >
 							<option value="">Categoria</option>
 							{allCategories.map((e)=>(<option value={e}>{e}</option>))}
 						</select>
 					</div>
 					<div className={styles.select__container}>
 						<h4>Subcategoria:</h4>
-						<select name="" id="" onChange={handleFilterBySubCategory}>
+						<select name="" id="" onChange={OnChangeSubCategory} >
 							<option value="">Subcategoria</option>
 							{allCommerces.map((e)=>(<option value={e.subcategory}>{e.subcategory}</option>))}
 						</select>

@@ -15,6 +15,10 @@ export default function UserSearch() {
 
 	const comercios = useSelector((state) => state.allCommerces);
 
+	const [category, setCategory] = useState('')
+	const [city, setCity] = useState('')
+	const [subcategory, setSubCategory] = useState('')
+
 
 useEffect(()=>{
 	dispatch(getTrades())
@@ -36,7 +40,7 @@ useEffect(()=>{
 
 			<div className={styles.search__container}>
 				<div className={styles.filtros__container}>
-					<Filter__SearchView />
+					<Filter__SearchView setCity={setCity} setCategory={setCategory} setSubCategory={setSubCategory}/>
 				</div>
 
 				<div className={styles.cards__container}>
