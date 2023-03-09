@@ -1,5 +1,10 @@
+const Trade = require('../models/Trades');
+const Category = require('../models/Category');
+const DeliveryZone = require('../models/DeliveryZone')
+const Subcategory = require('../models/Subcategory');
 // const { trades } = require("../Auxiliares/comerciantes");
 const { trades } = require("../Auxiliares/comercios");
+const Products = require('../models/Products');
 
 
 // CATEGORIAS -> [strings de categorias sin repetir]
@@ -100,6 +105,120 @@ const searchTradesBySubCategory = (category, subcategory) => {
   return tradesByCategory.filter((t) => t.subcategory === subcategory);  
 };
 
+
+
+
+//POST
+const postCreateTrades = async (body) => {
+    try {
+    const newTrade = new Trade( body );
+    await newTrade.save();
+    return true;
+    } catch (error) {
+      return false;
+    }
+} 
+
+const postCreateCategory = async ( body ) => {
+  try {
+    const newCategory = new Category( body);
+    await newCategory.save();
+    return true
+  } catch (error) {
+    return false;
+  }
+}
+
+const postCreateDeliveryZone = async ( body ) => {
+  try {
+    const newDeliveryZone = new DeliveryZone( body );
+    await newDeliveryZone.save();
+    return true    
+  } catch (error) {
+    return false
+  }
+}
+
+const postCreateSubcategory = async ( body ) => {
+  try {
+    const newSubcategory = new Subcategory( body );
+    await newSubcategory.save();
+    return true    
+  } catch (error) {
+    return false
+  }
+}
+
+//GET
+const getTrades = async () => {
+  try {
+    const trades = await Trade.find();
+    return trades;
+  } catch (error) {
+    return false;
+  }
+}
+
+const getCategories = async () => {
+  try {
+    const categories = await Category.find();
+    return categories
+  } catch (error) {
+    return false
+  }
+}
+
+const getDeliveryZone = async () => {
+  try {
+    const deliveryZones = await DeliveryZone.find();
+    return deliveryZones;
+  } catch (error) {
+    return false 
+  }
+}
+
+const getSubCategoriesController = async () => {
+  try {
+    const subcategories = await Subcategory.find();
+    return subcategories;
+  } catch (error) {
+    return
+  }
+}
+
+const updateTradeC = async (id, trade) => {
+  try {
+    const updateTrade = Trade.findByIdAndUpdate(id,trade,{new: true})
+    return updateTrade;
+  } catch (error) {
+    return false
+  }
+}
+const updateCategoryC = async (id, category) => {
+  try {
+    const updateCategory = Category.findByIdAndUpdate(id,category,{new: true})
+    return updateCategory;
+  } catch (error) {
+    return false
+  }
+}
+const updateDeliveryC = async (id, delivery) => {
+  try {
+    const updateDelivery = DeliveryZone.findByIdAndUpdate(id,delivery,{new: true})
+    return updateDelivery;
+  } catch (error) {
+    return false
+  }
+}
+
+const updateSubcategoryC = async (id, subcategory) => {
+  try {
+    const subcategory = Subcategory.findByIdAndUpdate(id,subcategory,{new: true})
+    return subcategory;
+  } catch (error) {
+    return false
+  }
+}
 
 
 module.exports = {

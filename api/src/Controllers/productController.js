@@ -2,6 +2,8 @@
 const {
   getAllTrades,
 } = require("../Controllers/tradesController");
+const Product = require('../models/Products');
+const CategoryProduct = require('../models/CategoryProducts')
 
 // Traemos todos los comercios mezclados
 let allTrades = getAllTrades()
