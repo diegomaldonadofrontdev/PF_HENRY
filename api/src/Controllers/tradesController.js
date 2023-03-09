@@ -5,6 +5,7 @@ const Subcategory = require('../models/Subcategory');
 // const { trades } = require("../Auxiliares/comerciantes");
 const { trades } = require("../Auxiliares/comercios");
 const Products = require('../models/Products');
+const bcrypt = require('bcryptjs');
 
 
 // CATEGORIAS -> [strings de categorias sin repetir]
@@ -99,20 +100,25 @@ const searchTradesByCategory = (category) => {
   return trades[0].categories[category]
 };
 
-// // [comercios de la subcategoria buscada]
-// const searchTradesBySubCategory = (category, subcategory) => {
-//   const tradesByCategory = searchTradesByCategory(category);
-//   return tradesByCategory.filter((t) => t.subcategory === subcategory);  
-// };
+// [comercios de la subcategoria buscada]
+const searchTradesBySubCategory = (category, subcategory) => {
+  const tradesByCategory = searchTradesByCategory(category);
+  return tradesByCategory.filter((t) => t.subcategory === subcategory);  
+};
 
 
 
 
 //POST
 const postCreateTrades = async (body) => {
+    const { password } = body;
     try {
-    const newTrade = new Trade( body );
+    newTrade = new Trade( body );
     await newTrade.save();
+    
+    const salt = bcrypt.genSaltSync(10);
+    newTrade.password = bcrypt.hashSync(password,salt);
+
     return true;
     } catch (error) {
       return false;
@@ -231,18 +237,7 @@ module.exports = {
   getAllTrades,
   searchTradeById,
   getAllCategories,
+  getSubCategories,
   searchTradesBySubCategory,
-  postCreateTrades,
-  postCreateCategory,
-  postCreateDeliveryZone,
-  postCreateSubcategory,
-  getTrades,
-  getCategories,
-  getDeliveryZone,
-  getSubCategoriesController,
-  updateTradeC,
-  updateCategoryC,
-  updateDeliveryC,
-  updateSubcategoryC,
-  getSubCategories,  
+  searchTradesByCategory
 };

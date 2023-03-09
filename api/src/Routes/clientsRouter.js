@@ -8,8 +8,8 @@ const {
   getFeedbacksHandler,
   newRegister,
   newOrder,
-  getClients,
-  getOrders,
+  getClientsH,
+  getOrdersH,
   updateClient,
   updateOrder
 } = require("../handlers/clientsHandler");
@@ -46,8 +46,8 @@ clientsRouter.post("/feedback", validateFeedback, createFeedbackHandler);
 clientsRouter.post("/register", validateClient, newRegister);
 clientsRouter.post("/new-order", validateOrder, newOrder);
 
-clientsRouter.get('/clients',getClients)
-clientsRouter.get('/orders',getOrders)
+clientsRouter.get('/clients',getClientsH)
+clientsRouter.get('/orders',getOrdersH)
 
 clientsRouter.put('/update-clients',updateClient);
 clientsRouter.put('/update-orders', updateOrder);
