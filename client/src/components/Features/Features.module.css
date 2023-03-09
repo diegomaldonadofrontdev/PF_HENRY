@@ -35,7 +35,7 @@
 .features__container {
 	display: flex;
 	justify-content: space-between;
-	padding-top: 50px;
+	padding-top: 100px;
 }
 
 @media (max-width: 700px) {

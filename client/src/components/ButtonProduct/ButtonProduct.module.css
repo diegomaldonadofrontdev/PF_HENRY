@@ -1,0 +1,8 @@
+.button__product {
+	background-color: var(--main-color);
+	color: white;
+	padding: 0.5em;
+	text-align: center;
+	font-size: 0.9em;
+	border-radius: 0.3em;
+}
