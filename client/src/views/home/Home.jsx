@@ -15,10 +15,6 @@ export default function Home() {
 			<Features />
 			<OpinionesContainer />
 			<Footer />
-			{/* <Hero />
-			<Features />
-			<MenuHome />
-			<Opiniones /> */}
 		</div>
 	);
 }

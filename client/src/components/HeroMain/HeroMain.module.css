@@ -1,8 +1,8 @@
 .hero__main {
-	min-height: 100vh;
+	min-height: 70vh;
+	background-image: url("../../images/pattern.jpg");
 	background-size: cover;
 	background-position: center;
-	background-image: url("../../images/bghome_.jpg");
 	display: flex;
 	align-items: center;
 }
@@ -22,15 +22,11 @@
 	flex-direction: column;
 }
 
-.btn__buscar {
-	background-color: red;
-	color: white;
-	padding: 1em 2em;
+.hero__button {
 	align-self: self-start;
-	border-radius: 0.5em;
 }
 
-.container div h2 {
+.searchContainer h2 {
 	color: white;
 }
 

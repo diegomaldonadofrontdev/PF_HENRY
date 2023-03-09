@@ -6,6 +6,12 @@ const {
 const {
   createFeedbackHandler,
   getFeedbacksHandler,
+  newRegister,
+  newOrder,
+  getClientsH,
+  getOrdersH,
+  updateClient,
+  updateOrder
 } = require("../handlers/clientsHandler");
 // const {
 //     createOrderHandler
@@ -14,9 +20,11 @@ const {
   getTradesHandler,
   getTradeHandler,
   getCategoriesHandler,
-  getSubCategoriesHandler
+  getSubCategoriesHandler,
+  
+
 } = require("../Handlers/tradesHandler");
-const { validateFeedback } = require("../middlewares/validate");
+const { validateFeedback, validateClient, validateOrder } = require("../middlewares/validate");
 
 const clientsRouter = Router();
 
@@ -32,7 +40,22 @@ clientsRouter.get("/feedbacks", getFeedbacksHandler);
 
 // POST
 clientsRouter.post("/feedback", validateFeedback, createFeedbackHandler);
+
+
+
+clientsRouter.post("/register", validateClient, newRegister);
+clientsRouter.post("/new-order", validateOrder, newOrder);
+
+clientsRouter.get('/clients',getClientsH)
+clientsRouter.get('/orders',getOrdersH)
+
+clientsRouter.put('/update-clients',updateClient);
+clientsRouter.put('/update-orders', updateOrder);
+
+
+
 // clientsRouter.get("/trades/feedback", validateFeedback, createFeedbackHandler );
+
 // clientsRouter.post("/login", validateClients, createClientHandler);
 // clientsRouter.post("/order", validateOrder, createOrderHandler);
 
