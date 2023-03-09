@@ -73,7 +73,7 @@ const trades = [
             },
           ],
           rating: 5,
-          epagos: true,
+          epagos: "true",
           active: true,
         },
         {
@@ -149,7 +149,7 @@ const trades = [
             },
           ],
           rating: 4,
-          epagos: true,
+          epagos: "true",
           active: true,
         },
         {
@@ -225,7 +225,7 @@ const trades = [
             },
           ],
           rating: 3,
-          epagos: false,
+          epagos: "false",
           active: true,
         },
         {
@@ -301,7 +301,7 @@ const trades = [
             },
           ],
           rating: 5,
-          epagos: false,
+          epagos: "false",
           active: true,
         },
         {
@@ -378,7 +378,7 @@ const trades = [
             },
           ],
           rating: 2,
-          epagos: true,
+          epagos: "true",
           active: true,
         },
       ],
@@ -456,7 +456,7 @@ const trades = [
             },
           ],
           rating: 5,
-          epagos: false,
+          epagos: "false",
           active: true,
         },
         {
@@ -532,7 +532,7 @@ const trades = [
             },
           ],
           rating: 5,
-          epagos: false,
+          epagos: "false",
           active: true,
         },
       ],
@@ -607,7 +607,7 @@ const trades = [
             },
           ],
           rating: 5,
-          epagos: false,
+          epagos: "false",
           active: true,
         },
         {
@@ -680,7 +680,7 @@ const trades = [
             },
           ],
           rating: 3,
-          epagos: true,
+          epagos: "true",
           active: true,
         }
       ],
