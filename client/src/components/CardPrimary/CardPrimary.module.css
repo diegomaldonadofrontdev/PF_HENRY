@@ -5,6 +5,20 @@
 	background-color: white;
 }
 
+.card__imgContainer {
+	height: 200px;
+}
+
+.card__imgContainer img {
+	height: 100%;
+	object-fit: cover;
+}
+
+.card__info h3 {
+	font-weight: 600;
+	font-size: 1.4em;
+}
+
 .card__primary img {
 	width: 100%;
 }
@@ -13,6 +27,14 @@
 	display: flex;
 	flex-direction: column;
 	padding: 1.5em;
-	gap: 1em;
+	gap: 0.4em;
 	color: var(--main-text-color);
+}
+
+.card__primary .card__info p {
+	font-size: 1em;
+}
+
+.btn__container {
+	padding: 1.5em;
 }

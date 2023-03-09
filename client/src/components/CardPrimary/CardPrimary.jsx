@@ -1,18 +1,22 @@
 import React from "react";
 import styles from "./CardPrimary.module.css";
-import img from "../../images/feature__owner.jpg";
 import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
+import { Link } from "react-router-dom";
 
-export default function CardPrimary() {
+export default function CardPrimary(props) {
 	return (
 		<div className={styles.card__primary}>
 			<div className={styles.card__imgContainer}>
-				<img src={img} alt="" />
+				<img src={props.img} alt="" />
 			</div>
 			<div className={styles.card__info}>
-				<h3>Registrá tu restaurante</h3>
-				<p>Descubrí los beneficios que tiene pertenecer a nuestro equipo</p>
-				<ButtonPrimary texto="Conocer mas" />
+				<h3>{props.titulo}</h3>
+				<p>{props.texto}</p>
+			</div>
+			<div className={styles.btn__container}>
+				<Link to={props.to}>
+					<ButtonPrimary texto="Conocer más" />
+				</Link>
 			</div>
 		</div>
 	);
