@@ -98,6 +98,11 @@ export default function CommerceDetail() {
 								<CardCart />
 							</li>
 						</ul>
+						<div className={styles.total__container}>
+							<p>
+								Total: <span>$100.000</span>
+							</p>
+						</div>
 					</div>
 				</div>
 			</div>

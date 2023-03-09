@@ -22,8 +22,8 @@ export default function CardCart() {
 				<div className={styles.cantidad}>
 					<p>1</p>
 					<div className={styles.button__container}>
-						<button>1</button>
-						<button>2</button>
+						<button><i class='bx bxs-up-arrow'></i></button>
+						<button><i class='bx bxs-down-arrow'></i></button>
 					</div>
 				</div>
 				<p>$3.000</p>

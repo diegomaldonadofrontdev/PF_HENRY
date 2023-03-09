@@ -3,6 +3,7 @@
 	flex-direction: column-reverse;
 	width: 250px;
 	gap: 1em;
+	height: 350px;
 	justify-content: space-between;
 	padding: 25px;
 	background-color: white;

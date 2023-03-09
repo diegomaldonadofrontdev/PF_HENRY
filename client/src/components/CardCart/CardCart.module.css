@@ -4,6 +4,9 @@
 	justify-content: space-between;
 	gap: 1em;
 	height: 55px;
+	background-color: white;
+	padding: 2em 1em;
+	border-radius: 0.3em;
 }
 
 .card__Cart .icon__container {
@@ -46,4 +49,34 @@
 .button__container {
 	display: flex;
 	flex-direction: column;
+}
+.cantidad {
+	width: 50px;
+	display: flex;
+	justify-content: center;
+	gap: 1em;
+}
+
+.cantidad p {
+	font-weight: 400;
+}
+.cantidad button {
+	width: 30px;
+	color: white;
+	background-color: var(--main-color);
+	border: none;
+}
+
+.cantidad button i {
+	font-size: 0.9em;
+}
+
+.cantidad button:first-child {
+	border-radius: 0.3em 0.3em 0 0;
+	border-bottom: 1px solid white;
+}
+
+.cantidad button:last-child {
+	border-radius: 0em 0em 0.3em 0.3em;
+	border-bottom: 1px solid white;
 }
