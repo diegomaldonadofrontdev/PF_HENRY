@@ -221,6 +221,7 @@ const updateSubcategoryC = async (id, subcategory) => {
 }
 
 
+
 module.exports = {
   searchProductosByCityAndCatAndSCCAndEpagos,
   searchProductByCityAndCatAndEpagos,
@@ -242,6 +243,6 @@ module.exports = {
   updateTradeC,
   updateCategoryC,
   updateDeliveryC,
-  updateSubcategoryC
+  updateSubcategoryC,
   getSubCategories,  
 };

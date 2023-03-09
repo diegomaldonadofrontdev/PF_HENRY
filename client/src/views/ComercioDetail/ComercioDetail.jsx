@@ -38,7 +38,7 @@ export default function ComercioDetail() {
 							Rating: {commerce?.rating} <i class="bx bxs-star"></i>
 						</p>
 					</div>
-					<Link to="/busqueda" className={styles.btn__volver}>
+					<Link to="/search" className={styles.btn__volver}>
 						<ButtonPrimary texto="Volver" />
 					</Link>
 				</div>

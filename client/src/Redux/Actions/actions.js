@@ -71,14 +71,6 @@ export const getReview = () => {
 	};
 };
 
-export function filterByCategory(categoria) {
-	return async function (dispatch) {
-		dispatch({
-			type: "FILTER_CATEGORY",
-			payload: categoria,
-		});
-	};
-}
 
 export function getProductsFilter(name) {
 	return async (dispatch) => {
