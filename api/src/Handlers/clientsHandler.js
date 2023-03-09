@@ -54,7 +54,7 @@ const newOrder = async (req,res) => {
   }
 }
 
-const getClients = async (req, res) => {
+const getClientsH = async (req, res) => {
   try {
     const clients = await getClients();
     res.status(200).json( clients )
@@ -63,7 +63,7 @@ const getClients = async (req, res) => {
   }
 }
 
-const getOrders = async (req, res) => {
+const getOrdersH = async (req, res) => {
   try {
     const orders = await getOrders();
     res.status(200).json( orders )
@@ -105,8 +105,8 @@ module.exports = {
   getFeedbacksHandler,
   newRegister,
   newOrder,
-  getOrders,
-  getClients,
+  getOrdersH,
+  getClientsH,
   updateClient,
   updateOrder
 };

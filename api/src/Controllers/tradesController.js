@@ -230,7 +230,7 @@ module.exports = {
   getAllTrades,
   searchTradeById,
   getAllCategories,
-  searchTradesBySubCategory,
+  
   postCreateTrades,
   postCreateCategory,
   postCreateDeliveryZone,
@@ -242,6 +242,6 @@ module.exports = {
   updateTradeC,
   updateCategoryC,
   updateDeliveryC,
-  updateSubcategoryC
+  updateSubcategoryC,
   getSubCategories,  
 };
