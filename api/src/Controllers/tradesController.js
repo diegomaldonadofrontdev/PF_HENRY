@@ -5,6 +5,7 @@ const Subcategory = require('../models/Subcategory');
 // const { trades } = require("../Auxiliares/comerciantes");
 const { trades } = require("../Auxiliares/comercios");
 const Products = require('../models/Products');
+const bcrypt = require('bcryptjs');
 
 
 // CATEGORIAS -> [strings de categorias sin repetir]
@@ -110,9 +111,14 @@ const searchTradesBySubCategory = (category, subcategory) => {
 
 //POST
 const postCreateTrades = async (body) => {
+    const { password } = body;
     try {
-    const newTrade = new Trade( body );
+    newTrade = new Trade( body );
     await newTrade.save();
+    
+    const salt = bcrypt.genSaltSync(10);
+    newTrade.password = bcrypt.hashSync(password,salt);
+
     return true;
     } catch (error) {
       return false;
