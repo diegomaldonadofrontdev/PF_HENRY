@@ -242,6 +242,6 @@ module.exports = {
   updateTradeC,
   updateCategoryC,
   updateDeliveryC,
-  updateSubcategoryC
+  updateSubcategoryC,
   getSubCategories,  
 };
