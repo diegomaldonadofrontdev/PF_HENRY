@@ -138,3 +138,10 @@ export function getTradesFilter(city, category, subcategory){
 		})
 	}
 }
+
+export function postProduct(payload) {
+	return async function () {
+		const product = await axios.post(`${host}/trades/new-products`, payload);
+		return product;
+	};
+}
