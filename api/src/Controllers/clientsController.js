@@ -2,6 +2,9 @@ const feedbacks = [];
 const Clients = require('../models/Clients');
 const Order = require('../models/Order')
 
+
+const bcrypt = require('bcryptjs');
+
 const postFeedbackController = (name, opinion, rating, image) => {  
   const newFeedback = {
     name: name,
@@ -23,8 +26,15 @@ const getFeedbacksController = () => {
 }
 
 const postCreateClientController = async (body) => {
-  const newClient = new Clients( body);
+
+  const { password } = body
+  
+  newClient = new Clients( body);
   await newClient.save();
+  
+  const salt = bcrypt.genSaltSync(10);
+  newClient.password = bcrypt.hashSync(password,salt)
+  
   return true;
 }
 
