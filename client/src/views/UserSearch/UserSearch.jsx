@@ -8,11 +8,13 @@ import SearchBar from "../../components/SearchBar/SearchBar";
 import Filter__SearchView from "../../components/Filter__SearchView/Filter__SearchView";
 import ComercioCard from "../../components/ComercioCard/ComercioCard";
 import styles from "./UserSearch.module.css";
-export default function UserSearch(props) {
+
+
+export default function UserSearch() {
   const dispatch = useDispatch()
 
 	const comercios = useSelector((state) => state.allCommerces);
- console.log(comercios)
+
 
 useEffect(()=>{
 	dispatch(getTrades())

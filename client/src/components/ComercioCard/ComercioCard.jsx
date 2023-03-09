@@ -4,7 +4,7 @@ import img from "../../images/logo_burger.png";
 
 
 export default function ComercioCard(props) {
-	console.log(props.id)
+	
 	return (
 		<div className={styles.card__store}>
 			<div className={styles.logo}>

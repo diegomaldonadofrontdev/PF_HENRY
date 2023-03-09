@@ -24,7 +24,7 @@ export function filterByAscOrDesc(payload) {
 
 export function getTradesByName(commerceName) {
 	return async function (dispatch) {
-		const trades = await axios.get(`${host}/trades/search/${commerceName}`);
+		const trades = await axios.get(`${host}/trades/search?commerceName=${commerceName}`);
 		return dispatch({ type: "GET_TRADES", payload: trades.data });
 	};
 }
@@ -84,23 +84,15 @@ export function getProductsFilter(name) {
 	};
 }
 
-export function filterByTarjeta(valor) {
+export function filterByTarjeta(epago) {
 	return async function (dispatch) {
+		const tarj = await axios.get(`${host}/clients/trades/search?epago=${epago}`)
 		dispatch({
 			type: "FILTER_BY_TARJETA",
-			payload: valor,
+			payload: [tarj.data],
 		});
 	};
 }
-
-// export function getCity(city) {
-// 	return async function (dispatch){
-// 		dispatch({
-// 			type: "FILTER_BY_CITY",
-// 			payload: payload,
-// 		})
-// 	}
-// }
 
 export function getTradesByCategory( category) {
 	return async function (dispatch) {
@@ -109,7 +101,7 @@ export function getTradesByCategory( category) {
 		);
 		return dispatch({
 			type: "GET_TRADES_BY_CATEGORIES",
-			payload: cat.data,
+			payload: [cat.data],
 		});
 	};
 }
@@ -120,8 +112,20 @@ export function getTradesBySubCategory( subcategory) {
 			`${host}/clients/trades/search?subcategory=${subcategory}`
 		);
 		return dispatch({
-			type: "FILTER_BY_CITY",
+			type: "FILTER_BY_SUBCATEGORY",
 			payload: [cat.data],
+		});
+	};
+}
+
+export function getTradesByCity(city) {
+	return async function (dispatch) {
+		const citydata = await axios.get(
+			`${host}/clients/trades/search?city=${city}`
+		);
+		return dispatch({
+			type: "FILTER_BY_CITY",
+			payload: [citydata.data],
 		});
 	};
 }
