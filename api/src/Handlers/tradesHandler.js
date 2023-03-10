@@ -4,7 +4,7 @@ const {
   searchTradesByCityAndCatAndSC,
   searchTradesByCityAndCat,
   searchTradesByCity,
-  getAllTrades,
+  // getAllTrades,
   searchTradeById,
   getAllCategories,
   getSubCategories,
@@ -39,7 +39,7 @@ const getTradesHandler = async (req, res) => {
         ? await searchTradesByCityAndCat(deliveryCity, category)
         : deliveryCity
         ? await searchTradesByCity(deliveryCity)        
-        : await getAllTrades();
+        : await getTrades();
     res.status(200).json(result);
   } catch (error) {
     res.status(404).json({ error: `Error al buscar los comercios` });

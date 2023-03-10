@@ -1,20 +1,35 @@
 const { Router } = require("express");
-const { 
-    trade,
-    newCategoryTrade, 
-    newDeliveryZone, 
-    newSubcategory, 
-    getTradesH,
-    getDeliveryZonesH,
-    getCategoriesH,
-    getSubCategoriesH,
-    updateTrade,
-    updateCategory,
-    updateDeliveryZone,
-    updateSubcategory 
+const {
+  getTradesHandler,
+  trade,
+  newCategoryTrade,
+  newDeliveryZone,
+  newSubcategory,
+  getTradesH,
+  getDeliveryZonesH,
+  getCategoriesH,
+  getSubCategoriesH,
+  updateTrade,
+  updateCategory,
+  updateDeliveryZone,
+  updateSubcategory,
 } = require("../Handlers/tradesHandler");
-const { newProduct,newCategory,getCategoryProducts,getProductsH,updateProduct,updateCategoryProduct } = require('../Handlers/productsHandler')
-const { validateTrade, validateProduct, validateCategory, validateDeliveryZone, validateCategoryProduct, validateSubcategory  } = require('../Middlewares/validate')
+const {
+  newProduct,
+  newCategory,
+  getCategoryProducts,
+  getProductsH,
+  updateProduct,
+  updateCategoryProduct,
+} = require("../Handlers/productsHandler");
+const {
+  validateTrade,
+  validateProduct,
+  validateCategory,
+  validateDeliveryZone,
+  validateCategoryProduct,
+  validateSubcategory,
+} = require("../Middlewares/validate");
 // const {
 //   getProductsHandler,
 //   getProductHandler,
@@ -31,11 +46,10 @@ const { validateTrade, validateProduct, validateCategory, validateDeliveryZone, 
 // } = require("../Handlers/usersHandlers");
 // const { validateProducts, validateUsers, validateTrades } = require("../middlewares/validate");
 
-
-
 const tradesRouter = Router();
 
 // // GET
+tradesRouter.get("/trades/search", getTradesHandler);
 // tradesRouter.get("/products", getProductsHandler);
 // tradesRouter.get("/products/:id", getProductHandler);
 // tradesRouter.get("/users", getUsersHandler);
@@ -57,32 +71,25 @@ const tradesRouter = Router();
 // tradesRouter.put("/users/:id", validateUsers, putUserHandler);
 // tradesRouter.put("/products/:id", validateProducts, putProductHandler);
 
-    tradesRouter.post('/new-trade', validateTrade, trade);
-    tradesRouter.post('/new-products', validateProduct, newProduct);
-    tradesRouter.post('/new-category', validateCategory, newCategoryTrade );
-    tradesRouter.post('/new-delivery-zone', validateDeliveryZone, newDeliveryZone);
-    tradesRouter.post('/new-category-products', validateCategoryProduct , newCategory );
-    tradesRouter.post('/new-subcategory', validateSubcategory , newSubcategory );
+tradesRouter.post("/new-trade", validateTrade, trade);
+tradesRouter.post("/new-products", validateProduct, newProduct);
+tradesRouter.post("/new-category", validateCategory, newCategoryTrade);
+tradesRouter.post("/new-delivery-zone", validateDeliveryZone, newDeliveryZone);
+tradesRouter.post("/new-category-products", validateCategoryProduct, newCategory);
+tradesRouter.post("/new-subcategory", validateSubcategory, newSubcategory);
 
+tradesRouter.get("/all-trades", getTradesH);
+tradesRouter.get("/products", getProductsH);
+tradesRouter.get("/categories", getCategoriesH);
+tradesRouter.get("/delivery-zones", getDeliveryZonesH);
+tradesRouter.get("/categories-products", getCategoryProducts);
+tradesRouter.get("/subcategorys", getSubCategoriesH);
 
-    tradesRouter.get('/all-trades', getTradesH); 
-    tradesRouter.get('/products', getProductsH); 
-    tradesRouter.get('/categories',getCategoriesH) 
-    tradesRouter.get('/delivery-zones', getDeliveryZonesH) 
-    tradesRouter.get('/categories-products', getCategoryProducts)
-    tradesRouter.get('/subcategorys',getSubCategoriesH) 
+tradesRouter.put("/update-trade", updateTrade);
+tradesRouter.put("/update-product", updateProduct);
+tradesRouter.put("/update-category", updateCategory);
+tradesRouter.put("/update-delivery-zone", updateDeliveryZone);
+tradesRouter.put("/update-category-product", updateCategoryProduct);
+tradesRouter.put("/update-subcategory", updateSubcategory);
 
-    tradesRouter.put('/update-trade',updateTrade) 
-    tradesRouter.put('/update-product',updateProduct)
-    tradesRouter.put('/update-category', updateCategory) 
-    tradesRouter.put('/update-delivery-zone', updateDeliveryZone) 
-    tradesRouter.put('/update-category-product',updateCategoryProduct)
-    tradesRouter.put('/update-subcategory', updateSubcategory)
-
-    
-
-
-
-
-    
 module.exports = tradesRouter;
