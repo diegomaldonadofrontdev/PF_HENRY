@@ -8,6 +8,7 @@ import SearchBar from "../../components/SearchBar/SearchBar";
 import Header from "../../components/Header/Header";
 import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
 import CardCart from "../../components/CardCart/CardCart";
+import ButtonCTA from "../../components/ButtonCTA/ButtonCTA";
 
 export default function CommerceDetail() {
 	const dispatch = useDispatch();
@@ -102,6 +103,7 @@ export default function CommerceDetail() {
 							<p>
 								Total: <span>$100.000</span>
 							</p>
+							<ButtonCTA />
 						</div>
 					</div>
 				</div>

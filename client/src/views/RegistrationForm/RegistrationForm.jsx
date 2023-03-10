@@ -18,6 +18,10 @@ export default function RegistrationForm() {
 							<label htmlFor="">Apellido</label>
 							<input type="text" placeholder="" />
 						</div>
+						<div className={styles.input__container}>
+							<label htmlFor="">Usuario</label>
+							<input type="text" placeholder="" />
+						</div>
 					</div>
 					<div className={styles.twoColumns}>
 						<div className={styles.input__container}>
