@@ -4,6 +4,7 @@ const {
 } = require("../Controllers/tradesController");
 const Product = require('../models/Products');
 const CategoryProduct = require('../models/CategoryProducts');
+
 // Traemos todos los comercios mezclados
 let allTrades = getAllTrades()
 
@@ -121,7 +122,7 @@ const searchProductsByProductCat = (tradeId, productCategry) => { // modificar?
   const allProductsOfTrade = searchAllProducts(tradeId)
   if (allProductsOfTrade) {
     return allProductsOfTrade.filter(p => p.category === productCategry)
-  } else return `El comrcio no cuenta con productos de la categoría ${productCategry}`
+  } else return `El comercio no cuenta con productos de la categoría ${productCategry}`
   
 }
 
@@ -129,7 +130,7 @@ const searchProductByName = (tradeId, productName) => {
   const productsByTrade = searchAllProducts(tradeId)
   if (productsByTrade.length) {
     return productsByTrade.filter(p => p.name.toLowerCase().includes(productName.toLowerCase()))
-  } else return `El comrcio no cuenta con el producto ${productName}`
+  } else return `El comercio no cuenta con el producto ${productName}`
   
 }
 
@@ -137,14 +138,14 @@ const searchProductsByNameAndPoductCat = (tradeId, productCategry, productName) 
   const productByName = searchProductByName(tradeId, productName)
   if (productByName.length) {
     return productByName.filter(p => p.category === productCategry)
-  } else return `El comrcio no cuenta con el producto ${productName} en la categoría ${productCategry}`
+  } else return `El comercio no cuenta con el producto ${productName} en la categoría ${productCategry}`
   
 }
 
 const postCreateProduct = async (body) => {
   try {
     const productNew =  new Product(body);
-    await productNew.save()
+    const savedProduct = await productNew.save()
     return true
   } catch (error) {
     return false
