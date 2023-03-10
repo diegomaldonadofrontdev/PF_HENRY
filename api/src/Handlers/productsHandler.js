@@ -3,7 +3,8 @@ const {
   searchProductsByProductCat,
   searchProductByName,
   searchAllProducts,
-  searchProductById
+  searchProductById,
+  postCreateProduct
 } = require("../Controllers/productController");
 
 const Product = require('../models/Products')
@@ -42,7 +43,6 @@ const getProductHandler = async (req, res) => {
 const newProduct = async (req,res) => {
     try {
       const createProduct = await postCreateProduct(req.body);
-      if (createProduct) 
       res.status(200).json(`Se creo correctamente el producto`);
     } catch (error) {
       res.status(404).json({Error: 'Hubo un problema con el producto '})
@@ -54,7 +54,7 @@ const newCategory = async (req,res) => {
     try {
   
       const createCategory = await postCreateCategoryProduct(req.body);
-      if (createCategory) 
+      
       res.status(200).json(`Se creo correctamente la categoria`);
     } catch (error) {
       res.status(404).json({Error: 'Hubo un problema con la categoria '})
