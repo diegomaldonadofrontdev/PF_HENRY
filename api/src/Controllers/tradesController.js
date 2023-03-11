@@ -5,50 +5,12 @@ const Subcategory = require("../models/Subcategory");
 const Products = require("../models/Products");
 // const { trades } = require("../Auxiliares/comerciantes");
 const { trades } = require("../Auxiliares/comercios");
+const Products = require('../models/Products');
+const bcrypt = require('bcryptjs');
 
-//POST
-const postCreateTrades = async (body) => {
-  try {
-    const newTrade = new Trade(body);
-    await newTrade.save();
-    return true;
-  } catch (error) {
-    return false;
-  }
-};
-
-const postCreateCategory = async (body) => {
-  try {
-    const newCategory = new Category(body);
-    await newCategory.save();
-    return true;
-  } catch (error) {
-    return false;
-  }
-};
-
-const postCreateDeliveryZone = async (body) => {
-  try {
-    const newDeliveryZone = new DeliveryZone(body);
-    await newDeliveryZone.save();
-    return true;
-  } catch (error) {
-    return false;
-  }
-};
-
-const postCreateSubcategory = async (body) => {
-  try {
-    const newSubcategory = new Subcategory(body);
-    await newSubcategory.save();
-    return true;
-  } catch (error) {
-    return false;
-  }
-};
 
 //GET
-
+// .find({"propenlaquequierobuscar":"valor a buscar"}) <--- para filtrar por categoria por ejemplo
 const getDeliveryZone = async () => {
   try {
     const deliveryZones = await DeliveryZone.find();
@@ -108,8 +70,7 @@ const updateSubcategoryC = async (id, subcategory) => {
 };
 
 // CATEGORIAS -> [strings de categorias sin repetir]
-const getAllCategories = async () => {
-  // Fusionada Emi
+const getAllCategories = async () => {  // Fusionada Emi
   const categories = await Trade.find();
   if (categories.length) {
     const categoriesRepeats = [];
@@ -120,8 +81,7 @@ const getAllCategories = async () => {
 };
 
 // SUBCATEGORIAS -> [strings de subcategorias sin repetir de la categoria buscada]
-const getSubCategories = async (category) => {
-  // Readecuada
+const getSubCategories = async (category) => {  // Readecuada
   const allTradesByCategory = await searchTradesByCategory(category);
   const allSubcategoriesRepeats = [];
   if (allTradesByCategory) {
@@ -132,16 +92,14 @@ const getSubCategories = async (category) => {
 };
 
 // [comercios de la categoria buscada]
-const searchTradesByCategory = async (category) => {
-  // Readecuada Emi
+const searchTradesByCategory = async (category) => {  // Readecuada Emi
   const allTradesByCategory = await Trade.find({ category: category });
   if (allTradesByCategory.length) return allTradesByCategory;
   return `No se encontraron comercios para la categoría ${category}`;
 };
 
 // COMERCIOS -> [Todos los comercios de todas las categorias]
-const getAllTrades = async () => {
-  // Fusionada Emi
+const getAllTrades = async () => {  // Fusionada Emi
   const alltrades = await Trade.find();
   console.log(alltrades);
   if (alltrades.length) {
@@ -150,8 +108,7 @@ const getAllTrades = async () => {
 };
 
 // COMERCIOS -> [comercios con reparto en esa ciudad]
-const searchTradesByZone = async (zone) => {
-  // Readecuada Emi
+const searchTradesByZone = async (zone) => {  // Readecuada Emi
   const alltrades = getAllTrades();
   if (alltrades.length) {
     const tradesByZone = alltrades.filter((t) => t.deliveryZone.includes(zone));
@@ -177,7 +134,7 @@ const searchTradesByZoneAndCat = async (zone, category) => {            // Reade
 };
 
 // COMERCIOS -> [comercios que coinciden con la búsqueda]
-const searchTradesByCityAndCatAndSC = async (zone, category, subcategory) => {  // Readecuada Emi
+const searchTradesByZoneAndCatAndSC = async (zone, category, subcategory) => {  // Readecuada Emi
   const tradesByZoneAndCat = await searchTradesByZoneAndCat(zone, category);
   if (tradesByZoneAndCat.length) {
     const tradesBySC = tradesByZoneAndCat.filter(
@@ -192,7 +149,7 @@ const searchTradesByCityAndCatAndSC = async (zone, category, subcategory) => {  
 };
 
 // COMERCIOS -> [comercios que coinciden con la búsqueda]
-const searchProductByCityAndCatAndEpagos = (deliveryCity, category, epagos) => {
+const searchProductByZoneAndCatAndEpagos = (zone, category, epagos) => {
   const tradesByCityAndCat = searchTradesByCityAndCat(deliveryCity, category);
   let tradesByEpagos = tradesByCityAndCat.filter((x) => x.epagos === epagos);
 
@@ -246,17 +203,59 @@ const searchTradesBySubCategory = (category, subcategory) => {
   const tradesByCategory = searchTradesByCategory(category);
   return tradesByCategory.filter((t) => t.subcategory === subcategory);
 };
+//POST
+const postCreateTrades = async (body) => {
+    const { password } = body;
+    try {
+    newTrade = new Trade( body );
+    
+    // const salt = bcrypt.genSaltSync(10);
+    // newTrade.password = bcrypt.hashSync(password,salt);
+    await newTrade.save();
+
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
+
+const postCreateCategory = async (body) => {
+  try {
+    const newCategory = new Category(body);
+    await newCategory.save();
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
+
+const postCreateDeliveryZone = async (body) => {
+  try {
+    const newDeliveryZone = new DeliveryZone(body);
+    await newDeliveryZone.save();
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
+
+const postCreateSubcategory = async (body) => {
+  try {
+    const newSubcategory = new Subcategory(body);
+    await newSubcategory.save();
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
 
 module.exports = {
-  searchProductosByCityAndCatAndSCCAndEpagos,
-  searchProductByCityAndCatAndEpagos,
-  searchTradesByCityAndCatAndSC,
-  searchTradesByZoneAndCat,
-  searchTradesByZone,
-  getAllTrades,
-  searchTradeById,
   getAllCategories,
   getSubCategories,
-  searchTradesBySubCategory,
   searchTradesByCategory,
+  getAllTrades,
+  searchTradesByZone,
+  searchTradesByZoneAndCat,
+  searchTradesByZoneAndCatAndSC,
+  postCreateTrades
 };

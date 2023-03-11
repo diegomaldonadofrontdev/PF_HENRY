@@ -11,7 +11,9 @@ const {
   getClientsH,
   getOrdersH,
   updateClient,
-  updateOrder
+  updateOrder,
+  login,
+  registerWhitGoogle
 } = require("../handlers/clientsHandler");
 // const {
 //     createOrderHandler
@@ -41,8 +43,6 @@ clientsRouter.get("/feedbacks", getFeedbacksHandler);
 // POST
 clientsRouter.post("/feedback", validateFeedback, createFeedbackHandler);
 
-
-
 clientsRouter.post("/register", validateClient, newRegister);
 clientsRouter.post("/new-order", validateOrder, newOrder);
 
@@ -52,6 +52,10 @@ clientsRouter.get('/orders',getOrdersH)
 clientsRouter.put('/update-clients',updateClient);
 clientsRouter.put('/update-orders', updateOrder);
 
+
+// LOGIN AND AUTHENTICATION
+clientsRouter.post("/login", login)
+clientsRouter.post("/siginWhitGoogle", registerWhitGoogle)
 
 
 // clientsRouter.get("/trades/feedback", validateFeedback, createFeedbackHandler );

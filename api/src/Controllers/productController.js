@@ -3,8 +3,7 @@ const {
   getAllTrades,
 } = require("../Controllers/tradesController");
 const Product = require('../models/Products');
-const CategoryProduct = require('../models/CategoryProducts')
-
+const CategoryProduct = require('../models/CategoryProducts');
 // Traemos todos los comercios mezclados
 let allTrades = getAllTrades()
 
@@ -142,10 +141,21 @@ const searchProductsByNameAndPoductCat = (tradeId, productCategry, productName) 
   
 }
 
+const postCreateProduct = async (body) => {
+  try {
+    const productNew =  new Product(body);
+    await productNew.save()
+    return true
+  } catch (error) {
+    return false
+  }
+}
+
 module.exports = {
   searchProductsByNameAndPoductCat,
   searchProductsByProductCat,
   searchProductByName,
   searchAllProducts,
-  searchProductById
+  searchProductById,
+  postCreateProduct
 }

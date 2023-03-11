@@ -1,6 +1,10 @@
 const feedbacks = [];
 const Clients = require('../models/Clients');
 const Order = require('../models/Order')
+const sendMail = require('../Helpers/email')
+
+
+const bcrypt = require('bcryptjs');
 
 const postFeedbackController = (name, opinion, rating, image) => {  
   const newFeedback = {
@@ -23,9 +27,26 @@ const getFeedbacksController = () => {
 }
 
 const postCreateClientController = async (body) => {
-  const newClient = new Clients( body);
-  await newClient.save();
-  return true;
+
+  const { password } = body
+  
+  try {
+    newClient = new Clients( body);
+  
+    const salt = bcrypt.genSaltSync(10);
+    newClient.password = bcrypt.hashSync(password,salt)
+    
+    await newClient.save();
+    
+    sendMail("Bienvenido, gracias por registrarte");
+    
+      
+  } catch (error) {
+    return false
+  }
+
+
+  //return true;
 }
 
 const postCreateOrder = async (body) => {

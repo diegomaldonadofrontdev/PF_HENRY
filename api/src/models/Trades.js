@@ -8,9 +8,14 @@ const tradesSchema= Schema (
       trim: true,
     },
     
+    category: {
+      type: String,
+      require: true
+    },
+    
     subcategory: {
-      type: Schema.Types.ObjectId,
-      ref: "Subcategorys",
+      type: String,
+      require: true,
     },
 
     description :{
@@ -51,12 +56,12 @@ const tradesSchema= Schema (
 
     deliveryZone: {
       type: Schema.Types.Array,
-      ref: "DeliveryZone"
+      require: true
     },
 
     products: {
       type: Schema.Types.Array,
-      ref: "Products",
+      require: false
     },
 
     rating: {
