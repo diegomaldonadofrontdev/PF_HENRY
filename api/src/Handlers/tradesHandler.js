@@ -83,7 +83,7 @@ const getSubCategoriesHandler = async (req, res) => {
 const trade = async(req,res) =>{
   try {
     const createTrades = await postCreateTrades( req.body);
-    if (createTrades) 
+    
     res.status(200).json(`Se creo correctamente el comercio ${req.body.userName}`)
   } catch (error) {
     res.status(404).json({ Error: 'Error al registrar el comercio'})
@@ -93,7 +93,7 @@ const trade = async(req,res) =>{
 const newCategoryTrade = async (req, res) => {
   try {
     const createCategory = await postCreateCategory( req.body );
-    if(createCategory)
+    
     res.status(200).json(`Se creo la categoria correctamente ${req.body.categoryName}`)
   } catch (error) {
     res.status(404).json({Error: "Error al registar la categoria"});
@@ -104,7 +104,7 @@ const newCategoryTrade = async (req, res) => {
 const newDeliveryZone = async (req, res) => {
   try {
     const createDeliveryZone = await   postCreateDeliveryZone( req.body );
-    if(createDeliveryZone)
+    
     res.status(200).json(`Se creo la zona correctamente ${req.body.deliveryZoneName}`)
   } catch (error) {
     res.status(404).json({Error: "Error al registar la zona"});
@@ -116,7 +116,7 @@ const newSubcategory = async (req, res) => {
   try {
 
     const createSubcategory = await postCreateSubcategory( req.body );
-    if(createSubcategory)
+    
     res.status(200).json(`Se creo la zona correctamente ${req.body.subcategoryName}`)
   } catch (error) {
     res.status(404).json({Error: "Error al registar la zona"});

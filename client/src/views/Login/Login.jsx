@@ -1,40 +1,71 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import styles from "./Login.module.css";
 import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
 import Header from "../../components/Header/Header";
+import { Link, useNavigate } from "react-router-dom";
+import useUser from "../../Hooks/useUser";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Login() {
-	return (
-		<div className={styles.login}>
-			<Header />
-			<div className={styles.container}>
-				<h2>Registrá o ingresá para continuar</h2>
-				<ButtonPrimary texto="Registra tu negocio" />
-				<form className={styles.form}>
-					<div className={styles.user}>
-						<label htmlFor="">Usuario</label>
-						<input type="text" />
-					</div>
-					<div className={styles.password}>
-						<label htmlFor="">Clave</label>
-						<input type="password" />
-					</div>
-					<div className={styles.options}>
-						<ButtonPrimary texto="Sing In" />
-						<ButtonPrimary texto="Login" />
-					</div>
-				</form>
-				<div className={styles.other}>
-					<ButtonPrimary texto="Sing In con Google" />
-					<ButtonPrimary texto="Sing In con Facebook" />
-				</div>
 
-				<div className={styles.faqs}>
-					<a href="/">Que es pedivey?</a>
-					<a href="/">Como funciona?</a>
-					<a href="/">Tutoriales</a>
+
+	const { isAuthenticated, loginWithPopup } = useAuth0();
+	const { isLoginLoading, hasLoginError, isLogged, login, registerWhitGoogle } = useUser()
+	const navigate = useNavigate();
+	const [username, setUsername] = useState("");
+	const [password, setPassword] = useState("");
+
+	useEffect(() => {
+		if (isLogged || isAuthenticated) navigate("/");
+		if (isAuthenticated) registerWhitGoogle();
+	}, [isAuthenticated, isLogged, navigate, registerWhitGoogle]);
+
+	const handleLogin = async (e) => {
+		e.preventDefault();
+		login({ username, password });
+	};
+
+	const handleSiginWhitGoogle = (e) => {
+		loginWithPopup();
+	};
+
+	return (
+		<>
+			{isLoginLoading && <strong>Checking credentials...</strong>}
+			{!isLoginLoading && (
+				<div className={styles.login}>
+					<Header />
+					<div className={styles.container}>
+						<h2>Registrá o ingresá para continuar</h2>
+						<ButtonPrimary texto="Registra tu negocio" />
+						<form onSubmit={handleLogin} className={styles.form}>
+							<div className={styles.user}>
+								<label htmlFor="">Usuario</label>
+								<input type="text" value={username} name="username" placeholder="Ingrese su usuario" onChange={(e) => setUsername(e.target.value)} />
+							</div>
+							<div className={styles.password}>
+								<label htmlFor="">Clave</label>
+								<input type="password" value={password} name="password" placeholder="Ingresa tu contraseña" onChange={(e) => setPassword(e.target.value)} />
+							</div>
+							<div className={styles.options}>
+								<Link to="/registration"><ButtonPrimary texto="Sing In" /></Link>
+								<button style={{ border: "none" }} ><ButtonPrimary texto="Login" /></button>
+							</div>
+						</form>
+						<div className={styles.other}>
+							<button style={{ border: "none" }} onClick={handleSiginWhitGoogle}><ButtonPrimary texto="Sing In con Google" /></button>
+							{/* <ButtonPrimary texto="Sing In con Facebook" /> */}
+						</div>
+
+						<div className={styles.faqs}>
+							<a href="/">Que es pedivey?</a>
+							<a href="/">Como funciona?</a>
+							<a href="/">Tutoriales</a>
+						</div>
+					</div>
 				</div>
-			</div>
-		</div>
+			)}
+			{hasLoginError && <strong>Credentials are invalid</strong>}
+		</>
 	);
 }

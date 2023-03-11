@@ -114,10 +114,10 @@ const postCreateTrades = async (body) => {
     const { password } = body;
     try {
     newTrade = new Trade( body );
-    await newTrade.save();
     
     const salt = bcrypt.genSaltSync(10);
     newTrade.password = bcrypt.hashSync(password,salt);
+    await newTrade.save();
 
     return true;
     } catch (error) {
