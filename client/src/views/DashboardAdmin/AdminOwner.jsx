@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Header from "../../components/Header/Header";
-import Panel from "../../components/Panel/Panel";
+import PanelCajaDiaria from "../../components/PanelCajaDiaria/PanelCajaDiaria";
+import PanelMisProductos from "../../components/PanelMisProductos/PanelMisProductos";
+import PanelPedidos from "../../components/PanelPedidos/PanelPedidos";
 import logo from "../../images/logoowner.avif";
 import styles from "./AdminOwner.module.css";
 
@@ -35,7 +37,7 @@ export default function AdminOwner() {
 							<div className={styles.perfil__handlers}>
 								<a
 									href="#"
-									onClick={() => {
+									onClick={(e) => {
 										handleTabClick(1, "Pedidos");
 									}}
 								>
@@ -49,7 +51,12 @@ export default function AdminOwner() {
 								>
 									<i class="bx bxs-package"></i>Mis Productos
 								</a>
-								<a href="#">
+								<a
+									href="#"
+									onClick={() => {
+										handleTabClick(3, "Caja Diaria");
+									}}
+								>
 									<i class="bx bx-money"></i>Caja Diaria
 								</a>
 								<a href="#">
@@ -60,7 +67,7 @@ export default function AdminOwner() {
 								<p>Tu negocio se encuentra:</p>
 								<div>
 									<p className={styles.status}>Abierto</p>
-									<a href="#">Cambiar</a>
+									<a href="/">Cambiar</a>
 								</div>
 								<div className={styles.status__count}>
 									<p>
@@ -72,15 +79,20 @@ export default function AdminOwner() {
 								</div>
 							</div>
 							<div className={styles.perfil__links}>
-								<a href="#">Pedido de prueba</a>
-								<a href="#">Tutoriales</a>
-								<a href="#">Soporte</a>
+								<a href="/">Pedido de prueba</a>
+								<a href="/">Tutoriales</a>
+								<a href="/">Soporte</a>
 							</div>
 						</div>
-						<div className={styles.panel2}>
-							{currentTab.id === 1 ? <Panel /> : null}
+						<div className={styles.panel}>
+							{currentTab.id === 1 ? (
+								<PanelPedidos />
+							) : currentTab.id === 2 ? (
+								<PanelMisProductos />
+							) : currentTab.id === 3 ? (
+								<PanelCajaDiaria />
+							) : null}
 						</div>
-						<div className={styles.panel3}></div>
 					</div>
 				</div>
 			</div>

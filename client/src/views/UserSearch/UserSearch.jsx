@@ -2,17 +2,13 @@ import React from "react";
 import styles from "./UserSearch.module.css";
 import ContainerSearchComercio from "../../components/ContainerSearchComercio/ContainerSearchComercio";
 
-
 import { useSelector } from "react-redux";
-
 
 import Header from "../../components/Header/Header";
 import SearchBar from "../../components/SearchBar/SearchBar";
-import Filter__SearchView from "../../components/Filter__SearchView/Filter__SearchView";
+// import Filter__SearchView from "../../components/Filter__SearchView/Filter__SearchView";
 
 export default function UserSearch() {
-
-
 	const comercios = useSelector((state) => state.allCommerces);
 
 	const cities = [];
@@ -25,8 +21,7 @@ export default function UserSearch() {
 			}
 		}
 
-
-	const citiesUnrepeat = [...new Set(cities)];
+	// const citiesUnrepeat = [...new Set(cities)];
 
 	return (
 		<>
@@ -37,10 +32,9 @@ export default function UserSearch() {
 				</div>
 			</div>
 
-
 			<div className={styles.search__container}>
 				<div className={styles.filtros__container}>
-					<Filter__SearchView />
+					{/* <Filter__SearchView /> */}
 				</div>
 
 				<div className={styles.cards__container}>

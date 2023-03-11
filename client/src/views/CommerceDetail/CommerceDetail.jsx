@@ -22,11 +22,11 @@ export default function CommerceDetail() {
 
 	console.log(commerce);
 
-	const categorias = commerce?.productos.map((x) => x.category);
+	// const categorias = commerce?.productos.map((x) => x.category);
 
-	const unicos = categorias?.filter((valor, indice) => {
-		return categorias.indexOf(valor) === indice;
-	});
+	// const unicos = categorias?.filter((valor, indice) => {
+	// 	return categorias.indexOf(valor) === indice;
+	// });
 
 	return (
 		<div className={styles.comercio_detail}>

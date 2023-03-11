@@ -1,8 +1,8 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import AdminOwner from "./views/DashboardAdmin/AdminOwner";
-import ComercioDetail from "./views/ComercioDetail/ComercioDetail";
-import Home from "./views/home/Home";
+import CommerceDetail from "./views/CommerceDetail/CommerceDetail";
+import Home from "./views/Home/Home";
 import HomeLocal from "./views/HomeCommerce/HomeLocal";
 import Login from "./views/Login/Login";
 import OpinionForm from "./views/OpinionForm/OpinionForm";
@@ -23,9 +23,12 @@ function App() {
 					<Route path="/s" element={<HomeLocal />} />
 					<Route path="/search" element={<UserSearch />} />
 					<Route path="/opinion" element={<OpinionForm />} />
-					<Route path="/comercio/:id" element={<ComercioDetail />} />
+					<Route path="/comercio/:id" element={<CommerceDetail />} />
 					<Route path="/registration" element={<RegistrationForm />} />
-					<Route path="/registration_product" element={<ProductCreationForm />} />
+					<Route
+						path="/registration_product"
+						element={<ProductCreationForm />}
+					/>
 					<Route
 						path="/registration_commerce"
 						element={<CommerceRegistrationForm />}

@@ -1,9 +1,9 @@
 import React from "react";
 import PedidoCard from "../PedidoCard/PedidoCard";
 
-import styles from "./Panel.module.css";
+import styles from "./PanelPedidos.module.css";
 
-export default function Panel() {
+export default function PanelPedidos() {
 	return (
 		<div className={styles.panel}>
 			<div className={styles.container}>

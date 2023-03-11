@@ -32,7 +32,7 @@ h3 {
 	padding: 1em;
 	display: flex;
 	flex-direction: column;
-	overflow-y: hidden;
+	height: 750px;
 }
 
 .pedidosContainer {
@@ -40,7 +40,6 @@ h3 {
 	width: 100%;
 	flex-flow: row wrap;
 	gap: 50px;
-	padding-top: 25px;
 }
 
 .panel .container::-webkit-scrollbar {
