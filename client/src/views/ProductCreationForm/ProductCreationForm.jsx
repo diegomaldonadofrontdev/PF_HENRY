@@ -8,106 +8,87 @@ import swal from "sweetalert";
 
 
 
-export default function ProductCreationForm() {
-const Validate = (currentInput) => {
-	let currentErrors = []
-
-//Validacion stock
-if ( !/^[0-9,$]*$/.test(currentInput.stock)) currentErrors.stock = "Solo se permiten números!";
-   if (!currentInput.stock) currentErrors.stock = "Por favor ingresa un número de stock ";
-
-    
-//validacion precio
-	if ( !/^[0-9,$]*$/.test(currentInput.price)) currentErrors.price = "Solo se permiten números!";
-   if (!currentInput.price) currentErrors.price = "Por favor ingresa un Precio";
-
-//Validacion nombre
-if (!currentInput.name) currentErrors.name = "Por favor ingresa un Nombre"
-
-//Validacion categoria
-if (!currentInput.category) currentErrors.category = "Por favor ingresa una categoría"
-
-//validacion rating
-if ( !/^[0-9,$]*$/.test(currentInput.rating)) currentErrors.rating = "Solo se permiten números del 1 al 10";
-if (currentInput.rating < 1 || currentInput.rating > 10) currentErrors.rating = "Solo se permiten números del 1 al 10"
-   if (!currentInput.rating) currentErrors.rating = "Por favor ingresa un rating del 1 al 10 ";
-
-
-      return currentErrors
-}
+export default function ProductCreation (){
 
 const dispatch = useDispatch()
 // const categories = useSelector((state) => state.categories)
-const [currentErrors, setCurrentErrors] = useState({})
+
+const [productImg, setProductImg] = useState('')
 // const [currentErrorsCategory, setCurrentErrorsCategory] = useState({})
+//guarda los datos de los inputs
 const [currentInput, setCurrentInput] = useState({
-	"name": "",
-    "category": "",
-    "description": "",
-    "price": "",
-    "image": "",
-    "rating": "",
-    "stock": "",
-    "status": true
+	name: "",
+    category: "",
+    description: "",
+    price: "",
+    image: "",
+    rating: "",
+    stock: "",
+    status: true
 })
+console.log(currentInput)
 
 // useEffect(()=>{
 // 	dispatch(getCategories())
 // }, [dispatch])
 
-useEffect(()=>{
-	setCurrentErrors(Validate(currentInput))
-	//setCurrentErrorsCategory(Validate(currentInput))
-}, [currentInput])
 
 
-const handlerInputs = (e) =>{
-e.preventDefault()
-setCurrentInput({
-	...currentInput,
-[e.target.name] : e.target.value
-})
-setCurrentErrors(Validate({
-	...currentInput,
-[e.target.name] : e.target.value
-}))
+//Registra los cambios en los inputs
+const handleChangeInputs = (e) =>{
+setCurrentInput({...currentInput, [e.target.name] : e.target.value})
 }
 
-const handlerImg = (e) => {
+
+// Manejo la imagen con CLOUDINARY
+const handleProductImgUpload = async (e) => {
+	const files = e.target.files;
+	console.log(files)
+	const datas = new FormData()
+	datas.append("file", files[0]);
+	datas.append("upload_preset", "PEDI-VERY" )
+	const res = await fetch("https://api.cloudinary.com/v1_1/sebov96/upload", {
+		method: "POST",
+		body: datas,
+	})
+	const file = await res.json()
 	setCurrentInput({
-		...currentInput,
-	[e.target.name] : e.target.value
+		...currentInput, 
+		image: file.secure_url,
 	})
 }
 
+//Envio los datos del form al BACK, actualiza, resetea el estado y captura errores
 const handlerSubmit = (e) => {
 	e.preventDefault()
-	if(!Object.keys(currentErrors)){
-		swal({
-			title: "Listo!",
-			text: "Tu producto fue creado correctamente",
-			icon: "success",
-			button: "Ok",
-		});
-		dispatch(postProduct(currentInput))
-		setCurrentInput({
-	        "name": "",
-            "category": "",
-            "description": "",
-            "price": "",
-            "image": "",
-            "rating": "",
-            "stock": "",
-            "status": true
-		})
-	} else {
+	const {name, category, description, price, image, rating, stock} = currentInput
+	if(!name || !category || !description || !price || !image || !rating || !stock){
 		swal({
 			title: "Error!",
-			text: "Por favor llena los campos correctamente",
+			text: "Rellena todos los campos correctamente, por favor",
 			icon: "error",
 			button: "Ok",
 		});
+	} else {
+		dispatch(postProduct(currentInput))
+		swal({
+			title: "Listo!",
+			text: "Producto creado correctamente",
+			icon: "succes",
+			button: "Ok",
+		});
+		setCurrentInput({
+			name: "",
+			category: "",
+			description: "",
+			price: "",
+			image: "",
+			rating: "",
+			stock: "",
+			status: true
+		})
 	}
+	
 }
 
 
@@ -118,41 +99,41 @@ const handlerSubmit = (e) => {
 		<div className={styles.productCration__form}>
 			<Header />
 			<div className={styles.container}>
-				<form action="" className={styles.form} onSubmit={(e) => handlerSubmit(e)}>
+				<form action="" className={styles.form} onSubmit={handlerSubmit}>
 					<div className={styles.twoColumns}>
 						<div className={styles.input__container}>
 							<label htmlFor="">Nombre</label>
-							<input type="text" placeholder="" onChange={handlerInputs}/>
+							<input type="text" placeholder="Nombre..." name="name" value={currentInput.name} onChange={handleChangeInputs}/>
 						</div>
 						<div className={styles.input__container}>
 							<label htmlFor="">Categoría</label>
-							<input type="text" placeholder="" onChange={handlerInputs} />
+							<input type="text" placeholder="" name="category" value={currentInput.category} onChange={handleChangeInputs} />
 						</div>
 					</div>
 					<div className={styles.twoColumns}>
 						<div className={styles.input__container}>
 							<label htmlFor="">Precio</label>
-							<input type="text" placeholder="" onChange={handlerInputs} />
+							<input type="text" placeholder="" name="price" value={currentInput.price} onChange={handleChangeInputs} />
 						</div>
 						<div className={styles.input__container}>
 							<label htmlFor="">Imagen</label>
-							<input type="file" placeholder="" onChange={handlerImg} />
+							<input type="file" accept="image/" onChange={handleProductImgUpload} />
 						</div>
 					</div>
 					<div className={styles.twoColumns}>
 						<div className={styles.input__container}>
 							<label htmlFor="">Rating</label>
-							<input type="text" placeholder="" onChange={handlerInputs}/>
+							<input type="text" placeholder="" name="rating" value={currentInput.rating} onChange={handleChangeInputs}/>
 						</div>
 						<div className={styles.input__container}>
 							<label htmlFor="">Stock</label>
-							<input type="text" placeholder="" onChange={handlerInputs}/>
+							<input type="text" placeholder="" name="stock" value={currentInput.stock} onChange={handleChangeInputs}/>
 						</div>
 					</div>
 
 					<div className={styles.input__container}>
 						<label htmlFor="">Descripción</label>
-						<textarea type="text" placeholder="" onChange={handlerInputs}/>
+						<textarea type="text" placeholder="" name="description" value={currentInput.description} onChange={handleChangeInputs}/>
 					</div>
 
 					<button type="submit"><ButtonPrimary texto="REGISTRAR PRODUCTO"  /></button>
