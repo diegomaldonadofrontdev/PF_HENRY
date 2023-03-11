@@ -7,25 +7,26 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 export default function useUser() {
 
-    const { token, setToken } = useContext(Context);
+    const { token, setToken, setDataUser } = useContext(Context);
     const [state, setState] = useState({ loading: false, error: false });
     const { isAuthenticated, user } = useAuth0();
 
     const login = useCallback(({ username, password }) => {
         setState({ loading: true, error: false })
         loginService({ username, password })
-            .then(token => {
+            .then(user => {
+                const { firstname, lastname, username, email, password, country, city, address, phone, status, token } = user;
                 window.sessionStorage.setItem('token', JSON.stringify(token))
                 setState({ loading: false, error: false })
                 setToken(token)
-                console.log(token)
+                setDataUser({firstname, lastname, username, email, password, country, city, address, phone, status})
             })
             .catch(err => {
                 window.sessionStorage.removeItem('token')
                 setState({ loading: false, error: true })
                 console.log(err)
             })
-    }, [setToken])
+    }, [setToken, setDataUser])
 
     const sigin = useCallback(({ firstname, lastname, username, email, password, country, city, address, phone, status }) => {
         setState({ loading: true, error: false })
