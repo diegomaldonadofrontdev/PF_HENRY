@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./PedidoCard.module.css";
 import mila from "./../../images/milanesa.avif";
-import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
+import ButtonDashboard from "../ButtonDashboard/ButtonDashboard";
 
 export default function PedidoCard() {
 	return (
@@ -11,19 +11,29 @@ export default function PedidoCard() {
 			</div>
 			<div className={styles.datosPedido}>
 				<div>
-					<p>Nombre del producto</p>
-					<p>Direccion de entrega</p>
+					<h4>Milanesa Napolitana con fritas</h4>
+					<p className={styles.datos}>Av. Medrano 600</p>
 
-					<p>Horario del pedido</p>
+					<p className={styles.datos}>12:30hs</p>
 				</div>
 
-				<div>
-					<p>Estado (pendiente/aceptado)</p>
-					<ButtonPrimary texto="Ver Datos" />
+				<div className={styles.estado_pedido}>
+					<p>Estado del pedido</p>
+					<div>
+						<div>Aceptado</div>
+					</div>
 				</div>
-				<div>
-					<p>Preparado / Enviado / Entregado</p>
-					<ButtonPrimary texto="Cambiar" />
+				<div className={styles.estado_entrega}>
+					<p>Estado del envio</p>
+					<div>
+						<ButtonDashboard texto="Enviado" />
+					</div>
+				</div>
+				<div className={styles.estado_entrega}>
+					<p>Estado del pago</p>
+					<div>
+						<ButtonDashboard texto="Recibido" />
+					</div>
 				</div>
 			</div>
 		</div>

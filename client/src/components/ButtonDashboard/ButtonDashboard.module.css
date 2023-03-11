@@ -1,0 +1,16 @@
+.ButtonDashboard {
+	border: none;
+	font-size: 0.9em;
+	padding: 0.5em 2em;
+	border-radius: 0.3em;
+	text-align: start;
+	font-weight: 600;
+	transition: all 0.1s ease-in-out;
+	cursor: pointer;
+	border: 1px solid var(--main-color);
+}
+
+.ButtonDashboard:hover {
+	background-color: var(--main-color);
+	color: white;
+}

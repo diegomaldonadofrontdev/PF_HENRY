@@ -1,38 +1,64 @@
 .panel {
-	margin: 50px 0;
+	box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
+	background-color: white;
+	border-radius: 0.5em;
+	max-height: 800px;
+	overflow: hidden;
+	overflow-y: scroll;
+}
+
+.panel::-webkit-scrollbar {
+	width: 8px; /* width of the entire scrollbar */
+}
+
+.panel::-webkit-scrollbar-track {
+	border-radius: 0.5em;
+	background: white; /* color of the tracking area */
+}
+
+.panel::-webkit-scrollbar-thumb {
+	background-color: rgb(208, 208, 208); /* color of the scroll thumb */
+	border-radius: 20px; /* roundness of the scroll thumb */
+	border: 1px solid white;
 }
 
 h3 {
-	font-size: 1.5em;
-}
-
-.container {
-	max-width: 100%;
-	margin: auto;
+	font-size: 1.2em;
 }
 
 .panel .container {
-	background-color: rgba(255, 255, 255, 0.604);
-	/* box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
-	-webkit-box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5); */
-	border-radius: 15px;
+	max-width: 100%;
 	padding: 1em;
 	display: flex;
 	flex-direction: column;
-	align-items: center;
-	gap: 50px;
+	overflow-y: hidden;
 }
 
 .pedidosContainer {
 	display: flex;
 	width: 100%;
-	flex-direction: column;
+	flex-flow: row wrap;
 	gap: 50px;
+	padding-top: 25px;
+}
+
+.panel .container::-webkit-scrollbar {
+	width: 8px; /* width of the entire scrollbar */
+}
+
+.panel .container::-webkit-scrollbar-track {
+	background: white; /* color of the tracking area */
+}
+
+.panel .container::-webkit-scrollbar-thumb {
+	background-color: rgb(208, 208, 208); /* color of the scroll thumb */
+	border-radius: 20px; /* roundness of the scroll thumb */
+	border: 1px solid white;
 }
 
 @media (max-witdh: 700px) {
 	.panel {
-		margin: 50px 0;
 	}
 
 	.container {
