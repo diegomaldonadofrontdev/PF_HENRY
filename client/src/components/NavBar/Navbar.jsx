@@ -6,7 +6,8 @@ export default function Navbar() {
 	return (
 		<nav className={styles.nav}>
 			<Link className={styles.btn_market} to="/s">
-				<i class="bx bx-store"></i>Registrá tu negocio
+				<i class="bx bx-store"></i>
+				<span>Registrá tu negocio</span>
 			</Link>
 			{/* <i className={"bx bx-menu"}></i>
 			<i className={"bx bx-cart-alt"}></i> */}
