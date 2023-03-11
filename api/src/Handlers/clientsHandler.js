@@ -169,5 +169,6 @@ module.exports = {
   updateClient,
   updateOrder,
   login,
-  registerWhitGoogle
+  registerWhitGoogle,
+  users
 };
