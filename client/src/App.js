@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import AdminOwner from "./views/DashboardAdmin/AdminOwner";
 import ComercioDetail from "./views/ComercioDetail/ComercioDetail";
-import Home from "./views/Home/Home";
+import Home from "./views/home/Home";
 import HomeLocal from "./views/HomeCommerce/HomeLocal";
 import Login from "./views/Login/Login";
 import OpinionForm from "./views/OpinionForm/OpinionForm";
@@ -10,6 +10,8 @@ import UserSearch from "./views/UserSearch/UserSearch";
 import RegistrationForm from "./views/RegistrationForm/RegistrationForm";
 import ProductCreationForm from "./views/ProductCreationForm/ProductCreationForm";
 import CommerceRegistrationForm from "./views/CommerceRegistrationForm/CommerceRegistrationForm";
+import ProductsDisplayer from "./components/MercadopagoTest/mercadopago";
+
 
 function App() {
 	return (
@@ -28,6 +30,7 @@ function App() {
 					path="/registration_commerce"
 					element={<CommerceRegistrationForm />}
 				/>
+				<Route path= "/payments" element= {<ProductsDisplayer/>}/>
 			</Routes>
 		</div>
 	);
