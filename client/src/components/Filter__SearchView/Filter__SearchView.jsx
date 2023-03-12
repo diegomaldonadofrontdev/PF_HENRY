@@ -7,7 +7,7 @@ import {
 	getTrades,
 	getTradesByCity,
 	getCategories
-} from "../../Redux/actions/actions"
+} from "../../Redux/Actions/actions"
 // Filtros que agregar: deliveryCity, category, subcategory, epago
 
 export default function Filter__SearchView({setCity, setCategory, setSubCategory}) {

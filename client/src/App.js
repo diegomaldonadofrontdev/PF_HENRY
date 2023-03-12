@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import AdminOwner from "./views/DashboardAdmin/AdminOwner";
-import ComercioDetail from "./views/ComercioDetail/ComercioDetail";
+import ComercioDetail from "./views/CommerceDetail/CommerceDetail";
 import Home from "./views/home/Home";
 import HomeLocal from "./views/HomeCommerce/HomeLocal";
 import Login from "./views/Login/Login";
