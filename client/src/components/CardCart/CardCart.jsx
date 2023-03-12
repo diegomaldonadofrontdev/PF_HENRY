@@ -1,4 +1,5 @@
 import React from "react";
+import ButtonCTA from "../ButtonCTA/ButtonCTA";
 import styles from "./CardCart.module.css";
 
 export default function CardCart() {
@@ -22,11 +23,16 @@ export default function CardCart() {
 				<div className={styles.cantidad}>
 					<p>1</p>
 					<div className={styles.button__container}>
-						<button><i class='bx bxs-up-arrow'></i></button>
-						<button><i class='bx bxs-down-arrow'></i></button>
+						<div className={styles.arrow__container}>
+							<i class="bx bxs-up-arrow"></i>
+						</div>
+						<div className={styles.line}></div>
+						<div className={styles.arrow__container}>
+							<i class="bx bxs-down-arrow"></i>
+						</div>
 					</div>
 				</div>
-				<p>$3.000</p>
+				<p className={styles.price}>$3.000</p>
 			</div>
 		</div>
 	);

@@ -1,0 +1,15 @@
+.ButtonSucces {
+	border: none;
+	font-size: 0.9em;
+	padding: 0.5em 2em;
+	border-radius: 0.3em;
+	text-align: start;
+	font-weight: 600;
+	transition: all 0.1s ease-in-out;
+	cursor: pointer;
+}
+
+.ButtonSucces:hover {
+	background-color: rgb(0, 148, 0);
+	color: white;
+}

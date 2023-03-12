@@ -1,0 +1,80 @@
+.panel__cajaDiaria {
+	display: flex;
+	flex-direction: column;
+	border-radius: 0.3em;
+	gap: 1em;
+}
+
+.panel__cajaDiaria .container {
+	width: 100%;
+	border-radius: 0.3em;
+	padding: 1em;
+	overflow-y: scroll;
+	height: 670px;
+	background-color: white;
+	box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
+}
+
+.panel__cajaDiaria .container::-webkit-scrollbar {
+	width: 8px; /* width of the entire scrollbar */
+}
+
+.panel__cajaDiaria .container::-webkit-scrollbar-track {
+	background: white; /* color of the tracking area */
+}
+
+.panel__cajaDiaria .container::-webkit-scrollbar-thumb {
+	background-color: rgb(208, 208, 208); /* color of the scroll thumb */
+	border-radius: 20px; /* roundness of the scroll thumb */
+	border: 1px solid white;
+}
+
+.panel__cajaDiaria .container table {
+	width: 100%;
+	border-radius: 0.5em;
+}
+
+.panel__cajaDiaria .container table tr {
+	border-radius: 0.5em;
+}
+
+.panel__cajaDiaria .container table tr:nth-child(2n + 1) {
+	border-radius: 0.5em;
+	background-color: rgb(244, 244, 244);
+}
+
+.panel__cajaDiaria .container table tr th {
+	background-color: var(--main-color);
+	color: white;
+	font-weight: 400;
+	border-radius: 0.3em;
+	padding: 0.3em 0;
+}
+
+.panel__cajaDiaria .container table td {
+	text-align: center;
+	padding: 0.5em 0;
+	font-size: 0.9em;
+	font-weight: 600;
+	color: gray;
+}
+
+.panel__cajaDiaria .buttons {
+	display: flex;
+	padding: 1em;
+	border-radius: 0.3em;
+}
+
+.panel__cajaDiaria .buttons > div {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+.panel__cajaDiaria .buttons a {
+	background-color: var(--main-color);
+	padding: 0.5em 2em;
+	border-radius: 0.3em;
+	color: white;
+	font-size: 0.9em;
+}

@@ -2,12 +2,13 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import ProductoCard from "../../components/ProductoCard/ProductoCard";
-import { getProductById } from "../../Redux/actions/actions";
+import { getProductById } from "../../redux/actions/actions";
 import styles from "./CommerceDetail.module.css";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import Header from "../../components/Header/Header";
 import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
 import CardCart from "../../components/CardCart/CardCart";
+import ButtonCTA from "../../components/ButtonCTA/ButtonCTA";
 
 export default function CommerceDetail() {
 	const dispatch = useDispatch();
@@ -21,11 +22,11 @@ export default function CommerceDetail() {
 
 	console.log(commerce);
 
-	const categorias = commerce?.productos.map((x) => x.category);
+	// const categorias = commerce?.productos.map((x) => x.category);
 
-	const unicos = categorias?.filter((valor, indice) => {
-		return categorias.indexOf(valor) === indice;
-	});
+	// const unicos = categorias?.filter((valor, indice) => {
+	// 	return categorias.indexOf(valor) === indice;
+	// });
 
 	return (
 		<div className={styles.comercio_detail}>
@@ -39,7 +40,7 @@ export default function CommerceDetail() {
 							Rating: {commerce?.rating} <i class="bx bxs-star"></i>
 						</p>
 					</div>
-					<Link to="/search" className={styles.btn__volver}>
+					<Link to="/busqueda" className={styles.btn__volver}>
 						<ButtonPrimary texto="Volver" />
 					</Link>
 				</div>
@@ -102,6 +103,7 @@ export default function CommerceDetail() {
 							<p>
 								Total: <span>$100.000</span>
 							</p>
+							<ButtonCTA />
 						</div>
 					</div>
 				</div>
