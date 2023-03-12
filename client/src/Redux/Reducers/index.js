@@ -6,14 +6,16 @@
 // import categoriesReducer from "./categoriesReducer";
 // import filterByCategoryReducer from "./filterCategoryReducer";
 
-// const allReducers = combineReducers({
-// 	product: productReducer,
-// 	products: productsReducer,
-// 	users: userReducer,
-// 	trades: tradesReducer,
-// 	categories: categoriesReducer,
-// 	filter: filterByCategoryReducer,
-// });
+import {
+	TRADES_FILTERS,
+	 GET_PRODUCT_BY_ID,
+	 GET_ALL_PRODUCTS,
+	 GET_TRADES_CATEGORIES,
+	 GET_SUBCATEGORIES,
+	 GET_TRADES,
+	 GET_REVIEW,
+	 PRODUCT_FILTERS
+} from "../actions/actions"
 
 // export default allReducers;
 
@@ -21,13 +23,10 @@ const initialState = {
 	product: [],
 	products: [],
 	allCommerces: [],
-	category: [],
-	categories: [],
-	city: [],
-	users: [],
-	feedback: [],
-	filters: [],
-	filterCategory: [],
+	tradesCategories: [],
+	tradesSubCategories: [],
+	feedback: []
+	
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -35,17 +34,17 @@ export default function rootReducer(state = initialState, action) {
 	
 
 	switch (action.type) {
-		case "GET_PRODUCT_BY_ID":
+		case GET_PRODUCT_BY_ID:
 			return {
 				...state,
 				product: action.payload,
 			};
-		case "GET_PRODUCTS":
+		case GET_ALL_PRODUCTS:
 			return {
 				...state,
 				products: action.payload,
 			};
-		case "PRODUCT_FILTER":
+		case PRODUCT_FILTERS:
 			return {
 				...state,
 				products: action.payload,
@@ -55,49 +54,31 @@ export default function rootReducer(state = initialState, action) {
 				...state,
 				users: action.payload,
 			};
-		case "GET_TRADES_BY_CATEGORY":
+		case GET_TRADES_CATEGORIES:
 			return {
 				...state,
-				filters: action.payload,
+				tradesCategories: action.payload,
 			};
-		case "GET_CATEGORIES":
-			return {
-				...state,
-				categories: action.payload,
-			};
-		case "GET_TRADES":
+		case GET_TRADES:
 			return {
 				...state,
 				allCommerces: action.payload,
 			};
-		case "GET_REVIEW":
+		case GET_REVIEW:
 			return {
 				...state,
 				feedback: action.payload,
 			};
-		case "FILTER_CATEGORY":
-			return {
-				 ...state,
-				 filters: action.payload 
-				};
-
-		case "FILTER_BY_TARJETA":
-			
-				return {
-					...state,
-					filters: action.payload,
-				};
-			
-		case "FILTER_BY_CITY":
-			return {
-				...state,
-				filters: action.payload
-			}
-		case "COMBINED_FILTERS":
+		case TRADES_FILTERS:
 			return{
 				...state,
-				filters: action.payload
-			}	
+				allCommerces: action.payload
+			}
+			case GET_SUBCATEGORIES:
+				return {
+					...state,
+					tradesSubCategories: action.payload
+				}	
 		default:
 			return state;
 	}

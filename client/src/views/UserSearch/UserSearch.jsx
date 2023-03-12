@@ -13,6 +13,7 @@ import Header from "../../components/Header/Header";
 
 export default function UserSearch() {
 	const comercios = useSelector((state) => state.allCommerces);
+	console.log(comercios)
 
 	const [category, setCategory] = useState("");
 	const [city, setCity] = useState("");
