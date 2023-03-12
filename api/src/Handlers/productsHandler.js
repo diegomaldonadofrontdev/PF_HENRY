@@ -1,25 +1,27 @@
 const {
-  searchProductsByNameAndPoductCat,
-  searchProductsByProductCat,
-  searchProductByName,
+  searchByNameAndPoductCat,
+  searchByProductCat,
+  searchByName,
   searchAllProducts,
   searchProductById,
-  postCreateProduct
+  postCreateProduct,
+  getAllProductsCategories
 } = require("../Controllers/productController");
 
 const Product = require('../models/Products')
 
-// GET ---------> products/
-const getProductsHandler = async (req, res) => {
-  const { tradeId, productCategry, productName } = req.query;
+// GET ---------> products/search?tradeId=${tradeId}&productCategory=${category}&productName=${inputName}
+const getProductsHandler = async (req, res) => { //FUNCIONANDO 12/03
+  const { tradeId, productCategory, productName } = req.query; 
   try {
+    if (!tradeId) return `No se recibió el id del comercio`
     const products =
-    tradeId & productCategry & productName
-    ? await searchProductsByNameAndPoductCat(tradeId, productCategry, productName)
-    : tradeId & productCategry
-    ? await searchProductsByProductCat(tradeId, productCategry)
-    : tradeId & productName
-    ? await searchProductByName(tradeId, productName)
+    tradeId && productCategory && productName
+    ? await searchByNameAndPoductCat(tradeId, productCategory, productName)
+    : tradeId && productCategory
+    ? await searchByProductCat(tradeId, productCategory)
+    : tradeId && productName
+    ? await searchByName(tradeId, productName)
     : await searchAllProducts(tradeId)     
     res.status(200).json(products);
   } catch (error) {
@@ -28,7 +30,7 @@ const getProductsHandler = async (req, res) => {
 };
 
 // GET --------> products/:id
-const getProductHandler = async (req, res) => {
+const getProductHandler = async (req, res) => { // FUNCIONANDO 12/03
   const { id } = req.params;
   try {
     const product = await searchProductById(id);
@@ -40,9 +42,23 @@ const getProductHandler = async (req, res) => {
   }
 };
 
+// GET --------> products/categories?tradeId=${tradeId}
+const getProductCategoryHandler = async (req, res) => { // FUNCIONANDO 12/03
+  const {tradeId} = req.query
+  try {
+    const categories = await getAllProductsCategories(tradeId)
+    res.status(200).json(categories)
+  } catch (error) {
+    res.status(404).json({error: `No se pudieron obtener las categorias de los productos`})
+  }
+}
+
+//POST
 const newProduct = async (req,res) => {
+  const body = req.body;
+  const {id} = req.params
     try {
-      const createProduct = await postCreateProduct(req.body);
+      const createProduct = await postCreateProduct(id, body);
       res.status(200).json(`Se creo correctamente el producto`);
     } catch (error) {
       res.status(404).json({Error: 'Hubo un problema con el producto '})
@@ -80,6 +96,7 @@ const getCategoryProducts = async (req,res) => {
   }
 }
 
+// PUT
 const updateProduct = async(req, res) => {
   const { id } = req.params;
   const productUpdate = {
@@ -114,10 +131,12 @@ const updateCategoryProduct = async(req, res) => {
 module.exports = {
   getProductsHandler,
   getProductHandler,
+  getProductCategoryHandler,
   newProduct,
   newCategory,
   getProductsH,
   getCategoryProducts,
   updateProduct,
-  updateCategoryProduct
+  updateCategoryProduct,
+
 };
