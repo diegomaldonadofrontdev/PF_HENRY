@@ -74,16 +74,21 @@ export default function PanelMisProductos() {
 						<h4>Editá tu producto</h4>
 						<form action="">
 							<div>
-								<label htmlFor="">Nombre</label>
-								<input type="text" />
+								<input type="text" placeholder="Nuevo Nombre" />
 							</div>
 							<div>
-								<label htmlFor="">Resumen</label>
-								<textarea name="" id=""></textarea>
+								<textarea
+									name=""
+									id=""
+									placeholder="Nueva Descripcion"
+								></textarea>
 							</div>
 							<div>
-								<label htmlFor="">Descripcion</label>
-								<textarea name="" id=""></textarea>
+								<textarea
+									name=""
+									id=""
+									placeholder="Nueva Descripcion"
+								></textarea>
 							</div>
 						</form>
 						<div className={styles.form__edit}>
