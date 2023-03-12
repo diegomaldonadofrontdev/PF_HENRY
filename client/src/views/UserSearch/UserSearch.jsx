@@ -1,22 +1,21 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getTrades } from "../../Redux/Actions/actions";
+import { getTrades } from "../../redux/actions/actions";
 import ContainerSearchComercio from "../../components/ContainerSearchComercio/ContainerSearchComercio";
-
-import { useSelector } from "react-redux";
+import styles from "./UserSearch.module.css";
 
 import Header from "../../components/Header/Header";
 import SearchBar from "../../components/SearchBar/SearchBar";
+import ComercioCard from "../../components/ComercioCard/ComercioCard";
 // import Filter__SearchView from "../../components/Filter__SearchView/Filter__SearchView";
 
 export default function UserSearch() {
 	const comercios = useSelector((state) => state.allCommerces);
 
-	const [category, setCategory] = useState('')
-	const [city, setCity] = useState('')
-	const [subcategory, setSubCategory] = useState('')
-
+	const [category, setCategory] = useState("");
+	const [city, setCity] = useState("");
+	const [subcategory, setSubCategory] = useState("");
 
 	// const citiesUnrepeat = [...new Set(cities)];
 
@@ -31,14 +30,46 @@ export default function UserSearch() {
 
 			<div className={styles.search__container}>
 				<div className={styles.filtros__container}>
-					{/* <Filter__SearchView /> */}
+					<form action="">
+						<div>
+							<p>Filtrar por Categoria:</p>
+							<select>
+								<option value="">Opcion</option>
+							</select>
+						</div>
+						<div>
+							<p>Agregar Subcategoria:</p>
+							<select>
+								<option value="">Opcion</option>
+							</select>
+						</div>
+						<div>
+							<p>Filtrar por Zona:</p>
+							<select>
+								<option value="">Opcion</option>
+							</select>
+						</div>
+						<div>
+							<p>Filtrar por Medio de pago:</p>
+							<select>
+								<option value="">Opcion</option>
+							</select>
+						</div>
+						<input type="submit" value={"Filtrar"} className={styles.submit} />
+					</form>
 				</div>
 
 				<div className={styles.cards__container}>
 					<div className={styles.search__results}>
 						<p>{comercios.length} Locales encontrados:</p>
 						{comercios.map((e) => (
-							<Link to={`/commerce/${e.id}`}><ComercioCard id={e.id} name={e.commerceName} rating={e.rating}/></Link>
+							<Link to={`/commerce/${e.id}`}>
+								<ComercioCard
+									id={e.id}
+									name={e.commerceName}
+									rating={e.rating}
+								/>
+							</Link>
 						))}
 					</div>
 				</div>
