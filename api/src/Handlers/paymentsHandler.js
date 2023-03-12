@@ -1,89 +1,68 @@
-// const { searchProductByName } = require("../Controllers/productController");
+const mercadopago = require('mercadopago');
+mercadopago.configure({ access_token: "TEST-1066540883101610-030911-deb7dfe78a0cb28c3c9cddfe554a4054-753764477" })
 
-var mercadopago = require('mercadopago');
-const { CreatePreferencePayload, PreferencePayer, PreferenceBackUrl } = require("mercadopago/models/preferences/create-payload.model")
+const products = [
+    {
+        id: 111,
+        name: "pizza",
+        category: "comida",
+        description: "pizza extra grande",
+        price: 5000,
+        image: "https://w7.pngwing.com/pngs/56/985/png-transparent-pizza-margherita-sushi-pizza-pizza-delivery-pizza-thumbnail.png",
+        rating: 5,
+        stock: 1
+    },
+    {
+        id: 222,
+        name: "hamburguesa",
+        category: "comida",
+        description: "hamburguesa triple carne",
+        price: 15000,
+        image: "https://img2.freepng.es/20180328/vlq/kisspng-cheeseburger-bacon-hamburger-wrap-hot-dog-bacon-5abba6a0b0b5c8.9053149315222473287238.jpg",
+        stock: 1
+    },
+]
 
-const { users } = require("./clientsHandler");
-const products = [{ name: "producto1", price: "2500" }, { name: "producto2", price: "3500" }, { name: "producto3", price: "4500" }]
+const paymentsHandler = (req, res) => {
 
-// mercadopago.configure({
-//     access_token: 'TEST_USER_932263551'
-// });
-// var preference = {
-//     items: []
-// };
+    const { name } = req.body;
+    let searhProduct = products.find(p => p.name === name);
 
-// const searchProductByName = (name) => {
-//     const productsByName = allProducts.filter((p) => p.name == name);
-//     if (productsByName.name) {
-//         preference.items.push({
-//             title: productsById.name,
-//             quantity: 1,
-//             unit_price: productsById.price
-//         })
-//     }
-//     return productsById;
-// };
-
-
-const searchProduct = (name) => {
-    const productsByName = products.find(p => p.name === name)
-    if (productsByName.name) {
-        preference.items.push({
-            title: productsByName.name,
-            quantity: 1,
-            unit_price: productsByName.price
-        })
+    let preference = {
+        items: [
+            {
+                id: searhProduct.id,
+                title: searhProduct.name,
+                current_id: 'ARS',
+                picture_url: searhProduct.image,
+                category_id: 'art',
+                quantity: searhProduct.stock,
+                unit_price: searhProduct.price
+            }
+        ],
+        back_urls: {
+            success: 'http://localhost:3000',
+            failure: '',
+            pending: '',
+        },
+        auto_return: 'approved',
+        binary_mode: true
     }
-    return productsByName;
-};
-
-const paymentsHandler = async (req, res) => {
-
-    mercadopago.configure({
-        access_token: 'TEST-1066540883101610-030911-deb7dfe78a0cb28c3c9cddfe554a4054-753764477'
-    });
-    var preference = {
-        items: []
-    };
-
-    const { username, password, name } = req.body;
-
-    let product = searchProduct(name);
-    let searhcUser = users.find(u => u.username === username && u.password === password);
-
-    if (!product) res.status(404).json("No se encontro el producto");
-    if (!searhcUser) res.status(404).json("No se encontro el usuario");
-
     mercadopago.preferences.create(preference)
-        .then(function (response) {
-            res.status(200).json({ global: response.body.name })
-        })
-        .catch((error) => {
-            // In an error appears, we'll send the error.
-            res.status(500).json({ global: error })
-        })
-
-
-
+        .then((response) => res.status(200).send({ response }))
+        .catch((error) => res.status(400).send({ error: error.message }))
 }
 
-const notificacion = (req, res) => {
-    console.log(req.body);
-    res.status(200).send("OK");
+const getProducts = (req, res) => {
+    try {
+        if(!products.length) return res.status(404).json({message: "No se encontraron productos"})
+        return res.status(200).json(products)
+    } catch (error) {
+        res.status(400).json({error: error.message})
+    }
 }
 
 module.exports = {
     paymentsHandler,
-    notificacion
-}
-
-
-// mercadopago.preferences.create(preference)
-//     .then(function (response) {
-//         res.status(200).json({ global: response.body.id })
-//     })
-//     .catch((error) => {
-//         // In an error appears, we'll send the error.
-//         res.status(500).json({ global: error })
-//     })
+    getProducts
+};

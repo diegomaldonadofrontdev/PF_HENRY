@@ -1,10 +1,10 @@
 const { Router } = require("express");
-const { validateTestUser } = require("../Middlewares/validate");
-const {paymentsHandler, notificacion} = require("../Handlers/paymentsHandler")
+// const { validateTestUser } = require("../Middlewares/validate");
+const { paymentsHandler, getProducts } = require("../Handlers/paymentsHandler")
 
 const paymentsRouter = Router();
 
-paymentsRouter.post("/create", validateTestUser, paymentsHandler)
-paymentsRouter.post("/notification", notificacion)
+paymentsRouter.get("/", getProducts)
+paymentsRouter.post("/", paymentsHandler)
 
 module.exports = paymentsRouter;
