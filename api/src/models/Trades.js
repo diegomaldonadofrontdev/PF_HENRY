@@ -6,6 +6,7 @@ const tradesSchema= Schema (
       type : String,
       require: true,
       trim: true,
+      unique: true
     },
     
     category: {
@@ -27,10 +28,12 @@ const tradesSchema= Schema (
       type : String,
       require : true,
       trim: true,
+      unique: true
     },
     email : {
       type: String,
       require: true,
+      unique: true
     },
     password : {
       type: String,

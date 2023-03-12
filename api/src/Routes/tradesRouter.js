@@ -50,6 +50,8 @@ const tradesRouter = Router();
 
 // // GET
 tradesRouter.get("/trades/search", getTradesHandler);
+tradesRouter.get("/products", getProductsH);
+tradesRouter.get("/categories-products", getCategoryProducts);
 // tradesRouter.get("/products", getProductsHandler);
 // tradesRouter.get("/products/:id", getProductHandler);
 // tradesRouter.get("/users", getUsersHandler);
@@ -71,19 +73,12 @@ tradesRouter.get("/trades/search", getTradesHandler);
 // tradesRouter.put("/users/:id", validateUsers, putUserHandler);
 // tradesRouter.put("/products/:id", validateProducts, putProductHandler);
 
-tradesRouter.post("/new-trade", validateTrade, trade);
-tradesRouter.post("/new-products", validateProduct, newProduct);
+tradesRouter.post("/new-trade", /*validateTrade, */trade);
+tradesRouter.post("/:id/new-product", /*validateProduct, */newProduct);
 tradesRouter.post("/new-category", validateCategory, newCategoryTrade);
 tradesRouter.post("/new-delivery-zone", validateDeliveryZone, newDeliveryZone);
 tradesRouter.post("/new-category-products", validateCategoryProduct, newCategory);
 tradesRouter.post("/new-subcategory", validateSubcategory, newSubcategory);
-
-tradesRouter.get("/all-trades", getTradesH);
-tradesRouter.get("/products", getProductsH);
-tradesRouter.get("/categories", getCategoriesH);
-tradesRouter.get("/delivery-zones", getDeliveryZonesH);
-tradesRouter.get("/categories-products", getCategoryProducts);
-tradesRouter.get("/subcategorys", getSubCategoriesH);
 
 tradesRouter.put("/update-trade", updateTrade);
 tradesRouter.put("/update-product", updateProduct);

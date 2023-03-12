@@ -1,7 +1,8 @@
 const { Router } = require("express");
 const {
   getProductsHandler,
-  getProductHandler
+  getProductHandler,
+  getProductCategoryHandler
 } = require("../handlers/productsHandler");
 const {
   createFeedbackHandler,
@@ -23,20 +24,19 @@ const {
   getTradeHandler,
   getCategoriesHandler,
   getSubCategoriesHandler,
-  
-
 } = require("../Handlers/tradesHandler");
 const { validateFeedback, validateClient, validateOrder } = require("../middlewares/validate");
 
 const clientsRouter = Router();
 
 // GET
-clientsRouter.get("/categories", getCategoriesHandler);
-clientsRouter.get("/subcategories", getSubCategoriesHandler);
-clientsRouter.get("/trades/search", getTradesHandler);
-clientsRouter.get("/trades/search/:id", getTradeHandler);
-clientsRouter.get("/products/search", getProductsHandler);
-clientsRouter.get("/products/search/:id", getProductHandler);
+clientsRouter.get("/trades/categories", getCategoriesHandler); // FUNCIONANDO 12/03
+clientsRouter.get("/trades/subcategories", getSubCategoriesHandler); // FUNCIONANDO 12/03
+clientsRouter.get("/trades/search", getTradesHandler); // FUNCIONANDO 12/03
+clientsRouter.get("/trades/search/:id", getTradeHandler); // FUNCIONANDO 12/03
+clientsRouter.get("/products/search", getProductsHandler); // FUNCIONANDO 12/03
+clientsRouter.get("/products/search/:id", getProductHandler); // FUNCIONANDO 12/03
+clientsRouter.get("/products/categories", getProductCategoryHandler); // FUNCIONANDO 12/03
 clientsRouter.get("/feedbacks", getFeedbacksHandler);
 
 
