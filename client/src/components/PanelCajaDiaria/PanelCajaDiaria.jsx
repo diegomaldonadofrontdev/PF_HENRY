@@ -183,6 +183,13 @@ export default function PanelCajaDiaria() {
 					</tr>
 				</table>
 			</div>
+			<div className={styles.buttons}>
+				<div>
+					<a href="#">Cerrar Caja</a>
+					<a href="#">Registrar retiro</a>
+					<a href="#">Imprimir</a>
+				</div>
+			</div>
 		</div>
 	);
 }

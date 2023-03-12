@@ -1,16 +1,19 @@
 .panel__cajaDiaria {
 	display: flex;
+	flex-direction: column;
 	border-radius: 0.3em;
-	background-color: white;
-	box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
-	-webkit-box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
+	gap: 1em;
 }
 
 .panel__cajaDiaria .container {
 	width: 100%;
+	border-radius: 0.3em;
 	padding: 1em;
-	overflow: scroll;
-	height: 750px;
+	overflow-y: scroll;
+	height: 670px;
+	background-color: white;
+	box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
 }
 
 .panel__cajaDiaria .container::-webkit-scrollbar {
@@ -55,4 +58,23 @@
 	font-size: 0.9em;
 	font-weight: 600;
 	color: gray;
+}
+
+.panel__cajaDiaria .buttons {
+	display: flex;
+	padding: 1em;
+	border-radius: 0.3em;
+}
+
+.panel__cajaDiaria .buttons > div {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+.panel__cajaDiaria .buttons a {
+	background-color: var(--main-color);
+	padding: 0.5em 2em;
+	border-radius: 0.3em;
+	color: white;
+	font-size: 0.9em;
 }

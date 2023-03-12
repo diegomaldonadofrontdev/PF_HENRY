@@ -11,6 +11,7 @@ import RegistrationForm from "./views/RegistrationForm/RegistrationForm";
 import ProductCreationForm from "./views/ProductCreationForm/ProductCreationForm";
 import CommerceRegistrationForm from "./views/CommerceRegistrationForm/CommerceRegistrationForm";
 import { UserContextProvider } from "./Context/userContext";
+import DashboardClient from "./views/DasboardClient/DashboardClient";
 
 function App() {
 	return (
@@ -19,6 +20,8 @@ function App() {
 				<Routes>
 					<Route path="/" element={<Home />} />
 					<Route path="/adminowner" element={<AdminOwner />} />
+					<Route path="/useradmin" element={<DashboardClient />} />
+
 					<Route path="/login" element={<Login />} />
 					<Route path="/s" element={<HomeLocal />} />
 					<Route path="/search" element={<UserSearch />} />

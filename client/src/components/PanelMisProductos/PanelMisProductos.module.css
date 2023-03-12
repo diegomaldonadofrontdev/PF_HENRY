@@ -2,10 +2,9 @@
 }
 
 .panel__misProductos .container {
-	padding: 1em;
 	display: flex;
 	flex-direction: column;
-	gap: 50px;
+	gap: 1em;
 }
 
 .panel__misProductos .container .misProductos__header {
@@ -178,5 +177,50 @@
 
 .productos__editForm {
 	width: 400px;
-	border: 1px solid gray;
+	background-color: white;
+	border-radius: 0.3em;
+	box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
+}
+
+.productos__editForm {
+	padding: 1em;
+	text-align: center;
+}
+
+.productos__editForm form {
+	margin-top: 30px;
+	padding: 1em 0em;
+	width: 100%;
+	gap: 2em;
+}
+
+.productos__editForm div {
+	width: 100%;
+}
+
+.productos__editForm input {
+	padding: 0;
+	margin: 0;
+	height: 50px;
+	font-size: 0.9em;
+	padding: 0 1em;
+	width: 100%;
+	outline: none;
+	background-color: white;
+}
+
+.productos__editForm div textarea {
+	padding: 1em;
+	font-size: 0.9em;
+	margin: 0;
+	height: 100px;
+	max-height: 300px !important;
+	outline: none;
+	background-color: white;
+}
+
+.form__edit > div {
+	display: flex;
+	justify-content: end;
 }

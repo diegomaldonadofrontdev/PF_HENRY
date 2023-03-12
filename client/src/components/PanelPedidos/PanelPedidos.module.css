@@ -1,7 +1,4 @@
 .panel {
-	box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
-	-webkit-box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
-	background-color: white;
 	border-radius: 0.5em;
 	max-height: 800px;
 	overflow: hidden;
@@ -29,7 +26,7 @@ h3 {
 
 .panel .container {
 	max-width: 100%;
-	padding: 1em;
+
 	display: flex;
 	flex-direction: column;
 	height: 750px;
@@ -39,7 +36,8 @@ h3 {
 	display: flex;
 	width: 100%;
 	flex-flow: row wrap;
-	gap: 50px;
+	gap: 1em;
+	padding-right: 0.5em;
 }
 
 .panel .container::-webkit-scrollbar {

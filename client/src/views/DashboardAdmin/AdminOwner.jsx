@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Header from "../../components/Header/Header";
 import PanelCajaDiaria from "../../components/PanelCajaDiaria/PanelCajaDiaria";
+import PanelMiNegocio from "../../components/PanelMiNegocio/PanelMiNegocio";
 import PanelMisProductos from "../../components/PanelMisProductos/PanelMisProductos";
 import PanelPedidos from "../../components/PanelPedidos/PanelPedidos";
 import logo from "../../images/logoowner.avif";
@@ -59,7 +60,12 @@ export default function AdminOwner() {
 								>
 									<i class="bx bx-money"></i>Caja Diaria
 								</a>
-								<a href="#">
+								<a
+									href="#"
+									onClick={() => {
+										handleTabClick(4, "Mi Negocio");
+									}}
+								>
 									<i class="bx bx-store"></i>Mi Negocio
 								</a>
 							</div>
@@ -91,6 +97,8 @@ export default function AdminOwner() {
 								<PanelMisProductos />
 							) : currentTab.id === 3 ? (
 								<PanelCajaDiaria />
+							) : currentTab.id === 4 ? (
+								<PanelMiNegocio />
 							) : null}
 						</div>
 					</div>

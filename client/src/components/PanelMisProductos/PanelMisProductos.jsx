@@ -70,7 +70,33 @@ export default function PanelMisProductos() {
 							</div>
 						</div>
 					</div>
-					<div className={styles.productos__editForm}></div>
+					<div className={styles.productos__editForm}>
+						<h4>Editá tu producto</h4>
+						<form action="">
+							<div>
+								<label htmlFor="">Nombre</label>
+								<input type="text" />
+							</div>
+							<div>
+								<label htmlFor="">Resumen</label>
+								<textarea name="" id=""></textarea>
+							</div>
+							<div>
+								<label htmlFor="">Descripcion</label>
+								<textarea name="" id=""></textarea>
+							</div>
+						</form>
+						<div className={styles.form__edit}>
+							<div className={styles.buttons__editdelete}>
+								<a href="#" className={styles.eliminarProducto}>
+									Cancelar
+								</a>
+								<a href="#" className={styles.editarProducto}>
+									Actualizar
+								</a>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
