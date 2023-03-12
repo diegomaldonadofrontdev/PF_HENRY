@@ -33,7 +33,6 @@ export default function CardCart() {
 					</div>
 				</div>
 				<p className={styles.price}>$3.000</p>
-				
 			</div>
 		</div>
 	);
