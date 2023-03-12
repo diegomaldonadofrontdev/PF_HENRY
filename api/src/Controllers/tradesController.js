@@ -120,6 +120,24 @@ const getSubCategories = async (category) => { // FUNCIONANDO 12/03
   }
 }
 
+// [Lista de zonas de delivery disponibles] [{deliveryZone: []}, {deliveryZone: []}]
+const getDeliveryZones = async () => {
+  try {
+    const allTrades = await Trade.find({}, "deliveryZone")  
+    if (allTrades.length) {
+      const deliveryZonesRepeat = []
+      for (let i = 0; i < allTrades.length; i++) {
+        for (let j = 0; j < allTrades[i].deliveryZone.length; j++) {
+          deliveryZonesRepeat.push(allTrades[i].deliveryZone[j])
+        }       
+      }
+      return [... new Set(deliveryZonesRepeat)]
+    } else return `Vaya! Hubo un problema al buscar en la base de datos`  
+  } catch (error) {
+    return error.message
+  }
+}
+
 
 //GET
 // .metodo({filtro}, {lo que quiero mostrar(actualizar, eliminar, postear)})
@@ -358,4 +376,5 @@ module.exports = {
   postCreateTrades,
   getAllCategories,
   getSubCategories,
+  getDeliveryZones
 };

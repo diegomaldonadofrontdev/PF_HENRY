@@ -4,13 +4,6 @@ const {
 } = require("../Controllers/tradesController");
 const Trade = require('../models/Trades')
 const Product = require('../models/Products');
-<<<<<<< HEAD
-=======
-const CategoryProduct = require('../models/CategoryProducts');
-
-// Traemos todos los comercios mezclados
-let allTrades = getAllTrades()
->>>>>>> c498f89fa541a76969efdd19a594aadb407720e5
 
 // [{producto buscado}]
 const searchProductById = async (id) => { // FUNCIONANDO 12/03
@@ -18,7 +11,6 @@ const searchProductById = async (id) => { // FUNCIONANDO 12/03
   return productById;
 };
 
-<<<<<<< HEAD
 // [Todos los prodcutos del comercio]
 const searchAllProducts = async (tradeId) => { // FUNCIONANDO 12/03
   try {
@@ -87,46 +79,10 @@ const postCreateProduct = async (id, body) => { //*
   try {
     const newProduct =  new Product(body);
     newProduct.tradeId = id
-    await newProduct.save()
-    // const addNewProdcut = await Trade.findByIdAndUpdate({ _id : id }, {$push:{ products: productNew }})
-=======
-const searchAllProducts = (tradeId) => {
-  const trade = searchTradeById(tradeId)
-  return trade[0].productos
-}
-
-const searchProductsByProductCat = (tradeId, productCategry) => { // modificar?
-  const allProductsOfTrade = searchAllProducts(tradeId)
-  if (allProductsOfTrade) {
-    return allProductsOfTrade.filter(p => p.category === productCategry)
-  } else return `El comercio no cuenta con productos de la categoría ${productCategry}`
-  
-}
-
-const searchProductByName = (tradeId, productName) => {
-  const productsByTrade = searchAllProducts(tradeId)
-  if (productsByTrade.length) {
-    return productsByTrade.filter(p => p.name.toLowerCase().includes(productName.toLowerCase()))
-  } else return `El comercio no cuenta con el producto ${productName}`
-  
-}
-
-const searchProductsByNameAndPoductCat = (tradeId, productCategry, productName) => {
-  const productByName = searchProductByName(tradeId, productName)
-  if (productByName.length) {
-    return productByName.filter(p => p.category === productCategry)
-  } else return `El comercio no cuenta con el producto ${productName} en la categoría ${productCategry}`
-  
-}
-
-const postCreateProduct = async (body) => {
-  try {
-    const productNew =  new Product(body);
-    const savedProduct = await productNew.save()
->>>>>>> c498f89fa541a76969efdd19a594aadb407720e5
-    return true
+    await newProduct.save()  
+    return `El producto ${body.name} se creo correctamente`
   } catch (error) {
-    return false
+    return error.message
   }
 }
 

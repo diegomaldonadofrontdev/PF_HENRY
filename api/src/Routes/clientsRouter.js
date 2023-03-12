@@ -5,7 +5,7 @@ const {
   getProductCategoryHandler
 } = require("../handlers/productsHandler");
 const {
-  createFeedbackHandler,
+  postFeedbackHandler,
   getFeedbacksHandler,
   newRegister,
   newOrder,
@@ -24,6 +24,7 @@ const {
   getTradeHandler,
   getCategoriesHandler,
   getSubCategoriesHandler,
+  getDeliveryZoneHandler,
 } = require("../Handlers/tradesHandler");
 const { validateFeedback, validateClient, validateOrder } = require("../middlewares/validate");
 
@@ -32,23 +33,23 @@ const clientsRouter = Router();
 // GET
 clientsRouter.get("/trades/categories", getCategoriesHandler); // FUNCIONANDO 12/03
 clientsRouter.get("/trades/subcategories", getSubCategoriesHandler); // FUNCIONANDO 12/03
+clientsRouter.get("/trades/deliveryZone", getDeliveryZoneHandler); // FUNCIONANDO 12/03
 clientsRouter.get("/trades/search", getTradesHandler); // FUNCIONANDO 12/03
 clientsRouter.get("/trades/search/:id", getTradeHandler); // FUNCIONANDO 12/03
 clientsRouter.get("/products/search", getProductsHandler); // FUNCIONANDO 12/03
 clientsRouter.get("/products/search/:id", getProductHandler); // FUNCIONANDO 12/03
 clientsRouter.get("/products/categories", getProductCategoryHandler); // FUNCIONANDO 12/03
 clientsRouter.get("/feedbacks", getFeedbacksHandler);
-
-
-// POST
-clientsRouter.post("/feedback", validateFeedback, createFeedbackHandler);
-
-clientsRouter.post("/register", validateClient, newRegister);
-clientsRouter.post("/new-order", validateOrder, newOrder);
-
 clientsRouter.get('/clients',getClientsH)
 clientsRouter.get('/orders',getOrdersH)
 
+
+// POST
+clientsRouter.post("/feedback", validateFeedback, postFeedbackHandler);
+clientsRouter.post("/register", validateClient, newRegister);
+clientsRouter.post("/new-order", validateOrder, newOrder);
+
+// PUT
 clientsRouter.put('/update-clients',updateClient);
 clientsRouter.put('/update-orders', updateOrder);
 

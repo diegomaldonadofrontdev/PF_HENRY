@@ -1,25 +1,21 @@
 const feedbacks = [];
 const Clients = require('../models/Clients');
 const Order = require('../models/Order')
+const Feedback = require('../models/Feedback')
 const sendMail = require('../Helpers/email')
 
 
 const bcrypt = require('bcryptjs');
 
-const postFeedbackController = (name, opinion, rating, image) => {  
-  const newFeedback = {
-    name: name,
-    opinion: opinion,
-    rating: rating,
-    image: image,
+const createFeedback = (clientId, body) => {  
+  try {
+    const newClient = new Clients(body)
+    newClient.clientId = clientId
+    newClient.save()
+    return `Hemos`
+  } catch (error) {
+    
   }
-  console.log(feedbacks);
-  feedbacks.push(newFeedback);
-  console.log(feedbacks);
-  
-  if (feedbacks.length) {
-    return true;
-  } else return false;
 };
 
 const getFeedbacksController = () => {
@@ -98,7 +94,7 @@ const updateOrderC = async (id, updateOrder) => {
 
 
 module.exports = {
-    postFeedbackController,
+    createFeedback,
     getFeedbacksController,
     postCreateClientController,
     postCreateOrder,
