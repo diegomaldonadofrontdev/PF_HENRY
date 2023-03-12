@@ -20,6 +20,7 @@ export default function UserSearch() {
 	const [category, setCategory] = useState("");
 	const [city, setCity] = useState("");
 	const [subcategory, setSubCategory] = useState("");
+	const [filters, setFilters] = useState("")
 
 	useEffect(() => {
 		dispatch(getTrades())
@@ -27,8 +28,10 @@ export default function UserSearch() {
 		dispatch(getSubCategories())
 	}, [dispatch])
 
-const handleOnChange = () => {
-
+const handleFilters = (e) => {
+e.preventDefault()
+dispatch(getTradesFilter(e.target.value))
+setFilters(e.target.value)
 }
 
 	// const citiesUnrepeat = [...new Set(cities)];
@@ -44,11 +47,12 @@ const handleOnChange = () => {
 
 			<div className={styles.search__container}>
 				<div className={styles.filtros__container}>
-					<form action="">
+					<form action="" onSubmit={handleFilters}>
 						<div>
 							<p>Filtrar por Categoria:</p>
 							<select>
-								<option value="">Opcion</option>
+								{categories.map((e) => (<option value="">{e}</option>))}
+								
 							</select>
 						</div>
 						<div>
