@@ -5,6 +5,10 @@ const {
 const Product = require('../models/Products');
 const CategoryProduct = require('../models/CategoryProducts')
 
+
+
+
+
 // Traemos todos los comercios mezclados
 let allTrades = getAllTrades()
 
@@ -141,6 +145,7 @@ const searchProductsByNameAndPoductCat = (tradeId, productCategry, productName) 
   } else return `El comrcio no cuenta con el producto ${productName} en la categoría ${productCategry}`
   
 }
+
 
 module.exports = {
   searchProductsByNameAndPoductCat,
