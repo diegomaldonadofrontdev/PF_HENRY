@@ -71,9 +71,17 @@
 .buscador__producto form {
 	display: flex;
 	flex-direction: row;
+	gap: 1em;
 	width: 100%;
 	margin: 0;
 	padding: 0;
+}
+
+.buscador__producto .button {
+	background-color: var(--main-color);
+	border: none;
+	color: white;
+	border-radius: 0.3em;
 }
 
 .buscador__producto form input:first-child {
@@ -172,7 +180,7 @@
 }
 
 .resultados__productos {
-	width: 300px;
+	width: 400px;
 }
 
 .productos__editForm {
@@ -189,35 +197,47 @@
 }
 
 .productos__editForm form {
-	margin-top: 30px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 	padding: 1em 0em;
 	width: 100%;
-	gap: 2em;
+	gap: 1em;
 }
 
 .productos__editForm div {
 	width: 100%;
+	margin: 0;
+	padding: 0;
 }
 
 .productos__editForm input {
-	padding: 0;
+	padding: 1em !important;
 	margin: 0;
-	height: 50px;
+	height: 30px;
 	font-size: 0.9em;
-	padding: 0 1em;
+	padding: 0.5em;
 	width: 100%;
 	outline: none;
+	border: 1px solid rgb(198, 198, 198);
 	background-color: white;
+	border-radius: 0.3em;
+}
+.productos__editForm input::placeholder {
+	color: gray;
 }
 
 .productos__editForm div textarea {
 	padding: 1em;
 	font-size: 0.9em;
-	margin: 0;
 	height: 100px;
 	max-height: 300px !important;
 	outline: none;
 	background-color: white;
+	width: 100%;
+	border: 1px solid rgb(198, 198, 198);
+	resize: none;
+	border-radius: 0.3em;
 }
 
 .form__edit > div {

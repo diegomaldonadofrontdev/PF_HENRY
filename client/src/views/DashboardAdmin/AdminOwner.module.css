@@ -14,7 +14,7 @@
 }
 
 .admin__grid {
-	padding: 50px;
+	padding-top: 50px;
 	width: 100%;
 	display: grid;
 	grid-template-areas: "perfil panel";
