@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import "./index.css";
 import App from "./App";
-import store from "./Redux/Store/store";
+import store from "./redux/store/store";
 import reportWebVitals from "./reportWebVitals";
 import { Auth0Provider } from "@auth0/auth0-react";
 
@@ -14,8 +14,9 @@ root.render(
 		domain="dev-zpzzomv5vnift4jo.us.auth0.com"
 		clientId="JhaLDMR8rgrFZRYqHEz38bgscOHZCeIP"
 		authorizationParams={{
-			redirect_uri: window.location.origin
-		}}	>
+			redirect_uri: window.location.origin,
+		}}
+	>
 		<Provider store={store}>
 			<BrowserRouter>
 				<App />
