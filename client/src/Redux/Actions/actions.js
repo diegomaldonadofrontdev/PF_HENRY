@@ -143,7 +143,7 @@ export function postProduct(payload) {
 	};
 }
 
-export function getSubcategories(category) {
+export function getSubCategories(category) {
 	return async function (dispatch) {
 		const subCat = await axios.get(
 			`${host}/clients/trades/subcategories?category=${category}`

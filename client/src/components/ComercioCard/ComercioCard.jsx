@@ -11,8 +11,8 @@ export default function ComercioCard(props) {
 				<img src={img} alt="" />
 			</div>
 			<div className={styles.card__info} key={props._id}>
-				<h3>{props.commerceName}</h3>
-				<p className={styles.epagos}>
+				<h3>{props.name}</h3>
+				<p className={styles.epago}>
 					{props.epagos === true ? (
 						<i class="bx bx-credit-card"></i>
 					) : (

@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getTrades } from "../../redux/actions/actions";
+import {
+	getTrades,
+	getTradesCategories,
+	getTradesFilter,
+	getSubCategories,
+} from "../../redux/actions/actions";
 import ContainerSearchComercio from "../../components/ContainerSearchComercio/ContainerSearchComercio";
 import styles from "./UserSearch.module.css";
 import ComercioCard from "../../components/ComercioCard/ComercioCard";
@@ -17,10 +22,19 @@ export default function UserSearch() {
 	}, []);
 	const comercios = useSelector((state) => state.allCommerces);
 	console.log(comercios);
-
+	const categories = useSelector((state) => state.tradesCategories);
+	const subCategories = useSelector((state) => state.tradesSubCategories);
 	const [category, setCategory] = useState("");
 	const [city, setCity] = useState("");
 	const [subcategory, setSubCategory] = useState("");
+
+	useEffect(() => {
+		dispatch(getTrades());
+		dispatch(getTradesCategories());
+		dispatch(getSubCategories());
+	}, [dispatch]);
+
+	const handleOnChange = () => {};
 
 	// const citiesUnrepeat = [...new Set(cities)];
 
@@ -67,8 +81,8 @@ export default function UserSearch() {
 				<div className={styles.cards__container}>
 					<div className={styles.search__results}>
 						<p>{comercios.length} Locales encontrados:</p>
-						{comercios?.map((e) => (
-							<Link to={`/comercio/${e._id}`}>
+						{comercios.map((e) => (
+							<Link to={`/commerce/${e.id}`}>
 								<ComercioCard
 									id={e._id}
 									name={e.commerceName}
