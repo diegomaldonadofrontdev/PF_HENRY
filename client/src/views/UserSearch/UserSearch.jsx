@@ -47,7 +47,7 @@ useEffect(()=>{
 					<div className={styles.search__results}>
 						<p>{comercios.length} Locales encontrados:</p>
 						{comercios.map((e) => (
-							<Link to={`/commerce/${e.id}`}><ComercioCard id={e.id} name={e.commerceName} rating={e.rating}/></Link>
+							<Link to={`/comercio/${e.id}`}><ComercioCard id={e.id} name={e.commerceName} rating={e.rating}/></Link>
 						))}
 					</div>
 				</div>
