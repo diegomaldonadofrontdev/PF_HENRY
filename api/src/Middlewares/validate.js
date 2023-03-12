@@ -1,28 +1,15 @@
 
 
 const validateFeedback = (req, res, next) => {
-    const { name, opinion, rating, image } = req.body;
+    const { name, opinion, rating } = req.body;
+    const { clientId } = req.query
     if (!name) return res.status(400).json({ Error: "No se ha recibido el nombre" });
     if (!opinion) return res.status(400).json({ Error: "No se ha recibido la opinion" });
     if (!rating) return res.status(400).json({ Error: "No se ha recibido la puntuación" });
-    if (!image) return res.status(400).json({ Error: "No se ha recibido la imagen" });    
+    if (!clientId) return res.status(400).json({ Error: "No se ha recibido el id del cliente" });
     next();
   };
 
-/*
-nombre
-apellido
-ciudad de ebtrega
-direccion de entrega
-mapa
-telefono
-imagen
-mail
-
-id del comercio
-id de los productos []
-
-*/
 
   const validateOrder = (req, res, next) => {
     const { name, lastName, deliveryCity, deliveryAdress, phone, email } = req.body;

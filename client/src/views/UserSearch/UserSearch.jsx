@@ -6,6 +6,8 @@ import ContainerSearchComercio from "../../components/ContainerSearchComercio/Co
 import styles from "./UserSearch.module.css"
 import ComercioCard from "../../components/ComercioCard/ComercioCard";
 
+import { useSelector } from "react-redux";
+
 import Header from "../../components/Header/Header";
 
 
