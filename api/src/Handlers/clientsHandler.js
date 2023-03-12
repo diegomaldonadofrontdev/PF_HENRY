@@ -13,6 +13,15 @@ const {
 } = require("../Controllers/clientsController");
 
 
+// GET ------------> feedbacks
+const getFeedbacksHandler = async (req, res) => {
+  try {
+    const feedbacks = await getFeedbacksController();
+    res.status(200).json(feedbacks);
+  } catch (error) {
+    res.status(404).json({ error: `Error al exportar los feedbacks de los clientes` });
+  }
+};
 
 // POST -------> /feedback
 const createFeedbackHandler = async (req, res) => {
@@ -26,14 +35,6 @@ const createFeedbackHandler = async (req, res) => {
   }
 };
 
-const getFeedbacksHandler = async (req, res) => {
-  try {
-    const feedbacks = await getFeedbacksController();
-    res.status(200).json(feedbacks);
-  } catch (error) {
-    res.status(404).json({ error: `Error al exportar los feedbacks de los clientess` });
-  }
-};
 
 const newRegister = async (req, res) => {
   try {

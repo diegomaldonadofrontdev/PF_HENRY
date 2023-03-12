@@ -6,11 +6,17 @@ const tradesSchema= Schema (
       type : String,
       require: true,
       trim: true,
+      unique: true
+    },
+    
+    category: {
+      type: String,
+      require: true
     },
     
     subcategory: {
-      type: Schema.Types.ObjectId,
-      ref: "Subcategorys",
+      type: String,
+      require: true,
     },
 
     description :{
@@ -22,10 +28,12 @@ const tradesSchema= Schema (
       type : String,
       require : true,
       trim: true,
+      unique: true
     },
     email : {
       type: String,
       require: true,
+      unique: true
     },
     password : {
       type: String,
@@ -51,12 +59,12 @@ const tradesSchema= Schema (
 
     deliveryZone: {
       type: Schema.Types.Array,
-      ref: "DeliveryZone"
+      require: true
     },
 
     products: {
       type: Schema.Types.Array,
-      ref: "Products",
+      require: false
     },
 
     rating: {

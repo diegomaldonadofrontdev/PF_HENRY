@@ -2,30 +2,28 @@ const { Schema, model } = require('mongoose');
 
 const feedbackSchema = Schema(
     {
-        clientFedback: {
-            type: Schema.Types.ObjectId,
-            ref: "Clients",
+        clientId: {
+            type: String,          
             require: true
         },
 
-        trade:{
-            type: Schema.Types.ObjectId,
-            ref: "Trades",
-            require: true
-        },
-
-        opinion: {
+        name: {
             type: String,
             require: true
         },
 
-        ratingFeedback:{
+        opinion: {
+            type: Text,
+            require: true
+        },
+
+        rating:{
             type: Number,
             require: true
         },
 
-        imgs: {
-            type: Schema.Types.Array,
+        image: {
+            type: String,
             require: true
         }
     }
