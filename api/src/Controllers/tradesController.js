@@ -346,6 +346,7 @@ const postCreateTrades = async (body) => {
 //   }
 // };
 
+
 module.exports = {
   getAllTrades,
   searchByZone, 

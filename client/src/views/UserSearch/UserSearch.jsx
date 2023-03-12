@@ -1,32 +1,24 @@
-import React from "react";
-import styles from "./UserSearch.module.css";
+import React, {useState, useEffect} from "react";
+import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { getTrades } from "../../Redux/Actions/actions";
 import ContainerSearchComercio from "../../components/ContainerSearchComercio/ContainerSearchComercio";
-
 
 import { useSelector } from "react-redux";
 
-
 import Header from "../../components/Header/Header";
 import SearchBar from "../../components/SearchBar/SearchBar";
-import Filter__SearchView from "../../components/Filter__SearchView/Filter__SearchView";
+// import Filter__SearchView from "../../components/Filter__SearchView/Filter__SearchView";
 
 export default function UserSearch() {
-
-
 	const comercios = useSelector((state) => state.allCommerces);
 
-	const cities = [];
-	if (comercios)
-		for (let i = 0; i < comercios.length; i++) {
-			for (let j = 0; j < comercios[i].length; j++) {
-				for (let k = 0; k < comercios[i][j].deliveryzone.length; k++) {
-					cities.push(comercios[i][j].deliveryzone[k]);
-				}
-			}
-		}
+	const [category, setCategory] = useState('')
+	const [city, setCity] = useState('')
+	const [subcategory, setSubCategory] = useState('')
 
 
-	const citiesUnrepeat = [...new Set(cities)];
+	// const citiesUnrepeat = [...new Set(cities)];
 
 	return (
 		<>
@@ -37,17 +29,17 @@ export default function UserSearch() {
 				</div>
 			</div>
 
-
 			<div className={styles.search__container}>
 				<div className={styles.filtros__container}>
-					<Filter__SearchView />
+					{/* <Filter__SearchView /> */}
 				</div>
 
 				<div className={styles.cards__container}>
-					<SearchBar />
 					<div className={styles.search__results}>
-						<p>{comercios.comercios?.length} Locales encontrados:</p>
-						<ContainerSearchComercio comercios={comercios} />
+						<p>{comercios.length} Locales encontrados:</p>
+						{comercios.map((e) => (
+							<Link to={`/commerce/${e.id}`}><ComercioCard id={e.id} name={e.commerceName} rating={e.rating}/></Link>
+						))}
 					</div>
 				</div>
 			</div>
