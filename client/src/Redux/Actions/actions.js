@@ -18,7 +18,7 @@ export function getProductById(id) {
       const response = await axios(`${host}/clients/products/search/${id}`);
       dispatch({
         type: GET_PRODUCT_BY_ID,
-        payload: response.data,
+        payload: [response.data],
       });
     }
   };
@@ -147,7 +147,7 @@ export function postProduct(payload) {
   };
 }
 
-export function getSubcategories(category) {
+export function getSubCategories(category) {
 return async function (dispatch) {
 	const subCat = await axios.get(`${host}/clients/trades/subcategories?category=${category}`);
 	return dispatch({ type: GET_SUBCATEGORIES, payload: subCat.data });
