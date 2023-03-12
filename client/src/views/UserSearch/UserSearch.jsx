@@ -2,8 +2,9 @@ import React, {useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getTrades } from "../../Redux/Actions/actions";
-import styles from "./UserSearch.module.css";
 import ContainerSearchComercio from "../../components/ContainerSearchComercio/ContainerSearchComercio";
+
+import { useSelector } from "react-redux";
 
 import Header from "../../components/Header/Header";
 import SearchBar from "../../components/SearchBar/SearchBar";
@@ -37,7 +38,7 @@ export default function UserSearch() {
 					<div className={styles.search__results}>
 						<p>{comercios.length} Locales encontrados:</p>
 						{comercios.map((e) => (
-							<Link to={`/commerce/${e.id}`}><ContainerSearchComercio id={e.id} name={e.commerceName} rating={e.rating}/></Link>
+							<Link to={`/commerce/${e.id}`}><ComercioCard id={e.id} name={e.commerceName} rating={e.rating}/></Link>
 						))}
 					</div>
 				</div>
