@@ -34,7 +34,7 @@ export default function UserSearch() {
 		dispatch(getSubCategories());
 	}, [dispatch]);
 
-	const handleOnChange = () => {};
+	const handleOnChange = (e) => {};
 
 	// const citiesUnrepeat = [...new Set(cities)];
 
@@ -51,9 +51,17 @@ export default function UserSearch() {
 				<div className={styles.filtros__container}>
 					<form action="">
 						<div>
-							<p>Filtrar por Categoria:</p>
+							<p>Filtrar por Zona:</p>
 							<select>
 								<option value="">Opcion</option>
+							</select>
+						</div>
+						<div>
+							<p>Filtrar por Categoria:</p>
+							<select>
+								{categories.map((x) => (
+									<option value="">{x}</option>
+								))}
 							</select>
 						</div>
 						<div>
@@ -62,12 +70,7 @@ export default function UserSearch() {
 								<option value="">Opcion</option>
 							</select>
 						</div>
-						<div>
-							<p>Filtrar por Zona:</p>
-							<select>
-								<option value="">Opcion</option>
-							</select>
-						</div>
+
 						<div>
 							<p>Filtrar por Medio de pago:</p>
 							<select>
@@ -82,7 +85,7 @@ export default function UserSearch() {
 					<div className={styles.search__results}>
 						<p>{comercios.length} Locales encontrados:</p>
 						{comercios.map((e) => (
-							<Link to={`/commerce/${e.id}`}>
+							<Link to={`/comercio/${e._id}`}>
 								<ComercioCard
 									id={e._id}
 									name={e.commerceName}
