@@ -13,7 +13,7 @@ const feedbackSchema = Schema(
         },
 
         opinion: {
-            type: Text,
+            type: String,
             require: true
         },
 
@@ -24,7 +24,7 @@ const feedbackSchema = Schema(
 
         image: {
             type: String,
-            require: true
+            require: false
         }
     }
 )

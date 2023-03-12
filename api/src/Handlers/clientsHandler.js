@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
 
 const {
-  postFeedbackController,
+  createFeedback,
   getFeedbacksController,
   postCreateClientController,
   postCreateOrder,
@@ -24,12 +24,13 @@ const getFeedbacksHandler = async (req, res) => {
 };
 
 // POST -------> /feedback
-const createFeedbackHandler = async (req, res) => {
-  const { name, opinion, rating, image } = req.body;
+const postFeedbackHandler = async (req, res) => {
+  const body = req.body;
+  const { clientId } = req.query
   try {
-    const result = postFeedbackController(name, opinion, rating, image);
+    const result = await createFeedback(clientId, body);
     if (result)
-      res.status(200).json(`Hemos registrado su comentario. Gracias ${name}!`);
+      res.status(200).json(`Hemos registrado su comentario. Gracias ${body.name}!`);
   } catch (error) {
     res.status(404).json({ error: `Error al registar el comentario` });
   }
@@ -174,7 +175,7 @@ const registerWhitGoogle = async (req, res) => {
 }
 
 module.exports = {
-  createFeedbackHandler,
+  postFeedbackHandler,
   getFeedbacksHandler,
   newRegister,
   newOrder,
