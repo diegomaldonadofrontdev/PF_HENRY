@@ -1,4 +1,4 @@
-const mercadopago = require('mercadopago');
+const mercadopago = require("mercadopago");
 mercadopago.configure({ access_token: "TEST-1066540883101610-030911-deb7dfe78a0cb28c3c9cddfe554a4054-753764477" })
 
 const products = [
