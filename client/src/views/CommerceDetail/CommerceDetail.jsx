@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import ProductoCard from "../../components/ProductoCard/ProductoCard";
-import { getProductById } from "../../redux/actions/actions";
+import { getProductById } from "../../Redux/actions/actions";
 import styles from "./CommerceDetail.module.css";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import Header from "../../components/Header/Header";
@@ -40,7 +40,7 @@ export default function CommerceDetail() {
 							Rating: {commerce?.rating} <i class="bx bxs-star"></i>
 						</p>
 					</div>
-					<Link to="/busqueda" className={styles.btn__volver}>
+					<Link to="/search" className={styles.btn__volver}>
 						<ButtonPrimary texto="Volver" />
 					</Link>
 				</div>

@@ -4,6 +4,7 @@ import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
 import OpinionCard from "../OpinionCard/OpinionCard";
 import styles from "./OpinionesContainer.module.css";
 import { getReview } from "../../redux/actions/actions";
+import { getReview } from "../../Redux/actions/actions";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function OpinionesContainer() {

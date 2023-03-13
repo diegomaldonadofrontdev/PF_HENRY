@@ -8,14 +8,15 @@
 
 import {
 	TRADES_FILTERS,
-	GET_PRODUCT_BY_ID,
-	GET_ALL_PRODUCTS,
-	GET_TRADES_CATEGORIES,
-	GET_SUBCATEGORIES,
-	GET_TRADES,
-	GET_REVIEW,
-	PRODUCT_FILTERS,
-} from "../actions/actions";
+	 GET_PRODUCT_BY_ID,
+	 GET_ALL_PRODUCTS,
+	 GET_TRADES_CATEGORIES,
+	 GET_SUBCATEGORIES,
+	 GET_TRADES,
+	 GET_REVIEW,
+	 PRODUCT_FILTERS,
+	 GET_ZONES
+} from "../actions/actions"
 
 // export default allReducers;
 
@@ -26,6 +27,8 @@ const initialState = {
 	tradesCategories: [],
 	tradesSubCategories: [],
 	feedback: [],
+	zones: []
+	
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -68,13 +71,18 @@ export default function rootReducer(state = initialState, action) {
 		case TRADES_FILTERS:
 			return {
 				...state,
-				allCommerces: action.payload,
-			};
-		case GET_SUBCATEGORIES:
-			return {
-				...state,
-				tradesSubCategories: action.payload,
-			};
+				allCommerces: action.payload
+			}
+			case GET_SUBCATEGORIES:
+				return {
+					...state,
+					tradesSubCategories: action.payload
+				}
+				case GET_ZONES:
+				return {
+					...state,
+					zones: action.payload
+				}		
 		default:
 			return state;
 	}
