@@ -46,7 +46,7 @@ export default function ContainerSearchComercio(props) {
 				<p>{comercios.length} Comercios encontrados</p>
 
 				{comercios?.map((x) => (
-					<Link to={`../comercio/${x.id}`} className={styles.commerce}>
+					<Link to={`../comercio/${x._id}`} className={styles.commerce}>
 						<ComercioCard
 							name={x.commerceName}
 							rating={x.rating}

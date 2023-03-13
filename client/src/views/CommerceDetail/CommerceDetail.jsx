@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import ProductoCard from "../../components/ProductoCard/ProductoCard";
-import { getProductById } from "../../redux/actions/actions";
+import { getAllProducts } from "../../redux/actions/actions";
 import styles from "./CommerceDetail.module.css";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import Header from "../../components/Header/Header";
@@ -15,18 +15,10 @@ export default function CommerceDetail() {
 	const { id } = useParams();
 
 	useEffect(() => {
-		dispatch(getProductById(id));
+		dispatch(getAllProducts(id));
 	}, [dispatch]);
 
 	const commerce = useSelector((state) => state.product[0]);
-
-	console.log(commerce);
-
-	// const categorias = commerce?.productos.map((x) => x.category);
-
-	// const unicos = categorias?.filter((valor, indice) => {
-	// 	return categorias.indexOf(valor) === indice;
-	// });
 
 	return (
 		<div className={styles.comercio_detail}>
