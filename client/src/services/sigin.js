@@ -5,7 +5,7 @@ const baseUrl = "http://localhost:3001/clients/register";
 const sigin = async credentials => {
     try {
         const { data } = await axios.post(baseUrl, credentials);
-    return data.token;
+    return data;
     } catch (error) {
         alert("Por favor complete todos los campos!")
         // console.error(error);
