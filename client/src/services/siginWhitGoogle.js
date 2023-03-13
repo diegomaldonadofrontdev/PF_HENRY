@@ -5,7 +5,7 @@ const baseUrl = "http://localhost:3001/clients/siginWhitGoogle";
 const siginWhitGoogle = async credentials => {
     try {
         const { data } = await axios.post(baseUrl, credentials);
-    return data.token;
+    return data;
     } catch (error) {
         console.error(error);
     }

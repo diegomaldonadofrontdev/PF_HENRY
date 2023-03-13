@@ -133,13 +133,13 @@ const login = async (req, res) => {
 }
 
 const registerWhitGoogle = async (req, res) => {
-  const { name, email } = req.body;
+  const { firstname, lastname, username, email, country, city, address, phone, status } = req.body;
 
-  let user = { name, email }; // ver si esta y si no esta crearlo
+  let user = { firstname, lastname, username, email, country, city, address, phone, status }; // ver si esta y si no esta crearlo
 
   try {
     const token = jwt.sign(
-      { name: name, email: email },
+      { name: firstname, email: email },
       TOKEN_KEY,
       { expiresIn: "2h" }
     )
