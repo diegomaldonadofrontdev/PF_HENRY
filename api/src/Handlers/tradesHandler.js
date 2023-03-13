@@ -7,6 +7,7 @@ const {
   searchByZoneAndCatAndEpagos,
   getAllCategories,
   getSubCategories,
+  getDeliveryZones,
   searchByZone
 } = require("../Controllers/tradesController");
 
@@ -25,7 +26,7 @@ const getTradesHandler = async (req, res) => { // FUNCINANDO 12/03
         ? await searchByZoneAndCatAndEpagos (deliveryZone, category, epagos)
         : deliveryZone && category
         ? await searchByZoneAndCat(deliveryZone, category)
-        : deliveryZone
+        : deliveryZone  // gorreao, agrega deliZone y epagos
         ? await searchByZone(deliveryZone)        
         : await getAllTrades();
     res.status(200).json(result);
@@ -65,6 +66,15 @@ const getSubCategoriesHandler = async (req, res) => { // FUNCIONANDO 12/03
 		res.status(400).json({ error: `Error al buscar las subcategorias` });
 	}
 };
+
+const getDeliveryZoneHandler = async (req, res) => { //FUNCIONANDO 12/03
+  try {
+    const deliveryZones = await getDeliveryZones()
+    res.status(200).json(deliveryZones)
+  } catch (error) {
+    res.status(404).json({error: `Ocurrió un error al obtener la lista de zonas de delivery`})
+  }
+}
 
 //POST 
 const trade = async(req,res) =>{
@@ -174,6 +184,7 @@ module.exports = {
 	getTradeHandler,
 	getCategoriesHandler,
 	getSubCategoriesHandler,
+  getDeliveryZoneHandler,
   trade,
   newCategoryTrade,
   newDeliveryZone,

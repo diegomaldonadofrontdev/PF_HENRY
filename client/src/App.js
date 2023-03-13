@@ -12,7 +12,6 @@ import ProductCreationForm from "./views/ProductCreationForm/ProductCreationForm
 import CommerceRegistrationForm from "./views/CommerceRegistrationForm/CommerceRegistrationForm";
 import { UserContextProvider } from "./Context/userContext";
 import DashboardClient from "./views/DasboardClient/DashboardClient";
-import ProductsDisplayer from "./components/MercadoPago/ProductDisplayer";
 
 function App() {
 	return (
@@ -37,7 +36,6 @@ function App() {
 						path="/registration_commerce"
 						element={<CommerceRegistrationForm />}
 					/>
-					<Route path="/mercadopago" element={<ProductsDisplayer/>}/>
 				</Routes>
 			</UserContextProvider>
 		</div>

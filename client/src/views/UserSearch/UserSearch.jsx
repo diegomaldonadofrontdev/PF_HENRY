@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { getTrades } from "../../Redux/Actions/actions";
 import {
 	getTrades,
 	getTradesCategories,
@@ -11,6 +12,8 @@ import ContainerSearchComercio from "../../components/ContainerSearchComercio/Co
 import styles from "./UserSearch.module.css";
 import ComercioCard from "../../components/ComercioCard/ComercioCard";
 
+import { useSelector } from "react-redux";
+
 import Header from "../../components/Header/Header";
 
 // import Filter__SearchView from "../../components/Filter__SearchView/Filter__SearchView";
@@ -20,7 +23,7 @@ export default function UserSearch() {
 	useEffect(() => {
 		dispatch(getTrades());
 	}, []);
-	
+
 	const comercios = useSelector((state) => state.allCommerces);
 	console.log(comercios);
 	const categories = useSelector((state) => state.tradesCategories);
@@ -35,9 +38,7 @@ export default function UserSearch() {
 		dispatch(getSubCategories());
 	}, [dispatch]);
 
-	useEffect(()=>{
-
-	})
+	useEffect(() => {});
 
 	const handleOnChange = (e) => {};
 
@@ -90,9 +91,9 @@ export default function UserSearch() {
 					<div className={styles.search__results}>
 						<p>{comercios.length} Locales encontrados:</p>
 						{comercios.map((e) => (
-							<Link to={`/comercio/${e._id}`}>
-								<ComercioCard
-									id={e._id}
+							<Link to={`/commerce/${e.id}`}>
+								<ContainerSearchComercio
+									id={e.id}
 									name={e.commerceName}
 									rating={e.rating}
 								/>
