@@ -121,7 +121,7 @@ const getSubCategories = async (category) => { // FUNCIONANDO 12/03
 }
 
 // [Lista de zonas de delivery disponibles] [{deliveryZone: []}, {deliveryZone: []}]
-const getDeliveryZones = async () => {
+const getDeliveryZones = async () => { // FUNCIONANDO 12/03
   try {
     const allTrades = await Trade.find({}, "deliveryZone")  
     if (allTrades.length) {
