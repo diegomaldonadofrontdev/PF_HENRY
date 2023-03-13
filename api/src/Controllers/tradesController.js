@@ -9,135 +9,185 @@ const Trade = require("../models/Trades");
 
 // GET COMERCIOS
 // [Todos los comercios de todas las categorias]
-const getAllTrades = async () => {  // OK FUNCIONANDO 12/03
-  const alltrades = await Trade.find();  
-  if (alltrades.length) {
-    return alltrades;
-  } else return `Ocurrió un error: No hay comercios en nuestra Base de Datos`;
+const getAllTrades = async () => {
+	// OK FUNCIONANDO 12/03
+	const alltrades = await Trade.find();
+	if (alltrades.length) {
+		return alltrades;
+	} else return `Ocurrió un error: No hay comercios en nuestra Base de Datos`;
 };
 
 // [Todos los comercios con reparto en la ciudad especificada]
-const searchByZone = async (deliveryZone) => { // OK FUNCIONANDO 12/03
-  try {
-    const tradesFound = await Trade.find({deliveryZone:deliveryZone})
-    if (tradesFound.length) {
-      return tradesFound
-    } else return `Vaya! No encontramos comercios para esa busqueda!`
-  } catch (error) {
-    return error.message
-  }
-}
+const searchByZone = async (deliveryZone) => {
+	// OK FUNCIONANDO 12/03
+	try {
+		const tradesFound = await Trade.find({ deliveryZone: deliveryZone });
+		if (tradesFound.length) {
+			return tradesFound;
+		} else return `Vaya! No encontramos comercios para esa busqueda!`;
+	} catch (error) {
+		return error.message;
+	}
+};
 
 // [Todos los comercios con reparto en la zona y de la categoria especificada]
-const searchByZoneAndCat = async (deliveryZone, category) => { // OK FUNCIONANDO 12/03
-  try {
-    const tradesFound = await Trade.find({deliveryZone:deliveryZone, category:category})
-    if (tradesFound.length) {
-      return tradesFound
-    } else return `Vaya! No encontramos comercios para esa busqueda!`
-  } catch (error) {
-    return error.message
-  }
-}
+const searchByZoneAndCat = async (deliveryZone, category) => {
+	// OK FUNCIONANDO 12/03
+	try {
+		const tradesFound = await Trade.find({
+			deliveryZone: deliveryZone,
+			category: category,
+		});
+		if (tradesFound.length) {
+			return tradesFound;
+		} else return `Vaya! No encontramos comercios para esa busqueda!`;
+	} catch (error) {
+		return error.message;
+	}
+};
 
 // [Todos los comercios con reparto en la zona, de la categoria y tipo de pago especificado]
-const searchByZoneAndCatAndEpagos = async (deliveryZone, category, epagos) => { // OK FUNCIONANDO 12/03
-  try {
-    const tradesFound = await Trade.find({deliveryZone:deliveryZone, category:category, epagos:epagos})
-  if (tradesFound.length) {
-    return tradesFound
-  } else return `Vaya! No encontramos comercios para esa busqueda!`
-  } catch (error) {
-    return error.message
-  } 
-}
+const searchByZoneAndCatAndEpagos = async (deliveryZone, category, epagos) => {
+	// OK FUNCIONANDO 12/03
+	try {
+		const tradesFound = await Trade.find({
+			deliveryZone: deliveryZone,
+			category: category,
+			epagos: epagos,
+		});
+		if (tradesFound.length) {
+			return tradesFound;
+		} else return `Vaya! No encontramos comercios para esa busqueda!`;
+	} catch (error) {
+		return error.message;
+	}
+};
 
 // [Todos los comercios con reparto en la zona, de la categoria y subcategoria especificada]
-const searchByZoneAndCatAndSC = async (deliveryZone, category, subcategory) => { // OK FUNCIONANDO 12/03
-  try {
-    const tradesFound = await Trade.find({deliveryZone:deliveryZone, category:category, subcategory:subcategory})
-  if (tradesFound.length) {
-    return tradesFound
-  } else return `Vaya! No encontramos comercios para esa busqueda!`
-  } catch (error) {
-    return error.message
-  }
-}
+const searchByZoneAndCatAndSC = async (deliveryZone, category, subcategory) => {
+	// OK FUNCIONANDO 12/03
+	try {
+		const tradesFound = await Trade.find({
+			deliveryZone: deliveryZone,
+			category: category,
+			subcategory: subcategory,
+		});
+		if (tradesFound.length) {
+			return tradesFound;
+		} else return `Vaya! No encontramos comercios para esa busqueda!`;
+	} catch (error) {
+		return error.message;
+	}
+};
 
 // [Todos los comercios con todos los filtros activados]
-const searchTradesByAll = async (deliveryZone, category, subcategory, epagos) => { // OK FUNCIONANDO 12/03
-  try {
-    const tradesFound = await Trade.find({deliveryZone:deliveryZone, category:category, subcategory:subcategory, epagos:epagos})
-  if (tradesFound.length) {
-    return tradesFound
-  } else return `Vaya! No encontramos comercios para esa busqueda!`
-  } catch (error) {
-    return error.message
-  } 
-}
+const searchTradesByAll = async (
+	deliveryZone,
+	category,
+	subcategory,
+	epagos
+) => {
+	// OK FUNCIONANDO 12/03
+
+	try {
+		let obj = {};
+		if (deliveryZone && deliveryZone !== "default") {
+			obj.deliveryZone = deliveryZone;
+		}
+		if (category && category !== "default") {
+			obj.category = category;
+		}
+		if (subcategory && subcategory !== "default") {
+			obj.subcategory = subcategory;
+		}
+		if (epagos && epagos !== "default") {
+			obj.epagos = epagos;
+		}
+		const tradesFound = await Trade.find(obj);
+		// if (
+		// 	(!deliveryZone || deliveryZone === "default") &&
+		// 	(!category || category === "default") &&
+		// 	(!subcategory || subcategory === "default") &&
+		// 	(!epagos || epagos === "default")
+		// ) {
+		// }
+		// tradesFound = await Trade.find({
+
+		// });
+		if (tradesFound.length) {
+			console.log(tradesFound);
+			return tradesFound;
+		} else return [];
+	} catch (error) {
+		return error.message;
+	}
+};
 
 // [El comercio que corresponde con el ID]
-const searchTradeById = async (id) => { // FUNCIONANDO 12/03
-  try {
-    const tradeById = await Trade.findById(id)
-    if (tradeById) {
-      return tradeById
-    } else return `Vaya! Ocurrió un problema al acceder al comercio!`
-  } catch (error) {
-    return error.message
-  }
-}
+const searchTradeById = async (id) => {
+	// FUNCIONANDO 12/03
+	try {
+		const tradeById = await Trade.findById(id);
+		if (tradeById) {
+			return tradeById;
+		} else return `Vaya! Ocurrió un problema al acceder al comercio!`;
+	} catch (error) {
+		return error.message;
+	}
+};
 
 // [Lista de categorias sin repetir para poder mapear en un select en el front]
-const getAllCategories = async () => { // FUNCIONANDO 12/03
-try {
-  const allTrades = await Trade.find({}, "category")  
-  if (allTrades.length) {
-    const categoriesRepeat = []
-    allTrades.forEach(trade => {
-      categoriesRepeat.push(trade.category)
-    })
-    return [... new Set(categoriesRepeat)]
-  } else return `Vaya! Hubo un problema al buscar en la base de datos`  
-} catch (error) {
-  return error.message
-}
-}
+const getAllCategories = async () => {
+	// FUNCIONANDO 12/03
+	try {
+		const allTrades = await Trade.find({}, "category");
+		if (allTrades.length) {
+			const categoriesRepeat = [];
+			allTrades.forEach((trade) => {
+				categoriesRepeat.push(trade.category);
+			});
+			return [...new Set(categoriesRepeat)];
+		} else return `Vaya! Hubo un problema al buscar en la base de datos`;
+	} catch (error) {
+		return error.message;
+	}
+};
 
 // [Lista de subcategorias sin repetir que corresponden a la categoria seleccionada]
-const getSubCategories = async (category) => { // FUNCIONANDO 12/03
-  try {
-    const allTrades = await Trade.find({ category : category }, "subcategory")  
-    if (allTrades.length) {
-      const subcategoriesRepeat = []
-      allTrades.forEach(trade => {
-        subcategoriesRepeat.push(trade.subcategory)
-      })
-      return [... new Set(subcategoriesRepeat)]
-    } else return `Vaya! Hubo un problema al buscar en la base de datos`  
-  } catch (error) {
-    return error.message
-  }
-}
+const getSubCategories = async (category) => {
+	// FUNCIONANDO 12/03
+	try {
+		const allTrades = await Trade.find({ category: category }, "subcategory");
+		if (allTrades.length) {
+			const subcategoriesRepeat = [];
+			allTrades.forEach((trade) => {
+				subcategoriesRepeat.push(trade.subcategory);
+			});
+			return [...new Set(subcategoriesRepeat)];
+		} else return `Vaya! Hubo un problema al buscar en la base de datos`;
+	} catch (error) {
+		return error.message;
+	}
+};
 
 // [Lista de zonas de delivery disponibles] [{deliveryZone: []}, {deliveryZone: []}]
-const getDeliveryZones = async () => { // FUNCIONANDO 12/03
-  try {
-    const allTrades = await Trade.find({}, "deliveryZone")  
-    if (allTrades.length) {
-      const deliveryZonesRepeat = []
-      for (let i = 0; i < allTrades.length; i++) {
-        for (let j = 0; j < allTrades[i].deliveryZone.length; j++) {
-          deliveryZonesRepeat.push(allTrades[i].deliveryZone[j])
-        }       
-      }
-      return [... new Set(deliveryZonesRepeat)]
-    } else return `Vaya! Hubo un problema al buscar en la base de datos`  
-  } catch (error) {
-    return error.message
-  }
-}
-
+const getDeliveryZones = async () => {
+	// FUNCIONANDO 12/03
+	try {
+		const allTrades = await Trade.find({}, "deliveryZone");
+		if (allTrades.length) {
+			const deliveryZonesRepeat = [];
+			for (let i = 0; i < allTrades.length; i++) {
+				for (let j = 0; j < allTrades[i].deliveryZone.length; j++) {
+					deliveryZonesRepeat.push(allTrades[i].deliveryZone[j]);
+				}
+			}
+			return [...new Set(deliveryZonesRepeat)];
+		} else return `Vaya! Hubo un problema al buscar en la base de datos`;
+	} catch (error) {
+		return error.message;
+	}
+};
 
 //GET
 // .metodo({filtro}, {lo que quiero mostrar(actualizar, eliminar, postear)})
@@ -232,7 +282,6 @@ const getDeliveryZones = async () => { // FUNCIONANDO 12/03
 //   return `No se encontraron comercios para la categoría ${category}`;
 // };
 
-
 // // COMERCIOS -> [comercios con reparto en esa ciudad]
 // const searchTradesByZone = async (zone) => {  // Readecuada Emi
 //   const alltrades = getAllTrades();
@@ -270,7 +319,7 @@ const getDeliveryZones = async () => { // FUNCIONANDO 12/03
 //       return tradesBySC
 //     }
 //     return `No se pudieron filtrar los comercios con delivery en ${zone}`
-//   } 
+//   }
 //   return tradesByZoneAndCat
 // };
 
@@ -320,18 +369,18 @@ const getDeliveryZones = async () => { // FUNCIONANDO 12/03
 // };
 //POST
 const postCreateTrades = async (body) => {
-    // const { password } = body;
-    try {
-    newTrade = new Trade( body );
-    
-    // const salt = bcrypt.genSaltSync(10);
-    // newTrade.password = bcrypt.hashSync(password,salt);
-    await newTrade.save();
+	// const { password } = body;
+	try {
+		newTrade = new Trade(body);
 
-    return true;
-  } catch (error) {
-    return false;
-  }
+		// const salt = bcrypt.genSaltSync(10);
+		// newTrade.password = bcrypt.hashSync(password,salt);
+		await newTrade.save();
+
+		return true;
+	} catch (error) {
+		return false;
+	}
 };
 
 // const postCreateCategory = async (body) => {
@@ -364,17 +413,16 @@ const postCreateTrades = async (body) => {
 //   }
 // };
 
-
 module.exports = {
-  getAllTrades,
-  searchByZone, 
-  searchByZoneAndCat,
-  searchByZoneAndCatAndSC,
-  searchByZoneAndCatAndEpagos,
-  searchTradesByAll,
-  searchTradeById,
-  postCreateTrades,
-  getAllCategories,
-  getSubCategories,
-  getDeliveryZones
+	getAllTrades,
+	searchByZone,
+	searchByZoneAndCat,
+	searchByZoneAndCatAndSC,
+	searchByZoneAndCatAndEpagos,
+	searchTradesByAll,
+	searchTradeById,
+	postCreateTrades,
+	getAllCategories,
+	getSubCategories,
+	getDeliveryZones,
 };

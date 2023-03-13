@@ -1,15 +1,14 @@
 import axios from "axios";
 
-export const TRADES_FILTERS = "TRADES_FILTERS"
-export const GET_PRODUCT_BY_ID = "GET_PRODUCT_BY_ID"
-export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS"
-export const GET_TRADES_CATEGORIES = "GET_TRADES_CATEGORIES"
-export const GET_TRADES = "GET_TRADES"
-export const GET_REVIEW = "GET_REVIEW"
-export const PRODUCT_FILTERS = "PRODUCT_FILTERS"
-export const GET_SUBCATEGORIES = "GET_SUBCATEGORIES"
-export const GET_ZONES = "GET_ZONES"
-
+export const TRADES_FILTERS = "TRADES_FILTERS";
+export const GET_PRODUCT_BY_ID = "GET_PRODUCT_BY_ID";
+export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
+export const GET_TRADES_CATEGORIES = "GET_TRADES_CATEGORIES";
+export const GET_TRADES = "GET_TRADES";
+export const GET_REVIEW = "GET_REVIEW";
+export const PRODUCT_FILTERS = "PRODUCT_FILTERS";
+export const GET_SUBCATEGORIES = "GET_SUBCATEGORIES";
+export const GET_ZONES = "GET_ZONES";
 
 const host = "http://localhost:3001";
 
@@ -104,36 +103,20 @@ export function getProductsFilter(tradeId, name, category) {
 }
 
 export function getTradesFilter(city, category, subcategory, epagos) {
+	console.log(
+		"city:" + city,
+		"category:" + category,
+		"subcategory:" + subcategory,
+		"epagos:" + epagos
+	);
 	return async function (dispatch) {
-		let result;
-		if (city && category && subcategory && epagos) {
-			result = await axios.get(
-				`${host}/clients/trades/search?deliveryZone=${city}&category=${category}&subcategory=${subcategory}&epagos=${epagos}`
-			);
-		} else if (city && category && subcategory) {
-			result = await axios.get(
-				`${host}/clients/trades/search?deliveryZone=${city}&category=${category}&subcategory=${subcategory}`
-			);
-		} else if (city && category && epagos) {
-			result = await axios.get(
-				`${host}/clients/trades/search?deliveryZone=${city}&category=${category}&epagos=${epagos}`
-			);
-		} else if (city && category) {
-			result = await axios.get(
-				`${host}/clients/trades/search?deliveryZone=${city}&category=${category}`
-			);
-		} else if (city && epagos) {
-			result = await axios.get(
-				`${host}/clients/trades/search?deliveryZone=${city}&epagos=${epagos}`
-			);
-		} else {
-			result = await axios.get(
-				`${host}/clients/trades/search?deliveryZone=${city}`
-			);
-		}
+		const result = await axios.get(
+			`${host}/clients/trades/search?deliveryZone=${city}&category=${category}&subcategory=${subcategory}&epagos=${epagos}`
+		);
+
 		return dispatch({
 			type: TRADES_FILTERS,
-			payload: [result.data],
+			payload: result.data,
 		});
 	};
 }
@@ -154,18 +137,34 @@ export function getSubCategories(category) {
 	};
 }
 
-
 export function getZonas() {
 	return async function (dispatch) {
 		const zonas = await axios.get(`${host}/clients/trades/deliveryZone`);
 		return dispatch({
 			type: GET_ZONES,
-			payload: zonas.data
-		})
-	}
+			payload: zonas.data,
+		});
+	};
 }
 
+export function getEpagos() {
+	return async function (dispatch) {
+		const zonas = await axios.get(`${host}/clients/trades/deliveryZone`);
+		return dispatch({
+			type: GET_ZONES,
+			payload: zonas.data,
+		});
+	};
+}
 
+export function allFilters(a) {
+	return async function (dispatch) {
+		return dispatch({
+			type: "FILTERS_RES",
+			payload: a,
+		});
+	};
+}
 // export function filterByEpago(epago, city) {
 //   return async function (dispatch) {
 //     const tarj = await axios.get(
