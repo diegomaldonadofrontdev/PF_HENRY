@@ -19,21 +19,18 @@ export default function OpinionesContainer() {
 		<div className={styles.opiniones__container}>
 			<div className={styles.container}>
 				<h3>Lo que opinan de nosotros</h3>
-				{feedback.map((x) => (
-					<OpinionCard
-						name={x.name}
-						opinion={x.opinion}
-						rating={x.rating}
-						image={x.image}
-					/>
-				))}
-				{/* <OpinionCard
-					name="Persona 1"
-					opinion="La aplicacion esta muy buena, todo llego a tiempo y como lo pedi"
-					rating="5"
-				/> */}
+				<div>
+					{feedback.map((x) => (
+						<OpinionCard
+							name={x.name}
+							opinion={x.opinion}
+							rating={x.rating}
+							image={x.image}
+						/>
+					))}
+				</div>
 			</div>
-			<div className={styles.container}>
+			<div className={styles.container__button}>
 				<Link className={styles.boton} to="/opinion">
 					<ButtonPrimary texto="Dejanos tu opinión" />
 				</Link>

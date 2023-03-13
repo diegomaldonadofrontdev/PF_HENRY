@@ -1,5 +1,5 @@
 .card__primary {
-	max-width: 400px;
+	width: 400px;
 	border-radius: 0.5em;
 	overflow: hidden;
 	background-color: white;
