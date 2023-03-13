@@ -20,6 +20,7 @@ export default function UserSearch() {
 	useEffect(() => {
 		dispatch(getTrades());
 	}, []);
+	
 	const comercios = useSelector((state) => state.allCommerces);
 	console.log(comercios);
 	const categories = useSelector((state) => state.tradesCategories);
@@ -33,6 +34,10 @@ export default function UserSearch() {
 		dispatch(getTradesCategories());
 		dispatch(getSubCategories());
 	}, [dispatch]);
+
+	useEffect(()=>{
+
+	})
 
 	const handleOnChange = (e) => {};
 
