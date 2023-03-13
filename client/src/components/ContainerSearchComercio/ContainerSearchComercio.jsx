@@ -31,14 +31,14 @@ export default function ContainerSearchComercio(props) {
 			</div>
 		);
 	} else if (
-		(!city ||
-			city === "default" ||
-			!category ||
-			category === "default" ||
-			!subcategory ||
-			subcategory === "default" ||
-			!epagos ||
-			epagos === "default") &&
+		(city ||
+			city !== "default" ||
+			category ||
+			category !== "default" ||
+			subcategory ||
+			subcategory !== "default" ||
+			epagos ||
+			epagos !== "default") &&
 		comercios.length
 	) {
 		return (
