@@ -7,7 +7,7 @@ import {
 	getTradesFilter,
 	getSubCategories,
 	getZonas,
-} from "../../redux/actions/actions";
+} from "../../Redux/actions/actions";
 import ContainerSearchComercio from "../../components/ContainerSearchComercio/ContainerSearchComercio";
 import styles from "./UserSearch.module.css";
 import Header from "../../components/Header/Header";
