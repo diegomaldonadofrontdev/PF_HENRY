@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import ProductoCard from "../../components/ProductoCard/ProductoCard";
-import { getAllProducts } from "../../redux/actions/actions";
+import { getAllProducts, getTrades } from "../../redux/actions/actions";
 import styles from "./CommerceDetail.module.css";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import Header from "../../components/Header/Header";
@@ -14,11 +14,31 @@ export default function CommerceDetail() {
 	const dispatch = useDispatch();
 	const { id } = useParams();
 
+	const products = useSelector((state) => state.products);
+	const commerceRedux = useSelector((state) => state.allCommerces);
+
+	const [commerce, setCommerce] = useState({});
+	const [category, setCategory] = useState([]);
+
 	useEffect(() => {
 		dispatch(getAllProducts(id));
+		dispatch(getTrades());
 	}, [dispatch]);
 
-	const commerce = useSelector((state) => state.product[0]);
+	useEffect(() => {
+		if (commerceRedux && commerceRedux.length) {
+			setCommerce(commerceRedux.find((x) => x._id === id));
+		}
+	}, [commerceRedux]);
+
+	useEffect(() => {
+		if (products && products.length) {
+			let variable = products.map((x) => x.category);
+			variable = new Set(variable);
+			setCategory([...variable]);
+			// setCategory(products.find((x) => x._id === id));
+		}
+	}, [products]);
 
 	return (
 		<div className={styles.comercio_detail}>
@@ -42,39 +62,22 @@ export default function CommerceDetail() {
 				<div className={styles.subcategorias}>
 					<h3>Categorias:</h3>
 					<ul>
-						<li>Categoria 1</li>
-						<li>Categoria 2</li>
-						<li>Categoria 3</li>
-						<li>Categoria 4</li>
-						<li>Categoria 5</li>
+						{category.map((x) => (
+							<li>{x}</li>
+						))}
 					</ul>
 				</div>
 				<div className={styles.results}>
 					<div className={styles.productCard__container}>
-						<ProductoCard
-							name="Producto 1"
-							price="$1.000"
-							description="Alta hambuerguesa con queso. Combo papas y gaseosa grandes"
-							img="https://images.rappi.com.ar/restaurants_background/mcdonaldscol-1660251198623.jpg?e=webp&q=70&d=300x300"
-						/>
-						<ProductoCard
-							name="Producto 1"
-							price="$1.000"
-							description="Alta hambuerguesa con queso. Combo papas y gaseosa grandes"
-							img="https://images.rappi.com.ar/restaurants_background/mcdonaldscol-1660251198623.jpg?e=webp&q=70&d=300x300"
-						/>
-						<ProductoCard
-							name="Producto 1"
-							price="$1.000"
-							description="Alta hambuerguesa con queso. Combo papas y gaseosa grandes"
-							img="https://images.rappi.com.ar/restaurants_background/mcdonaldscol-1660251198623.jpg?e=webp&q=70&d=300x300"
-						/>
-						<ProductoCard
-							name="Producto 1"
-							price="$1.000"
-							description="Alta hambuerguesa con queso. Combo papas y gaseosa grandes"
-							img="https://images.rappi.com.ar/restaurants_background/mcdonaldscol-1660251198623.jpg?e=webp&q=70&d=300x300"
-						/>
+						{products?.map((x) => (
+							<ProductoCard
+								key={x._id}
+								name={x.name}
+								price={x.price}
+								description={x.description}
+								img={x.image}
+							/>
+						))}
 					</div>
 					<div className={styles.cart}>
 						<div className={styles.cart__header}>
