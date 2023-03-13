@@ -8,31 +8,38 @@
 .panel__cajaDiaria .container {
 	width: 100%;
 	border-radius: 0.3em;
-	padding: 1em;
-	overflow-y: scroll;
-	height: 670px;
-	background-color: white;
-	box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
-	-webkit-box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
+	display: flex;
+	justify-content: space-between;
+	gap: 2em;
 }
 
-.panel__cajaDiaria .container::-webkit-scrollbar {
+.panel__cajaDiaria .table__container::-webkit-scrollbar {
 	width: 8px; /* width of the entire scrollbar */
 }
 
-.panel__cajaDiaria .container::-webkit-scrollbar-track {
+.panel__cajaDiaria .table__container::-webkit-scrollbar-track {
 	background: white; /* color of the tracking area */
 }
 
-.panel__cajaDiaria .container::-webkit-scrollbar-thumb {
+.panel__cajaDiaria .table__container::-webkit-scrollbar-thumb {
 	background-color: rgb(208, 208, 208); /* color of the scroll thumb */
 	border-radius: 20px; /* roundness of the scroll thumb */
 	border: 1px solid white;
 }
 
+.panel__cajaDiaria .table__container {
+	overflow-y: scroll;
+	height: 670px;
+	width: 70%;
+	border-radius: 0.5em;
+	background-color: white;
+	box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
+}
+
 .panel__cajaDiaria .container table {
 	width: 100%;
-	border-radius: 0.5em;
+	padding: 1em;
 }
 
 .panel__cajaDiaria .container table tr {
@@ -77,4 +84,19 @@
 	border-radius: 0.3em;
 	color: white;
 	font-size: 0.9em;
+}
+
+.statusGains {
+	display: flex;
+	flex-direction: column;
+	gap: 50px;
+	width: 30%;
+}
+
+.statusGains > div {
+	height: 310px;
+	border-radius: 0.5em;
+	background-color: white;
+	box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
 }

@@ -2,11 +2,9 @@ const { Router } = require("express");
 const {
   getProductsHandler,
   getProductHandler,
-  getProductCategoryHandler
+  getProductCategoryHandler,
 } = require("../handlers/productsHandler");
 const {
-  postFeedbackHandler,
-  getFeedbacksHandler,
   newRegister,
   newOrder,
   getClientsH,
@@ -14,7 +12,7 @@ const {
   updateClient,
   updateOrder,
   login,
-  registerWhitGoogle
+  registerWhitGoogle,
 } = require("../handlers/clientsHandler");
 // const {
 //     createOrderHandler
@@ -26,7 +24,15 @@ const {
   getSubCategoriesHandler,
   getDeliveryZoneHandler,
 } = require("../Handlers/tradesHandler");
-const { validateFeedback, validateClient, validateOrder } = require("../middlewares/validate");
+const {
+  validateFeedback,
+  validateClient,
+  validateOrder,
+} = require("../middlewares/validate");
+const {
+  postFeedbackHandler,
+  getFeedbacksHandler,
+} = require("../Handlers/feedbacksHandler")
 
 const clientsRouter = Router();
 
@@ -40,24 +46,21 @@ clientsRouter.get("/products/search", getProductsHandler); // FUNCIONANDO 12/03
 clientsRouter.get("/products/search/:id", getProductHandler); // FUNCIONANDO 12/03
 clientsRouter.get("/products/categories", getProductCategoryHandler); // FUNCIONANDO 12/03
 clientsRouter.get("/feedbacks", getFeedbacksHandler);
-clientsRouter.get('/clients',getClientsH)
-clientsRouter.get('/orders',getOrdersH)
-
+clientsRouter.get("/clients", getClientsH);
+clientsRouter.get("/orders", getOrdersH);
 
 // POST
-clientsRouter.post("/feedback", validateFeedback, postFeedbackHandler);
+clientsRouter.post("/feedback", validateFeedback, postFeedbackHandler); // FUNCIONANDO 12/03
 clientsRouter.post("/register", validateClient, newRegister);
 clientsRouter.post("/new-order", validateOrder, newOrder);
 
 // PUT
-clientsRouter.put('/update-clients',updateClient);
-clientsRouter.put('/update-orders', updateOrder);
-
+clientsRouter.put("/update-clients", updateClient);
+clientsRouter.put("/update-orders", updateOrder);
 
 // LOGIN AND AUTHENTICATION
-clientsRouter.post("/login", login)
-clientsRouter.post("/siginWhitGoogle", registerWhitGoogle)
-
+clientsRouter.post("/login", login);
+clientsRouter.post("/siginWhitGoogle", registerWhitGoogle);
 
 // clientsRouter.get("/trades/feedback", validateFeedback, createFeedbackHandler );
 

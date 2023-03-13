@@ -9,7 +9,7 @@ export default function ProductoCard(props) {
 			<div className={styles.producto__info}>
 				<h3>{props.name}</h3>
 				<p className={styles.description}> {props.description}</p>
-				<p className={styles.price}>{props.price}</p>
+				<p className={styles.price}>${props.price}</p>
 				<Link>
 					<ButtonProduct />
 				</Link>
