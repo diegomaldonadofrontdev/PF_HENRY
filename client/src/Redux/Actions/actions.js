@@ -8,6 +8,7 @@ export const GET_TRADES = "GET_TRADES"
 export const GET_REVIEW = "GET_REVIEW"
 export const PRODUCT_FILTERS = "PRODUCT_FILTERS"
 export const GET_SUBCATEGORIES = "GET_SUBCATEGORIES"
+export const GET_ZONES = "GET_ZONES"
 
 
 const host = "http://localhost:3001";
@@ -155,7 +156,15 @@ return async function (dispatch) {
 }
 }
 
-
+export function getZonas() {
+	return async function (dispatch) {
+		const zonas = await axios.get(`${host}/clients/trades/deliveryZone`);
+		return dispatch({
+			type: GET_ZONES,
+			payload: zonas.data
+		})
+	}
+}
 
 
 // export function filterByEpago(epago, city) {

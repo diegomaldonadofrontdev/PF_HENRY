@@ -14,7 +14,8 @@ import {
 	 GET_SUBCATEGORIES,
 	 GET_TRADES,
 	 GET_REVIEW,
-	 PRODUCT_FILTERS
+	 PRODUCT_FILTERS,
+	 GET_ZONES
 } from "../actions/actions"
 
 // export default allReducers;
@@ -25,7 +26,8 @@ const initialState = {
 	allCommerces: [],
 	tradesCategories: [],
 	tradesSubCategories: [],
-	feedback: []
+	feedback: [],
+	zones: []
 	
 };
 
@@ -78,7 +80,12 @@ export default function rootReducer(state = initialState, action) {
 				return {
 					...state,
 					tradesSubCategories: action.payload
-				}	
+				}
+				case GET_ZONES:
+				return {
+					...state,
+					zones: action.payload
+				}		
 		default:
 			return state;
 	}

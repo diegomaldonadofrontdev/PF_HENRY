@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getTrades, getTradesCategories, getTradesFilter, getSubCategories } from "../../Redux/actions/actions";
+import { getTrades, getTradesCategories, getTradesFilter, getSubCategories, getZonas } from "../../Redux/actions/actions";
 import ContainerSearchComercio from "../../components/ContainerSearchComercio/ContainerSearchComercio";
 import styles from "./UserSearch.module.css"
 import ComercioCard from "../../components/ComercioCard/ComercioCard";
-
-import { useSelector } from "react-redux";
-
 import Header from "../../components/Header/Header";
 
 
@@ -18,22 +15,51 @@ export default function UserSearch() {
 	const comercios = useSelector((state) => state.allCommerces);
 	console.log(comercios)
 	const categories = useSelector((state) => state.tradesCategories)
+	const zonas = useSelector((state) => state.zones)
 	const subCategories = useSelector((state) => state.tradesSubCategories)
-	const [category, setCategory] = useState("");
-	const [city, setCity] = useState("");
-	const [subcategory, setSubCategory] = useState("");
+	console.log(subCategories)
+	const [currentInput, setCurrentInput] = useState({
+		zone: "",
+		category: "",
+		subCategory: ""
+	})
 	const [filters, setFilters] = useState("")
+	
 
 	useEffect(() => {
 		dispatch(getTrades())
 		dispatch(getTradesCategories())
 		dispatch(getSubCategories())
+		dispatch(getZonas())
 	}, [dispatch])
+
+
+
+const handleOnChange = (e) => {
+const property = e.target.name
+const value = e.target.value
+setCurrentInput({...currentInput, [property]: value})
+}
+
+// const onChangeCategory = (e) => {
+// setCategory(e.target.value)
+// }
+
+// const onChangeSubCategory = (e) => {
+// 	setSubCategory(e.target.value)
+// }
 
 const handleFilters = (e) => {
 e.preventDefault()
-dispatch(getTradesFilter(e.target.value))
-setFilters(e.target.value)
+if (currentInput.zone && currentInput.category && currentInput.subCategory){
+	dispatch(getTradesFilter(currentInput.zone, currentInput.category, currentInput.subCategory))
+}else if (currentInput.zone && currentInput.category) {
+	dispatch(getTradesFilter(currentInput.zone, currentInput.category))
+} else if (currentInput.zone && currentInput.subCategory){
+	dispatch(getTradesFilter(currentInput.zone, currentInput.subCategory))
+}
+
+
 }
 
 	// const citiesUnrepeat = [...new Set(cities)];
@@ -52,21 +78,22 @@ setFilters(e.target.value)
 					<form action="" onSubmit={handleFilters}>
 						<div>
 							<p>Filtrar por Categoria:</p>
-							<select>
+							<select name="category" value={currentInput.category} onChange={handleOnChange}>
+							
 								{categories.map((e) => (<option value="">{e}</option>))}
 								
 							</select>
 						</div>
 						<div>
 							<p>Agregar Subcategoria:</p>
-							<select>
-								<option value="">Opcion</option>
+							<select name="subCategory" value={currentInput.subCategory} onChange={handleOnChange}>
+								 <option value="">Opcion</option>
 							</select>
 						</div>
 						<div>
 							<p>Filtrar por Zona:</p>
-							<select>
-								<option value="">Opcion</option>
+							<select name="zone" value={currentInput.zone} onChange={handleOnChange}>
+								{zonas.map((e) => (<option value="">{e}</option>))}
 							</select>
 						</div>
 						<div>

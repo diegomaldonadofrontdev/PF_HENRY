@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import AdminOwner from "./views/DashboardAdmin/AdminOwner";
 import CommerceDetail from "./views/CommerceDetail/CommerceDetail";
-import Home from "./views/Home/Home";
+import Home from "./views/home/Home";
 import HomeLocal from "./views/HomeCommerce/HomeLocal";
 import Login from "./views/Login/Login";
 import OpinionForm from "./views/OpinionForm/OpinionForm";
