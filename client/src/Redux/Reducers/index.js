@@ -34,6 +34,7 @@ const initialState = {
 		subcategory: "default",
 		epagos: "default",
 	},
+	carritos: [],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -92,6 +93,37 @@ export default function rootReducer(state = initialState, action) {
 			return {
 				...state,
 				filters: action.payload,
+			};
+
+		case "SET_CARRITO":
+			const carritosCopy = state.carritos;
+			const carritoSelect = carritosCopy.findIndex(
+				(x) => x.idCommerce === action.payload.idCommerce
+			);
+
+			if (carritoSelect !== -1) {
+				carritosCopy[carritoSelect].data.push(action.payload.producto);
+
+				let total = 0;
+
+				carritosCopy[carritoSelect].data.forEach((e) => {
+					total += e.price;
+				});
+
+				carritosCopy[carritoSelect].total = total;
+				return {
+					...state,
+					carritos: carritosCopy,
+				};
+			}
+			carritosCopy.push({
+				idCommerce: action.payload.idCommerce,
+				data: [action.payload.producto],
+				total: action.payload.producto.price,
+			});
+			return {
+				...state,
+				carritos: carritosCopy,
 			};
 		default:
 			return state;

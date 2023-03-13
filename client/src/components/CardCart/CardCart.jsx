@@ -2,7 +2,7 @@ import React from "react";
 import ButtonCTA from "../ButtonCTA/ButtonCTA";
 import styles from "./CardCart.module.css";
 
-export default function CardCart() {
+export default function CardCart(props) {
 	return (
 		<div className={styles.card__Cart}>
 			<div className={styles.icon__container}>
@@ -17,7 +17,7 @@ export default function CardCart() {
 			</div>
 			<div className={styles.card__description}>
 				<div className={styles.description__text}>
-					<h4>Hamburguesa</h4>
+					<h4>{props.name}</h4>
 					<p>$1.000</p>
 				</div>
 				<div className={styles.cantidad}>

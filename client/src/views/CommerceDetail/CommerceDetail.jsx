@@ -7,8 +7,8 @@ import styles from "./CommerceDetail.module.css";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import Header from "../../components/Header/Header";
 import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
-import CardCart from "../../components/CardCart/CardCart";
-import ButtonCTA from "../../components/ButtonCTA/ButtonCTA";
+
+import Cart from "../Cart/Cart";
 
 export default function CommerceDetail() {
 	const dispatch = useDispatch();
@@ -63,7 +63,7 @@ export default function CommerceDetail() {
 					<h3>Categorias:</h3>
 					<ul>
 						{category.map((x) => (
-							<li>{x}</li>
+							<li key={x}>{x}</li>
 						))}
 					</ul>
 				</div>
@@ -71,6 +71,7 @@ export default function CommerceDetail() {
 					<div className={styles.productCard__container}>
 						{products?.map((x) => (
 							<ProductoCard
+								idCommerce={id}
 								key={x._id}
 								name={x.name}
 								price={x.price}
@@ -79,28 +80,7 @@ export default function CommerceDetail() {
 							/>
 						))}
 					</div>
-					<div className={styles.cart}>
-						<div className={styles.cart__header}>
-							<h3>Tu pedido</h3>
-						</div>
-						<ul>
-							<li>
-								<CardCart />
-							</li>
-							<li>
-								<CardCart />
-							</li>
-							<li>
-								<CardCart />
-							</li>
-						</ul>
-						<div className={styles.total__container}>
-							<p>
-								Total: <span>$100.000</span>
-							</p>
-							<ButtonCTA />
-						</div>
-					</div>
+					<Cart id={id} />
 				</div>
 			</div>
 		</div>

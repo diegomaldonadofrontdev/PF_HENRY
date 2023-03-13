@@ -103,12 +103,6 @@ export function getProductsFilter(tradeId, name, category) {
 }
 
 export function getTradesFilter(city, category, subcategory, epagos) {
-	console.log(
-		"city:" + city,
-		"category:" + category,
-		"subcategory:" + subcategory,
-		"epagos:" + epagos
-	);
 	return async function (dispatch) {
 		const result = await axios.get(
 			`${host}/clients/trades/search?deliveryZone=${city}&category=${category}&subcategory=${subcategory}&epagos=${epagos}`
@@ -162,6 +156,15 @@ export function allFilters(a) {
 		return dispatch({
 			type: "FILTERS_RES",
 			payload: a,
+		});
+	};
+}
+
+export function setCarrito(producto, idCommerce) {
+	return async function (dispatch) {
+		return dispatch({
+			type: "SET_CARRITO",
+			payload: { producto, idCommerce },
 		});
 	};
 }
