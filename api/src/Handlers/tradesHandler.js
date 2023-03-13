@@ -67,7 +67,7 @@ const getSubCategoriesHandler = async (req, res) => { // FUNCIONANDO 12/03
 	}
 };
 
-const getDeliveryZoneHandler = async (req, res) => {
+const getDeliveryZoneHandler = async (req, res) => { //FUNCIONANDO 12/03
   try {
     const deliveryZones = await getDeliveryZones()
     res.status(200).json(deliveryZones)
