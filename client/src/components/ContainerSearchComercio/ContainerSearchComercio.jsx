@@ -4,9 +4,6 @@ import ComercioCard from "../../components/ComercioCard/ComercioCard";
 import { Link } from "react-router-dom";
 
 export default function ContainerSearchComercio(props) {
-	const { comercios } = props;
-	console.log(comercios);
-
 	return (
 		<div className={styles.container__search}>
 			{comercios?.map((x) =>

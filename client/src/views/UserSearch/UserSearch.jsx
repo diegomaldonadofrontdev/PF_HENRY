@@ -1,18 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getTrades } from "../../Redux/Actions/actions";
 import {
 	getTrades,
 	getTradesCategories,
-	getTradesFilter,
 	getSubCategories,
 } from "../../redux/actions/actions";
 import ContainerSearchComercio from "../../components/ContainerSearchComercio/ContainerSearchComercio";
 import styles from "./UserSearch.module.css";
-import ComercioCard from "../../components/ComercioCard/ComercioCard";
-
-import { useSelector } from "react-redux";
 
 import Header from "../../components/Header/Header";
 
@@ -22,15 +17,16 @@ export default function UserSearch() {
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(getTrades());
-	}, []);
+	}, [dispatch]);
 
 	const comercios = useSelector((state) => state.allCommerces);
 	console.log(comercios);
 	const categories = useSelector((state) => state.tradesCategories);
-	const subCategories = useSelector((state) => state.tradesSubCategories);
-	const [category, setCategory] = useState("");
-	const [city, setCity] = useState("");
-	const [subcategory, setSubCategory] = useState("");
+
+	// const subCategories = useSelector((state) => state.tradesSubCategories);
+	// const [category, setCategory] = useState("");
+	// const [city, setCity] = useState("");
+	// const [subcategory, setSubCategory] = useState("");
 
 	useEffect(() => {
 		dispatch(getTrades());
@@ -40,9 +36,7 @@ export default function UserSearch() {
 
 	useEffect(() => {});
 
-	const handleOnChange = (e) => {};
-
-	// const citiesUnrepeat = [...new Set(cities)];
+	// const handleOnChange = (e) => {};
 
 	return (
 		<>
@@ -90,10 +84,11 @@ export default function UserSearch() {
 				<div className={styles.cards__container}>
 					<div className={styles.search__results}>
 						<p>{comercios.length} Locales encontrados:</p>
-						{comercios.map((e) => (
-							<Link to={`/commerce/${e.id}`}>
+						{comercios?.map((e) => (
+							<Link to={`/comercio/${e._id}`}>
 								<ContainerSearchComercio
-									id={e.id}
+									key={e._id}
+									id={e._id}
 									name={e.commerceName}
 									rating={e.rating}
 								/>
