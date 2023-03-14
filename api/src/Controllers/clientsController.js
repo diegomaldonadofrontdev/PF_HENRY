@@ -13,22 +13,22 @@ const bcrypt = require('bcryptjs');
 
 
 
-const registerClient = async (client) => {
+const registerClient = async (client, token) => {
 
-  const { password } = client
+  const { password } = client  
   try {
     const newClient = new Clients(client);
-
+  
     const salt = bcrypt.genSaltSync(10);
-    newClient.password = bcrypt.hashSync(password, salt)
-
+    newClient.password = bcrypt.hashSync(password,salt)
+    
     await newClient.save();
-
+    
     sendMail("Bienvenido, gracias por registrarte");
 
-    const clientBDD = await Clients.find({ email: newClient.email }, { password: 0 })
+    const clientBDD = await Clients.find({email: newClient.email}, {password: 0})
     const id = clientBDD[0]._id
-
+    
     return id
   } catch (error) {
     return error.message
@@ -36,6 +36,42 @@ const registerClient = async (client) => {
 
 
   //return true;
+}
+
+const findClient = async (email) => {
+  try {
+    const findClient = await Clients.find({email: email});
+    if(findClient.length) return true
+    return false 
+  } catch (error) {
+    return error.message
+  }
+}
+
+const validatePasswordClient = async(email, password) => {
+  try {
+    const findClient = await Clients.find({email: email});
+    const client = findClient[0];
+
+    // VALIDAR CONTRASEÑA
+    const salt = bcrypt.genSaltSync(10);
+    const passwordInput = bcrypt.hashSync(password,salt) 
+
+    if(password === client.password) return true
+    return false
+
+  } catch (error) {
+    return error.message
+  }
+}
+
+const searchClient =  async (email) => {
+  try {
+    const clientBDD = await Clients.find({email: email}, {password: 0})
+    return clientBDD[0]
+  } catch (error) {
+    return error.message
+  }
 }
 
 const postCreateOrder = async (body) => {
@@ -88,6 +124,9 @@ const updateOrderC = async (id, updateOrder) => {
 
 module.exports = {
   registerClient,
+  findClient,
+  validatePasswordClient,
+  searchClient,
   postCreateOrder,
   getClients,
   getOrders,
