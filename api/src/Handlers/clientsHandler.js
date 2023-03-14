@@ -1,9 +1,7 @@
 const jwt = require("jsonwebtoken");
 const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
 
-const {
-  postFeedbackController,
-  getFeedbacksController,
+const {  
   postCreateClientController,
   postCreateOrder,
   getClients,
@@ -13,27 +11,7 @@ const {
 } = require("../Controllers/clientsController");
 
 
-// GET ------------> feedbacks
-const getFeedbacksHandler = async (req, res) => {
-  try {
-    const feedbacks = await getFeedbacksController();
-    res.status(200).json(feedbacks);
-  } catch (error) {
-    res.status(404).json({ error: `Error al exportar los feedbacks de los clientes` });
-  }
-};
 
-// POST -------> /feedback
-const createFeedbackHandler = async (req, res) => {
-  const { name, opinion, rating, image } = req.body;
-  try {
-    const result = postFeedbackController(name, opinion, rating, image);
-    if (result)
-      res.status(200).json(`Hemos registrado su comentario. Gracias ${name}!`);
-  } catch (error) {
-    res.status(404).json({ error: `Error al registar el comentario` });
-  }
-};
 
 
 const newRegister = async (req, res) => {
@@ -155,13 +133,13 @@ const login = async (req, res) => {
 }
 
 const registerWhitGoogle = async (req, res) => {
-  const { name, email } = req.body;
+  const { firstname, lastname, username, email, country, city, address, phone, status } = req.body;
 
-  let user = { name, email }; // ver si esta y si no esta crearlo
+  let user = { firstname, lastname, username, email, country, city, address, phone, status }; // ver si esta y si no esta crearlo
 
   try {
     const token = jwt.sign(
-      { name: name, email: email },
+      { name: firstname, email: email },
       TOKEN_KEY,
       { expiresIn: "2h" }
     )
@@ -174,8 +152,6 @@ const registerWhitGoogle = async (req, res) => {
 }
 
 module.exports = {
-  createFeedbackHandler,
-  getFeedbacksHandler,
   newRegister,
   newOrder,
   getOrdersH,

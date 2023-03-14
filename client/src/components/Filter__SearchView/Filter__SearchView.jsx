@@ -1,93 +1,148 @@
-import React, {useState, useEffect} from "react";
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./Filter__SearchView.module.css";
+
 import {
-	getTradesByCategory,
-	getTradesBySubCategory,
-	getTrades,
-	getTradesByCity,
-	getCategories
-} from "../../Redux/Actions/actions"
+	getSubCategories,
+	getZonas,
+	getTradesCategories,
+	allFilters,
+	getTradesFilter,
+} from "../../redux/actions/actions";
+
 // Filtros que agregar: deliveryCity, category, subcategory, epago
 
-export default function Filter__SearchView({setCity, setCategory, setSubCategory}) {
-    const dispatch = useDispatch()
-	const allCommerces = useSelector((state) => state.allCommerces);
-	console.log(allCommerces)
-	const allCategories = useSelector((state) => state.categories)
-	console.log(allCategories)
-	const [currentFilterByCategory, setCurrentFilterByCategory] = useState('')
-	const [currentFilterBySubCategory, setCurrentFilterBySubCategory] = useState('')
-	const [currentFilterByCity, setCurrentFilterByCity] = useState('')
+export default function Filter__SearchView() {
+	const dispatch = useDispatch();
+	const { tradesCategories, tradesSubCategories, zones, filters } = useSelector(
+		(state) => state
+	);
+
+	const [filtersActive, setFiltersActive] = useState(filters);
 
 	useEffect(() => {
-		dispatch(getTrades())
-		dispatch(getCategories())
-	}, [dispatch])
+		dispatch(getZonas());
+		dispatch(getTradesCategories());
+	}, [dispatch]);
 
+	useEffect(() => {
+		dispatch(allFilters(filtersActive));
+		dispatch(
+			getTradesFilter(
+				filtersActive.city,
+				filtersActive.category,
+				filtersActive.subcategory,
+				filtersActive.epagos
+			)
+		);
+	}, [filtersActive]);
 
-	
-//registra los values en los selects
-const onChangeCity = (e) => {
-	e.preventDefault();	
-	dispatch(getTradesByCity(e.target.value))
-	setCurrentFilterByCity(e.target.value)
-}
+	useEffect(() => {
+		if (filtersActive.category !== "default") {
+			dispatch(getSubCategories(filtersActive.category));
+		}
+	}, [filtersActive.category]);
 
-const onChangeCategory = (e) => {
-	e.preventDefault();
-	dispatch(getTradesByCategory(e.target.value))
-	setCurrentFilterByCategory(e.target.value)
-}
-
-const OnChangeSubCategory = (e) => {
-	e.preventDefault();	
-	dispatch(getTradesBySubCategory(e.target.value))
-	setCurrentFilterBySubCategory(e.target.value)
-}
-
-const handleFilterByePago = (e) => {
-	e.preventDefault();	
-}
-
-//manejo del filtrado
-
-
+	function formHandlerChange(e) {
+		const { name, value } = e.target;
+		if (name === "category") {
+			setFiltersActive({
+				...filtersActive,
+				category: value,
+				subcategory: "default",
+			});
+		} else if (name === "zone") {
+			setFiltersActive({ ...filtersActive, city: value });
+		} else if (name === "epagos") {
+			const pay =
+				value === "default" ? "default" : value === "true" ? true : false;
+			setFiltersActive({ ...filtersActive, epagos: pay });
+		} else if (name === "subcategory") {
+			setFiltersActive({ ...filtersActive, subcategory: value });
+		}
+	}
 
 	return (
 		<div className={styles.filterSearchView}>
-			<div className={styles.container}>
-				<h3>Filtrar busqueda</h3>
-				<div className={styles.filter__container}>
-					<div className={styles.select__container}>
-						<h4>Ciudad:</h4>
-						<select name="" id="" onChange={onChangeCity} >
-							<option value="">Ciudad</option>
-							{allCommerces.map((e)=>(e.deliveryzone.map((i)=>(<option value={i}>{i}</option>))))}
-						</select>
-					</div>
-					<div className={styles.select__container}>
-						<h4>Categoria</h4>
-						<select name="" id="" onChange={onChangeCategory} >
-							<option value="">Categoria</option>
-							{allCategories.map((e)=>(<option value={e}>{e}</option>))}
-						</select>
-					</div>
-					<div className={styles.select__container}>
-						<h4>Subcategoria:</h4>
-						<select name="" id="" onChange={OnChangeSubCategory} >
-							<option value="">Subcategoria</option>
-							{allCommerces.map((e)=>(<option value={e.subcategory}>{e.subcategory}</option>))}
-						</select>
-					</div>
-					<div className={styles.select__container}>
-						<h4>Medio de pago:</h4>
-						<select name="" id="">
-							<option value="">Medio de pago</option>
-						</select>
-					</div>
+			<form action="">
+				<div>
+					<p>Filtrar por Categoria:</p>
+					<select
+						name="category"
+						onChange={(e) => {
+							formHandlerChange(e);
+						}}
+					>
+						<option value="default" selected={filters.category === "default"}>
+							Todas
+						</option>
+						{tradesCategories.map((x) => (
+							<option value={x} key={x} selected={filters.category === x}>
+								{x}
+							</option>
+						))}
+					</select>
 				</div>
-			</div>
+				{filters.category !== "default" ? (
+					<div>
+						<p>Agregar Subcategoria:</p>
+						<select
+							name="subcategory"
+							onChange={(e) => {
+								formHandlerChange(e);
+							}}
+						>
+							<option
+								value="default"
+								selected={filters.subcategory === "default"}
+							>
+								Todas
+							</option>
+							{tradesSubCategories.map((x) => (
+								<option value={x} key={x} selected={filters.subcategory === x}>
+									{x}
+								</option>
+							))}
+						</select>
+					</div>
+				) : null}
+				<div>
+					<p>Filtrar por Zona:</p>
+					<select
+						name="zone"
+						onChange={(e) => {
+							formHandlerChange(e);
+						}}
+					>
+						<option value="default">Todas</option>
+						{zones.map((x) => (
+							<option value={x} key={x} selected={filters.city === x}>
+								{x}
+							</option>
+						))}
+					</select>
+				</div>
+
+				<div>
+					<p>Filtrar por Medio de pago:</p>
+					<select
+						name="epagos"
+						onChange={(e) => {
+							formHandlerChange(e);
+						}}
+					>
+						<option value="default" selected={filters.epagos === "default"}>
+							Todos
+						</option>
+						<option value={true} selected={filters.epagos === true}>
+							Tarjeta
+						</option>
+						<option value={false} selected={filters.epagos === false}>
+							Solo Efectivo
+						</option>
+					</select>
+				</div>
+			</form>
 		</div>
 	);
 }

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
 import OpinionCard from "../OpinionCard/OpinionCard";
 import styles from "./OpinionesContainer.module.css";
-import { getReview } from "../../redux/actions/actions";
+import { getReview } from "../../Redux/Actions/actions";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function OpinionesContainer() {
@@ -19,21 +19,18 @@ export default function OpinionesContainer() {
 		<div className={styles.opiniones__container}>
 			<div className={styles.container}>
 				<h3>Lo que opinan de nosotros</h3>
-				{feedback.map((x) => (
-					<OpinionCard
-						name={x.name}
-						opinion={x.opinion}
-						rating={x.rating}
-						image={x.image}
-					/>
-				))}
-				{/* <OpinionCard
-					name="Persona 1"
-					opinion="La aplicacion esta muy buena, todo llego a tiempo y como lo pedi"
-					rating="5"
-				/> */}
+				<div>
+					{feedback.map((x) => (
+						<OpinionCard
+							name={x.name}
+							opinion={x.opinion}
+							rating={x.rating}
+							image={x.image}
+						/>
+					))}
+				</div>
 			</div>
-			<div className={styles.container}>
+			<div className={styles.container__button}>
 				<Link className={styles.boton} to="/opinion">
 					<ButtonPrimary texto="Dejanos tu opinión" />
 				</Link>

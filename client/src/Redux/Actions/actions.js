@@ -1,40 +1,45 @@
 import axios from "axios";
 
+export const TRADES_FILTERS = "TRADES_FILTERS";
+export const GET_PRODUCT_BY_ID = "GET_PRODUCT_BY_ID";
+export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
+export const GET_TRADES_CATEGORIES = "GET_TRADES_CATEGORIES";
+export const GET_TRADES = "GET_TRADES";
+export const GET_REVIEW = "GET_REVIEW";
+export const PRODUCT_FILTERS = "PRODUCT_FILTERS";
+export const GET_SUBCATEGORIES = "GET_SUBCATEGORIES";
+export const GET_ZONES = "GET_ZONES";
+
 const host = "http://localhost:3001";
 
 export function getProductById(id) {
 	return async function (dispatch) {
 		if (id) {
-			const response = await axios(`${host}/clients/trades/search/${id}`);
+			const response = await axios(`${host}/clients/products/search/${id}`);
 			dispatch({
-				type: "GET_PRODUCT_BY_ID",
-				payload: response.data,
+				type: GET_PRODUCT_BY_ID,
+				payload: [response.data],
 			});
 		}
 	};
 }
 
-export function filterByAscOrDesc(payload) {
-	return {
-		type: "FILTER_BY_ASC_OR_DESC",
-		payload,
-	};
-}
+// export function getTradesByName(commerceName) {
+// 	return async function (dispatch) {
+// 		const trades = await axios.get(`${host}/trades/search?commerceName=${commerceName}`);
+// 		return dispatch({ type: "GET_TRADES", payload: trades.data });
+// 	};
+// }
 
-export function getTradesByName(commerceName) {
+export function getAllProducts(tradeId) {
 	return async function (dispatch) {
-		const trades = await axios.get(`${host}/trades/search?commerceName=${commerceName}`);
-		return dispatch({ type: "GET_TRADES", payload: trades.data });
+		const products = await axios.get(
+			`${host}/clients/products/search?tradeId=${tradeId}`
+		);
+		return dispatch({ type: GET_ALL_PRODUCTS, payload: products.data });
 	};
 }
-
-export function getProducts() {
-	return async function (dispatch) {
-		const products = await axios.get(`${host}/products`);
-		return dispatch({ type: "GET_PRODUCTS", payload: products.data });
-	};
-}
-
+// User para revision
 export const getUsers = () => {
 	return async function (dispatch) {
 		const json = await axios.get(`${host}/users`);
@@ -42,17 +47,17 @@ export const getUsers = () => {
 	};
 };
 
-export const getCategories = () => {
+export const getTradesCategories = () => {
 	return async function (dispatch) {
-		const json = await axios.get(`${host}/clients/categories`);
-		return dispatch({ type: "GET_CATEGORIES", payload: json.data });
+		const json = await axios.get(`${host}/clients/trades/categories`);
+		return dispatch({ type: GET_TRADES_CATEGORIES, payload: json.data });
 	};
 };
 
 export function getTrades() {
 	return async function (dispatch) {
 		const trades = await axios.get(`${host}/clients/trades/search`);
-		return dispatch({ type: "GET_TRADES", payload: trades.data });
+		return dispatch({ type: GET_TRADES, payload: trades.data });
 	};
 }
 
@@ -66,82 +71,127 @@ export function postReview(payload) {
 export const getReview = () => {
 	return async function (dispatch) {
 		const json = await axios.get(`${host}/clients/feedbacks`);
-		return dispatch({ type: "GET_REVIEW", payload: json.data });
+		return dispatch({ type: GET_REVIEW, payload: json.data });
 	};
 };
 
-
-export function getProductsFilter(name) {
+export function getProductsFilter(tradeId, name, category) {
 	return async (dispatch) => {
-		let filtredProd = await axios.get(
-			`${host}/clients/products/search?name=${name}`
-		);
+		let filtredProd;
+		if (tradeId && name && category) {
+			filtredProd = await axios.get(
+				`${host}/clients/products/search?tradeId=${tradeId}&productName=${name}&productCategory=${category}`
+			);
+		} else if (tradeId && name) {
+			filtredProd = await axios.get(
+				`${host}/clients/products/search?tradeId=${tradeId}&productName=${name}`
+			);
+		} else if (tradeId && category) {
+			filtredProd = await axios.get(
+				`${host}/clients/products/search?tradeId=${tradeId}&productCategory=${category}`
+			);
+		} else {
+			filtredProd = await axios.get(
+				`${host}/clients/products/search?tradeId=${tradeId}`
+			);
+		}
 		dispatch({
-			type: "FILTER_CATEGORY",
+			type: PRODUCT_FILTERS,
 			payload: filtredProd.data,
 		});
 	};
 }
 
-export function filterByTarjeta(epago) {
+export function getTradesFilter(city, category, subcategory, epagos) {
 	return async function (dispatch) {
-		const tarj = await axios.get(`${host}/clients/trades/search?epago=${epago}`)
-		dispatch({
-			type: "FILTER_BY_TARJETA",
-			payload: [tarj.data],
-		});
-	};
-}
-
-export function getTradesByCategory( category) {
-	return async function (dispatch) {
-		const cat = await axios.get(
-			`${host}/clients/trades/search?category=${category}`
+		const result = await axios.get(
+			`${host}/clients/trades/search?deliveryZone=${city}&category=${category}&subcategory=${subcategory}&epagos=${epagos}`
 		);
+
 		return dispatch({
-			type: "GET_TRADES_BY_CATEGORIES",
-			payload: [cat.data],
+			type: TRADES_FILTERS,
+			payload: result.data,
 		});
 	};
-}
-
-export function getTradesBySubCategory( subcategory) {
-	return async function (dispatch) {
-		const cat = await axios.get(
-			`${host}/clients/trades/search?subcategory=${subcategory}`
-		);
-		return dispatch({
-			type: "FILTER_BY_SUBCATEGORY",
-			payload: [cat.data],
-		});
-	};
-}
-
-export function getTradesByCity(city) {
-	return async function (dispatch) {
-		const citydata = await axios.get(
-			`${host}/clients/trades/search?deliveryCity=${city}`
-		);
-		return dispatch({
-			type: "FILTER_BY_CITY",
-			payload: [citydata.data],
-		});
-	};
-}
-
-export function getTradesFilter(city, category, subcategory){
-	return async function (dispatch){
-		const filterData = await axios.get(`${host}/clients/trades/search?deliveryCity=${city}&category=${category}&subcategory=${subcategory}`)
-		return dispatch({
-			type: "COMBINED_FILTERS",
-			payload: [filterData.data]
-		})
-	}
 }
 
 export function postProduct(payload) {
 	return async function () {
 		const product = await axios.post(`${host}/trades/new-products`, payload);
 		return product;
+	};
+}
+
+export function getSubCategories(category) {
+	return async function (dispatch) {
+		const subCat = await axios.get(
+			`${host}/clients/trades/subcategories?category=${category}`
+		);
+		return dispatch({ type: GET_SUBCATEGORIES, payload: subCat.data });
+	};
+}
+
+export function getZonas() {
+	return async function (dispatch) {
+		const zonas = await axios.get(`${host}/clients/trades/deliveryZone`);
+		return dispatch({
+			type: GET_ZONES,
+			payload: zonas.data,
+		});
+	};
+}
+
+export function getEpagos() {
+	return async function (dispatch) {
+		const zonas = await axios.get(`${host}/clients/trades/deliveryZone`);
+		return dispatch({
+			type: GET_ZONES,
+			payload: zonas.data,
+		});
+	};
+}
+
+export function allFilters(a) {
+	return async function (dispatch) {
+		return dispatch({
+			type: "FILTERS_RES",
+			payload: a,
+		});
+	};
+}
+
+export function setCarrito(producto, idCommerce) {
+	return async function (dispatch) {
+		return dispatch({
+			type: "SET_CARRITO",
+			payload: { producto, idCommerce },
+		});
+	};
+}
+
+export function addAmount(idProduct, idCommerce) {
+	return async function (dispatch) {
+		return dispatch({
+			type: "ADD_AMOUNT",
+			payload: { idProduct, idCommerce },
+		});
+	};
+}
+
+export function substractAmount(idProduct, idCommerce) {
+	return async function (dispatch) {
+		return dispatch({
+			type: "SUBSTRACT_AMOUNT",
+			payload: { idProduct, idCommerce },
+		});
+	};
+}
+
+export function deleteProduct(idProduct, idCommerce) {
+	return async function (dispatch) {
+		return dispatch({
+			type: "DELETE_AMOUNT",
+			payload: { idProduct, idCommerce },
+		});
 	};
 }

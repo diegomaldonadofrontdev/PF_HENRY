@@ -8,3 +8,14 @@
 	align-items: center;
 	justify-content: center;
 }
+
+.opiniones__container .container > div {
+	display: flex;
+	gap: 1em;
+}
+
+.opiniones__container .container__button {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 50px;
+}
