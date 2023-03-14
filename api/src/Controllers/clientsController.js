@@ -29,11 +29,8 @@ const registerClient = async (client, token) => {
     const clientBDD = await Clients.find({email: newClient.email}, {password: 0})
 
     console.log(clientBDD);
-
-    const clientReturn = clientBDD.pop();
-    clientReturn.token = "testToken"
-  
-    return [clientReturn]
+ 
+    return clientReturn
   } catch (error) {
     return error.message
   }

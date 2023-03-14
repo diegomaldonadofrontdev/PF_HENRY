@@ -26,7 +26,6 @@ const postClientHandler = async (req, res) => {
 
     const newClient = await registerClient(client, token)
     res.status(200).json(newClient)
-
   } catch (error) {
     res.status(404).json({ Error: error.message });
   }
