@@ -31,6 +31,7 @@ export default function Cart({ id }) {
 								name={x.name}
 								cantidad={x.cantidad}
 								precio={x.price}
+								image={x.img}
 							/>
 						);
 					})}

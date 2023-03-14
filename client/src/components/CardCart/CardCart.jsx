@@ -34,10 +34,7 @@ export default function CardCart(props) {
 			</div>
 
 			<div className={styles.img__container}>
-				<img
-					src="https://images.rappi.com.ar/restaurants_background/mcdonaldscol-1660251198623.jpg?e=webp&q=70&d=300x300"
-					alt=""
-				/>
+				<img src={props.image} alt="" />
 			</div>
 			<div className={styles.card__description}>
 				<div className={styles.description__text}>
