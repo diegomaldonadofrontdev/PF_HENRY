@@ -11,6 +11,7 @@ export default function ProductoCard(props) {
 		dispatch(
 			setCarrito(
 				{
+					id: props.idProduct,
 					name: props.name,
 					price: props.price,
 					description: props.description,

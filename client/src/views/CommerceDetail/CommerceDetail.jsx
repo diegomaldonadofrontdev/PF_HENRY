@@ -72,6 +72,7 @@ export default function CommerceDetail() {
 						{products?.map((x) => (
 							<ProductoCard
 								idCommerce={id}
+								idProduct={x._id}
 								key={x._id}
 								name={x.name}
 								price={x.price}

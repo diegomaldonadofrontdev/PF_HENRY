@@ -7,25 +7,13 @@ import { useSelector } from "react-redux";
 export default function Cart({ id }) {
 	const carritos = useSelector((state) => state.carritos);
 
-    const [carrito, setCarrito] = useState({
-		idCommerce: "",
-		data: [],
-		total: 0,
-	});
-
-	// const [carritoRedux, setCarritoRedux] = useState({});
-
-	// useEffect(() => {
-	// 	setCarritoRedux(carritos?.find((x) => x.idCommerce === id));
-	// }, [carritos]);
+	const [carrito, setCarrito] = useState({ ...carritos });
 
 	useEffect(() => {
-		console.log("dentro: " + carritos);
-
-		setCarrito(carritos?.find((x) => x.idCommerce === id));
-	}, [carritos.length]);
-
-	console.log("fuera:" + carritos);
+		if (carritos[id]) {
+			setCarrito({ ...carritos[id] });
+		}
+	}, [carritos]);
 
 	return (
 		<div className={styles.cart}>
@@ -33,9 +21,19 @@ export default function Cart({ id }) {
 				<h3>Tu pedido</h3>
 			</div>
 			<ul>
-				{carrito?.data.map((x) => (
-					<CardCart name={x.name} key={x.name} />
-				))}
+				{carrito.data &&
+					carrito.data.map((x) => {
+						return (
+							<CardCart
+								idProduct={x.id}
+								idCommerce={id}
+								key={x.name}
+								name={x.name}
+								cantidad={x.cantidad}
+								precio={x.price}
+							/>
+						);
+					})}
 			</ul>
 			<div className={styles.total__container}>
 				<p>
