@@ -13,7 +13,6 @@ export default function Header() {
 	const { isAuthenticated, logout } = useAuth0();
 	const location = useLocation();
 
-	console.log(dataUser.name);
 	const handleClick = (e) => {
 		e.preventDefault();
 		logout1();

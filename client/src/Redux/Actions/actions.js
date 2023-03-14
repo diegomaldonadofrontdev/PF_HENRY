@@ -103,12 +103,6 @@ export function getProductsFilter(tradeId, name, category) {
 }
 
 export function getTradesFilter(city, category, subcategory, epagos) {
-	console.log(
-		"city:" + city,
-		"category:" + category,
-		"subcategory:" + subcategory,
-		"epagos:" + epagos
-	);
 	return async function (dispatch) {
 		const result = await axios.get(
 			`${host}/clients/trades/search?deliveryZone=${city}&category=${category}&subcategory=${subcategory}&epagos=${epagos}`
@@ -165,50 +159,39 @@ export function allFilters(a) {
 		});
 	};
 }
-// export function filterByEpago(epago, city) {
-//   return async function (dispatch) {
-//     const tarj = await axios.get(
-//       `${host}/clients/trades/search?deliveryZone=${city}&epago=${epago}`
-//     );
-//     dispatch({
-//       type: "FILTER_BY_EPAGO",
-//       payload: [tarj.data],
-//     });
-//   };
-// }
 
-// export function getTradesByCategory(category, city) {
-//   return async function (dispatch) {
-//     const cat = await axios.get(
-//       `${host}/clients/trades/search?deliveryZone=${city}&category=${category}`
-//     );
-//     return dispatch({
-//       type: "GET_TRADES_BY_CATEGORIES",
-//       payload: [cat.data],
-//     });
-//   };
-// }
+export function setCarrito(producto, idCommerce) {
+	return async function (dispatch) {
+		return dispatch({
+			type: "SET_CARRITO",
+			payload: { producto, idCommerce },
+		});
+	};
+}
 
-// export function getTradesBySubCategory(category, subcategory, city) {
-//   return async function (dispatch) {
-//     const cat = await axios.get(
-//       `${host}/clients/trades/search?deliveryZone=${city}&category=${category}&subcategory=${subcategory}`
-//     );
-//     return dispatch({
-//       type: "GET_TRADES_BY_SUBCATEGORY",
-//       payload: [cat.data],
-//     });
-//   };
-// }
+export function addAmount(idProduct, idCommerce) {
+	return async function (dispatch) {
+		return dispatch({
+			type: "ADD_AMOUNT",
+			payload: { idProduct, idCommerce },
+		});
+	};
+}
 
-// export function getTradesByCity(city) {
-//   return async function (dispatch) {
-//     const citydata = await axios.get(
-//       `${host}/clients/trades/search?deliveryZone=${city}`
-//     );
-//     return dispatch({
-//       type: "GET_TRADES_BY_CITY",
-//       payload: [citydata.data],
-//     });
-//   };
-// }
+export function substractAmount(idProduct, idCommerce) {
+	return async function (dispatch) {
+		return dispatch({
+			type: "SUBSTRACT_AMOUNT",
+			payload: { idProduct, idCommerce },
+		});
+	};
+}
+
+export function deleteProduct(idProduct, idCommerce) {
+	return async function (dispatch) {
+		return dispatch({
+			type: "DELETE_AMOUNT",
+			payload: { idProduct, idCommerce },
+		});
+	};
+}
