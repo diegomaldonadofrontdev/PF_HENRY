@@ -36,10 +36,10 @@ export default function Cart({ id }) {
 						);
 					})}
 			</ul>
-			<div className={styles.total__container}>
-				<p>
-					Total: <span>${carrito?.total || 0}</span>
-				</p>
+			<p className={styles.total__container}>
+				Total: <span>${carrito?.total || 0}</span>
+			</p>
+			<div>
 				<ButtonCTA />
 			</div>
 		</div>

@@ -36,7 +36,6 @@ export default function CommerceDetail() {
 			let variable = products.map((x) => x.category);
 			variable = new Set(variable);
 			setCategory([...variable]);
-			// setCategory(products.find((x) => x._id === id));
 		}
 	}, [products]);
 
@@ -62,6 +61,7 @@ export default function CommerceDetail() {
 				<div className={styles.subcategorias}>
 					<h3>Categorias:</h3>
 					<ul>
+						<li>Todas</li>
 						{category.map((x) => (
 							<li key={x}>{x}</li>
 						))}
