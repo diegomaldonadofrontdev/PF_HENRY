@@ -16,7 +16,7 @@ import {
 	GET_REVIEW,
 	PRODUCT_FILTERS,
 	GET_ZONES,
-} from "../actions/actions";
+} from "../Actions/actions";
 
 // export default allReducers;
 

@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
 
-const {  
+const {
   postCreateClientController,
   postCreateOrder,
   getClients,
@@ -16,21 +16,22 @@ const {
 
 const newRegister = async (req, res) => {
   try {
-    // const result = await postCreateClientController(req.body)
+    // const { firstname, lastname, username, email, password, country, city, address, phone, status } = req.body;
+    // let user = { firstname, lastname, username, email, password, country, city, address, phone, status };
+    const user = req.body;
+    const result = await postCreateClientController(user)
     // res.status(200).json(`Se ha creado el usuario ${req.body.username} exitosamente `);
 
-    const { firstname, lastname, username, email, password, country, city, address, phone, status } = req.body;
-    let user = { firstname, lastname, username, email, password, country, city, address, phone, status };
     const token = jwt.sign(
       { email: email, password: password },
       TOKEN_KEY,
       { expiresIn: "2h" }
     )
-    let userJWT = { ...user, token };
+    let userJWT = { ...result, token };
     res.status(200).json(userJWT)
 
   } catch (error) {
-    res.status(404).json({ Error: "Error al registrar usuario" });
+    res.status(404).json({ Error: error.message });
   }
 
 }

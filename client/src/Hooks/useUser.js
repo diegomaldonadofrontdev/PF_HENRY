@@ -33,11 +33,12 @@ export default function useUser() {
         setState({ loading: true, error: false })
         registerService({ firstname, lastname, username, email, password, country, city, address, phone, status })
             .then(user => {
-                const { firstname, lastname, username, email, password, country, city, address, phone, status, token } = user;
+                const {id, firstname, lastname, username, email, password, country, city, address, phone, status, token } = user;
                 window.localStorage.setItem('token', JSON.stringify(token))
                 setState({ loading: false, error: false })
                 setToken(token)
-                setDataUser({ firstname, lastname, username, email, password, country, city, address, phone, status })
+                // dispatch
+                setDataUser({id, firstname, lastname, username, email, password, country, city, address, phone, status })
                 console.log(user)
             })
             .catch(err => {

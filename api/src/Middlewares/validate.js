@@ -25,7 +25,7 @@ const validateFeedback = (req, res, next) => {
     const {firstname ,lastname, username, email, password, country, city, address, phone, status} = req.body;
     if(!firstname) return res.status(400).json({ Error: "No se ha recibido el nombre" });
     if(!lastname) return res.status(400).json({ Error: "No se ha recibido el apellido" });
-    // if(!username) return res.status(400).json({ Error: "No se ha recibido el nombre de usuario" });
+    if(!username) return res.status(400).json({ Error: "No se ha recibido el nombre de usuario" });
     if(!email) return res.status(400).json({ Error: "No se ha recibido el email" });
     if(!password) return res.status(400).json({ Error: "No se ha recibido la contraseña" });
     if(!country) return res.status(400).json({ Error: "No se ha recibido el pais" });
