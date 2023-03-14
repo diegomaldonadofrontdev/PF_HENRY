@@ -17,20 +17,12 @@ const {
 const postClientHandler = async (req, res) => {
   const client = req.body
   try {
-
-    const token = jwt.sign(
-      { email: client.email },
-      TOKEN_KEY,
-      { expiresIn: "2h" }
-    )
-
-    const newClient = await registerClient(client, token)
+    const newClient = await registerClient(client)
     res.status(200).json(newClient)
 
   } catch (error) {
     res.status(404).json({ Error: error.message });
   }
-
 }
 
 const newOrder = async (req, res) => {
