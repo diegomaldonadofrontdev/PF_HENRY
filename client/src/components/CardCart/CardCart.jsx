@@ -24,15 +24,6 @@ export default function CardCart(props) {
 
 	return (
 		<div className={styles.card__Cart}>
-			<div
-				className={styles.icon__container}
-				onClick={() => {
-					deleteHandler();
-				}}
-			>
-				<i class="bx bx-trash"></i>
-			</div>
-
 			<div className={styles.img__container}>
 				<img src={props.image} alt="" />
 			</div>
@@ -41,6 +32,7 @@ export default function CardCart(props) {
 					<h4>{props.name}</h4>
 					<p>${props.precio}</p>
 				</div>
+				<span>x</span>
 				<div className={styles.cantidad}>
 					<p>{props.cantidad}</p>
 					<div className={styles.button__container}>
@@ -65,6 +57,14 @@ export default function CardCart(props) {
 				</div>
 
 				<p className={styles.price}>${props.precio * props.cantidad}</p>
+			</div>
+			<div
+				className={styles.icon__container}
+				onClick={() => {
+					deleteHandler();
+				}}
+			>
+				<i class="bx bx-trash"></i>
 			</div>
 		</div>
 	);
