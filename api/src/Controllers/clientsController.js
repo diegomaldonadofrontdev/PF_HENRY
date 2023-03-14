@@ -13,22 +13,23 @@ const bcrypt = require('bcryptjs');
 
 
 
-const registerClient = async (client, token) => {
+const registerClient = async (client) => {
 
-  const { password } = client  
+  const { password } = client
   try {
     const newClient = new Clients(client);
-  
+
     const salt = bcrypt.genSaltSync(10);
-    newClient.password = bcrypt.hashSync(password,salt)
-    
+    newClient.password = bcrypt.hashSync(password, salt)
+
     await newClient.save();
-    
+
     sendMail("Bienvenido, gracias por registrarte");
 
-    const clientBDD = await Clients.find({email: newClient.email}, {password: 0})
+    const clientBDD = await Clients.find({ email: newClient.email }, { password: 0 })
+    const id = clientBDD[0]._id
 
-    return newClient  
+    return id
   } catch (error) {
     return error.message
   }
@@ -38,9 +39,9 @@ const registerClient = async (client, token) => {
 }
 
 const postCreateOrder = async (body) => {
-  
+
   try {
-    const newOrder = new Order( body);
+    const newOrder = new Order(body);
     await newOrder.save();
     return true;
   } catch (error) {
@@ -48,7 +49,7 @@ const postCreateOrder = async (body) => {
   }
 }
 
-const getClients = async() => {
+const getClients = async () => {
   try {
     const clients = await Clients.find()
     return clients;
@@ -57,7 +58,7 @@ const getClients = async() => {
   }
 }
 
-const getOrders = async() => {
+const getOrders = async () => {
   try {
     const orders = await Order.find();
     return orders;
@@ -68,7 +69,7 @@ const getOrders = async() => {
 
 const updateClientC = async (id, updateClient) => {
   try {
-    const client = Clients.findByIdAndUpdate(id,updateClient,{new: true})
+    const client = Clients.findByIdAndUpdate(id, updateClient, { new: true })
     return client;
   } catch (error) {
     return false
@@ -77,7 +78,7 @@ const updateClientC = async (id, updateClient) => {
 
 const updateOrderC = async (id, updateOrder) => {
   try {
-    const order = Order.findByIdAndUpdate(id,updateOrder,{new: true})
+    const order = Order.findByIdAndUpdate(id, updateOrder, { new: true })
     return order;
   } catch (error) {
     return false
@@ -85,11 +86,11 @@ const updateOrderC = async (id, updateOrder) => {
 }
 
 
-module.exports = {   
-    registerClient,
-    postCreateOrder,
-    getClients,
-    getOrders,
-    updateClientC,
-    updateOrderC
+module.exports = {
+  registerClient,
+  postCreateOrder,
+  getClients,
+  getOrders,
+  updateClientC,
+  updateOrderC
 }
