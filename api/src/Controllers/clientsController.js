@@ -13,12 +13,11 @@ const bcrypt = require('bcryptjs');
 
 
 
-const postCreateClientController = async (body) => {
+const registerClient = async (client) => {
 
-  const { password } = body
-  
+  const { password } = client  
   try {
-    newClient = new Clients( body);
+    const newClient = new Clients(client);
   
     const salt = bcrypt.genSaltSync(10);
     newClient.password = bcrypt.hashSync(password,salt)
@@ -26,8 +25,7 @@ const postCreateClientController = async (body) => {
     await newClient.save();
     
     sendMail("Bienvenido, gracias por registrarte");
-    
-      
+    return `Hemos registrado exitosamente a ${client.firstname} ${client.lastname}`      
   } catch (error) {
     return false
   }
@@ -85,7 +83,7 @@ const updateOrderC = async (id, updateOrder) => {
 
 
 module.exports = {   
-    postCreateClientController,
+    registerClient,
     postCreateOrder,
     getClients,
     getOrders,

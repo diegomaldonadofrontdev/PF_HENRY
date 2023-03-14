@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
 
 const {  
-  postCreateClientController,
+  registerClient,
   postCreateOrder,
   getClients,
   getOrders,
@@ -14,19 +14,16 @@ const {
 
 
 
-const newRegister = async (req, res) => {
-  try {
-    // const result = await postCreateClientController(req.body)
-    // res.status(200).json(`Se ha creado el usuario ${req.body.username} exitosamente `);
-
-    const { firstname, lastname, username, email, password, country, city, address, phone, status } = req.body;
-    let user = { firstname, lastname, username, email, password, country, city, address, phone, status };
+const postClientHandler = async (req, res) => { 
+  const client = req.body
+  try {    
+    const newClient = await registerClient(client)
     const token = jwt.sign(
       { email: email, password: password },
       TOKEN_KEY,
       { expiresIn: "2h" }
     )
-    let userJWT = { ...user, token };
+    let userJWT = { ...newClient, token };    
     res.status(200).json(userJWT)
 
   } catch (error) {
@@ -152,7 +149,7 @@ const registerWhitGoogle = async (req, res) => {
 }
 
 module.exports = {
-  newRegister,
+  postClientHandler,
   newOrder,
   getOrdersH,
   getClientsH,
