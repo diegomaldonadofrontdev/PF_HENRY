@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
 
-const {
+const {  
   registerClient,
   postCreateOrder,
   getClients,
@@ -9,7 +9,6 @@ const {
   updateClientC,
   updateOrderC,
 } = require("../Controllers/clientsController");
-
 
 
 
@@ -23,11 +22,11 @@ const postClientHandler = async (req, res) => {
       TOKEN_KEY,
       { expiresIn: "2h" }
     )
+    const id = await registerClient(client)
 
-    const newClient = await registerClient(client, token)
-    res.status(200).json(newClient)
+    res.status(200).json({id, ...client,token})
   } catch (error) {
-    res.status(404).json({ Error: error.message });
+    res.status(404).json({ error: error.message });
   }
 
 }

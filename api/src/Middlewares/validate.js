@@ -35,19 +35,20 @@ const validateFeedback = (req, res, next) => {
   }
 
   const validateTrade = (req, res, next) => {
-    const {commerceName, description, userName, email, password, country, city, address, phone, epagos, status} = req.body;
+    const {commerceName,category, subcategory, description, userName, email, password, province, city, address, phone, epagos} = req.body;
     
     if(!commerceName) return res.status(400).json({ Error: "No se ha recibido el nombre del comercio" });
+    if(!category) return res.status(400).json({ Error: "No se ha recibido la categoría del comercio" });
+    if(!subcategory) return res.status(400).json({ Error: "No se ha recibido la subcategoría del comercio" });
     if(!description) return res.status(400).json({ Error: "No se ha recibido la descripcion del comercio" });
-    if(!userName) return res.status(400).json({ Error: "No se ha recibido el nombre de usuario" });
-    if(!email) return res.status(400).json({ Error: "No se ha recibido el email" });
-    if(!password) return res.status(400).json({ Error: "No se ha recibido la contraseña" });
-    if(!country) return res.status(400).json({ Error: "No se ha recibido el pais" });
+    if(!province) return res.status(400).json({ Error: "No se ha recibido el tipo de pago" });        
     if(!city) return res.status(400).json({ Error: "No se ha recibido la ciudad" });
     if(!address) return res.status(400).json({ Error: "No se ha recibido la direccion" });
     if(!phone) return res.status(400).json({ Error: "No se ha recibido el telefono" });
-    if(!epagos) return res.status(400).json({ Error: "No se ha recibido el tipo de pago" });
-    if(!status) return res.status(400).json({ Error: "No se ha recibido el estatus" });
+    if(!userName) return res.status(400).json({ Error: "No se ha recibido el nombre de usuario" });
+    if(!password) return res.status(400).json({ Error: "No se ha recibido la contraseña" });
+    if(!email) return res.status(400).json({ Error: "No se ha recibido el email" });
+    if(!epagos) return res.status(400).json({ Error: "No se ha recibido el tipo de pago" });    
     next();
 
   }
