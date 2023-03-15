@@ -18,7 +18,7 @@ import {
 	GET_ZONES,
 	POST_PAYMENT,
 	CURRENT_CLIENT
-} from "../Actions/actions";
+} from "../actions/actions";
 
 // export default allReducers;
 

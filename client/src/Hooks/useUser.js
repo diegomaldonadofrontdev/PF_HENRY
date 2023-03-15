@@ -1,6 +1,6 @@
 import { useCallback, useContext, useState } from "react";
 import { useDispatch } from "react-redux";
-import { currentCLient } from "../Redux/Actions/actions";
+import { currentCLient } from "../redux/actions/actions";
 import { Context } from "../Context/userContext";
 import loginService from "../services/login";
 import registerService from "../services/sigin";
