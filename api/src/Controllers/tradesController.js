@@ -5,7 +5,7 @@ const Trade = require("../models/Trades");
 // const Products = require("../models/Products");
 // const { trades } = require("../Auxiliares/comerciantes");
 // const { trades } = require("../Auxiliares/comercios");
-// const bcrypt = require('bcryptjs');
+const bcrypt = require('bcryptjs');
 
 // GET COMERCIOS
 // [Todos los comercios de todas las categorias]
@@ -369,17 +369,17 @@ const getDeliveryZones = async () => {
 // };
 //POST
 const postCreateTrades = async (body) => {
-	// const { password } = body;
+	const { password } = body;
 	try {
 		newTrade = new Trade(body);
 
-		// const salt = bcrypt.genSaltSync(10);
-		// newTrade.password = bcrypt.hashSync(password,salt);
+		const salt = bcrypt.genSaltSync(10);
+		newTrade.password = bcrypt.hashSync(password,salt);
 		await newTrade.save();
 
-		return true;
+		return `Èl comercio se registró correctamente`;
 	} catch (error) {
-		return false;
+		return error.message;
 	}
 };
 

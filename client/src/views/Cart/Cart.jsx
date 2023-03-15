@@ -2,18 +2,29 @@ import React, { useEffect, useState } from "react";
 import CardCart from "../../components/CardCart/CardCart";
 import ButtonCTA from "../../components/ButtonCTA/ButtonCTA";
 import styles from "./Cart.module.css";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { postPayment } from "../../redux/actions/actions";
 
 export default function Cart({ id }) {
 	const carritos = useSelector((state) => state.carritos);
-
+	const sandbox = useSelector((state) => state.mercadoPago.sandbox);
 	const [carrito, setCarrito] = useState({ ...carritos });
-
+	const dispatch = useDispatch();
 	useEffect(() => {
 		if (carritos[id]) {
 			setCarrito({ ...carritos[id] });
 		}
 	}, [carritos]);
+
+	function handlerPostPayment() {
+		dispatch(postPayment(id, "DiegoMaldonado", carrito));
+	}
+
+	useEffect(() => {
+		if (sandbox) {
+			window.location.replace(sandbox);
+		}
+	}, [sandbox]);
 
 	return (
 		<div className={styles.cart}>
@@ -36,11 +47,11 @@ export default function Cart({ id }) {
 						);
 					})}
 			</ul>
-			<div className={styles.total__container}>
-				<p>
-					Total: <span>${carrito?.total || 0}</span>
-				</p>
-				<ButtonCTA />
+			<p className={styles.total__container}>
+				Total: <span>${carrito?.total || 0}</span>
+			</p>
+			<div>
+				<ButtonCTA fc={handlerPostPayment} />
 			</div>
 		</div>
 	);
