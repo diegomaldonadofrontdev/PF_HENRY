@@ -1,6 +1,8 @@
 .card__store {
-	width: 100%;
+	width: 500px;
+	height: 170px;
 	display: flex;
+	align-items: center;
 	justify-content: flex-start;
 	gap: 25px;
 	background-color: white;
@@ -46,13 +48,26 @@
 	color: rgb(255, 162, 0);
 }
 
-.epago {
+.epagos {
 	display: flex;
 	align-items: center;
 	margin: 5px 0;
 	gap: 0.5em;
 }
 
-.epago i {
+.epagos p {
+	display: flex;
+	align-items: center;
+	gap: 0.5em;
+	font-weight: 400 !important;
+	color: gray;
+}
+
+.epagos > div:last-child {
+	display: flex;
+	flex-direction: column;
+}
+
+.epagos i {
 	font-size: 1.2em;
 }
