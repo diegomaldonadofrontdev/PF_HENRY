@@ -199,7 +199,7 @@ export function deleteProduct(idProduct, idCommerce) {
 
 export function commerceRegister(payload) {
 	return async function () {
-		const postCommerce = await axios.post(`${host}/trades/trades`, payload);
+		const postCommerce = await axios.post(`${host}/trades/newTrade`, payload);
 		return postCommerce;
 	}
 }
