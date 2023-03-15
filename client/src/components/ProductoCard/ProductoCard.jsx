@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { setCarrito } from "../../redux/actions/actions";
+import { setCarrito } from "../../Redux/actions/actions";
 import ButtonProduct from "../ButtonProduct/ButtonProduct";
 import styles from "./ProductoCard.module.css";
 

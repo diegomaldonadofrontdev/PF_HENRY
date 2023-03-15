@@ -61,9 +61,9 @@ export function getTrades() {
 	};
 }
 
-export function postReview(payload) {
+export function postReview(payload, clientId) {
 	return async function () {
-		const reviewPost = await axios.post(`${host}/clients/feedback`, payload);
+		const reviewPost = await axios.post(`${host}/clients/feedback?clientId=640a617331d21eefd2f185e0`, payload);
 		return reviewPost;
 	};
 }
@@ -115,9 +115,9 @@ export function getTradesFilter(city, category, subcategory, epagos) {
 	};
 }
 
-export function postProduct(payload) {
+export function postProduct(payload, tradeId) {
 	return async function () {
-		const product = await axios.post(`${host}/trades/new-products`, payload);
+		const product = await axios.post(`${host}/trades?${tradeId}/new-product`, payload);
 		return product;
 	};
 }
@@ -193,5 +193,12 @@ export function deleteProduct(idProduct, idCommerce) {
 			type: "DELETE_AMOUNT",
 			payload: { idProduct, idCommerce },
 		});
+	};
+}
+
+export function commerceRegister(payload) {
+	return async function () {
+		const postCommerce = await axios.post(`${host}/trades/trades`, payload);
+		return postCommerce;
 	};
 }

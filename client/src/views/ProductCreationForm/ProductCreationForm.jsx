@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 import { getCategories, postProduct } from "../../Redux/actions/actions";
 import styles from "./ProductCreationForm.module.css";
 import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
@@ -9,7 +10,7 @@ import swal from "sweetalert";
 export default function ProductCreation() {
 	const dispatch = useDispatch();
 	// const categories = useSelector((state) => state.categories)
-
+	const tradeId = "640db76e947f971bf4531e36"
 	const [productImg, setProductImg] = useState("");
 	// const [currentErrorsCategory, setCurrentErrorsCategory] = useState({})
 	//guarda los datos de los inputs
@@ -73,11 +74,11 @@ export default function ProductCreation() {
 				button: "Ok",
 			});
 		} else {
-			dispatch(postProduct(currentInput));
+			dispatch(postProduct(currentInput, tradeId));
 			swal({
 				title: "Listo!",
 				text: "Producto creado correctamente",
-				icon: "succes",
+				icon: "success",
 				button: "Ok",
 			});
 			setCurrentInput({
