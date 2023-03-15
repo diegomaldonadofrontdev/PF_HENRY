@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./ComercioCard.module.css";
-import img from "../../images/logo_burger.png";
 
 export default function ComercioCard(props) {
 	return (
