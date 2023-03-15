@@ -1,19 +1,18 @@
 const { Router } = require("express");
 const {
   getProductsHandler,
-  getProductHandler,
-  getProductCategoryHandler,
-} = require("../handlers/productsHandler");
+  getProductHandler
+} = require("../Handlers/productsHandler");
 const {
-  postClientHandler,
+  createFeedbackHandler,
+  getFeedbacksHandler,
+  newRegister,
   newOrder,
   getClientsH,
   getOrdersH,
   updateClient,
-  updateOrder,
-  login,
-  registerWhitGoogle,
-} = require("../handlers/clientsHandler");
+  updateOrder
+} = require("../Handlers/clientsHandler");
 // const {
 //     createOrderHandler
 // } = require("../handlers/orderHandler");
@@ -22,45 +21,38 @@ const {
   getTradeHandler,
   getCategoriesHandler,
   getSubCategoriesHandler,
-  getDeliveryZoneHandler,
+  
+
 } = require("../Handlers/tradesHandler");
-const {
-  validateFeedback,
-  validateClient,
-  validateOrder,
-} = require("../middlewares/validate");
-const {
-  postFeedbackHandler,
-  getFeedbacksHandler,
-} = require("../Handlers/feedbacksHandler")
+const { validateFeedback, validateClient, validateOrder } = require("../middlewares/validate");
 
 const clientsRouter = Router();
 
 // GET
-clientsRouter.get("/trades/categories", getCategoriesHandler); // FUNCIONANDO 12/03
-clientsRouter.get("/trades/subcategories", getSubCategoriesHandler); // FUNCIONANDO 12/03
-clientsRouter.get("/trades/deliveryZone", getDeliveryZoneHandler); // FUNCIONANDO 12/03
-clientsRouter.get("/trades/search", getTradesHandler); // FUNCIONANDO 12/03
-clientsRouter.get("/trades/search/:id", getTradeHandler); // FUNCIONANDO 12/03
-clientsRouter.get("/products/search", getProductsHandler); // FUNCIONANDO 12/03
-clientsRouter.get("/products/search/:id", getProductHandler); // FUNCIONANDO 12/03
-clientsRouter.get("/products/categories", getProductCategoryHandler); // FUNCIONANDO 12/03
+clientsRouter.get("/categories", getCategoriesHandler);
+clientsRouter.get("/subcategories", getSubCategoriesHandler);
+clientsRouter.get("/trades/search", getTradesHandler);
+clientsRouter.get("/trades/search/:id", getTradeHandler);
+clientsRouter.get("/products/search", getProductsHandler);
+clientsRouter.get("/products/search/:id", getProductHandler);
 clientsRouter.get("/feedbacks", getFeedbacksHandler);
-clientsRouter.get("/clients", getClientsH);
-clientsRouter.get("/orders", getOrdersH);
+
 
 // POST
-clientsRouter.post("/feedback", validateFeedback, postFeedbackHandler); // FUNCIONANDO 12/03
-clientsRouter.post("/register", validateClient, postClientHandler);
+clientsRouter.post("/feedback", validateFeedback, createFeedbackHandler);
+
+
+
+clientsRouter.post("/register", validateClient, newRegister);
 clientsRouter.post("/new-order", validateOrder, newOrder);
 
-// PUT
-clientsRouter.put("/update-clients", updateClient);
-clientsRouter.put("/update-orders", updateOrder);
+clientsRouter.get('/clients',getClientsH)
+clientsRouter.get('/orders',getOrdersH)
 
-// LOGIN AND AUTHENTICATION
-clientsRouter.post("/login", login);
-clientsRouter.post("/siginWhitGoogle", registerWhitGoogle);
+clientsRouter.put('/update-clients',updateClient);
+clientsRouter.put('/update-orders', updateOrder);
+
+
 
 // clientsRouter.get("/trades/feedback", validateFeedback, createFeedbackHandler );
 
