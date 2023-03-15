@@ -21,7 +21,7 @@ export default function RegistrationForm() {
 		city: "",
 		address: "",
 		phone: "",
-		status: ""
+		active: false
 	});
 
 	useEffect(() => {
@@ -67,7 +67,7 @@ export default function RegistrationForm() {
 								</div>
 								<div className={styles.input__container}>
 									<label htmlFor="">Password</label>
-									<input type="text" placeholder="" name="password" value={user.password} onChange={handleChange} />
+									<input type="password" placeholder="" name="password" value={user.password} onChange={handleChange} />
 								</div>
 							</div>
 							<div className={styles.twoColumns}>
@@ -89,10 +89,6 @@ export default function RegistrationForm() {
 								<div className={styles.input__container}>
 									<label htmlFor="">Teléfono</label>
 									<input type="text" placeholder="" name="phone" value={user.phone} onChange={handleChange} />
-								</div>
-								<div className={styles.input__container}>
-									<label htmlFor="">Status</label>
-									<input type="text" placeholder="" name="status" value={user.status} onChange={handleChange} />
 								</div>
 							</div>
 

@@ -18,13 +18,13 @@ export default function useUser() {
         setState({ loading: true, error: false })
         loginService({ email, password })
             .then(data => {
-                window.sessionStorage.setItem('token', JSON.stringify(data[1].token))
+                window.localStorage.setItem('token', JSON.stringify(data[1].token))
                 setState({ loading: false, error: false })
                 setToken(data[1].token)
                 dispatch(currentCLient(data[0]))
             })
             .catch(err => {
-                window.sessionStorage.removeItem('token')
+                window.localStorage.removeItem('token')
                 setState({ loading: false, error: true })
                 console.log(err)
             })
@@ -47,10 +47,8 @@ export default function useUser() {
     }, [setToken, dispatch]);
 
     const registerWhitGoogle = useCallback(() => {
-        const newUser = { firstname: user.given_name, lastname: user.family_name, password: user.email, email: user.email, country: user.locale, city: user.locale, address: user.locale, phone: "01233456789", status: true }
-        const { firstname, lastname, email, password, country, city, address, phone, status } = newUser;
-        siginWhitGoogle({ firstname, lastname, email, password, country, city, address, phone, status })
-            console.log(user)
+        const newUser = { firstname: user.given_name, lastname: user.family_name, password: "1", email: user.email, loginG: true }
+        siginWhitGoogle(newUser)
             .then(data => {
                 window.localStorage.setItem('token', JSON.stringify(data[1].token))
                 setToken(data[1].token)
@@ -63,7 +61,7 @@ export default function useUser() {
     }, [user, setToken, dispatch])
 
     const logout1 = useCallback(() => {
-        window.sessionStorage.removeItem('token')
+        window.localStorage.removeItem('token')
         setToken(null)
         dispatch(currentCLient({}))
     }, [setToken, dispatch])
