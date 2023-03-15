@@ -54,10 +54,10 @@ const validatePasswordClient = async(email, password) => {
     const client = findClient[0];
 
     // VALIDAR CONTRASEÑA
-    const salt = bcrypt.genSaltSync(10);
-    const passwordInput = bcrypt.hashSync(password,salt) 
+    const pass = bcrypt.compareSync(password, findClient.password);
 
-    if(password === client.password) return true
+
+    if(!pass) return true
     return false
 
   } catch (error) {
