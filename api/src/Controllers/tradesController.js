@@ -6,7 +6,7 @@ const Trade = require("../models/Trades");
 // const { trades } = require("../Auxiliares/comerciantes");
 // const { trades } = require("../Auxiliares/comercios");
 // const bcrypt = require('bcryptjs');
-
+const sendMail = require('../Helpers/emailRegisterTrades')
 // GET COMERCIOS
 // [Todos los comercios de todas las categorias]
 const getAllTrades = async () => {
@@ -376,6 +376,7 @@ const postCreateTrades = async (body) => {
 		// const salt = bcrypt.genSaltSync(10);
 		// newTrade.password = bcrypt.hashSync(password,salt);
 		await newTrade.save();
+		sendMail(newTrade.email,newTrade.commerceName)
 
 		return true;
 	} catch (error) {

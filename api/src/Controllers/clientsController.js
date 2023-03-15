@@ -1,6 +1,8 @@
 const Clients = require('../models/Clients');
 const Order = require('../models/Order')
 const sendMail = require('../Helpers/email')
+const sendMailWelcome = require('../Helpers/emailRegisterClient')
+const sendMailOrder = require('../Helpers/emailCreateOrder')
 const bcrypt = require('bcryptjs');
 
 
@@ -24,7 +26,8 @@ const registerClient = async (client, token) => {
       const salt = bcrypt.genSaltSync(10);
       newClient.password = bcrypt.hashSync(password, salt)
       await newClient.save();
-      sendMail("Bienvenido, gracias por registrarte");
+      await sendMail(newClient.email);
+      await sendMailWelcome(newClient.email,newClient.firstname,newClient.lastname);
       const clientBDD = await Clients.find({ email: client.email }, { password: 0 })
       const dataClient = clientBDD[0]
       return dataClient
@@ -80,6 +83,7 @@ const postCreateOrder = async (body) => {
   try {
     const newOrder = new Order(body);
     await newOrder.save();
+    await sendMailOrder(newOrder.email,newOrder.productsOrder.length,newOrder.total)
     return true;
   } catch (error) {
     return false;

@@ -9,6 +9,9 @@ const {
   getProductsH,
   updateProduct,
   updateCategoryProduct,
+  
+  
+
 } = require("../Handlers/productsHandler");
 const {
   validateTrade,
@@ -17,6 +20,7 @@ const {
   validateDeliveryZone,
   validateCategoryProduct,
   validateSubcategory,
+
 } = require("../Middlewares/validate");
 // const {
 //   getProductsHandler,
@@ -49,10 +53,10 @@ tradesRouter.get("/categories-products", getCategoryProducts);
 // tradesRouter.get("/membership", getMembershipHandler);
 
 // // POST
-// tradesRouter.post("/trades", validateTrades, createTradeHandler);
+//tradesRouter.post("/trades", validateTrades, createTradeHandler);
 // tradesRouter.post("/users", validateUsers, createUserHandler);
 // tradesRouter.post("/products", validateProducts, createProductHandler);
-// tradesRouter.post("/new-trade", /*validateTrade, */trade);
+//tradesRouter.post("/new-trade", validateTrade, trade);
 tradesRouter.post("/:id/new-product", /*validateProduct, */newProduct);
 // tradesRouter.post("/new-category", validateCategory, newCategoryTrade);
 // tradesRouter.post("/new-delivery-zone", validateDeliveryZone, newDeliveryZone);

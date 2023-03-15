@@ -9,6 +9,7 @@ const {
 	getSubCategories,
 	getDeliveryZones,
 	searchByZone,
+	postCreateTrades
 } = require("../Controllers/tradesController");
 
 // GET ---------> /trades/search
