@@ -25,6 +25,12 @@ export function getProductById(id) {
 	};
 }
 
+// export function getTradesByName(commerceName) {
+// 	return async function (dispatch) {
+// 		const trades = await axios.get(`${host}/trades/search?commerceName=${commerceName}`);
+// 		return dispatch({ type: "GET_TRADES", payload: trades.data });
+// 	};
+// }
 
 export function getAllProducts(tradeId) {
 	return async function (dispatch) {
