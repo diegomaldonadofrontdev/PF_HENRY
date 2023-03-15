@@ -9,6 +9,7 @@ export const GET_REVIEW = "GET_REVIEW";
 export const PRODUCT_FILTERS = "PRODUCT_FILTERS";
 export const GET_SUBCATEGORIES = "GET_SUBCATEGORIES";
 export const GET_ZONES = "GET_ZONES";
+export const POST_PAYMENT = "POST_PAYMENT";
 
 const host = "http://localhost:3001";
 
@@ -192,6 +193,21 @@ export function deleteProduct(idProduct, idCommerce) {
 		return dispatch({
 			type: "DELETE_AMOUNT",
 			payload: { idProduct, idCommerce },
+		});
+	};
+}
+
+export function postPayment(idCommerce, idUser, carrito) {
+	console.log(carrito);
+	return async function (dispatch) {
+		const data = await axios.post(
+			`${host}/payment?idCommerce=${idCommerce}&idUser=${idUser}`,
+			carrito.data
+		);
+
+		return dispatch({
+			type: POST_PAYMENT,
+			payload: data.data,
 		});
 	};
 }
