@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styles from "./ContainerSearchComercio.module.css";
 import ComercioCard from "../../components/ComercioCard/ComercioCard";
 import { Link } from "react-router-dom";
