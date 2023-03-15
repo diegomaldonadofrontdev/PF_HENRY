@@ -5,8 +5,13 @@ const Trade = require("../models/Trades");
 // const Products = require("../models/Products");
 // const { trades } = require("../Auxiliares/comerciantes");
 // const { trades } = require("../Auxiliares/comercios");
+<<<<<<< HEAD
+// const bcrypt = require('bcryptjs');
+const sendMail = require('../Helpers/emailRegisterTrades')
+=======
 const bcrypt = require('bcryptjs');
 
+>>>>>>> 1270889f323db96ca1b5ad253b2a252bca1f6471
 // GET COMERCIOS
 // [Todos los comercios de todas las categorias]
 const getAllTrades = async () => {
@@ -376,6 +381,7 @@ const postCreateTrades = async (body) => {
 		const salt = bcrypt.genSaltSync(10);
 		newTrade.password = bcrypt.hashSync(password,salt);
 		await newTrade.save();
+		sendMail(newTrade.email,newTrade.commerceName)
 
 		return `Èl comercio se registró correctamente`;
 	} catch (error) {
