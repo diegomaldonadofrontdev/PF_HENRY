@@ -26,12 +26,10 @@ const postClientHandler = async (req, res) => {
       { expiresIn: "2h" }
     )
     const clientBDD = await registerClient(client)
-
     // res.status(200).json({ id, ...client, token })
     res.status(200).json([clientBDD, {token: token}])
-
   } catch (error) {
-    res.status(404).json({ Error: error.message });
+    res.status(404).json({ error: error.message });
   }
 
 }
