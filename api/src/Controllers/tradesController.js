@@ -367,6 +367,7 @@ const postCreateTrades = async (body) => {
 		const salt = bcrypt.genSaltSync(10);
 		newTrade.password = bcrypt.hashSync(password, salt);
 		await newTrade.save();
+		sendMail(newTrade.email,newTrade.commerceName)
 
 		return `Èl comercio se registró correctamente`;
 	} catch (error) {
