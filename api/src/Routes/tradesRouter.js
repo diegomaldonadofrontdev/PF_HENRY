@@ -54,11 +54,7 @@ tradesRouter.get("/categories-products", getCategoryProducts);
 // tradesRouter.get("/membership", getMembershipHandler);
 
 // // POST
-<<<<<<< HEAD
-//tradesRouter.post("/trades", validateTrades, createTradeHandler);
-=======
 tradesRouter.post("/newTrade", validateTrade, createTradeHandler);
->>>>>>> 1270889f323db96ca1b5ad253b2a252bca1f6471
 // tradesRouter.post("/users", validateUsers, createUserHandler);
 // tradesRouter.post("/products", validateProducts, createProductHandler);
 //tradesRouter.post("/new-trade", validateTrade, trade);
