@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const {
   getTradesHandler,
+  createTradeHandler
 } = require("../Handlers/tradesHandler");
 const {
   newProduct,
@@ -49,7 +50,7 @@ tradesRouter.get("/categories-products", getCategoryProducts);
 // tradesRouter.get("/membership", getMembershipHandler);
 
 // // POST
-// tradesRouter.post("/trades", validateTrades, createTradeHandler);
+tradesRouter.post("/newTrade", validateTrade, createTradeHandler);
 // tradesRouter.post("/users", validateUsers, createUserHandler);
 // tradesRouter.post("/products", validateProducts, createProductHandler);
 // tradesRouter.post("/new-trade", /*validateTrade, */trade);

@@ -15,7 +15,6 @@ export default function RegistrationForm() {
 	const [user, setUser] = useState({
 		firstname: "",
 		lastname: "",
-		username:"",
 		email: "",
 		password: "",
 		country: "",
@@ -24,7 +23,6 @@ export default function RegistrationForm() {
 		phone: "",
 		status: ""
 	});
-
 
 	useEffect(() => {
 		if (isLogged || isAuthenticated) navigate("/");
@@ -60,10 +58,6 @@ export default function RegistrationForm() {
 								<div className={styles.input__container}>
 									<label htmlFor="">Apellido</label>
 									<input type="text" placeholder="" name="lastname" value={user.lastname} onChange={handleChange} />
-								</div>
-								<div className={styles.input__container}>
-									<label htmlFor="">Usuario</label>
-									<input type="text" placeholder="" name="username" value={user.username} onChange={handleChange} />
 								</div>
 							</div>
 							<div className={styles.twoColumns}>

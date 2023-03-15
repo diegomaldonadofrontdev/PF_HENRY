@@ -13,33 +13,73 @@ const bcrypt = require('bcryptjs');
 
 
 
-const postCreateClientController = async (body) => {
+const registerClient = async (client, token) => {
 
-  const { password } = body
-  
+  const { password } = client
   try {
-    newClient = new Clients( body);
-  
-    const salt = bcrypt.genSaltSync(10);
-    newClient.password = bcrypt.hashSync(password,salt)
-    
-    await newClient.save();
-    
-    sendMail("Bienvenido, gracias por registrarte");
-    
-      
+    const clientBDD = await Clients.find({ email: client.email }, { password: 0 })
+
+    if (!clientBDD.length) {
+      const newClient = new Clients(client);
+      const salt = bcrypt.genSaltSync(10);
+      newClient.password = bcrypt.hashSync(password, salt)
+      await newClient.save();
+      sendMail("Bienvenido, gracias por registrarte");
+      const clientBDD = await Clients.find({ email: client.email }, { password: 0 })
+      const dataClient = clientBDD[0]
+      return dataClient
+    }
+    const dataClient = clientBDD[0]
+    return dataClient
+
   } catch (error) {
-    return false
+    return error.message
   }
+
 
 
   //return true;
 }
 
-const postCreateOrder = async (body) => {
-  
+const findClient = async (email) => {
   try {
-    const newOrder = new Order( body);
+    const findClient = await Clients.find({ email: email });
+    if (findClient.length) return true
+    return false
+  } catch (error) {
+    return error.message
+  }
+}
+
+const validatePasswordClient = async (email, password) => {
+  try {
+    const findClient = await Clients.find({ email: email });
+    const client = findClient[0];
+
+    // VALIDAR CONTRASEÑA
+    const pass = bcrypt.compareSync(password, client.password);
+
+    if (pass) return true
+    return false
+
+  } catch (error) {
+    return error.message
+  }
+}
+
+const searchClient = async (email) => {
+  try {
+    const clientBDD = await Clients.find({ email: email }, { password: 0 })
+    return clientBDD[0]
+  } catch (error) {
+    return error.message
+  }
+}
+
+const postCreateOrder = async (body) => {
+
+  try {
+    const newOrder = new Order(body);
     await newOrder.save();
     return true;
   } catch (error) {
@@ -47,7 +87,7 @@ const postCreateOrder = async (body) => {
   }
 }
 
-const getClients = async() => {
+const getClients = async () => {
   try {
     const clients = await Clients.find()
     return clients;
@@ -56,7 +96,7 @@ const getClients = async() => {
   }
 }
 
-const getOrders = async() => {
+const getOrders = async () => {
   try {
     const orders = await Order.find();
     return orders;
@@ -67,7 +107,7 @@ const getOrders = async() => {
 
 const updateClientC = async (id, updateClient) => {
   try {
-    const client = Clients.findByIdAndUpdate(id,updateClient,{new: true})
+    const client = Clients.findByIdAndUpdate(id, updateClient, { new: true })
     return client;
   } catch (error) {
     return false
@@ -76,7 +116,7 @@ const updateClientC = async (id, updateClient) => {
 
 const updateOrderC = async (id, updateOrder) => {
   try {
-    const order = Order.findByIdAndUpdate(id,updateOrder,{new: true})
+    const order = Order.findByIdAndUpdate(id, updateOrder, { new: true })
     return order;
   } catch (error) {
     return false
@@ -84,11 +124,14 @@ const updateOrderC = async (id, updateOrder) => {
 }
 
 
-module.exports = {   
-    postCreateClientController,
-    postCreateOrder,
-    getClients,
-    getOrders,
-    updateClientC,
-    updateOrderC
+module.exports = {
+  registerClient,
+  findClient,
+  validatePasswordClient,
+  searchClient,
+  postCreateOrder,
+  getClients,
+  getOrders,
+  updateClientC,
+  updateOrderC
 }

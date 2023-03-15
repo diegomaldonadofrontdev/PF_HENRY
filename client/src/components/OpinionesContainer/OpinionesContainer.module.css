@@ -19,3 +19,9 @@
 	justify-content: center;
 	margin-bottom: 50px;
 }
+
+@media (max-width: 700px) {
+	.opiniones__container .container > div{
+		flex-flow: row wrap;
+	}
+}

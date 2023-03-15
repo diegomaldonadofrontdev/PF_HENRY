@@ -24,47 +24,53 @@ const tradesSchema= Schema (
       require: true,
     },
 
+    image: {
+      type: String,
+      require: true
+    },
+    
+    province: {
+      type: String,
+      require: true
+    },
+    
+    city : {
+      type: String,
+      require: true,
+    },
+    
+    address: {
+      type: String,
+      require: true
+    },
+    
+    phone: {
+      type: Number,
+      require: true,
+    },
+    
+    deliveryZone: {
+      type: Schema.Types.Array,
+      require: true
+    },    
+    
     userName: {
       type : String,
       require : true,
       trim: true,
       unique: true
     },
-    email : {
-      type: String,
-      require: true,
-      unique: true
-    },
+
     password : {
       type: String,
       require: true,
       unique: true,
     },
-    country : {
+    
+    email : {
       type: String,
       require: true,
-    },
-    city : {
-      type: String,
-      require: true,
-    },
-    address: {
-      type: String,
-      require: true
-    },
-    phone: {
-      type: Number,
-      require: true,
-    },
-
-    deliveryZone: {
-      type: Schema.Types.Array,
-      require: true
-    },
-
-    products: {
-      type: Schema.Types.Array,
-      require: false
+      unique: true
     },
 
     rating: {
@@ -73,14 +79,13 @@ const tradesSchema= Schema (
     },
 
     epagos: {
-      type: Boolean,
+      type: String,
       require: true
     },
 
-    status : {
+    active : {
       type: Boolean,
       default: true,
-      require: true
     }
   }
 )
