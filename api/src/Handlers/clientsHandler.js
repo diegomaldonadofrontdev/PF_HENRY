@@ -15,7 +15,7 @@ const {
 
 
 
-
+// TERMINADO
 const postClientHandler = async (req, res) => {
   const client = req.body
   try {
@@ -25,10 +25,10 @@ const postClientHandler = async (req, res) => {
       TOKEN_KEY,
       { expiresIn: "2h" }
     )
-    const id = await registerClient(client)
+    const clientBDD = await registerClient(client)
 
-    res.status(200).json({ id, ...client, token })
-    // res.status(200).json([clientBDD, token])
+    // res.status(200).json({ id, ...client, token })
+    res.status(200).json([clientBDD, {token: token}])
 
   } catch (error) {
     res.status(404).json({ Error: error.message });
@@ -93,34 +93,7 @@ const updateOrder = async (req, res) => {
   }
 }
 
-// const login = async (req, res) => {
-//   const client = req.body;
-
-//   try {
-
-//     // const findEmail = await findClient(client)
-//     // if (!findEmail) res.status(404).json("No existe el usuario");
-
-//     // const validate = await validatePasswordClient(email, password);
-//     // if (!validate) res.status(404).json("Contraseña incorrecta")
-
-//     const clientBDD = await searchClient(email);
-
-//     const token = jwt.sign(
-//       { username: searhcUser.username, password: searhcUser.password },
-//       TOKEN_KEY,
-//       { expiresIn: "2h" }
-//     )
-
-//     res.status(200).json("Todo OK")
-
-//   } catch (error) {
-//     res.status(400).json("Error al iniciar la sesion")
-//   }
-
-// }
-
-
+// TERMINADO
 const login = async (req, res) => {
   const { email, password } = req.body;
 
@@ -144,20 +117,22 @@ const login = async (req, res) => {
 
 }
 
-
+// TERMINADO
 const registerWhitGoogle = async (req, res) => {
-  const { firstname, lastname, username, email, country, city, address, phone, status } = req.body;
+  // const { firstname, lastname, email, password, country, city, address, phone, status } = req.body;
+  const client = req.body; 
 
-  let user = { firstname, lastname, username, email, country, city, address, phone, status }; // ver si esta y si no esta crearlo
+  const clientBDD = await registerClient(client)
 
   try {
     const token = jwt.sign(
-      { name: firstname, email: email },
+      { name: client.firstname, email: client.email },
       TOKEN_KEY,
       { expiresIn: "2h" }
     )
-    let userJWT = { ...user, token };
-    res.status(200).json(userJWT);
+
+    res.status(200).json([clientBDD, {token: token}]);
+
   } catch (error) {
     res.status(400).json("Ocurrio un error en el registro!")
   }

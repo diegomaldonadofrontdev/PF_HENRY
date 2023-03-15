@@ -49,6 +49,7 @@ export default function useUser() {
     }, [setToken, setDataUser]);
 
     const registerWhitGoogle = useCallback(() => {
+        console.log(user);
         const newUser = { firstname: user.given_name, lastname: user.family_name, username: user.nickname, email: user.email, country: "Not found", city: "Not found", address: "Not found", phone: "Not found", status: "Not found" }
         const { firstname, lastname, username, email, country, city, address, phone, status } = newUser;
         siginWhitGoogle({ firstname, lastname, username, email, country, city, address, phone, status })

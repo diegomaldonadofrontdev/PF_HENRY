@@ -15,21 +15,23 @@ const bcrypt = require('bcryptjs');
 
 const registerClient = async (client, token) => {
 
-  const { password } = client  
+  const { password } = client
   try {
-    const newClient = new Clients(client);
-  
-    const salt = bcrypt.genSaltSync(10);
-    newClient.password = bcrypt.hashSync(password,salt)
-    
-    await newClient.save();
-    
-    sendMail("Bienvenido, gracias por registrarte");
+    const clientBDD = await Clients.find({ email: client.email }, { password: 0 })
 
-    const clientBDD = await Clients.find({email: newClient.email}, {password: 0})
-    const id = clientBDD[0]._id
-    
-    return id
+    if (!clientBDD.length) {
+      const newClient = new Clients(client);
+      const salt = bcrypt.genSaltSync(10);
+      newClient.password = bcrypt.hashSync(password, salt)
+      await newClient.save();
+      sendMail("Bienvenido, gracias por registrarte");
+      const clientBDD = await Clients.find({ email: client.email }, { password: 0 })
+      const dataClient = clientBDD[0]
+      return dataClient
+    }
+    const dataClient = clientBDD[0]
+    return dataClient
+
   } catch (error) {
     return error.message
   }
@@ -40,24 +42,23 @@ const registerClient = async (client, token) => {
 
 const findClient = async (email) => {
   try {
-    const findClient = await Clients.find({email: email});
-    if(findClient.length) return true
-    return false 
+    const findClient = await Clients.find({ email: email });
+    if (findClient.length) return true
+    return false
   } catch (error) {
     return error.message
   }
 }
 
-const validatePasswordClient = async(email, password) => {
+const validatePasswordClient = async (email, password) => {
   try {
-    const findClient = await Clients.find({email: email});
+    const findClient = await Clients.find({ email: email });
     const client = findClient[0];
 
     // VALIDAR CONTRASEÑA
-    const pass = bcrypt.compareSync(password, findClient.password);
+    const pass = bcrypt.compareSync(password, client.password);
 
-
-    if(!pass) return true
+    if (pass) return true
     return false
 
   } catch (error) {
@@ -65,9 +66,9 @@ const validatePasswordClient = async(email, password) => {
   }
 }
 
-const searchClient =  async (email) => {
+const searchClient = async (email) => {
   try {
-    const clientBDD = await Clients.find({email: email}, {password: 0})
+    const clientBDD = await Clients.find({ email: email }, { password: 0 })
     return clientBDD[0]
   } catch (error) {
     return error.message
