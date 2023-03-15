@@ -1,13 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import {
-	getTrades,
-	getTradesCategories,
-	getTradesFilter,
-	getSubCategories,
-	getZonas,
-} from "../../Redux/Actions/actions";
+import React from "react";
+
 import ContainerSearchComercio from "../../components/ContainerSearchComercio/ContainerSearchComercio";
 import styles from "./UserSearch.module.css";
 import Header from "../../components/Header/Header";
