@@ -52,9 +52,7 @@ export default function Filter__SearchView() {
 		} else if (name === "zone") {
 			setFiltersActive({ ...filtersActive, city: value });
 		} else if (name === "epagos") {
-			const pay =
-				value === "default" ? "default" : value === "true" ? true : false;
-			setFiltersActive({ ...filtersActive, epagos: pay });
+			setFiltersActive({ ...filtersActive, epagos: value });
 		} else if (name === "subcategory") {
 			setFiltersActive({ ...filtersActive, subcategory: value });
 		}
@@ -132,11 +130,23 @@ export default function Filter__SearchView() {
 						<option value="default" selected={filters.epagos === "default"}>
 							Todos
 						</option>
-						<option value={true} selected={filters.epagos === true}>
-							Tarjeta
+						<option
+							value={"Efectivo/Tarjetas"}
+							selected={filters.epagos === "Efectivo/Tarjetas"}
+						>
+							Acepta tarjeta y efectivo
 						</option>
-						<option value={false} selected={filters.epagos === false}>
-							Solo Efectivo
+						<option
+							value={"Sólo tarjetas"}
+							selected={filters.epagos === "Sólo tarjetas"}
+						>
+							Sólo tarjetas
+						</option>
+						<option
+							value={"Sólo efectivo"}
+							selected={filters.epagos === "Sólo efectivo"}
+						>
+							Sólo efectivo
 						</option>
 					</select>
 				</div>
