@@ -1,18 +1,21 @@
 const jwt = require("jsonwebtoken");
 const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
 
-const {  
+const {
   registerClient,
   postCreateOrder,
   getClients,
   getOrders,
   updateClientC,
   updateOrderC,
+  findClient,
+  validatePasswordClient,
+  searchClient,
 } = require("../Controllers/clientsController");
 
 
 
-
+// TERMINADO
 const postClientHandler = async (req, res) => {
   const client = req.body
   try {
@@ -22,9 +25,9 @@ const postClientHandler = async (req, res) => {
       TOKEN_KEY,
       { expiresIn: "2h" }
     )
-    const id = await registerClient(client)
-
-    res.status(200).json({id, ...client,token})
+    const clientBDD = await registerClient(client)
+    // res.status(200).json({ id, ...client, token })
+    res.status(200).json([clientBDD, {token: token}])
   } catch (error) {
     res.status(404).json({ error: error.message });
   }
@@ -88,59 +91,46 @@ const updateOrder = async (req, res) => {
   }
 }
 
-
-// Eliminar al conetar al bdd
-const users = [
-  {
-    firstname: "Diego", lastname: "Maldonado", username: "diegotoro",
-    email: "diegotoro@mail.com", password: "123456", country: "ARG",
-    city: "Not found", address: "Not found", phone: "54 9 11 62112403",
-    status: "admin"
-  },
-  {
-    firstname: "Diego", lastname: "Meneses", username: "diego21",
-    email: "meneses@mail.com", password: "234567", country: "COL",
-    city: "Florencia", address: "Not found", phone: "57 320 391 1336",
-    status: "admin"
-  },
-]
-
+// TERMINADO
 const login = async (req, res) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
-  const searhcUser = users.find(u => u.username === username || u.email === username && u.password === password);
+  const findEmail = await findClient(email)
+  if (!findEmail) res.status(404).json("No existe el usuario");
 
+  const validate = await validatePasswordClient(email, password);
+  if (!validate) res.status(404).json("Contraseña incorrecta")
+
+  const clientBDD = await searchClient(email);
   try {
-    if (!searhcUser) return res.status(404).json("Usuario no registrado!")
     const token = jwt.sign(
-      { username: searhcUser.username, password: searhcUser.password },
+      { username: clientBDD.email },
       TOKEN_KEY,
       { expiresIn: "2h" }
     )
-
-    let userJWT = { ...searhcUser, token }
-
-    res.status(200).json(userJWT)
-
+    res.status(200).json([clientBDD, { token: token }])
   } catch (error) {
     res.status(400).json("Error al iniciar la sesion")
   }
 
 }
 
+// TERMINADO
 const registerWhitGoogle = async (req, res) => {
-  const { firstname, lastname, username, email, country, city, address, phone, status } = req.body;
+  // const { firstname, lastname, email, password, country, city, address, phone, status } = req.body;
+  const client = req.body; 
 
-  let user = { firstname, lastname, username, email, country, city, address, phone, status }; // ver si esta y si no esta crearlo
+  const clientBDD = await registerClient(client)
 
   try {
     const token = jwt.sign(
-      { name: firstname, email: email },
+      { name: client.firstname, email: client.email },
       TOKEN_KEY,
       { expiresIn: "2h" }
     )
-    let userJWT = { ...user, token };
-    res.status(200).json(userJWT);
+
+    res.status(200).json([clientBDD, {token: token}]);
+
   } catch (error) {
     res.status(400).json("Ocurrio un error en el registro!")
   }
