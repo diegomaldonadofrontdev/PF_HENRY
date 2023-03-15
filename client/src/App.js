@@ -12,6 +12,7 @@ import ProductCreationForm from "./views/ProductCreationForm/ProductCreationForm
 import CommerceRegistrationForm from "./views/CommerceRegistrationForm/CommerceRegistrationForm";
 import { UserContextProvider } from "./Context/userContext";
 import DashboardClient from "./views/DasboardClient/DashboardClient";
+import ResponsePayment from "./views/ResponsePayment/ResponsePayment";
 
 function App() {
 	return (
@@ -35,6 +36,10 @@ function App() {
 					<Route
 						path="/registration_commerce"
 						element={<CommerceRegistrationForm />}
+					/>
+					<Route
+						path="/responsepayment/:status"
+						element={<ResponsePayment />}
 					/>
 				</Routes>
 			</UserContextProvider>

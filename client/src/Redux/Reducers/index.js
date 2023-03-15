@@ -16,6 +16,7 @@ import {
 	GET_REVIEW,
 	PRODUCT_FILTERS,
 	GET_ZONES,
+	POST_PAYMENT,
 } from "../actions/actions";
 
 // export default allReducers;
@@ -35,6 +36,7 @@ const initialState = {
 		epagos: "default",
 	},
 	carritos: {},
+	mercadoPago: "",
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -45,9 +47,15 @@ export default function rootReducer(state = initialState, action) {
 				product: action.payload,
 			};
 		case GET_ALL_PRODUCTS:
+			let result;
+			if (typeof action.payload === "string") {
+				result = [];
+			} else {
+				result = action.payload;
+			}
 			return {
 				...state,
-				products: action.payload,
+				products: result,
 			};
 		case PRODUCT_FILTERS:
 			return {
@@ -215,6 +223,12 @@ export default function rootReducer(state = initialState, action) {
 			return {
 				...state,
 				carritos: { ...state.carritos, [idCommerce3]: { ...obj } },
+			};
+
+		case POST_PAYMENT:
+			return {
+				...state,
+				mercadoPago: action.payload,
 			};
 
 		default:
