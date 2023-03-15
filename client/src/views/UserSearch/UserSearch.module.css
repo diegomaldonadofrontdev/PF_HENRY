@@ -1,10 +1,8 @@
 .banner {
 	padding-top: 150px;
-	background: url("../../images/bg_search.jpg");
-	background-position: center center;
-	background-size: cover;
+	background: url("../../images/pattern.jpg");
+	background-size: contain;
 	height: 300px;
-	text-shadow: 4px 4px 6px rgba(0, 0, 0, 1);
 }
 
 .container {
@@ -56,7 +54,7 @@
 }
 .search__container {
 	display: flex;
-	width: 90%;
+	width: 80%;
 	margin: auto;
 	padding: 100px 0;
 	justify-content: space-between;
@@ -75,7 +73,7 @@
 }
 
 .filtros__container {
-	width: 20%;
+	min-width: 400px;
 }
 
 .filtros__container > div {
@@ -153,4 +151,33 @@
 	font-size: 1.1em;
 	font-weight: 600;
 	margin-bottom: 10px;
+}
+
+.search__container .filtros__container form {
+	display: flex;
+	flex-direction: column;
+	gap: 1em;
+	font-size: 0.9em;
+	font-weight: 600;
+}
+
+.search__container .filtros__container form > div {
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+}
+
+.search__container .filtros__container form > div select {
+	width: 200px;
+	border: none;
+	padding: 0.5em;
+	outline: none;
+}
+
+.search__container .filtros__container form .submit {
+	background-color: var(--main-color);
+	border: none;
+	padding: 0.5em 0;
+	border-radius: 0.3em;
+	color: white;
 }

@@ -6,10 +6,9 @@
 	text-align: center;
 }
 
-form {
+.opinion__form > form {
 	background-color: white;
 	padding: 25px;
-	margin-top: 50px;
 	display: flex;
 	flex-direction: column;
 	gap: 3em;
@@ -36,13 +35,13 @@ form {
 	color: white;
 }
 
-form > div {
+.opinion__form form > div {
 	display: flex;
 	flex-direction: column;
 	position: relative;
 }
 
-form > div > label {
+.opinion__form form > div > label {
 	font-size: 0.9em;
 	background-color: white;
 	position: absolute;
@@ -51,14 +50,14 @@ form > div > label {
 	padding: 0 10px;
 }
 
-form > div input {
+.opinion__form form > div input {
 	font-size: 1em;
 	height: 30px;
 	border: 1px solid rgb(212, 212, 212);
 	padding: 25px 20px;
 }
 
-textarea {
+.opinion__form textarea {
 	resize: none;
 	height: 200px;
 	font-size: 1em;
@@ -72,11 +71,11 @@ textarea {
 	padding: 20px 0;
 }
 
-.label_rating {
+.opinion__form  .label_rating {
 	position: initial;
 }
 
-.estrellas {
+.opinion__form .estrellas {
 	align-items: center;
 	display: flex !important;
 	flex-direction: row;

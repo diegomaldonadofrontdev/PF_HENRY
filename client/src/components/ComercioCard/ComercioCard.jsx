@@ -2,15 +2,17 @@ import React from "react";
 import styles from "./ComercioCard.module.css";
 import img from "../../images/logo_burger.png";
 
+
 export default function ComercioCard(props) {
+	
 	return (
 		<div className={styles.card__store}>
 			<div className={styles.logo}>
 				<img src={img} alt="" />
 			</div>
-			<div className={styles.card__info} key={props.id}>
+			<div className={styles.card__info} key={props._id}>
 				<h3>{props.name}</h3>
-				<p className={styles.epago}>
+				<p className={styles.epagos}>
 					{props.epagos === true ? (
 						<i class="bx bx-credit-card"></i>
 					) : (

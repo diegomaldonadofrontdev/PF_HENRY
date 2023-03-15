@@ -12,10 +12,9 @@
 	gap: 50px;
 }
 
-form {
+.hero__form form {
 	background-color: white;
 	padding: 25px;
-	margin-top: 50px;
 	display: flex;
 	flex-direction: column;
 	gap: 3em;
@@ -42,7 +41,7 @@ form {
 	color: white;
 }
 
-form > div {
+.hero__form form > div {
 	display: flex;
 	flex-direction: column;
 	position: relative;
@@ -57,7 +56,7 @@ form > div > label {
 	padding: 0 10px;
 }
 
-form > div input {
+.hero__form form > div input {
 	height: 30px;
 	border: 1px solid rgb(212, 212, 212);
 	padding: 20px;
@@ -107,7 +106,6 @@ form > div input {
 	form {
 		background-color: white;
 		padding: 25px;
-		margin-top: 50px;
 		display: flex;
 		flex-direction: column;
 		gap: 3em;

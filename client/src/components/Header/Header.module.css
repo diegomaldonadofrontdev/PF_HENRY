@@ -5,6 +5,25 @@
 	position: fixed;
 	width: 100%;
 	z-index: 1;
+	display: flex;
+	padding: 10px 0;
+	text-align: center;
+	box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
+}
+
+.header .container {
+	display: flex;
+	margin: 0 auto !important;
+	width: 60%;
+	max-width: 60%;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.header .container > div {
+	display: flex;
+	gap: 1em;
 }
 
 .logo {
@@ -13,10 +32,15 @@
 	justify-content: center;
 	font-size: 1em;
 	padding: 5px 20px;
-	background-color: #fe161a;
+	background: url("../../images/logo.png");
+	background-size: contain;
+	background-repeat: no-repeat;
 	color: white;
 	font-weight: bold;
 	border-radius: 10px;
+	text-indent: -1000px;
+	width: 150px;
+	overflow: hidden;
 }
 
 h1 {
@@ -24,20 +48,20 @@ h1 {
 	color: white;
 }
 
-.header .container {
-	display: flex;
-	margin: auto;
-	max-width: 65%;
-	align-items: center;
-	justify-content: space-between;
-}
-
 @media (max-width: 700px) {
 	.header .container {
 		display: flex;
 		margin: auto;
-		max-width: 80%;
+		width: 100%;
+		max-width: 325px;
 		align-items: center;
-		justify-content: space-between;
+		justify-content: center;
+		flex-flow: row wrap;
+	}
+
+	.header .container > div {
+		display: flex;
+		flex-direction: column;
+		gap: 1em;
 	}
 }

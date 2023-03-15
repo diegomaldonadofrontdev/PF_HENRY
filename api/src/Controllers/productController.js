@@ -1,129 +1,97 @@
-const { trades } = require("../Auxiliares/comerciantes");
+// const { trades } = require("../Auxiliares/comercios");
 const {
-  searchTradesByCategory,
-  searchTradesBySubCategory,
-  searchTradesByCityAndCatAndSC,
-  searchTradesByCityAndCat,
-  searchTradesByCity
+  getAllTrades,
 } = require("../Controllers/tradesController");
+const Trade = require('../models/Trades')
+const Product = require('../models/Products');
 
-let comercios = [];
-for (let i = 0; i < trades.length; i++) {
-  trades[i].comercios.map((t) => comercios.push(t));
+// [{producto buscado}]
+const searchProductById = async (id) => { // FUNCIONANDO 12/03
+  const productById = await Product.findById(id);
+  return productById;
+};
+
+// [Todos los prodcutos del comercio]
+const searchAllProducts = async (tradeId) => { // FUNCIONANDO 12/03
+  try {
+    const allProductsOfTrade = await Product.find({tradeId: tradeId})
+    if (allProductsOfTrade.length) {
+      return allProductsOfTrade
+    } else return `Vaya! Parece que el comercio no tiene ningún producto en este momento!`
+  } catch (error) {
+    return error.message
+  }  
 }
 
-let products = [];
-for (let i = 0; i < comercios.length; i++) {
-  comercios[i].productos.map((p) => products.push(p));
+// [Todos los productos de un comercio que coinciden con la categoria del producto]
+const searchByProductCat = async (tradeId, productCategory) => { // FUNCIONANDO 12/03
+  try {
+    const allProductsOfTrade = await Product.find({tradeId: tradeId, category: productCategory})
+    if (allProductsOfTrade.length) {
+      return allProductsOfTrade
+    } else return `Vaya! Parece que el comercio no tiene ningún producto de la categoría ${productCategory}!`      
+  } catch (error) {
+    return error.message
+  }  
 }
 
-const getAllProducts = () => {
-  return products;
-};
-
-const searchProductByAll = (name, category, subcategory, deliveryCity) => {
-  const firstFilter = searchTradesByCityAndCatAndSC(
-    deliveryCity,
-    category,
-    subcategory
-  );
-  const result = [];
-  for (let i = 0; i < firstFilter.length; i++) {
-    for (let j = 0; j < firstFilter[i].productos.length; j++) {
-      result.push(firstFilter[i].productos[j]);
-    }
+// [Todos los productos de un comercio que incluyen en su nombre el nombre enviado]
+const searchByName = async (tradeId, productName) => { // FUNCIONANDO 12/03
+  try {
+    const allProductsOfTrade = await Product.find({tradeId: tradeId})
+    if (allProductsOfTrade.length) {
+      return allProductsOfTrade.filter(p => p.name.toLowerCase().includes(productName.toLowerCase()))
+    } else return `Vaya! Parece que no hay productos con el nombre ${productName}!`
+  } catch (error) {
+    return error.message
   }
-  return result.filter((p) =>
-    p.name.toLowerCase().includes(name.toLowerCase())
-  );
-};
-
-const searchProductByCityAndNameAndCat = (name, category, deliveryCity) => {
-  const firstFilter = searchTradesByCityAndCat(deliveryCity, category)
-  const result = [];
-  for (let i = 0; i < firstFilter.length; i++) {
-    for (let j = 0; j < firstFilter[i].productos.length; j++) {
-      result.push(firstFilter[i].productos[j]);
-    }
-  }
-  return result.filter((p) =>
-    p.name.toLowerCase().includes(name.toLowerCase())
-  ); 
-};
-
-const searchProductByCityAndName = (name, deliveryCity) => {
-  const productsByCity = searchProductByCity(deliveryCity)
-  return productsByCity.filter(p => p.name.toLowerCase().includes(name.toLowerCase()))
+  
 }
 
-const searchProductByCity = (deliveryCity) => {
-  const firstFilter = searchTradesByCity(deliveryCity)
-  const result = [];
-  for (let i = 0; i < firstFilter.length; i++) {
-    for (let j = 0; j < firstFilter[i].productos.length; j++) {
-      result.push(firstFilter[i].productos[j]);
-    }
-  }
-  return result
+// [Todos los productos de un comercio que coinciden con la categoria del producto e incluyen el nombre]
+const searchByNameAndPoductCat = async (tradeId, productCategory, productName) => { // FUNCIONANDO 12/03
+  try {
+    const allProductsOfTrade = await Product.find({tradeId: tradeId, category: productCategory})
+    if (allProductsOfTrade.length) {
+      return allProductsOfTrade.filter(p => p.name.toLowerCase().includes(productName.toLowerCase()))
+    } else return `Vaya! Parece que no hay productos con el nombre ${productName}!`      
+  } catch (error) {
+    return error.message
+  }  
 }
 
-const searchProdcutByName = (name) => {
-  return products.filter((p) =>
-    p.name.toLowerCase().includes(name.toLowerCase())
-  );
-};
-
-const searchProductByNameAndCat = (name, category) => {
-  const categoryFilter = searchProductByCat(category);
-  return categoryFilter.filter((p) =>
-    p.name.toLowerCase().includes(name.toLowerCase())
-  );
-};
-
-const searchProductByNameAndCatAndSC = (name, category, subcategory) => {
-  const filter = searchProductByCatAndSC(category, subcategory);
-  return filter.filter((p) =>
-    p.name.toLowerCase().includes(name.toLowerCase())
-  );
-};
-
-const searchProductByCatAndSC = (category, subcategory) => {
-  const tradesByCatAndSC = searchTradesBySubCategory(category, subcategory);
-  const productsfilter = [];
-  for (let i = 0; i < tradesByCatAndSC.length; i++) {
-    for (let j = 0; j < tradesByCatAndSC[i].productos.length; j++) {
-      productsfilter.push(tradesByCatAndSC[i].productos[j]);
-    }
+// [Todas las categorias de productos existentes del comercio]
+const getAllProductsCategories = async (tradeId) => { // FUNCIONANDO 12/03
+  try {
+    const allProductsOfTrade = await Product.find({tradeId: tradeId}, "category")
+    if (allProductsOfTrade.length) {
+      const categoriesRepeat = []
+      allProductsOfTrade.map(p => categoriesRepeat.push(p.category))
+      return [...new Set(categoriesRepeat)]
+    } else return `Vaya! Parece que hubo un problema al buscar en la base de datos!`    
+  } catch (error) {
+    return error.message
   }
-  return productsfilter;
-};
 
-const searchProductByCat = (category) => {
-  const tradesByCategory = searchTradesByCategory(category);
-  const productsfilter = [];
-  for (let i = 0; i < tradesByCategory.length; i++) {
-    for (let j = 0; j < tradesByCategory[i].productos.length; j++) {
-      productsfilter.push(tradesByCategory[i].productos[j]);
-    }
+}
+
+const postCreateProduct = async (id, body) => { //*
+  try {
+    const newProduct =  new Product(body);
+    newProduct.tradeId = id
+    await newProduct.save()  
+    return `El producto ${body.name} se creo correctamente`
+  } catch (error) {
+    return error.message
   }
-  return productsfilter;
-};
-
-const getProductById = (id) => {
-  const productsById = products.filter((p) => p.id == id);
-  return productsById;
-};
+}
 
 module.exports = {
-  getAllProducts,
-  searchProductByAll,
-  searchProductByCityAndNameAndCat,
-  searchProductByCityAndName,
-  searchProductByCity,
-  searchProdcutByName,
-  searchProductByNameAndCat,
-  searchProductByNameAndCatAndSC,
-  searchProductByCatAndSC,
-  searchProductByCat,
-  getProductById,
-};
+  searchByNameAndPoductCat,
+  searchByProductCat,
+  searchByName,
+  searchAllProducts,
+  searchProductById,
+  postCreateProduct,
+  getAllProductsCategories
+}

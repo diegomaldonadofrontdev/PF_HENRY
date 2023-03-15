@@ -12,11 +12,16 @@
 	font-size: 0.9em;
 	background-color: #eae3e3;
 	padding: 0.5em 1em;
-	border-radius: 100px;
+	border-radius: 0.5em;
 	color: black;
 	font-weight: 700;
+	align-items: center;
 }
 .nav i {
 	font-size: 1.3em;
 	color: black;
+}
+
+.btn_market span {
+	font-size: 1.1em;
 }

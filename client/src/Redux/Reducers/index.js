@@ -6,46 +6,58 @@
 // import categoriesReducer from "./categoriesReducer";
 // import filterByCategoryReducer from "./filterCategoryReducer";
 
-// const allReducers = combineReducers({
-// 	product: productReducer,
-// 	products: productsReducer,
-// 	users: userReducer,
-// 	trades: tradesReducer,
-// 	categories: categoriesReducer,
-// 	filter: filterByCategoryReducer,
-// });
+import {
+	TRADES_FILTERS,
+	GET_PRODUCT_BY_ID,
+	GET_ALL_PRODUCTS,
+	GET_TRADES_CATEGORIES,
+	GET_SUBCATEGORIES,
+	GET_TRADES,
+	GET_REVIEW,
+	PRODUCT_FILTERS,
+	GET_ZONES,
+	POST_PAYMENT,
+} from "../actions/actions";
 
 // export default allReducers;
 
 const initialState = {
-	trades: [],
 	product: [],
 	products: [],
 	allCommerces: [],
-	category: [],
-	categories: [],
-	users: [],
+	tradesCategories: [],
+	tradesSubCategories: [],
 	feedback: [],
-	filters: [],
-	filterCategory: [],
+	zones: [],
+	filters: {
+		city: "default",
+		category: "default",
+		subcategory: "default",
+		epagos: "default",
+	},
+	carritos: {},
+	mercadoPago: "",
 };
 
 export default function rootReducer(state = initialState, action) {
-	const allCommerces = state.allCommerces;
-	const allTrades = state.trades;
-
 	switch (action.type) {
-		case "GET_PRODUCT_BY_ID":
+		case GET_PRODUCT_BY_ID:
 			return {
 				...state,
 				product: action.payload,
 			};
-		case "GET_PRODUCTS":
+		case GET_ALL_PRODUCTS:
+			let result;
+			if (typeof action.payload === "string") {
+				result = [];
+			} else {
+				result = action.payload;
+			}
 			return {
 				...state,
-				products: action.payload,
+				products: result,
 			};
-		case "PRODUCT_FILTER":
+		case PRODUCT_FILTERS:
 			return {
 				...state,
 				products: action.payload,
@@ -55,100 +67,170 @@ export default function rootReducer(state = initialState, action) {
 				...state,
 				users: action.payload,
 			};
-		case "GET_TRADES_BY_CATEGORY":
+		case GET_TRADES_CATEGORIES:
 			return {
 				...state,
-				filter: action.payload,
+				tradesCategories: action.payload,
 			};
-		case "GET_CATEGORIES":
+		case GET_TRADES:
 			return {
 				...state,
-				categories: action.payload,
+				allCommerces: action.payload,
 			};
-		case "GET_TRADES":
-			const res = action.payload;
-			const comercios = res.map((x) => x.comercios);
-			return {
-				...state,
-				allCommerces: comercios,
-				trades: res,
-			};
-		case "GET_REVIEW":
+		case GET_REVIEW:
 			return {
 				...state,
 				feedback: action.payload,
 			};
-		case "FILTER_CATEGORY":
-			const todosComercios = state.filters[0].filter(
-				(x) => x.category === action.payload
-			);
-			return { ...state, filters: state.filters };
-
-		case "FILTER_BY_TARJETA":
-			let valor;
-
-			if (action.payload === "Todos") {
-				return {
-					...state,
-					filters: allCommerces,
-				};
-			} else if (action.payload === "Tarjeta") {
-				valor = true;
-				const resultado = allCommerces.map((x) =>
-					x.filter((x) => x.epagos === valor)
-				);
-				return {
-					...state,
-					filters: resultado,
-				};
-			} else {
-				valor = false;
-				const resultado = allCommerces.map((x) =>
-					x.filter((x) => x.epagos === valor)
-				);
-				return {
-					...state,
-					filters: resultado,
-				};
-			}
-
-		case "FILTER_BY_CITY":
-			if (action.payload === "vacio") {
-				return { ...state, filters: allCommerces };
-			} else {
-				return { ...state, filters: action.payload };
-			}
-
-		case "FILTER_BY_ASC_OR_DESC":
-			console.log(allCommerces);
-			const sortAZ =
-				action.payload === "Asc"
-					? allCommerces.sort(function (a, b) {
-							console.log(a.rating);
-							console.log(b.rating);
-
-							if (a.rating > b.rating) {
-								return 0;
-							}
-							if (b.rating > a.rating) {
-								return -1;
-							}
-							return 0;
-					  })
-					: allCommerces.sort(function (a, b) {
-							if (a.rating > b.rating) {
-								return -1;
-							}
-							if (b.rating > a.rating) {
-								return 1;
-							}
-							return 0;
-					  });
-			console.log(sortAZ);
+		case TRADES_FILTERS:
 			return {
 				...state,
-				filter: sortAZ,
+				allCommerces: action.payload,
 			};
+		case GET_SUBCATEGORIES:
+			return {
+				...state,
+				tradesSubCategories: action.payload,
+			};
+		case GET_ZONES:
+			return {
+				...state,
+				zones: action.payload,
+			};
+		case "FILTERS_RES":
+			return {
+				...state,
+				filters: action.payload,
+			};
+
+		case "SET_CARRITO":
+			const carritosCopy = state.carritos;
+
+			const value = action.payload.idCommerce;
+			const product = action.payload.producto;
+
+			if (carritosCopy[value]) {
+				const index = carritosCopy[value].data.findIndex(
+					(x) => x.id === product.id
+				);
+				let total = 0;
+				if (index === -1) {
+					product.cantidad = 1;
+					const data = [...carritosCopy[value].data, product];
+					data.forEach((x) => (total += x.price * x.cantidad));
+					carritosCopy[value] = {
+						data: data,
+						total,
+					};
+
+					return {
+						...state,
+						carritos: { ...carritosCopy },
+					};
+				} else {
+					carritosCopy[value].data[index].cantidad += 1;
+
+					carritosCopy[value].data.forEach(
+						(x) => (total += x.price * x.cantidad)
+					);
+
+					carritosCopy[value].total = total;
+
+					return {
+						...state,
+						carritos: { ...carritosCopy },
+					};
+				}
+			} else {
+				product.cantidad = 1;
+
+				carritosCopy[value] = {
+					data: [product],
+					total: product.price,
+				};
+
+				return {
+					...state,
+					carritos: { ...carritosCopy },
+				};
+			}
+
+		case "ADD_AMOUNT":
+			const carritosCopy2 = state.carritos;
+			const idProduct = action.payload.idProduct;
+			const idCommerce = action.payload.idCommerce;
+
+			console.log(idProduct, idCommerce);
+
+			const indexAdd = carritosCopy2[idCommerce].data.findIndex(
+				(x) => x.id === idProduct
+			);
+			console.log(indexAdd);
+			console.log(carritosCopy2[idCommerce].data);
+
+			carritosCopy2[idCommerce].data[indexAdd].cantidad += 1;
+
+			carritosCopy2[idCommerce].total +=
+				carritosCopy2[idCommerce].data[indexAdd].price;
+
+			return {
+				...state,
+				carritos: { ...carritosCopy2 },
+			};
+
+		case "SUBSTRACT_AMOUNT":
+			const carritosCopy3 = state.carritos;
+			const idProduct2 = action.payload.idProduct;
+			const idCommerce2 = action.payload.idCommerce;
+
+			const indexAdd2 = carritosCopy3[idCommerce2].data.findIndex(
+				(x) => x.id === idProduct2
+			);
+			console.log(carritosCopy3[idCommerce2].data);
+
+			if (carritosCopy3[idCommerce2].data[indexAdd2].cantidad > 1) {
+				carritosCopy3[idCommerce2].data[indexAdd2].cantidad -= 1;
+
+				carritosCopy3[idCommerce2].total -=
+					carritosCopy3[idCommerce2].data[indexAdd2].price;
+
+				return {
+					...state,
+					carritos: { ...carritosCopy3 },
+				};
+			}
+			return {
+				...state,
+			};
+		case "DELETE_AMOUNT":
+			const carritosCopy4 = state.carritos;
+			const idProduct3 = action.payload.idProduct;
+			const idCommerce3 = action.payload.idCommerce;
+
+			const total3 = carritosCopy4[idCommerce3].data.find(
+				(x) => x.id === idProduct3
+			);
+
+			const resultTotal =
+				carritosCopy4[idCommerce3].total - total3.cantidad * total3.price;
+
+			const resultData = carritosCopy4[idCommerce3].data.filter(
+				(x) => x.id !== idProduct3
+			);
+
+			const obj = { data: resultData, total: resultTotal };
+
+			return {
+				...state,
+				carritos: { ...state.carritos, [idCommerce3]: { ...obj } },
+			};
+
+		case POST_PAYMENT:
+			return {
+				...state,
+				mercadoPago: action.payload,
+			};
+
 		default:
 			return state;
 	}
