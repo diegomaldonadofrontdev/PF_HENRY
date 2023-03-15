@@ -3,7 +3,7 @@ import styles from "./ContainerSearchComercio.module.css";
 import ComercioCard from "../../components/ComercioCard/ComercioCard";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getTrades } from "../../redux/actions/actions";
+import { getTrades } from "../../Redux/Actions/actions";
 
 export default function ContainerSearchComercio(props) {
 	const dispatch = useDispatch();

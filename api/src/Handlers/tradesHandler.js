@@ -9,6 +9,7 @@ const {
 	getSubCategories,
 	getDeliveryZones,
 	searchByZone,
+	postCreateTrades
 } = require("../Controllers/tradesController");
 
 // GET ---------> /trades/search
@@ -89,10 +90,10 @@ const getDeliveryZoneHandler = async (req, res) => {
 };
 
 //POST
-const trade = async (req, res) => {
+const createTradeHandler = async (req, res) => {
 	try {
-		const createTrades = await postCreateTrades(req.body);
-
+		const x = await postCreateTrades(req.body);
+		console.log(x);
 		res
 			.status(200)
 			.json(`Se creo correctamente el comercio ${req.body.commerceName}`);
@@ -202,7 +203,7 @@ module.exports = {
 	getCategoriesHandler,
 	getSubCategoriesHandler,
 	getDeliveryZoneHandler,
-	trade,
+	createTradeHandler,
 	newCategoryTrade,
 	newDeliveryZone,
 	newSubcategory,
