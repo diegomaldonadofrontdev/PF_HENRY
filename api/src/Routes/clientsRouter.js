@@ -6,9 +6,9 @@ const {
 } = require("../handlers/productsHandler");
 const {
   postClientHandler,
+  getClientHandler,
   newOrder,
-  getClientsH,
-  getOrdersH,
+  getOrdersHandler,
   updateClient,
   updateOrder,
   login,
@@ -45,26 +45,21 @@ clientsRouter.get("/trades/search/:id", getTradeHandler); // FUNCIONANDO 12/03
 clientsRouter.get("/products/search", getProductsHandler); // FUNCIONANDO 12/03
 clientsRouter.get("/products/search/:id", getProductHandler); // FUNCIONANDO 12/03
 clientsRouter.get("/products/categories", getProductCategoryHandler); // FUNCIONANDO 12/03
-clientsRouter.get("/feedbacks", getFeedbacksHandler);
-clientsRouter.get("/clients", getClientsH);
-clientsRouter.get("/orders", getOrdersH);
+clientsRouter.get("/feedbacks", getFeedbacksHandler);  // FUNCIONANDO 
+clientsRouter.get("/orders", getOrdersHandler);
+clientsRouter.get("/clients/search/:id", getClientHandler); // NO LE ENCUENTRO UTILIDAD
+// clientsRouter.get("/trades/feedback", validateFeedback, createFeedbackHandler );
 
 // POST
 clientsRouter.post("/feedback", validateFeedback, postFeedbackHandler); // FUNCIONANDO 12/03
-clientsRouter.post("/register", validateClient, postClientHandler);
-clientsRouter.post("/new-order", validateOrder, newOrder);
+clientsRouter.post("/register", validateClient, postClientHandler); // FUNCIONANDO
+clientsRouter.post("/order/new", validateOrder, newOrder);
+// LOGIN AND AUTHENTICATION
+clientsRouter.post("/login", login); // FUNCIONANDO
+clientsRouter.post("/siginWhitGoogle", registerWhitGoogle); // FUNCIONANDO
 
 // PUT
 clientsRouter.put("/update-clients", updateClient);
 clientsRouter.put("/update-orders", updateOrder);
-
-// LOGIN AND AUTHENTICATION
-clientsRouter.post("/login", login);
-clientsRouter.post("/siginWhitGoogle", registerWhitGoogle);
-
-// clientsRouter.get("/trades/feedback", validateFeedback, createFeedbackHandler );
-
-// clientsRouter.post("/login", validateClients, createClientHandler);
-// clientsRouter.post("/order", validateOrder, createOrderHandler);
 
 module.exports = clientsRouter;

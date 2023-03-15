@@ -1,6 +1,8 @@
 const Clients = require('../models/Clients');
 const Order = require('../models/Order')
 const sendMail = require('../Helpers/email')
+const sendMailWelcome = require('../Helpers/emailRegisterClient')
+const sendMailOrder = require('../Helpers/emailCreateOrder')
 const bcrypt = require('bcryptjs');
 
 
@@ -24,7 +26,8 @@ const registerClient = async (client) => {
       const salt = bcrypt.genSaltSync(10);
       newClient.password = bcrypt.hashSync(password, salt)
       await newClient.save();
-      sendMail("Bienvenido, gracias por registrarte");
+      await sendMail(newClient.email);
+      await sendMailWelcome(newClient.email,newClient.firstname,newClient.lastname);
       const clientBDD = await Clients.find({ email: client.email }, { password: 0 })
       const dataClient = clientBDD[0]
       return dataClient
@@ -41,7 +44,7 @@ const registerClient = async (client) => {
   //return true;
 }
 
-const findClient = async (email) => {
+const searchClientExist = async (email) => {
   try {
     const findClient = await Clients.find({ email: email });
     if (findClient.length) return true
@@ -51,6 +54,23 @@ const findClient = async (email) => {
   }
 }
 
+const searchClientById = async (id) => {
+  try {
+    const client = Clients.findById(id, {password:0})
+    return client
+  } catch (error) {
+    return error.message
+  }
+}
+
+const searchClient = async (email) => {
+  try {
+    const clientBDD = await Clients.find({ email: email }, { password: 0 })
+    return clientBDD[0]
+  } catch (error) {
+    return error.message
+  }
+}
 const validatePasswordClient = async (email, password) => {
   try {
     const findClient = await Clients.find({ email: email });
@@ -67,20 +87,13 @@ const validatePasswordClient = async (email, password) => {
   }
 }
 
-const searchClient = async (email) => {
-  try {
-    const clientBDD = await Clients.find({ email: email }, { password: 0 })
-    return clientBDD[0]
-  } catch (error) {
-    return error.message
-  }
-}
 
 const postCreateOrder = async (body) => {
 
   try {
     const newOrder = new Order(body);
     await newOrder.save();
+    await sendMailOrder(newOrder.email,newOrder.productsOrder.length,newOrder.total)
     return true;
   } catch (error) {
     return false;
@@ -125,8 +138,9 @@ const updateOrderC = async (id, updateOrder) => {
 
 
 module.exports = {
+  searchClientById,
   registerClient,
-  findClient,
+  searchClientExist,
   validatePasswordClient,
   searchClient,
   postCreateOrder,
