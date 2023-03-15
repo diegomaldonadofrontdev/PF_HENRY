@@ -1,4 +1,6 @@
 import { useCallback, useContext, useState } from "react";
+import { useDispatch } from "react-redux";
+import { currentCLient } from "../Redux/Actions/actions";
 import { Context } from "../Context/userContext";
 import loginService from "../services/login";
 import registerService from "../services/sigin";
@@ -7,7 +9,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 export default function useUser() {
 
-    const { token, setToken, setDataUser } = useContext(Context);
+    const dispatch = useDispatch();
+    const { token, setToken } = useContext(Context);
     const [state, setState] = useState({ loading: false, error: false });
     const { user } = useAuth0();
 
@@ -18,16 +21,14 @@ export default function useUser() {
                 window.sessionStorage.setItem('token', JSON.stringify(data[1].token))
                 setState({ loading: false, error: false })
                 setToken(data[1].token)
-                // cambiar setDataUser por un dispatch
-                setDataUser(data[0])
-                console.log(data);
+                dispatch(currentCLient(data[0]))
             })
             .catch(err => {
                 window.sessionStorage.removeItem('token')
                 setState({ loading: false, error: true })
                 console.log(err)
             })
-    }, [setToken, setDataUser])
+    }, [setToken, dispatch])
 
     const sigin = useCallback((user) => {
         setState({ loading: true, error: false })
@@ -36,16 +37,14 @@ export default function useUser() {
                 window.localStorage.setItem('token', JSON.stringify(data[1].token))
                 setState({ loading: false, error: false })
                 setToken(data[1].token)
-                // cambiar setDataUser por un dispatch
-                setDataUser(data[0])
-                console.log(user)
+                dispatch(currentCLient(data[0]))
             })
             .catch(err => {
                 window.localStorage.removeItem('token')
                 setState({ loading: false, error: true })
-                console.log(err.response)
+                console.log(err)
             })
-    }, [setToken, setDataUser]);
+    }, [setToken, dispatch]);
 
     const registerWhitGoogle = useCallback(() => {
         const newUser = { firstname: user.given_name, lastname: user.family_name, password: user.email, email: user.email, country: user.locale, city: user.locale, address: user.locale, phone: "01233456789", status: true }
@@ -54,21 +53,19 @@ export default function useUser() {
             .then(data => {
                 window.localStorage.setItem('token', JSON.stringify(data[1].token))
                 setToken(data[1].token)
-                // cambiar setDataUser por un dispatch
-                setDataUser(data[0])
-                console.log(data)
+                dispatch(currentCLient(data[0]))
             })
             .catch(err => {
                 window.localStorage.removeItem('token')
-                console.log(err.response)
+                console.log(err)
             })
-    }, [user, setToken, setDataUser])
+    }, [user, setToken, dispatch])
 
     const logout1 = useCallback(() => {
         window.sessionStorage.removeItem('token')
         setToken(null)
-        setDataUser({})
-    }, [setToken, setDataUser])
+        dispatch(currentCLient({}))
+    }, [setToken, dispatch])
 
     return {
         isLogged: Boolean(token),

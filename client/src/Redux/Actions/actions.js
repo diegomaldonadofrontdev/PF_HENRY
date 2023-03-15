@@ -10,6 +10,7 @@ export const PRODUCT_FILTERS = "PRODUCT_FILTERS";
 export const GET_SUBCATEGORIES = "GET_SUBCATEGORIES";
 export const GET_ZONES = "GET_ZONES";
 export const POST_PAYMENT = "POST_PAYMENT";
+export const CURRENT_CLIENT = "CURRENT_CLIENT";
 
 const host = "http://localhost:3001";
 
@@ -209,5 +210,14 @@ export function postPayment(idCommerce, idUser, carrito) {
 			type: POST_PAYMENT,
 			payload: data.data,
 		});
+	};
+}
+
+export function currentCLient (data) {
+	return async function (dispatch) {
+		return dispatch({
+			type: CURRENT_CLIENT,
+			payload: data
+		})
 	};
 }
