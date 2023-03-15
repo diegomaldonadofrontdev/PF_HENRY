@@ -5,7 +5,7 @@ const {
   getProductCategoryHandler,
 } = require("../handlers/productsHandler");
 const {
-  newRegister,
+  postClientHandler,
   newOrder,
   getClientsH,
   getOrdersH,
@@ -51,7 +51,7 @@ clientsRouter.get("/orders", getOrdersH);
 
 // POST
 clientsRouter.post("/feedback", validateFeedback, postFeedbackHandler); // FUNCIONANDO 12/03
-clientsRouter.post("/register", validateClient, newRegister);
+clientsRouter.post("/register", validateClient, postClientHandler);
 clientsRouter.post("/new-order", validateOrder, newOrder);
 
 // PUT

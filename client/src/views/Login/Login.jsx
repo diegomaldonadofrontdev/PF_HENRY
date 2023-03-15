@@ -12,7 +12,7 @@ export default function Login() {
 	const { isAuthenticated, loginWithPopup } = useAuth0();
 	const { isLoginLoading, hasLoginError, isLogged, login, registerWhitGoogle } = useUser()
 	const navigate = useNavigate();
-	const [username, setUsername] = useState("");
+	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
 	useEffect(() => {
@@ -22,7 +22,7 @@ export default function Login() {
 
 	const handleLogin = async (e) => {
 		e.preventDefault();
-		login({ username, password });
+		login({ email, password });
 	};
 
 	const handleSiginWhitGoogle = (e) => {
@@ -41,7 +41,7 @@ export default function Login() {
 						<form onSubmit={handleLogin} className={styles.form}>
 							<div className={styles.user}>
 								<label htmlFor="">Usuario</label>
-								<input type="text" value={username} name="username" placeholder="Ingrese su usuario" onChange={(e) => setUsername(e.target.value)} />
+								<input type="text" value={email} name="email" placeholder="Ingrese su usuario" onChange={(e) => setEmail(e.target.value)} />
 							</div>
 							<div className={styles.password}>
 								<label htmlFor="">Clave</label>
