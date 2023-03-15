@@ -50,6 +50,7 @@ export default function useUser() {
         const newUser = { firstname: user.given_name, lastname: user.family_name, password: user.email, email: user.email, country: user.locale, city: user.locale, address: user.locale, phone: "01233456789", status: true }
         const { firstname, lastname, email, password, country, city, address, phone, status } = newUser;
         siginWhitGoogle({ firstname, lastname, email, password, country, city, address, phone, status })
+            console.log(user)
             .then(data => {
                 window.localStorage.setItem('token', JSON.stringify(data[1].token))
                 setToken(data[1].token)

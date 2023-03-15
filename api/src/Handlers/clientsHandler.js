@@ -27,7 +27,7 @@ const postClientHandler = async (req, res) => {
     )
     const clientBDD = await registerClient(client)
     // res.status(200).json({ id, ...client, token })
-    res.status(200).json([clientBDD, {token: token}])
+    res.status(200).json([clientBDD, { token: token }])
   } catch (error) {
     res.status(404).json({ error: error.message });
   }
@@ -118,18 +118,19 @@ const login = async (req, res) => {
 // TERMINADO
 const registerWhitGoogle = async (req, res) => {
   // const { firstname, lastname, email, password, country, city, address, phone, status } = req.body;
-  const client = req.body; 
-
-  const clientBDD = await registerClient(client)
+  const client = req.body;
 
   try {
+
+    const clientBDD = await registerClient(client)
+    
     const token = jwt.sign(
       { name: client.firstname, email: client.email },
       TOKEN_KEY,
       { expiresIn: "2h" }
     )
 
-    res.status(200).json([clientBDD, {token: token}]);
+    res.status(200).json([clientBDD, { token: token }]);
 
   } catch (error) {
     res.status(400).json("Ocurrio un error en el registro!")

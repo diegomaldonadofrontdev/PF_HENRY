@@ -13,7 +13,7 @@ const bcrypt = require('bcryptjs');
 
 
 
-const registerClient = async (client, token) => {
+const registerClient = async (client) => {
 
   const { password } = client
   try {
