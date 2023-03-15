@@ -51,7 +51,7 @@ const getClientsH = async (req, res) => {
   }
 }
 
-const getOrdersH = async (req, res) => {
+const getOrdersHandler = async (req, res) => {
   try {
     const orders = await getOrders();
     res.status(200).json(orders)
@@ -150,7 +150,7 @@ const registerWhitGoogle = async (req, res) => {
 module.exports = {
   postClientHandler,
   newOrder,
-  getOrdersH,
+  getOrdersHandler,
   getClientsH,
   updateClient,
   updateOrder,
