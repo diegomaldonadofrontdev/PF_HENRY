@@ -46,10 +46,10 @@ const clientsSchema= Schema (
       require: true,
     },
     
-    status : {
+    active : {
       type: Boolean,
-      default: true,
-      require: true
+      default: false,
+      require: false
     }
   }
 )

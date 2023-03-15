@@ -4,11 +4,11 @@ const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
 const {
   registerClient,
   postCreateOrder,
-  getClients,
+  searchClientById,
   getOrders,
   updateClientC,
   updateOrderC,
-  findClient,
+  searchClientExist,
   validatePasswordClient,
   searchClient,
 } = require("../Controllers/clientsController");
@@ -45,9 +45,10 @@ const newOrder = async (req, res) => {
   }
 }
 
-const getClientsH = async (req, res) => {
+const getClientHandler = async (req, res) => {
+  const {id} = req.params
   try {
-    const clients = await getClients();
+    const clients = await searchClientById(id);
     res.status(200).json(clients)
   } catch (error) {
     res.status(404).json({ Error: "Error al obtener a los clientes" })
@@ -95,7 +96,7 @@ const updateOrder = async (req, res) => {
 const login = async (req, res) => {
   const { email, password } = req.body;
 
-  const findEmail = await findClient(email)
+  const findEmail = await searchClientExist(email)
   if (!findEmail) res.status(404).json("No existe el usuario");
 
   const validate = await validatePasswordClient(email, password);
@@ -141,7 +142,7 @@ module.exports = {
   postClientHandler,
   newOrder,
   getOrdersHandler,
-  getClientsH,
+  getClientHandler,
   updateClient,
   updateOrder,
   login,

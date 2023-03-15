@@ -6,6 +6,7 @@ const {
 } = require("../handlers/productsHandler");
 const {
   postClientHandler,
+  getClientHandler,
   newOrder,
   getOrdersHandler,
   updateClient,
@@ -46,7 +47,7 @@ clientsRouter.get("/products/search/:id", getProductHandler); // FUNCIONANDO 12/
 clientsRouter.get("/products/categories", getProductCategoryHandler); // FUNCIONANDO 12/03
 clientsRouter.get("/feedbacks", getFeedbacksHandler);  // FUNCIONANDO 
 clientsRouter.get("/orders", getOrdersHandler);
-// clientsRouter.get("/clients", getClientsH); // NO LE ENCUENTRO UTILIDAD
+clientsRouter.get("/clients/search/:id", getClientHandler); // NO LE ENCUENTRO UTILIDAD
 // clientsRouter.get("/trades/feedback", validateFeedback, createFeedbackHandler );
 
 // POST

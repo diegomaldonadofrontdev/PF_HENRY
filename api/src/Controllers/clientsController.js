@@ -44,7 +44,7 @@ const registerClient = async (client, token) => {
   //return true;
 }
 
-const findClient = async (email) => {
+const searchClientExist = async (email) => {
   try {
     const findClient = await Clients.find({ email: email });
     if (findClient.length) return true
@@ -54,6 +54,23 @@ const findClient = async (email) => {
   }
 }
 
+const searchClientById = async (id) => {
+  try {
+    const client = Clients.findById(id, {password:0})
+    return client
+  } catch (error) {
+    return error.message
+  }
+}
+
+const searchClient = async (email) => {
+  try {
+    const clientBDD = await Clients.find({ email: email }, { password: 0 })
+    return clientBDD[0]
+  } catch (error) {
+    return error.message
+  }
+}
 const validatePasswordClient = async (email, password) => {
   try {
     const findClient = await Clients.find({ email: email });
@@ -70,14 +87,6 @@ const validatePasswordClient = async (email, password) => {
   }
 }
 
-const searchClient = async (email) => {
-  try {
-    const clientBDD = await Clients.find({ email: email }, { password: 0 })
-    return clientBDD[0]
-  } catch (error) {
-    return error.message
-  }
-}
 
 const postCreateOrder = async (body) => {
 
@@ -129,8 +138,9 @@ const updateOrderC = async (id, updateOrder) => {
 
 
 module.exports = {
+  searchClientById,
   registerClient,
-  findClient,
+  searchClientExist,
   validatePasswordClient,
   searchClient,
   postCreateOrder,
