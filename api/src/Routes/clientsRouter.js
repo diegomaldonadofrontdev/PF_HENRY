@@ -24,7 +24,7 @@ const {
   
 
 } = require("../Handlers/tradesHandler");
-const { validateFeedback, validateClient, validateOrder } = require("../middlewares/validate");
+const { validateFeedback, validateClient, validateOrder } = require("../Middlewares/validate");
 
 const clientsRouter = Router();
 
