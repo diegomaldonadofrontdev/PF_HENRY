@@ -10,8 +10,6 @@ import {
 	getTradesFilter,
 } from "../../redux/actions/actions";
 
-// Filtros que agregar: deliveryCity, category, subcategory, epago
-
 export default function Filter__SearchView() {
 	const dispatch = useDispatch();
 	const { tradesCategories, tradesSubCategories, zones, filters } = useSelector(
