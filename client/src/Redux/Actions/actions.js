@@ -13,7 +13,6 @@ export const POST_PAYMENT = "POST_PAYMENT";
 
 // const host = "http://localhost:3001";
 
-
 export function getProductById(id) {
 	return async function (dispatch) {
 		if (id) {
@@ -32,6 +31,13 @@ export function getProductById(id) {
 // 		return dispatch({ type: "GET_TRADES", payload: trades.data });
 // 	};
 // }
+
+export function commerceRegister(payload) {
+	return async function () {
+		const postCommerce = await axios.post(`/trades/newTrade`, payload);
+		return postCommerce;
+	};
+}
 
 export function getAllProducts(tradeId) {
 	return async function (dispatch) {
@@ -199,7 +205,6 @@ export function deleteProduct(idProduct, idCommerce) {
 }
 
 export function postPayment(idCommerce, idUser, carrito) {
-	console.log(carrito);
 	return async function (dispatch) {
 		const data = await axios.post(
 			`/payment?idCommerce=${idCommerce}&idUser=${idUser}`,
@@ -209,6 +214,15 @@ export function postPayment(idCommerce, idUser, carrito) {
 		return dispatch({
 			type: POST_PAYMENT,
 			payload: data.data,
+		});
+	};
+}
+
+export function filterCategoryCommerce(category) {
+	return async function (dispatch) {
+		return dispatch({
+			type: "SET_FILTER_CATEGORY_COMMERCE",
+			payload: { category },
 		});
 	};
 }

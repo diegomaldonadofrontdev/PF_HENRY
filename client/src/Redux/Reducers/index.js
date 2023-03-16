@@ -24,6 +24,7 @@ import {
 const initialState = {
 	product: [],
 	products: [],
+	productsFilter: [],
 	allCommerces: [],
 	tradesCategories: [],
 	tradesSubCategories: [],
@@ -230,7 +231,25 @@ export default function rootReducer(state = initialState, action) {
 				...state,
 				mercadoPago: action.payload,
 			};
+		case "SET_FILTER_CATEGORY_COMMERCE":
+			const allProductos = state.products;
+			const categorySelected = action.payload.category;
 
+			if (categorySelected === "todas") {
+				return {
+					...state,
+					productsFilter: allProductos,
+				};
+			}
+
+			const resFilter = allProductos.filter(
+				(x) => x.category === categorySelected
+			);
+
+			return {
+				...state,
+				productsFilter: resFilter,
+			};
 		default:
 			return state;
 	}
