@@ -22,7 +22,7 @@ export default function OpinionForm() {
 	//Estados
 	const loggedUser = useSelector((state) => state.currentClient)
 	console.log(loggedUser)
-	const userId = localStorage
+	const userId = localStorage.idUser
 	console.log(userId)
 	
 

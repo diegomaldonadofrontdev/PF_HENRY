@@ -1,6 +1,6 @@
 const {createFeedback,
     getFeedbacks,
-} = require ("../Controllers/feedbacksController")
+} = require ("../Controllers/appFeedbacksController")
 
 // GET ------------> feedbacks
 const getFeedbacksHandler = async (req, res) => {
