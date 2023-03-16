@@ -36,7 +36,7 @@ const feedbackSchema = Schema(
             type: String,
             require: false
         }
-    }
+    }, {timestamps: true}
 )
 
 module.exports = model('TradeFeedback',feedbackSchema);
