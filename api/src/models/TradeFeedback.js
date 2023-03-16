@@ -32,7 +32,7 @@ const feedbackSchema = Schema(
             require: true
         },
 
-        image: {
+        clientImg: {
             type: String,
             require: false
         }

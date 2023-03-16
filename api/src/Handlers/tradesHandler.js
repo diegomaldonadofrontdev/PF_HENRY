@@ -92,8 +92,7 @@ const getDeliveryZoneHandler = async (req, res) => {
 //POST
 const createTradeHandler = async (req, res) => {
 	try {
-		const x = await postCreateTrades(req.body);
-		console.log(x);
+		const newTrade = await postCreateTrades(req.body);		
 		res
 			.status(200)
 			.json(`Se creo correctamente el comercio ${req.body.commerceName}`);
