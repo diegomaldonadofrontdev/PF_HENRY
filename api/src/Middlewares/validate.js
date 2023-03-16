@@ -12,12 +12,11 @@ const validateFeedback = (req, res, next) => {
 
 
   const validateOrder = (req, res, next) => {
-    const { name, lastName, deliveryCity, deliveryAdress, phone, email } = req.body;
-    const {tradeId, products} = req.query
-    if (!name) return res.status(400).json({ Error: "No se ha recibido el nombre" });
-    if (!opinion) return res.status(400).json({ Error: "No se ha recibido la opinion" });
-    if (!rating) return res.status(400).json({ Error: "No se ha recibido la puntuación" });
-    if (!image) return res.status(400).json({ Error: "No se ha recibido la imagen" });    
+    const { products } = req.body;
+    const {tradeId, clientId} = req.query
+    if (!tradeId) return res.status(400).json({ Error: "No se ha recibido el id del comercio" });
+    if (!clientId) return res.status(400).json({ Error: "No se ha recibido el id del cliente" });
+    if (!products) return res.status(400).json({ Error: "La lista de productos esta vacía" });
     next();
   };
 

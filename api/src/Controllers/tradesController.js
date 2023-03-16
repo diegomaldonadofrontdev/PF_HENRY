@@ -5,7 +5,7 @@ const Trade = require("../models/Trades");
 // const Products = require("../models/Products");
 // const { trades } = require("../Auxiliares/comerciantes");
 // const { trades } = require("../Auxiliares/comercios");
-const bcrypt = require('bcryptjs');
+const bcrypt = require("bcryptjs");
 
 // GET COMERCIOS
 // [Todos los comercios de todas las categorias]
@@ -104,16 +104,7 @@ const searchTradesByAll = async (
 			obj.epagos = epagos;
 		}
 		const tradesFound = await Trade.find(obj);
-		// if (
-		// 	(!deliveryZone || deliveryZone === "default") &&
-		// 	(!category || category === "default") &&
-		// 	(!subcategory || subcategory === "default") &&
-		// 	(!epagos || epagos === "default")
-		// ) {
-		// }
-		// tradesFound = await Trade.find({
 
-		// });
 		if (tradesFound.length) {
 			console.log(tradesFound);
 			return tradesFound;
@@ -374,8 +365,9 @@ const postCreateTrades = async (body) => {
 		newTrade = new Trade(body);
 
 		const salt = bcrypt.genSaltSync(10);
-		newTrade.password = bcrypt.hashSync(password,salt);
+		newTrade.password = bcrypt.hashSync(password, salt);
 		await newTrade.save();
+		sendMail(newTrade.email,newTrade.commerceName)
 
 		return `Èl comercio se registró correctamente`;
 	} catch (error) {

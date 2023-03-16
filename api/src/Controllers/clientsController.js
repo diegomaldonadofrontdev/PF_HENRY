@@ -1,8 +1,11 @@
 const Clients = require('../models/Clients');
 const Order = require('../models/Order')
 const sendMail = require('../Helpers/email')
+const sendMailWelcome = require('../Helpers/emailRegisterClient')
+const sendMailOrder = require('../Helpers/emailCreateOrder')
 const bcrypt = require('bcryptjs');
-
+const jwt = require('jsonwebtoken')
+const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
 
 
 
@@ -13,7 +16,7 @@ const bcrypt = require('bcryptjs');
 
 
 
-const registerClient = async (client, token) => {
+const registerClient = async (client) => { //FUNCIONANDO
 
   const { password } = client
   try {
@@ -24,7 +27,7 @@ const registerClient = async (client, token) => {
       const salt = bcrypt.genSaltSync(10);
       newClient.password = bcrypt.hashSync(password, salt)
       await newClient.save();
-      sendMail("Bienvenido, gracias por registrarte");
+      await sendMail(newClient.email,token);
       const clientBDD = await Clients.find({ email: client.email }, { password: 0 })
       const dataClient = clientBDD[0]
       return dataClient
@@ -41,7 +44,7 @@ const registerClient = async (client, token) => {
   //return true;
 }
 
-const findClient = async (email) => {
+const searchClientExist = async (email) => { // FUNCIONANDO
   try {
     const findClient = await Clients.find({ email: email });
     if (findClient.length) return true
@@ -51,7 +54,24 @@ const findClient = async (email) => {
   }
 }
 
-const validatePasswordClient = async (email, password) => {
+const searchClientById = async (id) => { // FUNCIONANDO
+  try {
+    const client = Clients.findById(id, {password:0})
+    return client
+  } catch (error) {
+    return error.message
+  }
+}
+
+const searchClient = async (email) => { // FUNCIONANDO
+  try {
+    const clientBDD = await Clients.find({ email: email }, { password: 0 })
+    return clientBDD[0]
+  } catch (error) {
+    return error.message
+  }
+}
+const validatePasswordClient = async (email, password) => { // FUNCIONANDO
   try {
     const findClient = await Clients.find({ email: email });
     const client = findClient[0];
@@ -64,44 +84,6 @@ const validatePasswordClient = async (email, password) => {
 
   } catch (error) {
     return error.message
-  }
-}
-
-const searchClient = async (email) => {
-  try {
-    const clientBDD = await Clients.find({ email: email }, { password: 0 })
-    return clientBDD[0]
-  } catch (error) {
-    return error.message
-  }
-}
-
-const postCreateOrder = async (body) => {
-
-  try {
-    const newOrder = new Order(body);
-    await newOrder.save();
-    return true;
-  } catch (error) {
-    return false;
-  }
-}
-
-const getClients = async () => {
-  try {
-    const clients = await Clients.find()
-    return clients;
-  } catch (error) {
-    return false
-  }
-}
-
-const getOrders = async () => {
-  try {
-    const orders = await Order.find();
-    return orders;
-  } catch (error) {
-    return false;
   }
 }
 
@@ -123,15 +105,35 @@ const updateOrderC = async (id, updateOrder) => {
   }
 }
 
+const confirmEmailController = async (token ) => {
+  try {
+    const payload = jwt.verify(token,TOKEN_KEY)
+    
+    let email = payload.email;
+    
+    const client = await Clients.findOne({email});
+    
+    if (!client) return "No se encontro el usuario"
+    if (client.emailVerified) return "El correo ya se encuentra registrado"
+    
+    client.emailVerified = true;
+    await client.save()
+    await sendMailWelcome(client.email,client.firstname,client.lastname);
+    return "El correo electronico ha sido verificado"
+
+  } catch (error) {
+    return "Token invalido";
+  }
+}
+
 
 module.exports = {
+  searchClientById,
   registerClient,
-  findClient,
+  searchClientExist,
   validatePasswordClient,
-  searchClient,
-  postCreateOrder,
-  getClients,
-  getOrders,
+  searchClient, 
   updateClientC,
-  updateOrderC
+  updateOrderC,
+  confirmEmailController
 }

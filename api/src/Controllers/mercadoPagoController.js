@@ -10,7 +10,6 @@ const mercadoPagoController = async (req, res) => {
 	const carrito = req.body;
 
 	const { idCommerce, idUser } = req.query;
-	console.log(idCommerce, idUser);
 	try {
 		if (carrito.length) {
 			const product = carrito.map((x) => ({
@@ -49,7 +48,6 @@ const mercadoPagoController = async (req, res) => {
 			mercadopago.preferences
 				.create(preference)
 				.then(function (response) {
-					console.log(response);
 					res.send({
 						id: response.body.id,
 						product: "Lista de pedidos",

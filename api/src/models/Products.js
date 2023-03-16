@@ -41,10 +41,8 @@ const productsSchema = Schema(
       stock : {
         type: Number,
         require: false,
-      }
-
-      
-    }
+      }      
+    }, {timestamps: true}
 )
 
 module.exports = model("Products",productsSchema);

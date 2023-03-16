@@ -44,16 +44,19 @@ export default function ContainerSearchComercio(props) {
 		return (
 			<div className={styles.container__search}>
 				<p>{comercios.length} Comercios encontrados</p>
-
-				{comercios?.map((x) => (
-					<Link to={`../comercio/${x._id}`} className={styles.commerce}>
-						<ComercioCard
-							name={x.commerceName}
-							rating={x.rating}
-							epagos={x.epagos}
-						/>
-					</Link>
-				))}
+				<div>
+					{comercios?.map((x) => (
+						<Link to={`../comercio/${x._id}`} className={styles.commerce}>
+							<ComercioCard
+								name={x.commerceName}
+								rating={x.rating}
+								epagos={x.epagos}
+								img={x.image}
+								descripcion={x.description}
+							/>
+						</Link>
+					))}
+				</div>
 			</div>
 		);
 	} else {
