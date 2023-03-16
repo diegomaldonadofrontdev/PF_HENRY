@@ -4,19 +4,18 @@ const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
 const {
   registerClient,
   postCreateOrder,
-  getClients,
-  getOrders,
+  searchClientById,  
   updateClientC,
   updateOrderC,
-  findClient,
+  searchClientExist,
   validatePasswordClient,
   searchClient,
+  confirmEmailController 
 } = require("../Controllers/clientsController");
+const Clients = require("../models/Clients");
 
 
-
-// TERMINADO
-const postClientHandler = async (req, res) => {
+const postClientHandler = async (req, res) => { // FUNCIONANDO
   const client = req.body
   try {
 
@@ -25,41 +24,22 @@ const postClientHandler = async (req, res) => {
       TOKEN_KEY,
       { expiresIn: "2h" }
     )
-    const clientBDD = await registerClient(client)
+    const clientBDD = await registerClient(client,token)
     // res.status(200).json({ id, ...client, token })
-    res.status(200).json([clientBDD, {token: token}])
+    res.status(200).json([clientBDD, { token: token }])
   } catch (error) {
     res.status(404).json({ error: error.message });
   }
 
 }
 
-const newOrder = async (req, res) => {
+const getClientHandler = async (req, res) => { // FUNCIONANDO
+  const {id} = req.params
   try {
-
-    const order = await postCreateOrder(req.body)
-
-    res.status(200).json(`Se ha creado la ordem exitosamente `);
-  } catch (error) {
-    res.status(404).json({ Error: "Error al registrar la orden" });
-  }
-}
-
-const getClientsH = async (req, res) => {
-  try {
-    const clients = await getClients();
+    const clients = await searchClientById(id);
     res.status(200).json(clients)
   } catch (error) {
     res.status(404).json({ Error: "Error al obtener a los clientes" })
-  }
-}
-
-const getOrdersH = async (req, res) => {
-  try {
-    const orders = await getOrders();
-    res.status(200).json(orders)
-  } catch (error) {
-    res.status(404).json({ Error: "Error al obtener las ordenes" })
   }
 }
 
@@ -95,7 +75,7 @@ const updateOrder = async (req, res) => {
 const login = async (req, res) => {
   const { email, password } = req.body;
 
-  const findEmail = await findClient(email)
+  const findEmail = await searchClientExist(email)
   if (!findEmail) res.status(404).json("No existe el usuario");
 
   const validate = await validatePasswordClient(email, password);
@@ -117,19 +97,20 @@ const login = async (req, res) => {
 
 // TERMINADO
 const registerWhitGoogle = async (req, res) => {
-  // const { firstname, lastname, email, password, country, city, address, phone, status } = req.body;
-  const client = req.body; 
-
-  const clientBDD = await registerClient(client)
+  // const { firstname, lastname, email, password,} = req.body;
+  const client = req.body;
 
   try {
+
+    const clientBDD = await registerClient(client)
+    
     const token = jwt.sign(
       { name: client.firstname, email: client.email },
       TOKEN_KEY,
       { expiresIn: "2h" }
     )
 
-    res.status(200).json([clientBDD, {token: token}]);
+    res.status(200).json([clientBDD, { token: token }]);
 
   } catch (error) {
     res.status(400).json("Ocurrio un error en el registro!")
@@ -137,13 +118,24 @@ const registerWhitGoogle = async (req, res) => {
 
 }
 
+
+const confirmEmail = async( req, res) => {
+  const token = req.params.token;
+  try {
+    const confirm = await confirmEmailController(token)
+    res.status(200).json({confirm})
+  } catch (error) {
+    res.status(400).json({Error: "No existe ningun token"} )
+  }
+
+}
+
 module.exports = {
   postClientHandler,
-  newOrder,
-  getOrdersH,
-  getClientsH,
+  getClientHandler,
   updateClient,
   updateOrder,
   login,
-  registerWhitGoogle
+  registerWhitGoogle,
+  confirmEmail
 };

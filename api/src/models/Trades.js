@@ -86,8 +86,13 @@ const tradesSchema= Schema (
     active : {
       type: Boolean,
       default: true,
+    },
+
+    emailVerified: {
+      type: Boolean,
+      default: false
     }
-  }
+  }, {timestamps: true}
 )
 
 module.exports = model("Trades", tradesSchema)
