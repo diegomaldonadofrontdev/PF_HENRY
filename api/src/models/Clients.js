@@ -50,6 +50,12 @@ const clientsSchema= Schema (
       type: Boolean,
       default: true,
       require: true
+    },
+
+    emailVerified : {
+      type: Boolean,
+      default: false,
+      require: true
     }
   }
 )

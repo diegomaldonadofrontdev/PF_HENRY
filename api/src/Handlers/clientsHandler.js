@@ -11,7 +11,9 @@ const {
   findClient,
   validatePasswordClient,
   searchClient,
+  confirmEmailController 
 } = require("../Controllers/clientsController");
+const Clients = require("../models/Clients");
 
 
 
@@ -25,7 +27,7 @@ const postClientHandler = async (req, res) => {
       TOKEN_KEY,
       { expiresIn: "2h" }
     )
-    const clientBDD = await registerClient(client)
+    const clientBDD = await registerClient(client,token)
     // res.status(200).json({ id, ...client, token })
     res.status(200).json([clientBDD, {token: token}])
   } catch (error) {
@@ -137,6 +139,18 @@ const registerWhitGoogle = async (req, res) => {
 
 }
 
+
+const confirmEmail = async( req, res) => {
+  const token = req.params.token;
+  try {
+    const confirm = await confirmEmailController(token)
+    res.status(200).json({confirm})
+  } catch (error) {
+    res.status(400).json({Error: "No existe ningun token"} )
+  }
+
+}
+
 module.exports = {
   postClientHandler,
   newOrder,
@@ -145,5 +159,6 @@ module.exports = {
   updateClient,
   updateOrder,
   login,
-  registerWhitGoogle
+  registerWhitGoogle,
+  confirmEmail
 };

@@ -13,6 +13,7 @@ const {
   updateOrder,
   login,
   registerWhitGoogle,
+  confirmEmail
 } = require("../handlers/clientsHandler");
 // const {
 //     createOrderHandler
@@ -66,5 +67,7 @@ clientsRouter.post("/siginWhitGoogle", registerWhitGoogle);
 
 // clientsRouter.post("/login", validateClients, createClientHandler);
 // clientsRouter.post("/order", validateOrder, createOrderHandler);
+
+clientsRouter.get('/confirm-email/:token',confirmEmail)
 
 module.exports = clientsRouter;

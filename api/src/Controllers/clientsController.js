@@ -4,7 +4,8 @@ const sendMail = require('../Helpers/email')
 const sendMailWelcome = require('../Helpers/emailRegisterClient')
 const sendMailOrder = require('../Helpers/emailCreateOrder')
 const bcrypt = require('bcryptjs');
-
+const jwt = require('jsonwebtoken')
+const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
 
 
 
@@ -26,8 +27,7 @@ const registerClient = async (client, token) => {
       const salt = bcrypt.genSaltSync(10);
       newClient.password = bcrypt.hashSync(password, salt)
       await newClient.save();
-      await sendMail(newClient.email);
-      await sendMailWelcome(newClient.email,newClient.firstname,newClient.lastname);
+      await sendMail(newClient.email,token);
       const clientBDD = await Clients.find({ email: client.email }, { password: 0 })
       const dataClient = clientBDD[0]
       return dataClient
@@ -127,6 +127,27 @@ const updateOrderC = async (id, updateOrder) => {
   }
 }
 
+const confirmEmailController = async (token ) => {
+  try {
+    const payload = jwt.verify(token,TOKEN_KEY)
+    
+    let email = payload.email;
+    
+    const client = await Clients.findOne({email});
+    
+    if (!client) return "No se encontro el usuario"
+    if (client.emailVerified) return "El correo ya se encuentra registrado"
+    
+    client.emailVerified = true;
+    await client.save()
+    await sendMailWelcome(client.email,client.firstname,client.lastname);
+    return "El correo electronico ha sido verificado"
+
+  } catch (error) {
+    return "Token invalido";
+  }
+}
+
 
 module.exports = {
   registerClient,
@@ -137,5 +158,6 @@ module.exports = {
   getClients,
   getOrders,
   updateClientC,
-  updateOrderC
+  updateOrderC,
+  confirmEmailController
 }
