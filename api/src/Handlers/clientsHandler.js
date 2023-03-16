@@ -10,27 +10,10 @@ const {
   searchClient,
   confirmEmail 
 } = require("../Controllers/clientsController");
-const Clients = require("../models/Clients");
 
 
-const postClientHandler = async (req, res) => { // FUNCIONANDO
-  const client = req.body
-  try {
 
-    const token = jwt.sign(
-      { email: client.email },
-      TOKEN_KEY,
-      { expiresIn: "2h" }
-    )
-    const clientBDD = await registerClient(client,token)
-    // res.status(200).json({ id, ...client, token })
-    res.status(200).json([clientBDD, { token: token }])
-  } catch (error) {
-    res.status(404).json({ error: error.message });
-  }
-
-}
-
+// GETS HANDLERS
 const getClientHandler = async (req, res) => { // FUNCIONANDO
   const {id} = req.params
   try {
@@ -41,15 +24,32 @@ const getClientHandler = async (req, res) => { // FUNCIONANDO
   }
 }
 
-const updateClientHandler = async (req, res) => {
-  const { clientId } = req.params;
-  const body = req.body
+const confirmEmailHandler = async( req, res) => { // FUNCIONANDO
+  const token = req.params.token;
   try {
-    const client = await updateClient(clientId, body)
-    res.status(200).json(client)
+    const confirm = await confirmEmail(token)
+    res.status(200).json({confirm})
   } catch (error) {
-    res.status(404).json({error: `Error al actualizar el cliente` })
+    res.status(400).json({Error: "No existe ningun token"} )
   }
+}
+
+// POSTS HANDLERS
+const postClientHandler = async (req, res) => { // FUNCIONANDO
+  const client = req.body
+  try {
+
+    const token = jwt.sign(
+      { email: client.email },
+      TOKEN_KEY,
+      { expiresIn: "2h" }
+    )
+    const clientBDD = await registerClient(client,token)    
+    res.status(200).json([clientBDD, { token: token }])
+  } catch (error) {
+    res.status(404).json({ error: error.message });
+  }
+
 }
 
 const login = async (req, res) => { // FUNCIONANDO
@@ -97,16 +97,23 @@ const registerWhitGoogle = async (req, res) => { // FUNCIONANDO
 
 }
 
-const confirmEmailHandler = async( req, res) => { // FUNCIONANDO
-  const token = req.params.token;
+// PUTS HANDLERS
+const updateClientHandler = async (req, res) => { // FUNCIONANDO
+  const { clientId } = req.params;
+  const body = req.body
   try {
-    const confirm = await confirmEmail(token)
-    res.status(200).json({confirm})
+    const client = await updateClient(clientId, body)
+    res.status(200).json(client)
   } catch (error) {
-    res.status(400).json({Error: "No existe ningun token"} )
+    res.status(404).json({error: `Error al actualizar el cliente` })
   }
-
 }
+
+// DELETE HANDLERS
+
+
+
+
 
 module.exports = {
   postClientHandler,

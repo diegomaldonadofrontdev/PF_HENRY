@@ -64,7 +64,7 @@ clientsRouter.post("/login", login); // FUNCIONANDO
 clientsRouter.post("/siginWhitGoogle", registerWhitGoogle); // FUNCIONANDO
 
 // PUT
-clientsRouter.put("/clients/update", updateClientHandler);
+clientsRouter.put("/clients/update/:clientId", updateClientHandler); // FUNCIONANDO
 
 
 
