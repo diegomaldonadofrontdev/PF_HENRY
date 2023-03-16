@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getCategories, postProduct } from "../../redux/actions/actions";
+import { getCategories, postProduct } from "../../Redux/Actions/actions";
 import styles from "./ProductCreationForm.module.css";
 import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
 import Header from "../../components/Header/Header";

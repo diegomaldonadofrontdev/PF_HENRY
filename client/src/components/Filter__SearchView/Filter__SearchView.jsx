@@ -8,7 +8,7 @@ import {
 	getTradesCategories,
 	allFilters,
 	getTradesFilter,
-} from "../../redux/actions/actions";
+} from "../../Redux/Actions/actions";
 
 export default function Filter__SearchView() {
 	const dispatch = useDispatch();
