@@ -87,7 +87,7 @@ const tradesSchema= Schema (
       type: Boolean,
       default: true,
     }
-  }
+  }, {timestamps: true}
 )
 
 module.exports = model("Trades", tradesSchema)

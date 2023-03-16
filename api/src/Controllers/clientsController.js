@@ -15,7 +15,7 @@ const bcrypt = require('bcryptjs');
 
 
 
-const registerClient = async (client, token) => {
+const registerClient = async (client) => { //FUNCIONANDO
 
   const { password } = client
   try {
@@ -44,7 +44,7 @@ const registerClient = async (client, token) => {
   //return true;
 }
 
-const searchClientExist = async (email) => {
+const searchClientExist = async (email) => { // FUNCIONANDO
   try {
     const findClient = await Clients.find({ email: email });
     if (findClient.length) return true
@@ -54,7 +54,7 @@ const searchClientExist = async (email) => {
   }
 }
 
-const searchClientById = async (id) => {
+const searchClientById = async (id) => { // FUNCIONANDO
   try {
     const client = Clients.findById(id, {password:0})
     return client
@@ -63,7 +63,7 @@ const searchClientById = async (id) => {
   }
 }
 
-const searchClient = async (email) => {
+const searchClient = async (email) => { // FUNCIONANDO
   try {
     const clientBDD = await Clients.find({ email: email }, { password: 0 })
     return clientBDD[0]
@@ -71,7 +71,7 @@ const searchClient = async (email) => {
     return error.message
   }
 }
-const validatePasswordClient = async (email, password) => {
+const validatePasswordClient = async (email, password) => { // FUNCIONANDO
   try {
     const findClient = await Clients.find({ email: email });
     const client = findClient[0];
@@ -84,37 +84,6 @@ const validatePasswordClient = async (email, password) => {
 
   } catch (error) {
     return error.message
-  }
-}
-
-
-const postCreateOrder = async (body) => {
-
-  try {
-    const newOrder = new Order(body);
-    await newOrder.save();
-    await sendMailOrder(newOrder.email,newOrder.productsOrder.length,newOrder.total)
-    return true;
-  } catch (error) {
-    return false;
-  }
-}
-
-const getClients = async () => {
-  try {
-    const clients = await Clients.find()
-    return clients;
-  } catch (error) {
-    return false
-  }
-}
-
-const getOrders = async () => {
-  try {
-    const orders = await Order.find();
-    return orders;
-  } catch (error) {
-    return false;
   }
 }
 
@@ -142,10 +111,7 @@ module.exports = {
   registerClient,
   searchClientExist,
   validatePasswordClient,
-  searchClient,
-  postCreateOrder,
-  getClients,
-  getOrders,
+  searchClient, 
   updateClientC,
   updateOrderC
 }
