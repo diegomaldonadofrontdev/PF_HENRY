@@ -21,7 +21,7 @@ export default function Filter__SearchView() {
 	useEffect(() => {
 		dispatch(getZonas());
 		dispatch(getTradesCategories());
-	}, []);
+	}, [dispatch]);
 
 	useEffect(() => {
 		dispatch(allFilters(filtersActive));

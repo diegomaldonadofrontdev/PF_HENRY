@@ -18,6 +18,16 @@
 	overflow: hidden;
 }
 
+.carrusel__container {
+	margin-top: 50px;
+	display: flex;
+	justify-content: space-between;
+	gap: 1em;
+	width: 200%;
+	flex-flow: row wrap;
+	overflow: hidden;
+}
+
 .container__img {
 	background-color: white;
 	width: 90px;

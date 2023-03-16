@@ -11,11 +11,29 @@ export default function Cart({ id }) {
 	const idClient = useSelector((state) => state.currentClient._id);
 	const [carrito, setCarrito] = useState({ ...carritos });
 	const dispatch = useDispatch();
+
 	useEffect(() => {
 		if (carritos[id]) {
 			setCarrito({ ...carritos[id] });
 		}
+
+		if (Object.entries(carritos).length !== 0) {
+			window.localStorage.removeItem("carritos");
+			window.localStorage.setItem("carritos", JSON.stringify(carritos));
+		}
 	}, [carritos]);
+
+	useEffect(() => {
+		const carritoStorage = JSON.parse(window.localStorage.getItem("carritos"));
+		if (Object.entries(carritos).length !== 0) {
+			dispatch(setCarrito());
+		}
+		if (id && carritoStorage && carritoStorage[id]) {
+			setCarrito(carritoStorage[id]);
+		} else {
+			setCarrito({ ...carritos });
+		}
+	}, []);
 
 	function handlerPostPayment() {
 		dispatch(postPayment(id, idClient, carrito));

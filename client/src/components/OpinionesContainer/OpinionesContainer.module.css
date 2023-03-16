@@ -9,9 +9,19 @@
 	justify-content: center;
 }
 
-.opiniones__container .container > div {
+.carrusel__container {
+	width: 100%;
+	overflow: hidden;
+}
+
+.opiniones__container .container > .carrusel__container > div {
 	display: flex;
+	margin: auto;
+	width: 100%;
+	justify-content: center;
 	gap: 1em;
+	padding: 50px 0;
+	align-items: center;
 }
 
 .opiniones__container .container__button {
@@ -20,8 +30,22 @@
 	margin-bottom: 50px;
 }
 
+.btn__arrow {
+	cursor: pointer;
+	background-color: var(--main-color);
+	padding: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 0.5em;
+}
+
+.btn__arrow i {
+	color: white;
+}
+
 @media (max-width: 700px) {
-	.opiniones__container .container > div{
+	.opiniones__container .container > div {
 		flex-flow: row wrap;
 	}
 }

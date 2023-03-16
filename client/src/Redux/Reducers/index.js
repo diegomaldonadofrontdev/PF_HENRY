@@ -257,6 +257,11 @@ export default function rootReducer(state = initialState, action) {
 				...state,
 				productsFilter: resFilter,
 			};
+		case "ARMADO_CARRITO":
+			return {
+				...state,
+				carritos: action.payload,
+			};
 		default:
 			return state;
 	}
