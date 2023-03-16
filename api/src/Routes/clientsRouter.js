@@ -1,7 +1,8 @@
 const { Router } = require("express");
 const {
   getProductsHandler,
-  getProductHandler
+  getProductHandler,
+  getProductCategoryHandler
 } = require("../Handlers/productsHandler");
 const {
   //createFeedbackHandler,
@@ -22,7 +23,7 @@ const {
   getTradeHandler,
   getCategoriesHandler,
   getSubCategoriesHandler,
-  
+  getDeliveryZoneHandler
 
 } = require("../Handlers/tradesHandler");
 const { validateFeedback, validateClient, validateOrder } = require("../Middlewares/validate");
