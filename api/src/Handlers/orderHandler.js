@@ -4,7 +4,7 @@ const {
   createOrder
 } = require("../Controllers/ordersController");
 
-const getOrdersHandler = async (req, res) => {
+const getOrdersHandler = async (req, res) => { // FUNCIONANDO
   const { clientId } = req.query;
   try {
     const orders = await getOrdersByClient(clientId);
@@ -15,7 +15,7 @@ const getOrdersHandler = async (req, res) => {
   }
 };
 
-const getOrderHandler = async (req, res) => {
+const getOrderHandler = async (req, res) => { // FUNCIONANDO
   const { orderId } = req.params;
   try {
     const order = await getOrderByOrderId(orderId);
@@ -25,7 +25,7 @@ const getOrderHandler = async (req, res) => {
   }
 };
 
-const createNewOrderHandler = async (req, res) => {
+const createNewOrderHandler = async (req, res) => { // FUNCIONANDO
     const {products} = req.body
     const {tradeId, clientId} = req.query
     try {  

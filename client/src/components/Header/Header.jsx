@@ -1,20 +1,23 @@
 import React from "react";
 import Navbar from "../NavBar/Navbar";
 import styles from "./Header.module.css";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation} from "react-router-dom";
 import useUser from "../../Hooks/useUser";
 import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
 import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Header() {
-	const { isLogged, logout1 } = useUser();
+	const { logout1 } = useUser();
 	const { isAuthenticated, logout } = useAuth0();
-	const location = useLocation();
+	const location = useLocation();;
+
+	const token = window.localStorage.getItem('token');
 
 	const handleClick = (e) => {
 		e.preventDefault();
 		logout1();
 		logout();
+		window.localStorage.clear();
 	};
 
 	return (
@@ -31,19 +34,19 @@ export default function Header() {
 						location.pathname !== "/registration_product" &&
 						location.pathname !== "/registration_commerce" && <Navbar />}
 
-					{(isLogged || isAuthenticated) && (
+					{(token || isAuthenticated) && (
 						<div onClick={handleClick}>
 							<ButtonPrimary texto="Logout" />
 						</div>
 					)}
-					{!isLogged && !isAuthenticated && location.pathname !== "/login" && (
+					{!token && !isAuthenticated && location.pathname !== "/login" && (
 						<div>
 							<Link to="/login">
 								<ButtonPrimary texto="Login" />
 							</Link>
 						</div>
 					)}
-					{!isLogged &&
+					{!token &&
 						!isAuthenticated &&
 						location.pathname !== "/registration" && (
 							<Link to="/registration">
