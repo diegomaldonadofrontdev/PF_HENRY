@@ -13,6 +13,7 @@ const {
   updateOrder,
   login,
   registerWhitGoogle,
+  confirmEmail
 } = require("../handlers/clientsHandler");
 // const {
 //     createOrderHandler
@@ -61,5 +62,16 @@ clientsRouter.post("/siginWhitGoogle", registerWhitGoogle); // FUNCIONANDO
 // PUT
 clientsRouter.put("/update-clients", updateClient);
 clientsRouter.put("/update-orders", updateOrder);
+
+// LOGIN AND AUTHENTICATION
+clientsRouter.post("/login", login);
+clientsRouter.post("/siginWhitGoogle", registerWhitGoogle);
+
+// clientsRouter.get("/trades/feedback", validateFeedback, createFeedbackHandler );
+
+// clientsRouter.post("/login", validateClients, createClientHandler);
+// clientsRouter.post("/order", validateOrder, createOrderHandler);
+
+clientsRouter.get('/confirm-email/:token',confirmEmail)
 
 module.exports = clientsRouter;
