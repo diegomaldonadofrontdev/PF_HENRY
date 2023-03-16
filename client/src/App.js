@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import AdminOwner from "./views/DashboardAdmin/AdminOwner";
 import CommerceDetail from "./views/CommerceDetail/CommerceDetail";
-import Home from "./views/Home/Home";
+import Home from "./views/home/Home";
 import HomeLocal from "./views/HomeCommerce/HomeLocal";
 import Login from "./views/Login/Login";
 import OpinionForm from "./views/OpinionForm/OpinionForm";
@@ -10,14 +10,12 @@ import UserSearch from "./views/UserSearch/UserSearch";
 import RegistrationForm from "./views/RegistrationForm/RegistrationForm";
 import ProductCreationForm from "./views/ProductCreationForm/ProductCreationForm";
 import CommerceRegistrationForm from "./views/CommerceRegistrationForm/CommerceRegistrationForm";
-import { UserContextProvider } from "./Context/userContext";
 import DashboardClient from "./views/DasboardClient/DashboardClient";
 import ResponsePayment from "./views/ResponsePayment/ResponsePayment";
 
 function App() {
 	return (
 		<div className="App">
-			<UserContextProvider>
 				<Routes>
 					<Route path="/" element={<Home />} />
 					<Route path="/adminowner" element={<AdminOwner />} />
@@ -42,7 +40,6 @@ function App() {
 						element={<ResponsePayment />}
 					/>
 				</Routes>
-			</UserContextProvider>
 		</div>
 	);
 }

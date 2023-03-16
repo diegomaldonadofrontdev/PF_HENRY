@@ -17,6 +17,7 @@ import {
 	PRODUCT_FILTERS,
 	GET_ZONES,
 	POST_PAYMENT,
+	CURRENT_CLIENT,
 } from "../actions/actions";
 
 // export default allReducers;
@@ -38,6 +39,7 @@ const initialState = {
 	},
 	carritos: {},
 	mercadoPago: "",
+	currentClient: {},
 };
 
 export default function rootReducer(state = initialState, action) {

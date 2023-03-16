@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { postReview } from "../../redux/actions/actions";
+import { postReview } from "../../Redux/Actions/actions";
 import swal from "sweetalert"; //npm i sweetalert
 import { FaStar } from "react-icons/fa";
 import styles from "./OpinionForm.module.css";
 import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const colors = {
 	orange: "#ffef5a",
@@ -14,6 +14,7 @@ const colors = {
 
 export default function OpinionForm() {
 	const dispatch = useDispatch();
+	// const {clientId} = useParams()
 
 	const stars = Array(5).fill(0);
 

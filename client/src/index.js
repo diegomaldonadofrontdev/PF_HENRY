@@ -4,13 +4,13 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import "./index.css";
 import App from "./App";
-import store from "./redux/store/store";
+import store from "./Redux/Store/store";
 import reportWebVitals from "./reportWebVitals";
 import { Auth0Provider } from "@auth0/auth0-react";
 import axios from "axios";
 
 axios.defaults.baseURL = "http://localhost:3001/"
-// axios.defaults.baseURL = "https://servidor-pedivery2.onrender.com/"
+// axios.defaults.baseURL = "https://servidor-pedivery.onrender.com/"
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

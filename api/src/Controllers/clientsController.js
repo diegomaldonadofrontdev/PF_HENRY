@@ -4,18 +4,62 @@ const sendMail = require('../Helpers/email')
 const sendMailWelcome = require('../Helpers/emailRegisterClient')
 const sendMailOrder = require('../Helpers/emailCreateOrder')
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken')
+const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
 
 
+// GETS CONTROLLERS
+const searchClientExist = async (email) => { // FUNCIONANDO
+  try {
+    const findClient = await Clients.find({ email: email });
+    if (findClient.length) return true
+    return false
+  } catch (error) {
+    return error.message
+  }
+}
 
+const searchClientById = async (id) => { // FUNCIONANDO
+  try {
+    const client = Clients.findById(id, {password:0})
+    return client
+  } catch (error) {
+    return error.message
+  }
+}
 
-// PUTS
+const searchClient = async (email) => { // FUNCIONANDO
+  try {
+    const clientBDD = await Clients.find({ email: email }, { password: 0 })
+    return clientBDD[0]
+  } catch (error) {
+    return error.message
+  }
+}
 
-// DELETES
+const confirmEmail = async (token ) => { // FUNCIONANDO
+  try {
+    const payload = jwt.verify(token,TOKEN_KEY)
+    
+    let email = payload.email;
+    
+    const client = await Clients.findOne({email});
+    
+    if (!client) return "No se encontro el usuario"
+    if (client.emailVerified) return "El correo ya se encuentra registrado"
+    
+    client.emailVerified = true;
+    await client.save()
+    await sendMailWelcome(client.email,client.firstname,client.lastname);
+    return "El correo electronico ha sido verificado"
 
+  } catch (error) {
+    return "Token invalido";
+  }
+}
 
-
-
-const registerClient = async (client, token) => {
+// POSTS CONTROLLERS
+const registerClient = async (client) => { //FUNCIONANDO
 
   const { password } = client
   try {
@@ -26,8 +70,7 @@ const registerClient = async (client, token) => {
       const salt = bcrypt.genSaltSync(10);
       newClient.password = bcrypt.hashSync(password, salt)
       await newClient.save();
-      await sendMail(newClient.email);
-      await sendMailWelcome(newClient.email,newClient.firstname,newClient.lastname);
+      await sendMail(newClient.email,token);
       const clientBDD = await Clients.find({ email: client.email }, { password: 0 })
       const dataClient = clientBDD[0]
       return dataClient
@@ -38,23 +81,9 @@ const registerClient = async (client, token) => {
   } catch (error) {
     return error.message
   }
-
-
-
-  //return true;
 }
 
-const findClient = async (email) => {
-  try {
-    const findClient = await Clients.find({ email: email });
-    if (findClient.length) return true
-    return false
-  } catch (error) {
-    return error.message
-  }
-}
-
-const validatePasswordClient = async (email, password) => {
+const validatePasswordClient = async (email, password) => { // FUNCIONANDO
   try {
     const findClient = await Clients.find({ email: email });
     const client = findClient[0];
@@ -70,72 +99,26 @@ const validatePasswordClient = async (email, password) => {
   }
 }
 
-const searchClient = async (email) => {
+// PUTS CONTROLLERS
+const updateClient = async (clientId, body) => { // FUNCIONANDO
   try {
-    const clientBDD = await Clients.find({ email: email }, { password: 0 })
-    return clientBDD[0]
+    const client = await Clients.findByIdAndUpdate(clientId, body, { new: true })
+    if (client) return client;
+    return `Vaya! No fue posible actualizar sus datos!`
   } catch (error) {
     return error.message
   }
 }
 
-const postCreateOrder = async (body) => {
-
-  try {
-    const newOrder = new Order(body);
-    await newOrder.save();
-    await sendMailOrder(newOrder.email,newOrder.productsOrder.length,newOrder.total)
-    return true;
-  } catch (error) {
-    return false;
-  }
-}
-
-const getClients = async () => {
-  try {
-    const clients = await Clients.find()
-    return clients;
-  } catch (error) {
-    return false
-  }
-}
-
-const getOrders = async () => {
-  try {
-    const orders = await Order.find();
-    return orders;
-  } catch (error) {
-    return false;
-  }
-}
-
-const updateClientC = async (id, updateClient) => {
-  try {
-    const client = Clients.findByIdAndUpdate(id, updateClient, { new: true })
-    return client;
-  } catch (error) {
-    return false
-  }
-}
-
-const updateOrderC = async (id, updateOrder) => {
-  try {
-    const order = Order.findByIdAndUpdate(id, updateOrder, { new: true })
-    return order;
-  } catch (error) {
-    return false
-  }
-}
+// DELETES CONTROLLERS
 
 
 module.exports = {
+  searchClientById,
   registerClient,
-  findClient,
+  searchClientExist,
   validatePasswordClient,
-  searchClient,
-  postCreateOrder,
-  getClients,
-  getOrders,
-  updateClientC,
-  updateOrderC
+  searchClient, 
+  updateClient,
+  confirmEmail
 }

@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 
-const sendMailConfirm = async(email) => {
+const sendMailConfirm = async(email,token) => {
     const config = {
         host: "smtp.gmail.com",
         port: 587,
@@ -33,7 +33,7 @@ const sendMailConfirm = async(email) => {
                         <table role="presentation" style="width:602px;border-collapse:collapse;border:1px solid #cccccc;border-spacing:0;text-align:left;">
                             <tr>
                                 <td align="center" style="padding:40px 0 30px 0;background: white;">
-                                    <img src="https://assets.codepen.io/210284/h1.png" alt="" width="300" style="height:auto;display:block;" />
+                                    <img src="https://res.cloudinary.com/dmotjftjo/image/upload/v1678902758/vtdbszo3vphqwqoukdlj.png" alt="" width="300" style="height:auto;display:block;" />
                                 </td>
                             </tr>
                             <tr>
@@ -41,15 +41,15 @@ const sendMailConfirm = async(email) => {
                                     <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;">
                                         <tr>
                                             <td style="padding:0 0 36px 0;color:#153643;">
-                                                <h1 style="font-size:24px;margin:0 0 20px 0;color:#fe161a">Confirma tu correo electronico</h1>
+                                                <h1 style="font-size:24px;margin:0 0 20px 0;color:#ff441f">Confirma tu correo electronico</h1>
                                                 <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;">Gracias por su interes de crear una cuenta con nosotros. Para crear su cuenta. verifique su direccion de correo electronico haciendo click a continuacion.</p>
-                                                <p style="margin:0;font-size:16px;line-height:24px"><a href="" style="color:#fe161a;text-decoration:underline;">Confirma el correo electronico</a></p>
+                                                <p style="margin:0;font-size:16px;line-height:24px"><a href="http://localhost:3001/clients/confirm-email/${token}" style="color:#ff441f;text-decoration:underline;">Confirma el correo electronico</a></p>
                                             </td>
                                         </tr>
                                     </table>
                                 </td>
                             </tr>
-                            <td style="padding:30px;background:#fe161a;">
+                            <td style="padding:30px;background:#ff441f;">
                                 <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;font-size:9px;font-family:Arial,sans-serif;">
                         <tr>
                   <td style="padding:0;width:50%;" align="left">

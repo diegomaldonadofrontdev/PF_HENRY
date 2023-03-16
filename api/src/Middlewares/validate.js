@@ -1,6 +1,6 @@
 
 
-const validateFeedback = (req, res, next) => {
+const validateAppFeedback = (req, res, next) => {
     const { name, opinion, rating } = req.body;
     const { clientId } = req.query
     if (!name) return res.status(400).json({ Error: "No se ha recibido el nombre" });
@@ -10,14 +10,23 @@ const validateFeedback = (req, res, next) => {
     next();
   };
 
-
-  const validateOrder = (req, res, next) => {
-    const { name, lastName, deliveryCity, deliveryAdress, phone, email } = req.body;
-    const {tradeId, products} = req.query
-    if (!name) return res.status(400).json({ Error: "No se ha recibido el nombre" });
+const validateTradeFeedback = (req, res, next) => {
+    const { opinion, rating } = req.body;
+    const { clientId, tradeId } = req.query
+    if (!tradeId) return res.status(400).json({ Error: "No se ha recibido el id del comercio" });
     if (!opinion) return res.status(400).json({ Error: "No se ha recibido la opinion" });
     if (!rating) return res.status(400).json({ Error: "No se ha recibido la puntuación" });
-    if (!image) return res.status(400).json({ Error: "No se ha recibido la imagen" });    
+    if (!clientId) return res.status(400).json({ Error: "No se ha recibido el id del cliente" });
+    next();
+  };
+
+
+  const validateOrder = (req, res, next) => {
+    const { products } = req.body;
+    const {tradeId, clientId} = req.query
+    if (!tradeId) return res.status(400).json({ Error: "No se ha recibido el id del comercio" });
+    if (!clientId) return res.status(400).json({ Error: "No se ha recibido el id del cliente" });
+    if (!products) return res.status(400).json({ Error: "La lista de productos esta vacía" });
     next();
   };
 
@@ -100,7 +109,8 @@ const validateFeedback = (req, res, next) => {
   }
 
   module.exports = {
-    validateFeedback,
+    validateAppFeedback,
+    validateTradeFeedback,
     validateOrder,
     validateClient,
     validateTrade,
