@@ -16,7 +16,7 @@ const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
 
 
 
-const registerClient = async (client, token) => {
+const registerClient = async (client) => {
 
   const { password } = client
   try {
@@ -44,7 +44,7 @@ const registerClient = async (client, token) => {
   //return true;
 }
 
-const findClient = async (email) => {
+const searchClientExist = async (email) => {
   try {
     const findClient = await Clients.find({ email: email });
     if (findClient.length) return true
@@ -54,6 +54,23 @@ const findClient = async (email) => {
   }
 }
 
+const searchClientById = async (id) => {
+  try {
+    const client = Clients.findById(id, {password:0})
+    return client
+  } catch (error) {
+    return error.message
+  }
+}
+
+const searchClient = async (email) => {
+  try {
+    const clientBDD = await Clients.find({ email: email }, { password: 0 })
+    return clientBDD[0]
+  } catch (error) {
+    return error.message
+  }
+}
 const validatePasswordClient = async (email, password) => {
   try {
     const findClient = await Clients.find({ email: email });
@@ -70,14 +87,6 @@ const validatePasswordClient = async (email, password) => {
   }
 }
 
-const searchClient = async (email) => {
-  try {
-    const clientBDD = await Clients.find({ email: email }, { password: 0 })
-    return clientBDD[0]
-  } catch (error) {
-    return error.message
-  }
-}
 
 const postCreateOrder = async (body) => {
 
@@ -150,8 +159,9 @@ const confirmEmailController = async (token ) => {
 
 
 module.exports = {
+  searchClientById,
   registerClient,
-  findClient,
+  searchClientExist,
   validatePasswordClient,
   searchClient,
   postCreateOrder,

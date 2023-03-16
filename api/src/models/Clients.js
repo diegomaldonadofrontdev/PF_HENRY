@@ -13,7 +13,12 @@ const clientsSchema= Schema (
       type: String,
       require: true,
       trim: true,
-    },   
+    },
+    
+    profileImg: {
+      type: String,
+      require: false
+    },
 
     email : {
       type: String,
@@ -28,25 +33,25 @@ const clientsSchema= Schema (
 
     country : {
       type: String,
-      require: true,
+      require: false,
     },
 
     city : {
       type: String,
-      require: true,
+      require: false,
     },
 
     address: {
       type: String,
-      require: true
+      require: false
     },
 
     phone: {
       type: Number,
-      require: true,
+      require: false,
     },
     
-    status : {
+    loginG: {
       type: Boolean,
       default: true,
       require: true
@@ -55,7 +60,13 @@ const clientsSchema= Schema (
     emailVerified : {
       type: Boolean,
       default: false,
-      require: true
+      require: true,
+    },
+
+    active : {
+      type: Boolean,
+      default: false,
+      require: false
     }
   }
 )
