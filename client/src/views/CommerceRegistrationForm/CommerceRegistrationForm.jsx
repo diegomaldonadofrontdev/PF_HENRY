@@ -153,7 +153,10 @@ useEffect(()=>{
 
 //registramos los cambios en los inputs
 const handleChangeInputs = (e) => {
-	setCurrentInput({ ...currentInput, [e.target.name]: e.target.value })
+	setCurrentInput({ 
+		...currentInput, 
+		[e.target.name]: e.target.value
+	 })
 	setCurrentErrors(Validate({
             ...currentInput,
             [e.target.name] : e.target.value
@@ -205,7 +208,7 @@ const handleSelectSubCategories = (e) => {
 
 	const handleSelecDeliveryZone = (e) => {
 		e.preventDefault()
-		if(currentInput.deliveryZone.includes(e.target.value) && currentInput.deliveryZone.length <= 1)
+		
 		setCurrentInput({
 			...currentInput,
 			deliveryZone: [currentInput.deliveryZone, e.target.value]
@@ -215,6 +218,20 @@ const handleSelectSubCategories = (e) => {
             deliveryZone: [...currentInput.deliveryZone, e.target.value]
         }))
 		}
+
+		const handleSelectEpagos = (e) => {
+			e.preventDefault()
+			setCurrentInput({
+				...currentInput,
+				epagos: e.target.value
+			})
+			setCurrentErrors(Validate({
+				...currentInput,
+				epagos: [...currentInput.epagos, e.target.value]
+			}))
+		}
+			
+		
 
 		
 
@@ -293,8 +310,9 @@ const handlerSubmit = (e) => {
 							{stateCategories && stateCategories.map((e) =>(<option value={e}>{e}</option>))}
 							
 							</select>
+							{currentErrors.category && (<p>{currentErrors.category}</p>)}
 						</div>
-						{currentInput.category !== "default" ? (<div className={styles.input__container}>
+						<div className={styles.input__container}>
 							<select onChange={handleSelectSubCategories}>
 							<option value="default" selected={currentInput.category === "default"}>Subcategoria</option>
 							
@@ -302,26 +320,31 @@ const handlerSubmit = (e) => {
 								(e) =>(<option value={e}>{e}</option>)) :
 								null}
 							</select>
-						</div>): null}
+							{currentErrors.subcategory && (<p>{currentErrors.subcategory}</p>)}
+						</div>
 					</div>
 					<div className={styles.twoColumns}>
 						<div className={styles.input__container}>
 							<label htmlFor="">Descripción</label>
 							<input type="text" placeholder="" name="description" value={currentInput.description} onChange={handleChangeInputs}/>
+							{currentErrors.description && (<p>{currentErrors.description}</p>)}
 						</div>
 						<div className={styles.input__container}>
 							<label htmlFor="">Nombre de usuario</label>
 							<input type="text" placeholder="" name="userName" value={currentInput.userName} onChange={handleChangeInputs}/>
+							{currentErrors.userName && (<p>{currentErrors.userName}</p>)}
 						</div>
 					</div>
 					<div className={styles.twoColumns}>
 						<div className={styles.input__container}>
 							<label htmlFor="">Email</label>
 							<input type="text" placeholder="" name="email" value={currentInput.email} onChange={handleChangeInputs}/>
+							{currentErrors.email && (<p>{currentErrors.email}</p>)}
 						</div>
 						<div className={styles.input__container}>
 							<label htmlFor="">Password</label>
 							<input type="password" placeholder="" name="password" value={currentInput.password} onChange={handleChangeInputs}/>
+							{currentErrors.password && (<p>{currentErrors.password}</p>)}
 						</div>
 					</div>
 
@@ -329,20 +352,24 @@ const handlerSubmit = (e) => {
 						<div className={styles.input__container}>
 							<label htmlFor="">Provincia</label>
 							<input type="text" placeholder="" name="province" value={currentInput.province} onChange={handleChangeInputs}/>
+							{currentErrors.province && (<p>{currentErrors.province}</p>)}
 						</div>
 						<div className={styles.input__container}>
 							<label htmlFor="">Ciudad</label>
 							<input type="text" placeholder="" name="city" value={currentInput.city} onChange={handleChangeInputs}/>
+							{currentErrors.city && (<p>{currentErrors.city}</p>)}
 						</div>
 					</div>
 					<div className={styles.twoColumns}>
 						<div className={styles.input__container}>
 							<label htmlFor="">Dirección</label>
 							<input type="text" placeholder="" name="address" value={currentInput.address} onChange={handleChangeInputs}/>
+							{currentErrors.address && (<p>{currentErrors.address}</p>)}
 						</div>
 						<div className={styles.input__container}>
 							<label htmlFor="">Teléfono</label>
 							<input type="text" placeholder="" name="phone" value={currentInput.phone} onChange={handleChangeInputs}/>
+							{currentErrors.phone && (<p>{currentErrors.phone}</p>)}
 						</div>
 					</div>
 					<div className={styles.twoColumns}>
@@ -352,16 +379,24 @@ const handlerSubmit = (e) => {
 							{stateZones && stateZones.map((e) =>(<option value={e}>{e}</option>))}
 							
 							</select>
+							{currentErrors.deliveryZone && (<p>{currentErrors.deliveryZone}</p>)}
 						</div>
 					</div>
 					<div className={styles.twoColumns}>
 						<div className={styles.input__container}>
-							<label htmlFor="">Medios de pago</label>
-							<input type="text" placeholder="" name="epagos" value={currentInput.epagos} onChange={handleChangeInputs}/>
+						<select onChange={handleSelectEpagos}>
+							<option value="default" selected disabled>Medio de Pago</option>
+							<option>Sólo efectivo</option>
+							<option>Sólo tarjetas</option>
+							<option>Efectivo/Tarjetas</option>
+							
+							</select>
+							{currentErrors.epagos && (<p>{currentErrors.epagos}</p>)}
 						</div>
 						<div className={styles.input__container}>
 							<label htmlFor="">Imagen</label>
 							<input type="file" placeholder="" onChange={handleCommerceImgUpload}/>
+							{currentErrors.image && (<p>{currentErrors.image}</p>)}
 						</div>
 					</div>
 					<button type="submit">

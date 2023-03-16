@@ -26,12 +26,12 @@ export function getProductById(id) {
 	};
 }
 
-// export function getTradesByName(commerceName) {
-// 	return async function (dispatch) {
-// 		const trades = await axios.get(`/trades/search?commerceName=${commerceName}`);
-// 		return dispatch({ type: "GET_TRADES", payload: trades.data });
-// 	};
-// }
+export function getTradesByName(commerceName) {
+	return async function (dispatch) {
+		const trades = await axios.get(`/trades/search?commerceName=${commerceName}`);
+		return dispatch({ type: "GET_TRADES", payload: trades.data });
+	};
+}
 
 export function commerceRegister(payload) {
 	return async function () {
@@ -72,7 +72,7 @@ export function getTrades() {
 
 export function postReview(payload, clientId) {
 	return async function () {
-		const reviewPost = await axios.post(`${host}/clients/feedback?clientId=640a617331d21eefd2f185e0`, payload);
+		const reviewPost = await axios.post(`/clients/feedback?clientId=640a617331d21eefd2f185e0`, payload);
 		return reviewPost;
 	};
 }
@@ -205,12 +205,6 @@ export function deleteProduct(idProduct, idCommerce) {
 	};
 }
 
-export function commerceRegister(payload) {
-	return async function () {
-		const postCommerce = await axios.post(`${host}/trades/newTrade`, payload);
-		return postCommerce;
-	}
-}
 
 export function postPayment(idCommerce, idUser, carrito) {
 	return async function (dispatch) {
