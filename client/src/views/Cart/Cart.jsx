@@ -8,6 +8,7 @@ import { postPayment } from "../../redux/actions/actions";
 export default function Cart({ id }) {
 	const carritos = useSelector((state) => state.carritos);
 	const sandbox = useSelector((state) => state.mercadoPago.sandbox);
+	const idClient = useSelector((state) => state.currentClient._id);
 	const [carrito, setCarrito] = useState({ ...carritos });
 	const dispatch = useDispatch();
 	useEffect(() => {
@@ -17,7 +18,7 @@ export default function Cart({ id }) {
 	}, [carritos]);
 
 	function handlerPostPayment() {
-		dispatch(postPayment(id, "DiegoMaldonado", carrito));
+		dispatch(postPayment(id, idClient, carrito));
 	}
 
 	useEffect(() => {

@@ -233,6 +233,11 @@ export default function rootReducer(state = initialState, action) {
 				...state,
 				mercadoPago: action.payload,
 			};
+		case CURRENT_CLIENT:
+			return {
+				...state,
+				currentClient: action.payload,
+			};
 		case "SET_FILTER_CATEGORY_COMMERCE":
 			const allProductos = state.products;
 			const categorySelected = action.payload.category;
