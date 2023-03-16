@@ -68,7 +68,7 @@ const clientsSchema= Schema (
       default: false,
       require: false
     }
-  }
+  }, {timestamps: true}
 )
 
 module.exports = model("Clients", clientsSchema)

@@ -3,29 +3,28 @@ const { Schema, model } = require('mongoose');
 
 const orderSchema = Schema(
     {
-        userOrder :{
-            type: Schema.Types.ObjectId,
-            ref: "Clients",
+        clientId :{
+            type: String,        
             require: true
         },
 
-        tradesOrder :{
-            type: Schema.Types.ObjectId,
-            ref: "Trades",
+        tradeId :{
+            type: String,            
             require: true
         },
 
-        productsOrder: {
-            type: Schema.Types.Array,
-            ref: "Products",
+        products: {
+            type: Schema.Types.Array,            
             require: true
         },
 
         status: {
-            type: Boolean,
-            require: true
+            type: String,
+            require: false,
+            default: "Procesando pedido"
         }
-    }
+    },
+    {timestamps: true}
 )
 
 module.exports = model("Order",orderSchema);
