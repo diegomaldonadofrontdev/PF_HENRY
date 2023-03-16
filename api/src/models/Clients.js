@@ -53,8 +53,14 @@ const clientsSchema= Schema (
     
     loginG: {
       type: Boolean,
+      default: true,
+      require: true
+    },
+
+    emailVerified : {
+      type: Boolean,
       default: false,
-      require: false
+      require: true,
     },
 
     active : {

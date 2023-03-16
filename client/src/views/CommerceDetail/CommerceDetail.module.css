@@ -43,6 +43,8 @@
 	gap: 50px;
 	width: 100%;
 	justify-content: flex-start;
+	min-height: 600px;
+	padding-bottom: 100px;
 }
 
 .btn__volver {

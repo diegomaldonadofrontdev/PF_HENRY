@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import ProductoCard from "../../components/ProductoCard/ProductoCard";
-import { getAllProducts, getTrades } from "../../redux/actions/actions";
+import {
+	filterCategoryCommerce,
+	getAllProducts,
+	getTrades,
+} from "../../redux/actions/actions";
 import styles from "./CommerceDetail.module.css";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import Header from "../../components/Header/Header";
@@ -16,6 +20,7 @@ export default function CommerceDetail() {
 
 	const products = useSelector((state) => state.products);
 	const commerceRedux = useSelector((state) => state.allCommerces);
+	const productsFilter = useSelector((state) => state.productsFilter);
 
 	const [commerce, setCommerce] = useState({});
 	const [category, setCategory] = useState([]);
@@ -39,6 +44,10 @@ export default function CommerceDetail() {
 		}
 	}, [products]);
 
+	function handlerCategoryCommerce(category) {
+		dispatch(filterCategoryCommerce(category));
+	}
+
 	return (
 		<div className={styles.comercio_detail}>
 			<Header />
@@ -61,25 +70,50 @@ export default function CommerceDetail() {
 				<div className={styles.subcategorias}>
 					<h3>Categorias:</h3>
 					<ul>
-						<li>Todas</li>
+						<li
+							onClick={() => {
+								handlerCategoryCommerce("todas");
+							}}
+						>
+							Todas
+						</li>
 						{category.map((x) => (
-							<li key={x}>{x}</li>
+							<li
+								key={x}
+								onClick={() => {
+									handlerCategoryCommerce(x);
+								}}
+							>
+								{x}
+							</li>
 						))}
 					</ul>
 				</div>
 				<div className={styles.results}>
 					<div className={styles.productCard__container}>
-						{products?.map((x) => (
-							<ProductoCard
-								idCommerce={id}
-								idProduct={x._id}
-								key={x._id}
-								name={x.name}
-								price={x.price}
-								description={x.description}
-								img={x.image}
-							/>
-						))}
+						{productsFilter.length
+							? productsFilter?.map((x) => (
+									<ProductoCard
+										idCommerce={id}
+										idProduct={x._id}
+										key={x._id}
+										name={x.name}
+										price={x.price}
+										description={x.description}
+										img={x.image}
+									/>
+							  ))
+							: products?.map((x) => (
+									<ProductoCard
+										idCommerce={id}
+										idProduct={x._id}
+										key={x._id}
+										name={x.name}
+										price={x.price}
+										description={x.description}
+										img={x.image}
+									/>
+							  ))}
 					</div>
 					<Cart id={id} />
 				</div>

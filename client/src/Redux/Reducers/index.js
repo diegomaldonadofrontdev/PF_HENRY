@@ -17,7 +17,7 @@ import {
 	PRODUCT_FILTERS,
 	GET_ZONES,
 	POST_PAYMENT,
-	CURRENT_CLIENT
+	CURRENT_CLIENT,
 } from "../actions/actions";
 
 // export default allReducers;
@@ -25,6 +25,7 @@ import {
 const initialState = {
 	product: [],
 	products: [],
+	productsFilter: [],
 	allCommerces: [],
 	tradesCategories: [],
 	tradesSubCategories: [],
@@ -38,7 +39,7 @@ const initialState = {
 	},
 	carritos: {},
 	mercadoPago: "",
-	currentClient: {}
+	currentClient: {},
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -232,13 +233,25 @@ export default function rootReducer(state = initialState, action) {
 				...state,
 				mercadoPago: action.payload,
 			};
-		
-		case CURRENT_CLIENT: 
+		case "SET_FILTER_CATEGORY_COMMERCE":
+			const allProductos = state.products;
+			const categorySelected = action.payload.category;
+
+			if (categorySelected === "todas") {
+				return {
+					...state,
+					productsFilter: allProductos,
+				};
+			}
+
+			const resFilter = allProductos.filter(
+				(x) => x.category === categorySelected
+			);
+
 			return {
 				...state,
-				currentClient: action.payload
+				productsFilter: resFilter,
 			};
-
 		default:
 			return state;
 	}
