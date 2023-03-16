@@ -8,7 +8,7 @@ import {
 	getTradesCategories,
 	allFilters,
 	getTradesFilter,
-} from "../../Redux/actions/actions";
+} from "../../redux/actions/actions";
 
 // Filtros que agregar: deliveryCity, category, subcategory, epago
 

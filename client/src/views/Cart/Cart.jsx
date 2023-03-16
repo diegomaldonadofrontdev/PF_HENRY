@@ -3,7 +3,7 @@ import CardCart from "../../components/CardCart/CardCart";
 import ButtonCTA from "../../components/ButtonCTA/ButtonCTA";
 import styles from "./Cart.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { postPayment } from "../../Redux/actions/actions";
+import { postPayment } from "../../redux/actions/actions";
 
 export default function Cart({ id }) {
 	const carritos = useSelector((state) => state.carritos);

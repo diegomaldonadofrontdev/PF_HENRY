@@ -3,7 +3,7 @@ import {
 	addAmount,
 	substractAmount,
 	deleteProduct,
-} from "../../Redux/actions/actions";
+} from "../../redux/actions/actions";
 import { useDispatch } from "react-redux";
 import styles from "./CardCart.module.css";
 
