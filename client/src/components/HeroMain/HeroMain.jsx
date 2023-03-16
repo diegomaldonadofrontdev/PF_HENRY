@@ -1,18 +1,18 @@
-import React, { useContext } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
 import styles from "./HeroMain.module.css";
 import { Link } from "react-router-dom";
 import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
-import { Context } from "../../Context/userContext";
 
 export default function HeroMain() {
 
-	const { dataUser } = useContext(Context);
+	const currentClient = useSelector(state => state.currentClient);
 
 	return (
 		<div className={styles.hero__main}>
 			<div className={styles.container}>
 				<div className={styles.searchContainer}>
-					<h1>{dataUser.firstname ? `Bienvenido ${dataUser.firstname} ${dataUser.lastname}`: null}</h1>
+					<h1>{currentClient.firstname ? `Bienvenido ${currentClient.firstname} ${currentClient.lastname}`: null}</h1>
 					<h2>Pedí lo que quieras!</h2>
 					<p>Restaurantes, mercados, farmacias, kioscos y mucho más</p>
 					<div className={styles.buscador}>

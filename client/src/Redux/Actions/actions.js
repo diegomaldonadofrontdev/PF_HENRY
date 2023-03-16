@@ -10,6 +10,7 @@ export const PRODUCT_FILTERS = "PRODUCT_FILTERS";
 export const GET_SUBCATEGORIES = "GET_SUBCATEGORIES";
 export const GET_ZONES = "GET_ZONES";
 export const POST_PAYMENT = "POST_PAYMENT";
+export const CURRENT_CLIENT = "CURRENT_CLIENT";
 
 const host = "http://localhost:3001";
 
@@ -209,5 +210,15 @@ export function postPayment(idCommerce, idUser, carrito) {
 			type: POST_PAYMENT,
 			payload: data.data,
 		});
+	};
+}
+
+export function getCLient (id) {
+	return async function (dispatch) {
+		const client = await axios.get(`${host}/clients/clients/search/${id}`)
+		return dispatch({
+			type: CURRENT_CLIENT,
+			payload: client.data
+		})
 	};
 }

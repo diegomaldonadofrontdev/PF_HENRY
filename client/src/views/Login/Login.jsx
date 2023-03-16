@@ -8,17 +8,17 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Login() {
 
-
+	const token = window.localStorage.getItem('token');
 	const { isAuthenticated, loginWithPopup } = useAuth0();
-	const { isLoginLoading, hasLoginError, isLogged, login, registerWhitGoogle } = useUser()
+	const { isLogged ,login, registerWhitGoogle } = useUser()
 	const navigate = useNavigate();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
 	useEffect(() => {
-		if (isLogged || isAuthenticated) navigate("/");
+		if(isLogged || isAuthenticated) navigate("/");
 		if (isAuthenticated) registerWhitGoogle();
-	}, [isAuthenticated, isLogged, navigate, registerWhitGoogle]);
+	}, [isAuthenticated, isLogged, navigate, registerWhitGoogle, token]);
 
 	const handleLogin = async (e) => {
 		e.preventDefault();
@@ -31,41 +31,37 @@ export default function Login() {
 
 	return (
 		<>
-			{isLoginLoading && <strong>Checking credentials...</strong>}
-			{!isLoginLoading && (
-				<div className={styles.login}>
-					<Header />
-					<div className={styles.container}>
-						<h2>Registrá o ingresá para continuar</h2>
-						<ButtonPrimary texto="Registra tu negocio" />
-						<form onSubmit={handleLogin} className={styles.form}>
-							<div className={styles.user}>
-								<label htmlFor="">Usuario</label>
-								<input type="text" value={email} name="email" placeholder="Ingrese su usuario" onChange={(e) => setEmail(e.target.value)} />
-							</div>
-							<div className={styles.password}>
-								<label htmlFor="">Clave</label>
-								<input type="password" value={password} name="password" placeholder="Ingresa tu contraseña" onChange={(e) => setPassword(e.target.value)} />
-							</div>
-							<div className={styles.options}>
-								<Link to="/registration"><ButtonPrimary texto="Sing In" /></Link>
-								<button style={{ border: "none" }} ><ButtonPrimary texto="Login" /></button>
-							</div>
-						</form>
-						<div className={styles.other}>
-							<button style={{ border: "none" }} onClick={handleSiginWhitGoogle}><ButtonPrimary texto="Sing In con Google" /></button>
-							{/* <ButtonPrimary texto="Sing In con Facebook" /> */}
+			<div className={styles.login}>
+				<Header />
+				<div className={styles.container}>
+					<h2>Registrá o ingresá para continuar</h2>
+					<ButtonPrimary texto="Registra tu negocio" />
+					<form onSubmit={handleLogin} className={styles.form}>
+						<div className={styles.user}>
+							<label htmlFor="">Usuario</label>
+							<input type="text" value={email} name="email" placeholder="Ingrese su usuario" onChange={(e) => setEmail(e.target.value)} />
 						</div>
+						<div className={styles.password}>
+							<label htmlFor="">Clave</label>
+							<input type="password" value={password} name="password" placeholder="Ingresa tu contraseña" onChange={(e) => setPassword(e.target.value)} />
+						</div>
+						<div className={styles.options}>
+							<Link to="/registration"><ButtonPrimary texto="Sing In" /></Link>
+							<button style={{ border: "none" }} ><ButtonPrimary texto="Login" /></button>
+						</div>
+					</form>
+					<div className={styles.other}>
+						<button style={{ border: "none" }} onClick={handleSiginWhitGoogle}><ButtonPrimary texto="Sing In con Google" /></button>
+						{/* <ButtonPrimary texto="Sing In con Facebook" /> */}
+					</div>
 
-						<div className={styles.faqs}>
-							<a href="/">Que es pedivey?</a>
-							<a href="/">Como funciona?</a>
-							<a href="/">Tutoriales</a>
-						</div>
+					<div className={styles.faqs}>
+						<a href="/">Que es pedivey?</a>
+						<a href="/">Como funciona?</a>
+						<a href="/">Tutoriales</a>
 					</div>
 				</div>
-			)}
-			{hasLoginError && <strong>Credentials are invalid</strong>}
+			</div>
 		</>
 	);
 }

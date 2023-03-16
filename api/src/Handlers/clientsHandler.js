@@ -4,11 +4,11 @@ const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
 const {
   registerClient,
   postCreateOrder,
-  getClients,
+  searchClientById,
   getOrders,
   updateClientC,
   updateOrderC,
-  findClient,
+  searchClientExist,
   validatePasswordClient,
   searchClient,
 } = require("../Controllers/clientsController");
@@ -27,7 +27,7 @@ const postClientHandler = async (req, res) => {
     )
     const clientBDD = await registerClient(client)
     // res.status(200).json({ id, ...client, token })
-    res.status(200).json([clientBDD, {token: token}])
+    res.status(200).json([clientBDD, { token: token }])
   } catch (error) {
     res.status(404).json({ error: error.message });
   }
@@ -45,16 +45,17 @@ const newOrder = async (req, res) => {
   }
 }
 
-const getClientsH = async (req, res) => {
+const getClientHandler = async (req, res) => {
+  const {id} = req.params
   try {
-    const clients = await getClients();
+    const clients = await searchClientById(id);
     res.status(200).json(clients)
   } catch (error) {
     res.status(404).json({ Error: "Error al obtener a los clientes" })
   }
 }
 
-const getOrdersH = async (req, res) => {
+const getOrdersHandler = async (req, res) => {
   try {
     const orders = await getOrders();
     res.status(200).json(orders)
@@ -95,7 +96,7 @@ const updateOrder = async (req, res) => {
 const login = async (req, res) => {
   const { email, password } = req.body;
 
-  const findEmail = await findClient(email)
+  const findEmail = await searchClientExist(email)
   if (!findEmail) res.status(404).json("No existe el usuario");
 
   const validate = await validatePasswordClient(email, password);
@@ -117,19 +118,20 @@ const login = async (req, res) => {
 
 // TERMINADO
 const registerWhitGoogle = async (req, res) => {
-  // const { firstname, lastname, email, password, country, city, address, phone, status } = req.body;
-  const client = req.body; 
-
-  const clientBDD = await registerClient(client)
+  // const { firstname, lastname, email, password,} = req.body;
+  const client = req.body;
 
   try {
+
+    const clientBDD = await registerClient(client)
+    
     const token = jwt.sign(
       { name: client.firstname, email: client.email },
       TOKEN_KEY,
       { expiresIn: "2h" }
     )
 
-    res.status(200).json([clientBDD, {token: token}]);
+    res.status(200).json([clientBDD, { token: token }]);
 
   } catch (error) {
     res.status(400).json("Ocurrio un error en el registro!")
@@ -140,8 +142,8 @@ const registerWhitGoogle = async (req, res) => {
 module.exports = {
   postClientHandler,
   newOrder,
-  getOrdersH,
-  getClientsH,
+  getOrdersHandler,
+  getClientHandler,
   updateClient,
   updateOrder,
   login,
