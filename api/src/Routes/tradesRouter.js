@@ -10,9 +10,6 @@ const {
   getProductsH,
   updateProduct,
   updateCategoryProduct,
-  
-  
-
 } = require("../Handlers/productsHandler");
 const {
   validateTrade,
@@ -23,6 +20,7 @@ const {
   validateSubcategory,
 
 } = require("../Middlewares/validate");
+const {getFeedbacksHandler} = require ("../Handlers/tradeFeedbacksHandler")
 // const {
 //   getProductsHandler,
 //   getProductHandler,
@@ -44,7 +42,8 @@ const tradesRouter = Router();
 // // GET
 tradesRouter.get("/trades/search", getTradesHandler);
 tradesRouter.get("/products", getProductsH);
-tradesRouter.get("/categories-products", getCategoryProducts);
+tradesRouter.get("/categories-products", getCategoryProducts); // 
+tradesRouter.get("/feedbacks/search/:tradeId", getFeedbacksHandler); // FUNCIONANDO
 // tradesRouter.get("/products", getProductsHandler);
 // tradesRouter.get("/products/:id", getProductHandler);
 // tradesRouter.get("/users", getUsersHandler);

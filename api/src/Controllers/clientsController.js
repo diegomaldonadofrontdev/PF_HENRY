@@ -87,25 +87,16 @@ const validatePasswordClient = async (email, password) => { // FUNCIONANDO
   }
 }
 
-const updateClientC = async (id, updateClient) => {
+const updateClient = async (clientId, body) => {
   try {
-    const client = Clients.findByIdAndUpdate(id, updateClient, { new: true })
+    const client = Clients.findByIdAndUpdate(clientId, body, { new: true })
     return client;
   } catch (error) {
     return false
   }
 }
 
-const updateOrderC = async (id, updateOrder) => {
-  try {
-    const order = Order.findByIdAndUpdate(id, updateOrder, { new: true })
-    return order;
-  } catch (error) {
-    return false
-  }
-}
-
-const confirmEmailController = async (token ) => {
+const confirmEmail = async (token ) => { // FUNCIONANDO
   try {
     const payload = jwt.verify(token,TOKEN_KEY)
     
@@ -133,7 +124,6 @@ module.exports = {
   searchClientExist,
   validatePasswordClient,
   searchClient, 
-  updateClientC,
-  updateOrderC,
-  confirmEmailController
+  updateClient,
+  confirmEmail
 }

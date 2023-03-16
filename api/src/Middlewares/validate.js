@@ -1,9 +1,19 @@
 
 
-const validateFeedback = (req, res, next) => {
+const validateAppFeedback = (req, res, next) => {
     const { name, opinion, rating } = req.body;
     const { clientId } = req.query
     if (!name) return res.status(400).json({ Error: "No se ha recibido el nombre" });
+    if (!opinion) return res.status(400).json({ Error: "No se ha recibido la opinion" });
+    if (!rating) return res.status(400).json({ Error: "No se ha recibido la puntuación" });
+    if (!clientId) return res.status(400).json({ Error: "No se ha recibido el id del cliente" });
+    next();
+  };
+
+const validateTradeFeedback = (req, res, next) => {
+    const { opinion, rating } = req.body;
+    const { clientId, tradeId } = req.query
+    if (!tradeId) return res.status(400).json({ Error: "No se ha recibido el id del comercio" });
     if (!opinion) return res.status(400).json({ Error: "No se ha recibido la opinion" });
     if (!rating) return res.status(400).json({ Error: "No se ha recibido la puntuación" });
     if (!clientId) return res.status(400).json({ Error: "No se ha recibido el id del cliente" });
@@ -99,7 +109,8 @@ const validateFeedback = (req, res, next) => {
   }
 
   module.exports = {
-    validateFeedback,
+    validateAppFeedback,
+    validateTradeFeedback,
     validateOrder,
     validateClient,
     validateTrade,
