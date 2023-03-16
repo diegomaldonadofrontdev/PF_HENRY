@@ -118,7 +118,7 @@ const login = async (req, res) => {
 
 // TERMINADO
 const registerWhitGoogle = async (req, res) => {
-  // const { firstname, lastname, email, password, loginG: true} = req.body;
+  // const { firstname, lastname, email, password,} = req.body;
   const client = req.body;
 
   try {

@@ -213,11 +213,12 @@ export function postPayment(idCommerce, idUser, carrito) {
 	};
 }
 
-export function currentCLient (data) {
+export function getCLient (id) {
 	return async function (dispatch) {
+		const client = await axios.get(`${host}/clients/clients/search/${id}`)
 		return dispatch({
 			type: CURRENT_CLIENT,
-			payload: data
+			payload: client.data
 		})
 	};
 }

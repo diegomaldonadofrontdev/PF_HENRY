@@ -8,17 +8,17 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Login() {
 
-
+	const token = window.localStorage.getItem('token');
 	const { isAuthenticated, loginWithPopup } = useAuth0();
-	const { isLogged, login, registerWhitGoogle } = useUser()
+	const { isLogged ,login, registerWhitGoogle } = useUser()
 	const navigate = useNavigate();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
 	useEffect(() => {
-		if (isLogged || isAuthenticated) navigate("/");
+		if(isLogged || isAuthenticated) navigate("/");
 		if (isAuthenticated) registerWhitGoogle();
-	}, [isAuthenticated, isLogged, navigate, registerWhitGoogle]);
+	}, [isAuthenticated, isLogged, navigate, registerWhitGoogle, token]);
 
 	const handleLogin = async (e) => {
 		e.preventDefault();
