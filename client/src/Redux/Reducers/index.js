@@ -252,6 +252,11 @@ export default function rootReducer(state = initialState, action) {
 				...state,
 				productsFilter: resFilter,
 			};
+			case CURRENT_CLIENT: 
+            return {
+                ...state,
+                currentClient: action.payload
+            };
 		default:
 			return state;
 	}
