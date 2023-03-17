@@ -2,7 +2,8 @@ const { Router } = require("express");
 const {
   getTradeHandler,
   createTradeHandler,  
-  getCategoriesHandler
+  getCategoriesHandler,  
+  confirmEmailHandler
 } = require("../Handlers/tradesHandler");
 const {
   newProduct,
@@ -62,6 +63,7 @@ tradesRouter.put("/update-product", updateProduct);
 tradesRouter.put("/update-category-product", updateCategoryProduct);
 // tradesRouter.put("/update-subcategory", updateSubcategory);
 
+tradesRouter.get('/confirm-email/:token',confirmEmailHandler) // FUNCIONANDO
 
 
 module.exports = tradesRouter;

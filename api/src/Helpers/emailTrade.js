@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 
-const sendMailOrder = async(email,firstName,lastName,productos,orden) => {
+const sendMailConfirm = async(email,token) => {
     const config = {
         host: "smtp.gmail.com",
         port: 587,
@@ -15,7 +15,7 @@ const sendMailOrder = async(email,firstName,lastName,productos,orden) => {
     const mensaje = {
         from: `${process.env.USER}`,
         to: email,
-        subject: "Tu orden esta en proceso ",
+        subject: "Confirma tu correo electronico",
         html: `<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
         <head>
             <meta charset="UTF-8">
@@ -23,7 +23,7 @@ const sendMailOrder = async(email,firstName,lastName,productos,orden) => {
             <meta name="x-apple-disable-message-reformatting">
             <title></title>
             <style>
-                table, td, div, h1, p, li {font-family: Monserrat, sans-serif;}
+                table, td, div, h1, p {font-family: Monserrat, sans-serif;}
             </style>
         </head>
         <body style="margin:0;padding:0;">
@@ -41,11 +41,9 @@ const sendMailOrder = async(email,firstName,lastName,productos,orden) => {
                                     <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;">
                                         <tr>
                                             <td style="padding:0 0 36px 0;color:#153643;">
-                                                <h1 style="font-size:24px;margin:0 0 20px 0;color:#ff441f">Hola ${firstName} ${lastName} estamos procesando tu pedido</h1>
-                                                <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;">Compraste los siguientes productos ${productos}, espera las indicaciones del comercio para poder recibirlo, tu numero de orden es: ${orden}</p>
-                                                <p style="margin:0;font-size:16px;line-height:24px;color:#ff441f">PEDI-VERY</p>
-                                                <ul> 
-                                            </ul>
+                                                <h1 style="font-size:24px;margin:0 0 20px 0;color:#ff441f">Confirma tu correo electronico</h1>
+                                                <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;">Gracias por su interes de crear una cuenta con nosotros. Para crear su cuenta. verifique su direccion de correo electronico haciendo click a continuacion.</p>
+                                                <p style="margin:0;font-size:16px;line-height:24px"><a href="http://localhost:3001/trades/confirm-email/${token}" style="color:#ff441f;text-decoration:underline;">Confirma el correo electronico</a></p>
                                             </td>
                                         </tr>
                                     </table>
@@ -79,7 +77,7 @@ const sendMailOrder = async(email,firstName,lastName,productos,orden) => {
                 </tr>
             </table>
         </body>
-        </html> `
+        </html>`
     }
     
     const transport = nodemailer.createTransport(config);
@@ -91,4 +89,4 @@ const sendMailOrder = async(email,firstName,lastName,productos,orden) => {
 }
 
 
-module.exports = sendMailOrder;
+module.exports = sendMailConfirm;

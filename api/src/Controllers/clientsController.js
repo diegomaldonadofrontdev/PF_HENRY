@@ -61,7 +61,7 @@ const confirmEmail = async (token ) => { // FUNCIONANDO
 }
 
 // POSTS CONTROLLERS
-const registerClient = async (client) => { //FUNCIONANDO
+const registerClient = async (client,token) => { //FUNCIONANDO
 
   const { password } = client
   try {

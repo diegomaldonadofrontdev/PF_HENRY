@@ -3,7 +3,7 @@ const {
   getProductsHandler,
   getProductHandler,
   getProductCategoryHandler,
-} = require("../handlers/productsHandler");
+} = require("../Handlers/productsHandler");
 const {
   postClientHandler,
   getClientHandler, 
@@ -11,7 +11,7 @@ const {
   login,
   registerWhitGoogle,
   confirmEmailHandler
-} = require("../handlers/clientsHandler");
+} = require("../Handlers/clientsHandler");
 const {
   getOrdersHandler,
   getOrderHandler,
@@ -29,7 +29,7 @@ const {
   validateTradeFeedback,
   validateClient,
   validateOrder,
-} = require("../middlewares/validate");
+} = require("../Middlewares/validate");
 const {
   postFeedbackHandler,
   getFeedbacksHandler,

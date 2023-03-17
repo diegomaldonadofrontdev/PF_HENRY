@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 
-const sendMailOrder = async(email,firstName,lastName,productos,orden) => {
+const sendMailOrder = async(email,usernameTrade,firstname,lastName,productos,orden) => {
     const config = {
         host: "smtp.gmail.com",
         port: 587,
@@ -23,7 +23,7 @@ const sendMailOrder = async(email,firstName,lastName,productos,orden) => {
             <meta name="x-apple-disable-message-reformatting">
             <title></title>
             <style>
-                table, td, div, h1, p, li {font-family: Monserrat, sans-serif;}
+                table, td, div, h1, p {font-family: Monserrat, sans-serif;}
             </style>
         </head>
         <body style="margin:0;padding:0;">
@@ -41,11 +41,9 @@ const sendMailOrder = async(email,firstName,lastName,productos,orden) => {
                                     <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;">
                                         <tr>
                                             <td style="padding:0 0 36px 0;color:#153643;">
-                                                <h1 style="font-size:24px;margin:0 0 20px 0;color:#ff441f">Hola ${firstName} ${lastName} estamos procesando tu pedido</h1>
-                                                <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;">Compraste los siguientes productos ${productos}, espera las indicaciones del comercio para poder recibirlo, tu numero de orden es: ${orden}</p>
+                                                <h1 style="font-size:24px;margin:0 0 20px 0;color:#ff441f">Hola ${usernameTrade} has recibido un nuevo pedido</h1>
+                                                <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;">${firstname} ${lastName} ha realizado un pedido con los siguientes productos ${productos} con el numero de orden: ${orden}</p>
                                                 <p style="margin:0;font-size:16px;line-height:24px;color:#ff441f">PEDI-VERY</p>
-                                                <ul> 
-                                            </ul>
                                             </td>
                                         </tr>
                                     </table>

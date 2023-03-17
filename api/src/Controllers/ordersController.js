@@ -1,6 +1,10 @@
 const Orders = require("../models/Order");
 const Trade = require("../models/Trades");
 const sendMailOrder = require("../Helpers/emailCreateOrder");
+const Clients = require('../models/Clients')
+const sendMailOrderTrade = require('../Helpers/emailCreateOrderTrade');
+const ObjectId = require('mongoose').ObjectId
+
 
 const getOrdersByClient = async (parameter) => { // FUNCIONANDO
   try {
@@ -52,8 +56,16 @@ const createOrder = async (tradeId, clientId, products) => { // FUNCIONANDO, REV
   try {
     const newOrder = new Orders({ tradeId, clientId, products });
     await newOrder.save();
+
+    //const _idTrade = new ObjectId(tradeId)
+    //const _idClient = new ObjectId(clientId)
+
+    const trade = await Trade.findById(newOrder.tradeId)
+    const client = await Clients.findById(newOrder.clientId)
+    
     if (newOrder) {
-      // await sendMailOrder(newOrder.email, newOrder.products.length, newOrder.total)
+        await sendMailOrder(client.email,client.firstname,client.lastname,newOrder.products,newOrder._id)
+        await sendMailOrderTrade(trade.email,trade.userName,client.firstname,client.lastname,newOrder.products,newOrder._id)
       return `El pedido fue enviado al comercio. Su número de orden es ${newOrder._id}`;
     } else return `Vaya! Ocurrió un problema al registrar su pedido.`;
   } catch (error) {
