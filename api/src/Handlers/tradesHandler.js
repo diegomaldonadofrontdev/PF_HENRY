@@ -9,7 +9,8 @@ const {
 	getSubCategories,
 	getDeliveryZones,
 	searchByZone,
-	postCreateTrades
+	postCreateTrades,
+	confirmEmail
 } = require("../Controllers/tradesController");
 
 // GET ---------> /trades/search
@@ -196,6 +197,16 @@ const updateSubcategory = async (req, res) => {
 	}
 };
 
+const confirmEmailHandler = async( req, res) => { // FUNCIONANDO
+	const token = req.params.token;
+	try {
+		const confirm = await confirmEmail(token)
+		res.status(200).json({confirm})
+	} catch (error) {
+		res.status(400).json({Error: "No existe ningun token"} )
+	}
+}
+
 module.exports = {
 	getTradesHandler,
 	getTradeHandler,
@@ -210,4 +221,5 @@ module.exports = {
 	updateCategory,
 	updateDeliveryZone,
 	updateSubcategory,
+	confirmEmailHandler
 };
