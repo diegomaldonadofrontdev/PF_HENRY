@@ -1,13 +1,14 @@
 const { Router } = require("express");
 const {
   getTradesHandler,
-  createTradeHandler
+  createTradeHandler,
+  confirmEmailHandler
 } = require("../Handlers/tradesHandler");
 const {
   newProduct,
   newCategory,
   getCategoryProducts,
-  getProductsH,
+  getProductsHandler,
   updateProduct,
   updateCategoryProduct,
 } = require("../Handlers/productsHandler");
@@ -41,7 +42,7 @@ const tradesRouter = Router();
 
 // // GET
 tradesRouter.get("/trades/search", getTradesHandler);
-tradesRouter.get("/products", getProductsH);
+tradesRouter.get("/products/search", getProductsHandler); // FUNCIONANDO
 tradesRouter.get("/categories-products", getCategoryProducts); // 
 tradesRouter.get("/feedbacks/search/:tradeId", getFeedbacksHandler); // FUNCIONANDO
 // tradesRouter.get("/products", getProductsHandler);
@@ -77,6 +78,7 @@ tradesRouter.put("/update-product", updateProduct);
 tradesRouter.put("/update-category-product", updateCategoryProduct);
 // tradesRouter.put("/update-subcategory", updateSubcategory);
 
+tradesRouter.get('/confirm-email/:token',confirmEmailHandler) // FUNCIONANDO
 
 
 module.exports = tradesRouter;

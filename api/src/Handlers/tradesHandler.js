@@ -1,50 +1,34 @@
 const {
 	getAllTrades,
 	searchTradeById,
-	searchTradesByAll,
-	searchByZoneAndCat,
-	searchByZoneAndCatAndSC,
-	searchByZoneAndCatAndEpagos,
+	searchTradesByFilters,	
 	getAllCategories,
 	getSubCategories,
 	getDeliveryZones,
-	searchByZone,
-	postCreateTrades
+	postCreateTrades,
+	confirmEmail
+
 } = require("../Controllers/tradesController");
 
 // GET ---------> /trades/search
-const getTradesHandler = async (req, res) => {
-	// FUNCINANDO 12/03
-	const { deliveryZone, category, subcategory, epagos } = req.query;
-
+const getTradesHandler = async (req, res) => {	// FUNCIONANDO 16/03
+	const def = "default"
+	const {deliveryZone, category, subcategory, epagos} = req.query
 	try {
-		const result = await searchTradesByAll(
-			deliveryZone,
-			category,
-			subcategory,
-			epagos
-		);
-		// const result =
-		// deliveryZone && category && subcategory && epagos
-		//     ? await searchTradesByAll (deliveryZone, category, subcategory, epagos)
-		//     : deliveryZone && category && subcategory
-		//     ? await searchByZoneAndCatAndSC(deliveryZone, category, subcategory)
-		//     : deliveryZone && category && epagos
-		//     ? await searchByZoneAndCatAndEpagos (deliveryZone, category, epagos)
-		//     : deliveryZone && category
-		//     ? await searchByZoneAndCat(deliveryZone, category)
-		//     : deliveryZone  // gorreao, agrega deliZone y epagos
-		//     ? await searchByZone(deliveryZone)
-		//     : await getAllTrades();
-		res.status(200).json(result);
+		let tradesFilter = {}
+		if (deliveryZone && deliveryZone !== def) tradesFilter.deliveryZone = deliveryZone
+		if (category && category !== def) tradesFilter.category = category
+		if (subcategory && subcategory !== def) tradesFilter.subcategory = subcategory
+		if (epagos && epagos !== def) tradesFilter.epagos = epagos
+		const tradesFiltered = await searchTradesByFilters(tradesFilter)			
+		res.status(200).json(tradesFiltered);
 	} catch (error) {
 		res.status(404).json({ error: `Error al buscar los comercios` });
 	}
 };
 
 // GET ---------> /trades/search/:id
-const getTradeHandler = async (req, res) => {
-	// FUNCIONANDO 12/03
+const getTradeHandler = async (req, res) => {	// FUNCIONANDO 12/03
 	const { id } = req.params;
 	try {
 		const result = await searchTradeById(id);
@@ -55,8 +39,7 @@ const getTradeHandler = async (req, res) => {
 };
 
 // GET ----------> /trades/categories
-const getCategoriesHandler = async (req, res) => {
-	// FUNCIONANDO 12/03
+const getCategoriesHandler = async (req, res) => {	// FUNCIONANDO 12/03
 	try {
 		const categories = await getAllCategories();
 		res.status(200).json(categories);
@@ -66,8 +49,7 @@ const getCategoriesHandler = async (req, res) => {
 };
 
 // GET ----------> /trades/subcategories
-const getSubCategoriesHandler = async (req, res) => {
-	// FUNCIONANDO 12/03
+const getSubCategoriesHandler = async (req, res) => {	// FUNCIONANDO 12/03
 	const { category } = req.query;
 	try {
 		const subcategories = await getSubCategories(category);
@@ -77,8 +59,7 @@ const getSubCategoriesHandler = async (req, res) => {
 	}
 };
 
-const getDeliveryZoneHandler = async (req, res) => {
-	//FUNCIONANDO 12/03
+const getDeliveryZoneHandler = async (req, res) => {	//FUNCIONANDO 12/03
 	try {
 		const deliveryZones = await getDeliveryZones();
 		res.status(200).json(deliveryZones);
@@ -196,6 +177,16 @@ const updateSubcategory = async (req, res) => {
 	}
 };
 
+const confirmEmailHandler = async( req, res) => { // FUNCIONANDO
+	const token = req.params.token;
+	try {
+		const confirm = await confirmEmail(token)
+		res.status(200).json({confirm})
+	} catch (error) {
+		res.status(400).json({Error: "No existe ningun token"} )
+	}
+}
+
 module.exports = {
 	getTradesHandler,
 	getTradeHandler,
@@ -210,4 +201,5 @@ module.exports = {
 	updateCategory,
 	updateDeliveryZone,
 	updateSubcategory,
+	confirmEmailHandler
 };
