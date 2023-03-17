@@ -1,11 +1,12 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { postReview } from "../../redux/actions/actions";
+import React, { useState, useEffect} from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { postReview, getCLient } from "../../redux/actions/actions";
+import { Link, useParams } from "react-router-dom";
 import swal from "sweetalert"; //npm i sweetalert
 import { FaStar } from "react-icons/fa";
 import styles from "./OpinionForm.module.css";
 import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
-import { Link } from "react-router-dom";
+
 
 const colors = {
 	orange: "#ffef5a",
@@ -14,14 +15,25 @@ const colors = {
 
 export default function OpinionForm() {
 	const dispatch = useDispatch();
+	
 
 	const stars = Array(5).fill(0);
 
 	//Estados
+	const loggedUser = useSelector((state) => state.currentClient)
+	console.log(loggedUser)
+	const userId = localStorage.idUser
+	console.log(userId)
+	
+
 	const [currentValue, setCurrentValue] = useState(0);
 	const [hoverValue, setHoverValue] = useState(undefined);
 	const [opinionInput, setOpinionInput] = useState("");
 	const [nameInput, setNameInput] = useState("");
+
+	useEffect(() =>{
+		dispatch(getCLient())
+	})
 
 	const handleClick = (value) => {
 		setCurrentValue(value);

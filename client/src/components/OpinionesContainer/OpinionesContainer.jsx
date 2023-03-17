@@ -10,9 +10,7 @@ export default function OpinionesContainer() {
 	const dispatch = useDispatch();
 
 	const feedback = useSelector((state) => state.feedback);
-
-	console.log(feedback);
-
+	
 	useEffect(() => {
 		dispatch(getReview());
 	}, [dispatch]);

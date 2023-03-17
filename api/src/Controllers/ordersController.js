@@ -65,6 +65,15 @@ const createOrder = async (tradeId, clientId, products) => { // FUNCIONANDO, REV
   }
 };
 
+// const updateOrderC = async (id, updateOrder) => { // <---------- putOrderHandler
+//   try {
+//     const order = Order.findByIdAndUpdate(id, updateOrder, { new: true })
+//     return order;
+//   } catch (error) {
+//     return false
+//   }
+// }
+
 module.exports = {
   getOrdersByClient,
   getOrderByOrderId,
