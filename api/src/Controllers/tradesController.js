@@ -6,7 +6,10 @@ const Trade = require("../models/Trades");
 // const { trades } = require("../Auxiliares/comerciantes");
 // const { trades } = require("../Auxiliares/comercios");
 const bcrypt = require("bcryptjs");
-
+const sendMail = require('../Helpers/emailTrade')
+const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
+const jwt = require('jsonwebtoken');
+const sendMailWelcome = require('../Helpers/emailRegisterTrades')
 // GET COMERCIOS
 // [Todos los comercios de todas las categorias]
 const getAllTrades = async () => {
@@ -184,20 +187,49 @@ const getDeliveryZones = async () => {	// FUNCIONANDO 12/03
 
 //POST
 const postCreateTrades = async (body) => {
-	const { password } = body;
+	const { password,email } = body;
+
+	
 	try {
+		const token = jwt.sign(
+			{ email: email },
+			TOKEN_KEY,
+			{ expiresIn: "2h" }
+		)
 		newTrade = new Trade(body);
 
 		const salt = bcrypt.genSaltSync(10);
 		newTrade.password = bcrypt.hashSync(password, salt);
 		await newTrade.save();
-		sendMail(newTrade.email,newTrade.commerceName)
+		sendMail(newTrade.email,token)
 
 		return `Èl comercio se registró correctamente`;
 	} catch (error) {
 		return error.message;
 	}
 };
+
+const confirmEmail = async (token ) => { // FUNCIONANDO
+	try {
+		const payload = jwt.verify(token,TOKEN_KEY)
+		
+		let email = payload.email;
+		
+		const trades = await Trade.findOne({email});
+		
+		if (!trades) return "No se encontro el usuario"
+		if (trades.emailVerified) return "El correo ya se encuentra verificado"
+		
+		trades.emailVerified = true;
+		await trades.save()
+		await sendMailWelcome(trades.email,trades.username);
+		return "El correo electronico ha sido verificado"
+  
+	} catch (error) {
+	  return "Token invalido";
+	}
+  }
+  
 
 // const postCreateCategory = async (body) => {
 //   try {
@@ -240,4 +272,5 @@ module.exports = {
 	getAllCategories,
 	getSubCategories,
 	getDeliveryZones,
+	confirmEmail
 };
