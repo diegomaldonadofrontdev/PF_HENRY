@@ -1,5 +1,5 @@
 const {  
-  searchProductById,
+  getProductById,
   postCreateProduct,
   getAllProductsCategories,
   getAllProducts
@@ -8,9 +8,10 @@ const Product = require('../models/Products')
 
 
 // GETS
-const getProductsHandler = async (req,res) => { // FUNCIONANDO  
+const getProductsHandler = async (req,res) => { // FUNCIONANDO
+  const {tradeId} = req.query
   try {    
-    const products = await getAllProducts();
+    const products = await getAllProducts(tradeId);
     res.status(200).json( products)
   } catch (error) {
     res.status(404).json({Error: "Error al obtener los productos"})
@@ -18,10 +19,10 @@ const getProductsHandler = async (req,res) => { // FUNCIONANDO
 }
 
 // GET --------> products/:id
-const getProductHandler = async (req, res) => { // FUNCIONANDO 12/03
+const getProductHandler = async (req, res) => { // FUNCIONANDO
   const { id } = req.params;
   try {
-    const product = await searchProductById(id);
+    const product = await getProductById(id);
     res.status(200).json(product);
   } catch (error) {
     res
@@ -70,7 +71,7 @@ const newCategory = async (req,res) => {
 const getCategoryProducts = async (req,res) => {
   try {
     const categories = await getCategoriesProducts()
-    res.status(200).json( categories)
+    res.status(200).json(categories)
   } catch (error) {
     res.status(404).json({Error: "Error al obtener las categorias"})
   }
