@@ -18,16 +18,12 @@ export default function Cart({ id }) {
 		}
 
 		if (Object.entries(carritos).length !== 0) {
-			window.localStorage.removeItem("carritos");
 			window.localStorage.setItem("carritos", JSON.stringify(carritos));
 		}
 	}, [carritos]);
 
 	useEffect(() => {
 		const carritoStorage = JSON.parse(window.localStorage.getItem("carritos"));
-		if (Object.entries(carritos).length !== 0) {
-			dispatch(setCarrito());
-		}
 		if (id && carritoStorage && carritoStorage[id]) {
 			setCarrito(carritoStorage[id]);
 		} else {
