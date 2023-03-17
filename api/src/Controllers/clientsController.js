@@ -22,7 +22,9 @@ const searchClientExist = async (email) => { // FUNCIONANDO
 const searchClientById = async (id) => { // FUNCIONANDO
   try {
     const client = Clients.findById(id, {password:0})
-    return client
+    if (client !== null) {
+      return client
+    } else return []
   } catch (error) {
     return error.message
   }

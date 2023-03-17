@@ -6,13 +6,20 @@ const Trade = require('../models/Trades')
 const Product = require('../models/Products');
 
 // [{producto buscado}]
-const searchProductById = async (id) => { // FUNCIONANDO 12/03
-  const productById = await Product.findById(id);
-  return productById;
+const getProductById = async (id) => { // FUNCIONANDO 12/03
+  try {
+    const productById = await Product.findById(id);
+    if (productById !== null) {
+      return productById;
+    } else return []
+  } catch (error) {
+    return error.message
+  }
+  
 };
 
 // [Todos los prodcutos del comercio]
-const searchAllProducts = async (tradeId) => { // FUNCIONANDO 12/03
+const getAllProducts = async (tradeId) => { // FUNCIONANDO 12/03
   try {
     const allProductsOfTrade = await Product.find({tradeId: tradeId})
     if (allProductsOfTrade.length) {
@@ -90,8 +97,8 @@ module.exports = {
   searchByNameAndPoductCat,
   searchByProductCat,
   searchByName,
-  searchAllProducts,
-  searchProductById,
+  getAllProducts,
+  getProductById,
   postCreateProduct,
   getAllProductsCategories
 }
