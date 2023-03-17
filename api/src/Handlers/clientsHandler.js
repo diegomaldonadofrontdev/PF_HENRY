@@ -17,8 +17,8 @@ const {
 const getClientHandler = async (req, res) => { // FUNCIONANDO
   const {id} = req.params
   try {
-    const clients = await searchClientById(id);
-    res.status(200).json(clients)
+    const client = await searchClientById(id);
+    res.status(200).json(client)
   } catch (error) {
     res.status(404).json({ Error: "Error al obtener a los clientes" })
   }

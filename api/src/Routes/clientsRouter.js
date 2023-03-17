@@ -15,7 +15,7 @@ const {
 const {
   getOrdersHandler,
   getOrderHandler,
-  createNewOrderHandler
+  postNewOrderHandler
 } = require("../Handlers/orderHandler")
 const {
   getTradesHandler,
@@ -57,7 +57,7 @@ clientsRouter.get('/confirm-email/:token',confirmEmailHandler) // FUNCIONANDO
 // POST
 clientsRouter.post("/feedback", validateAppFeedback, postFeedbackHandler); // FUNCIONANDO 12/03
 clientsRouter.post("/register", validateClient, postClientHandler); // FUNCIONANDO
-clientsRouter.post("/order/newOrder", validateOrder, createNewOrderHandler); // FUNCIONANDO
+clientsRouter.post("/order/newOrder", validateOrder, postNewOrderHandler); // FUNCIONANDO
 clientsRouter.post("/trades/feedback", validateTradeFeedback, postFeedbacksHandler ); // FUNCIONANDO
 // LOGIN AND AUTHENTICATION
 clientsRouter.post("/login", login); // FUNCIONANDO
