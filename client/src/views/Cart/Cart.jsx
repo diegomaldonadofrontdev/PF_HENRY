@@ -23,28 +23,21 @@ export default function Cart({ id }) {
 		}
 	}, [carritos]);
 
-	// useEffect(() => {
-	// 	if (!isLogged) {
-	// 		window.localStorage.setItem('hrefcompra', location)
-	// 		navigate("/login")
-	// 	} else {
-	// 		window.localStorage.removeItem('hrefcompra')
-	// 	}
-	// }, [isLogged, location, navigate])
+	const idUser = window.localStorage.getItem('idUser');
 
 	function handlerPostPayment() {
-		if (!isLogged) {
-			window.localStorage.setItem('hrefcompra', location)
-			navigate("/login")
-		}
-		else dispatch(postPayment(id, "DiegoMaldonado", carrito))
+		dispatch(postPayment(id, "DiegoMaldonado", carrito))
 	}
 
 	useEffect(() => {
-		if (sandbox) {
+		if (!idUser) {
+			window.localStorage.setItem('hrefcompra', location)
+			navigate("/login")
+		}
+		else if (sandbox) {
 			window.location.replace(sandbox);
 		}
-	}, [sandbox]);
+	}, [idUser, location, navigate, sandbox]);
 
 	return (
 		<div className={styles.cart}>

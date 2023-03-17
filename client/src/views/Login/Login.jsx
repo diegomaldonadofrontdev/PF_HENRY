@@ -16,7 +16,10 @@ export default function Login() {
 	const trade = window.localStorage.getItem('hrefcompra');
 
 	useEffect(() => {
-		if((isLogged || isAuthenticated) && loginFromCart) window.location.href = `http://localhost:3000${trade}`
+		if((isLogged || isAuthenticated) && loginFromCart) {
+			window.location.href = `http://localhost:3000${trade}`
+			window.localStorage.getItem('hrefcompra')
+		} 
 		if(isLogged || isAuthenticated) navigate("/");
 		if (isAuthenticated) registerWhitGoogle();
 	}, [isAuthenticated, isLogged, loginFromCart, navigate, registerWhitGoogle, trade]);
