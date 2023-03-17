@@ -1,33 +1,21 @@
-const {
-  searchByNameAndPoductCat,
-  searchByProductCat,
-  searchByName,
-  searchAllProducts,
+const {  
   searchProductById,
   postCreateProduct,
-  getAllProductsCategories
+  getAllProductsCategories,
+  getAllProducts
 } = require("../Controllers/productController");
-
 const Product = require('../models/Products')
 
-// GET ---------> products/search?tradeId=${tradeId}&productCategory=${category}&productName=${inputName}
-const getProductsHandler = async (req, res) => { //FUNCIONANDO 12/03
-  const { tradeId, productCategory, productName } = req.query; 
-  try {
-    if (!tradeId) return `No se recibió el id del comercio`
-    const products =
-    tradeId && productCategory && productName
-    ? await searchByNameAndPoductCat(tradeId, productCategory, productName)
-    : tradeId && productCategory
-    ? await searchByProductCat(tradeId, productCategory)
-    : tradeId && productName
-    ? await searchByName(tradeId, productName)
-    : await searchAllProducts(tradeId)     
-    res.status(200).json(products);
+
+// GETS
+const getProductsHandler = async (req,res) => { // FUNCIONANDO  
+  try {    
+    const products = await getAllProducts();
+    res.status(200).json( products)
   } catch (error) {
-    res.status(404).json({ error: `Error al buscar el/los producto/s` });
+    res.status(404).json({Error: "Error al obtener los productos"})
   }
-};
+}
 
 // GET --------> products/:id
 const getProductHandler = async (req, res) => { // FUNCIONANDO 12/03
@@ -78,14 +66,6 @@ const newCategory = async (req,res) => {
 
 }
 
-const getProductsH = async (req,res) => {
-  try {
-    const products = await getProducts();
-    res.status(200).json( products)
-  } catch (error) {
-    res.status(404).json({Error: "Error al obtener los productos"})
-  }
-}
 
 const getCategoryProducts = async (req,res) => {
   try {
@@ -134,7 +114,7 @@ module.exports = {
   getProductCategoryHandler,
   newProduct,
   newCategory,
-  getProductsH,
+  getProductsHandler,
   getCategoryProducts,
   updateProduct,
   updateCategoryProduct,

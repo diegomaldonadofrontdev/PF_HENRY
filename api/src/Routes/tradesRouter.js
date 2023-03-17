@@ -7,7 +7,7 @@ const {
   newProduct,
   newCategory,
   getCategoryProducts,
-  getProductsH,
+  getProductsHandler,
   updateProduct,
   updateCategoryProduct,
 } = require("../Handlers/productsHandler");
@@ -41,7 +41,7 @@ const tradesRouter = Router();
 
 // // GET
 tradesRouter.get("/trades/search", getTradesHandler);
-tradesRouter.get("/products", getProductsH);
+tradesRouter.get("/products/search", getProductsHandler); // FUNCIONANDO
 tradesRouter.get("/categories-products", getCategoryProducts); // 
 tradesRouter.get("/feedbacks/search/:tradeId", getFeedbacksHandler); // FUNCIONANDO
 // tradesRouter.get("/products", getProductsHandler);

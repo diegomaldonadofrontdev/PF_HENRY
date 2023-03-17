@@ -25,7 +25,7 @@ const getOrderHandler = async (req, res) => { // FUNCIONANDO
   }
 };
 
-const createNewOrderHandler = async (req, res) => { // FUNCIONANDO
+const postNewOrderHandler = async (req, res) => { // FUNCIONANDO
     const {products} = req.body
     const {tradeId, clientId} = req.query
     try {  
@@ -49,5 +49,5 @@ const createNewOrderHandler = async (req, res) => { // FUNCIONANDO
 module.exports = {
   getOrdersHandler,
   getOrderHandler,
-  createNewOrderHandler,  
+  postNewOrderHandler,  
 };
