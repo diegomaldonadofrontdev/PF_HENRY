@@ -3,7 +3,9 @@ const {
   getTradeHandler,
   createTradeHandler,  
   getCategoriesHandler,  
-  confirmEmailHandler
+  confirmEmailHandler,
+  resetPassword,
+  sendMailResetPassword
 } = require("../Handlers/tradesHandler");
 const {
   newProduct,
@@ -12,10 +14,13 @@ const {
   getProductHandler,
   updateProduct,
   updateCategoryProduct,
+
 } = require("../Handlers/productsHandler");
 const {
   validateTrade,
   validateCategoryProduct,
+  validateResetPassword,
+  validatePassword
 } = require("../Middlewares/validate");
 const {
   getFeedbacksHandler
@@ -65,5 +70,6 @@ tradesRouter.put("/update-category-product", updateCategoryProduct);
 
 tradesRouter.get('/confirm-email/:token',confirmEmailHandler) // FUNCIONANDO
 
-
+tradesRouter.post ('/resetPassword',validateResetPassword,sendMailResetPassword);
+tradesRouter.post ('/newPassword/:token',validatePassword,resetPassword);
 module.exports = tradesRouter;

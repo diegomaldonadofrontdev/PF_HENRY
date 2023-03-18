@@ -6,7 +6,8 @@ const sendMailOrder = require('../Helpers/emailCreateOrder')
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken')
 const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
-
+const sendMailReset = require('../Helpers/emailResetPassword');
+const sendMailResetSuccess = require('../Helpers/emailResetPasswordSucces')
 
 // GETS CONTROLLERS
 const searchClientExist = async (email) => { // FUNCIONANDO
@@ -114,6 +115,36 @@ const updateClient = async (clientId, body) => { // FUNCIONANDO
 
 // DELETES CONTROLLERS
 
+const sendMailNewPassword = async (email,token) => {
+  try {
+    await sendMailReset(email,token)
+    return "Se ha enviado el link a tu email"
+  } catch (error) {
+    return "Error al enviar el email"
+  }
+}
+
+const resetPasswordController = async (password, token) => {
+  try {
+    const payload = jwt.verify(token,TOKEN_KEY)
+
+    let email = payload.email;
+
+    const salt = bcrypt.genSaltSync(10);
+    const client = await Clients.findOne({email})
+    
+    let newPassword = bcrypt.hashSync(password, salt)
+
+    client.password = newPassword;
+
+    await client.save();
+    await sendMailResetSuccess(client.email,client.firstname,client.lastname);
+
+    return "Se actulizo la contraseña"
+  } catch (error) {
+    return "No se ha encontrado al cliente"
+  }
+}
 
 module.exports = {
   searchClientById,
@@ -122,5 +153,7 @@ module.exports = {
   validatePasswordClient,
   searchClient, 
   updateClient,
-  confirmEmail
+  confirmEmail,
+  sendMailNewPassword,
+  resetPasswordController
 }

@@ -10,7 +10,9 @@ const {
   updateClientHandler,  
   login,
   registerWhitGoogle,
-  confirmEmailHandler
+  confirmEmailHandler,
+  sendMailResetPassword,
+  resetPassword
 } = require("../Handlers/clientsHandler");
 const {
   getOrdersHandler,
@@ -29,6 +31,8 @@ const {
   validateTradeFeedback,
   validateClient,
   validateOrder,
+  validateResetPassword,
+  validatePassword
 } = require("../Middlewares/validate");
 const {
   postFeedbackHandler,
@@ -62,6 +66,9 @@ clientsRouter.post("/trades/feedback", validateTradeFeedback, postFeedbacksHandl
 // LOGIN AND AUTHENTICATION
 clientsRouter.post("/login", login); // FUNCIONANDO
 clientsRouter.post("/siginWhitGoogle", registerWhitGoogle); // FUNCIONANDO
+clientsRouter.post("/resetPassword",validateResetPassword ,sendMailResetPassword);
+clientsRouter.post("/newPassword/:token",validatePassword,resetPassword)
+
 
 // PUT
 clientsRouter.put("/clients/update/:clientId", updateClientHandler); // FUNCIONANDO
