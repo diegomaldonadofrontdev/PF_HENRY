@@ -1,27 +1,27 @@
 const {  
   getOrderByOrderId,
-  getOrdersByClient,
+  getOrdersForClient,
+  getOrdersForTrade,
   createOrder,
 } = require("../Controllers/ordersController");
 
-const getOrdersHandler = async (req, res) => {
-  // FUNCIONANDO
+const getOrdersHandler = async (req, res) => {  // FUNCIONANDO
   const { clientId, tradeId } = req.query;
-  // let orders = [];
-  let parameter = {}
-  try {
-    if (clientId) parameter.clientId = clientId
-    if (tradeId) parameter.tradeId = tradeId
-    if (parameter === {}) res.status(200).json("Faltan parámetros para la búsqueda"); 
-    const orders = await getOrdersByClient(parameter);
-    res.status(200).json(parameter);    
+  let orders;
+  try {    
+    if (clientId) {
+      orders = await getOrdersForClient(clientId);
+    }
+    if (tradeId) {
+      orders = await getOrdersForTrade(tradeId);
+    }      
+    res.status(200).json(orders);    
   } catch (error) {
-    res.status(404).json({ Error: "Error al obtener las órdenes" });
+    res.status(404).json({ Error: "Error al obtener las órdenes" });    
   }
 };
 
-const getOrderHandler = async (req, res) => {
-  // FUNCIONANDO
+const getOrderHandler = async (req, res) => {  // FUNCIONANDO
   const { orderId } = req.params;
   try {
     const order = await getOrderByOrderId(orderId);
@@ -31,12 +31,12 @@ const getOrderHandler = async (req, res) => {
   }
 };
 
-const postNewOrderHandler = async (req, res) => {
-  // FUNCIONANDO
-  const { products } = req.body;
+const postNewOrderHandler = async (req, res) => {  // FUNCIONANDO
+  const { products, total } = req.body;
   const { tradeId, clientId } = req.query;
+  console.log("TRADEID=", tradeId);
   try {
-    const newOrder = await createOrder(tradeId, clientId, products);
+    const newOrder = await createOrder(tradeId, clientId, products, total);
     res.status(200).json(newOrder);
   } catch (error) {
     res.status(404).json({ Error: "Error al registrar la orden" });
