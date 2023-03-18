@@ -31,9 +31,7 @@ export default function OpinionForm() {
 	const [opinionInput, setOpinionInput] = useState("");
 	const [nameInput, setNameInput] = useState("");
 
-	useEffect(() =>{
-		dispatch(getCLient())
-	})
+	
 
 	const handleClick = (value) => {
 		setCurrentValue(value);

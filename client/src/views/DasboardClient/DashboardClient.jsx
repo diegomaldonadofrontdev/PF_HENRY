@@ -1,10 +1,26 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getCLient } from "../../redux/actions/actions";
 import Header from "../../components/Header/Header";
 import styles from "./DashboardClient.module.css";
 import mila from "./../../images/milanesa.avif";
 import avatar from "./../../images/avatar.avif";
 
 export default function DashboardClient() {
+	const loggedUser = useSelector((state) => state.currentClient)
+	console.log(loggedUser)
+	const dispatch = useDispatch(); 
+
+	const idUser = window.localStorage.getItem('idUser')
+	console.log(idUser)
+
+	useEffect(() => {
+		if(idUser) {
+			dispatch(getCLient(idUser))
+		}
+	},[dispatch, idUser])
+
+
 	return (
 		<div>
 			<Header />
@@ -15,8 +31,8 @@ export default function DashboardClient() {
 							<div className={styles.img__container}>
 								<img src={avatar} alt="" />
 							</div>
-							<h2>Nombre de usuario</h2>
-							<p>nombredeusuario@gmail.com</p>
+							<h2>{loggedUser.firstname}</h2>
+							<p>{loggedUser.email}</p>
 						</div>
 						<a href="#miperfil">Mi perfil</a>
 						<a href="#mispedidos">Mis pedidos</a>
@@ -31,33 +47,30 @@ export default function DashboardClient() {
 								<div className={styles.perfil__container}>
 									<div className={styles.user__informacion}>
 										<div className={styles.perfil__actual}>
-											<div>
-												<h3>Nombre de usuario:</h3>
-												<p>Diego21</p>
-											</div>
+											
 											<div>
 												<h3>Nombre:</h3>
-												<p>Diego</p>
+												<p>{loggedUser.firstname}</p>
 											</div>
 											<div>
 												<h3>Apellido:</h3>
-												<p>Meneses</p>
+												<p>{loggedUser.lastname}</p>
 											</div>
 											<div>
 												<h3>Email:</h3>
-												<p>meneses@mail.com</p>
+												<p>{loggedUser.email}</p>
 											</div>
 											<div>
 												<h3>Ciudad:</h3>
-												<p>Florencia</p>
+												<p>{loggedUser.city}</p>
 											</div>
 											<div>
 												<h3>Telefono:</h3>
-												<p>11-11113322</p>
+												<p>{loggedUser.phone}</p>
 											</div>
 											<div>
 												<h3>Dirección de entrega</h3>
-												<p>Av. SiempreViva 1234</p>
+												<p>{loggedUser.address}</p>
 											</div>
 										</div>
 										<form action="">
@@ -70,21 +83,21 @@ export default function DashboardClient() {
 													</div>
 													<div className={styles.form__sm}>
 														<label htmlFor="">Nombre</label>
-														<input type="text" placeholder="Nombre actual" />
+														<input type="text" placeholder={loggedUser.firstname} />
 													</div>
 													<div className={styles.form__sm}>
 														<label htmlFor="">Apellido</label>
-														<input type="text" placeholder="Apellido Actual" />
+														<input type="text" placeholder={loggedUser.lastname} />
 													</div>
 												</div>
 												<div>
 													<div>
 														<label htmlFor="">email</label>
-														<input type="text" placeholder="email Actual" />
+														<input type="text" placeholder={loggedUser.email} />
 													</div>
 													<div>
 														<label htmlFor="">Telefono</label>
-														<input type="text" placeholder="Telefono actual" />
+														<input type="text" placeholder={loggedUser.phone} />
 													</div>
 													<div>
 														<label htmlFor="">Password</label>
@@ -94,7 +107,7 @@ export default function DashboardClient() {
 												<div>
 													<div>
 														<label htmlFor="">Direccion de Entrega</label>
-														<input type="text" placeholder="Telefono actual" />
+														<input type="text" placeholder={loggedUser.address} />
 													</div>
 													<div>
 														<label htmlFor="">Imagen de perfil</label>
