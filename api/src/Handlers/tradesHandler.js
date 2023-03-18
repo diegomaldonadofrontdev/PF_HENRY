@@ -6,10 +6,13 @@ const {
 	getSubCategories,
 	getDeliveryZones,
 	postCreateTrades,
-	confirmEmail
+	confirmEmail,
+	resetPasswordController,
+	sendMailNewPassword
 
 } = require("../Controllers/tradesController");
-
+const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
+const jwt = require('jsonwebtoken');
 // GET ---------> /trades/search
 const getTradesHandler = async (req, res) => {	// FUNCIONANDO 16/03
 	const def = "default"
@@ -187,6 +190,38 @@ const confirmEmailHandler = async( req, res) => { // FUNCIONANDO
 	}
 }
 
+const sendMailResetPassword = async (req,res ) => {
+	const { email } = req.body;
+	console.log(email);
+	try {
+	  const token = jwt.sign(
+		{ email: email },
+		TOKEN_KEY,
+		{ expiresIn: "2h" }
+	  )
+		console.log(token);
+	  const sendMail = await sendMailNewPassword(email,token);
+	  res.status(200).json(sendMail)
+	} catch (error) {
+	  res.status(404).json({Error: "No se ha enviado el link para resetear la contraseña" })
+	}
+  }
+  
+  const resetPassword = async (req, res) => {
+	const { password } = req.body
+	const { token } = req.params;
+	console.log(token);
+	console.log(password);
+	
+	try {
+	  const reset = await resetPasswordController(password,token)
+	  res.status(200).json(reset)  
+  
+	} catch (error) {
+	  res.status(404).json({Error: "No se pudo cambiar la contraseña"})
+	}
+  }
+
 module.exports = {
 	getTradesHandler,
 	getTradeHandler,
@@ -201,5 +236,7 @@ module.exports = {
 	updateCategory,
 	updateDeliveryZone,
 	updateSubcategory,
-	confirmEmailHandler
+	confirmEmailHandler,
+	sendMailResetPassword,
+	resetPassword
 };

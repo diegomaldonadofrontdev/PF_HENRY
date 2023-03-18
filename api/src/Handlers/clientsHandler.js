@@ -8,7 +8,9 @@ const {
   searchClientExist,
   validatePasswordClient,
   searchClient,
-  confirmEmail 
+  confirmEmail,
+  sendMailNewPassword,
+  resetPasswordController
 } = require("../Controllers/clientsController");
 
 
@@ -111,8 +113,36 @@ const updateClientHandler = async (req, res) => { // FUNCIONANDO
 
 // DELETE HANDLERS
 
+const sendMailResetPassword = async (req,res ) => {
+  const { email } = req.body;
+  try {
+    const token = jwt.sign(
+      { email: email },
+      TOKEN_KEY,
+      { expiresIn: "2h" }
+    )
 
+    const sendMail = await sendMailNewPassword(email,token);
+    res.status(200).json(sendMail)
+  } catch (error) {
+    res.status(404).json({Error: "No se ha enviado el link para resetear la contraseña" })
+  }
+}
 
+const resetPassword = async (req, res) => {
+  const { password } = req.body
+  const { token } = req.params;
+  console.log(token);
+  console.log(password);
+  
+  try {
+    const reset = await resetPasswordController(password,token)
+    res.status(200).json(reset)  
+
+  } catch (error) {
+    res.status(404).json({Error: "No se pudo cambiar la contraseña"})
+  }
+}
 
 
 module.exports = {
@@ -121,5 +151,7 @@ module.exports = {
   updateClientHandler,
   login,
   registerWhitGoogle,
-  confirmEmailHandler
+  confirmEmailHandler,
+  sendMailResetPassword,
+  resetPassword
 };

@@ -108,6 +108,24 @@ const validateTradeFeedback = (req, res, next) => {
     
   }
 
+  const validateResetPassword = (req,res,next) => {
+    const { email } = req.body;
+    
+    if(!email) return res.status(400).json({ Error: "No se ha recibido el correo electronico" });
+
+    next();
+    
+  }
+
+  const validatePassword = (req,res,next) => {
+    const { password } = req.body;
+    
+    if(!password) return res.status(400).json({ Error: "No se ha recibido el correo electronico" });
+
+    next();
+    
+  }
+
   module.exports = {
     validateAppFeedback,
     validateTradeFeedback,
@@ -118,5 +136,7 @@ const validateTradeFeedback = (req, res, next) => {
     validateCategory,
     validateDeliveryZone,
     validateCategoryProduct,
-    validateSubcategory
+    validateSubcategory,
+    validateResetPassword,
+    validatePassword
   }
