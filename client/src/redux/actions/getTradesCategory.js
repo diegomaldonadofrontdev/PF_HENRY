@@ -1,10 +1,10 @@
 import axios from "axios";
 
-export const GET_TRADES_CATEGORIES = "GET_TRADES_CATEGORIES";
+import { GET_TRADES_CATEGORIES } from "../actions/types";
 
 export const getTradesCategories = () => {
-	return async function (dispatch) {
-		const json = await axios.get(`/clients/trades/categories`);
-		return dispatch({ type: GET_TRADES_CATEGORIES, payload: json.data });
-	};
+  return async function (dispatch) {
+    const json = await axios.get(`/clients/trades/categories`);
+    return dispatch({ type: GET_TRADES_CATEGORIES, payload: json.data });
+  };
 };
