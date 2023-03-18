@@ -12,7 +12,7 @@ export default function ResponsePayment() {
 		if (status === "success") {
 			localStorage.removeItem("carritos");
 		}
-	}, []);
+	}, [status]);
 	return (
 		<div className={styles.responsePayment}>
 			<Header />
