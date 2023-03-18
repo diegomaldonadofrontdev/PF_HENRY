@@ -6,6 +6,8 @@ import { useSelector, useDispatch } from "react-redux";
 
 // Actions
 import { postPayment } from "../../redux/actions/index";
+import postOrder from "../../redux/actions/postOrder";
+import createCarritos from "../../redux/actions/createCarritos";
 
 // Components
 import CardCart from "../../components/CardCart/CardCart";
@@ -24,7 +26,9 @@ export default function Cart({ id }) {
 	const carritos = useSelector((state) => state.carritos);
 	const sandbox = useSelector((state) => state.mercadoPago.sandbox);
 	const idClient = useSelector((state) => state.currentClient._id);
-	const [carrito, setCarrito] = useState({ ...carritos });
+	const [carrito, setCarrito] = useState({});
+	// const [idUser, setIdUser] = useState("");
+
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -39,8 +43,23 @@ export default function Cart({ id }) {
 
 	const idUser = window.localStorage.getItem("idUser");
 
+	useEffect(() => {
+		// if (idUser) {
+		// 	setIdUser(idUser);
+		// }
+		const carritoStorage = window.localStorage.getItem("carritos");
+
+		if (carritoStorage) {
+			const carritoParse = JSON.parse(carritoStorage);
+
+			setCarrito({ ...carritoParse[id] });
+			dispatch(createCarritos(carritoParse));
+		}
+	}, [id]);
+
 	function handlerPostPayment() {
-		dispatch(postPayment(id, "DiegoMaldonado", carrito));
+		dispatch(postOrder(id, idClient, carrito));
+		dispatch(postPayment(id, idClient, carrito));
 	}
 
 	useEffect(() => {

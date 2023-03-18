@@ -18,6 +18,7 @@ import {
 	PRODUCT_FILTERS,
 	GET_USER,
 	GET_PRODUCT,
+	ARMADO_CARRITO,
 } from "../actions/types";
 
 const initialState = {
@@ -231,6 +232,7 @@ export default function rootReducer(state = initialState, action) {
 				...state,
 				mercadoPago: action.payload,
 			};
+
 		case CURRENT_CLIENT:
 			return {
 				...state,
@@ -266,7 +268,11 @@ export default function rootReducer(state = initialState, action) {
 				...state,
 				productsFilter: resFastFilter,
 			};
-
+		case ARMADO_CARRITO:
+			return {
+				...state,
+				carritos: action.payload,
+			};
 		default:
 			return state;
 	}
