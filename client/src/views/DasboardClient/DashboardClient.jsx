@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getCLient } from "../../redux/actions/index";
+import getCLient from "../../redux/actions/getClient";
 import Header from "../../components/Header/Header";
 import styles from "./DashboardClient.module.css";
 import mila from "./../../images/milanesa.avif";
