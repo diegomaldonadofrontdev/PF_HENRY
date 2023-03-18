@@ -18,6 +18,7 @@ const getOrdersByClient = async (parameter) => { // FUNCIONANDO
           createdAt: orders[i].createdAt,
           commerceName: trade.commerceName,
           status: orders[i].status,
+          total: orders[i].total
         });
       }      
       return ordersCompilated;
@@ -27,7 +28,9 @@ const getOrdersByClient = async (parameter) => { // FUNCIONANDO
           ordersCompilated.push({
             orderId: orders[i]._id,
             createdAt: orders[i].createdAt,
-            client: orders[i].firstName + " " + orders[i].lastName
+            client: client[i].firstName + " " + client[i].lastName,
+            status: orders[i].status,
+            total: orders[i].total
           })
         }
     }
