@@ -62,11 +62,15 @@ export default function useUser() {
 		setToken(null);
 	}, []);
 
-	return {
-		isLogged: Boolean(token),
-		login,
-		logout1,
-		sigin,
-		registerWhitGoogle,
-	};
+    const hrefcompra = window.localStorage.getItem('hrefcompra')
+
+    return {
+        isLogged: Boolean(token),
+        login,
+        logout1,
+        sigin,
+        registerWhitGoogle,
+        loginFromCart: Boolean(hrefcompra)
+    }
+
 }

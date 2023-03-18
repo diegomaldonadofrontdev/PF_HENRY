@@ -13,8 +13,14 @@ import ButtonCTA from "../../components/ButtonCTA/ButtonCTA";
 
 // Styles
 import styles from "./Cart.module.css";
+import useUser from "../../Hooks/useUser";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Cart({ id }) {
+	const { isLogged, loginFromCart } = useUser();
+	const navigate = useNavigate();
+	const location = useLocation().pathname;
+
 	const carritos = useSelector((state) => state.carritos);
 	const sandbox = useSelector((state) => state.mercadoPago.sandbox);
 	const idClient = useSelector((state) => state.currentClient._id);
@@ -31,24 +37,20 @@ export default function Cart({ id }) {
 		}
 	}, [carritos]);
 
-	useEffect(() => {
-		const carritoStorage = JSON.parse(window.localStorage.getItem("carritos"));
-		if (id && carritoStorage && carritoStorage[id]) {
-			setCarrito(carritoStorage[id]);
-		} else {
-			setCarrito({ ...carritos });
-		}
-	}, []);
+	const idUser = window.localStorage.getItem("idUser");
 
 	function handlerPostPayment() {
-		dispatch(postPayment(id, idClient, carrito));
+		dispatch(postPayment(id, "DiegoMaldonado", carrito));
 	}
 
 	useEffect(() => {
-		if (sandbox) {
+		if (!idUser) {
+			window.localStorage.setItem("hrefcompra", location);
+			navigate("/login");
+		} else if (sandbox) {
 			window.location.replace(sandbox);
 		}
-	}, [sandbox]);
+	}, [idUser, location, navigate, sandbox]);
 
 	return (
 		<div className={styles.cart}>
