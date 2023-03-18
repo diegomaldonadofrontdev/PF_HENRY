@@ -6,14 +6,11 @@ const sendMailOrderTrade = require('../Helpers/emailCreateOrderTrade');
 const ObjectId = require('mongoose').ObjectId
 
 
-const getOrdersByClient = async (clientId) => { // FUNCIONANDO
+const getOrdersByClient = async (parameter) => { // FUNCIONANDO
   try {
-    const orders = await Orders.find(
-      { clientId: clientId },      
-    );
-    if (orders.length) {
-      console.log(orders);
-      const ordersCompilated = [];
+    const orders = await Orders.find( parameter );
+    const ordersCompilated = [];
+    if (orders.length && parameter.clientId) {
       for (let i = 0; i < orders.length; i++) {
         const trade = await Trade.findById(orders[i].tradeId, "commerceName");
         ordersCompilated.push({
@@ -24,8 +21,7 @@ const getOrdersByClient = async (clientId) => { // FUNCIONANDO
         });
       }      
       return ordersCompilated;
-    } else
-      return `Vaya! Parece que no tenemos pedidos registrados con su usuario!`;
+    } else return []
   } catch (error) {
     return error.message;
   }

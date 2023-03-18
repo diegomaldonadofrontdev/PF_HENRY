@@ -1,55 +1,40 @@
 const { Router } = require("express");
 const {
-  getTradesHandler,
-  createTradeHandler,
+  getTradeHandler,
+  createTradeHandler,  
+  getCategoriesHandler,  
   confirmEmailHandler
 } = require("../Handlers/tradesHandler");
 const {
   newProduct,
   newCategory,
-  getCategoryProducts,
   getProductsHandler,
+  getProductHandler,
   updateProduct,
   updateCategoryProduct,
 } = require("../Handlers/productsHandler");
 const {
   validateTrade,
-  validateProduct,
-  validateCategory,
-  validateDeliveryZone,
   validateCategoryProduct,
-  validateSubcategory,
-
 } = require("../Middlewares/validate");
-const {getFeedbacksHandler} = require ("../Handlers/tradeFeedbacksHandler")
-// const {
-//   getProductsHandler,
-//   getProductHandler,
-//   createProductHandler,
-//   deleteProductHandler,
-//   putProductHandler,
-// } = require("../handlers/productsHandler");
-// const {
-//   getUsersHandler,
-//   getUserHandler,
-//   createUserHandler,
-//   deleteUserHandler,
-//   putUserHandler,
-// } = require("../Handlers/usersHandlers");
-// const { validateProducts, validateUsers, validateTrades } = require("../middlewares/validate");
+const {
+  getFeedbacksHandler
+} = require ("../Handlers/tradeFeedbacksHandler")
+const {
+  getClientHandler
+} = require ("../Handlers/clientsHandler")
+const {getOrdersHandler} = require ("../Handlers/orderHandler")
 
 const tradesRouter = Router();
 
 // // GET
-tradesRouter.get("/trades/search", getTradesHandler);
+tradesRouter.get("/trades/search/:id", getTradeHandler); // FUNCIONANDO
 tradesRouter.get("/products/search", getProductsHandler); // FUNCIONANDO
-tradesRouter.get("/categories-products", getCategoryProducts); // 
+tradesRouter.get("/products/search/:id", getProductHandler); // FUNCIONANDO
+tradesRouter.get("/trades/categories", getCategoriesHandler); // FUNCIONANDO
 tradesRouter.get("/feedbacks/search/:tradeId", getFeedbacksHandler); // FUNCIONANDO
-// tradesRouter.get("/products", getProductsHandler);
-// tradesRouter.get("/products/:id", getProductHandler);
-// tradesRouter.get("/users", getUsersHandler);
-// tradesRouter.get("/users/:id", getUserHandler);
-// tradesRouter.get("/orders", getOrdersHandler);
+tradesRouter.get("/clients/search/:id", getClientHandler);  // FUNCIONANDO
+tradesRouter.get("/orders/search", getOrdersHandler);
 // tradesRouter.get("/orders/:id", getOrderHandler);
 // tradesRouter.get("/membership", getMembershipHandler);
 
