@@ -1,19 +1,20 @@
 const {  
   getOrderByOrderId,
+  getOrdersByClient,
   createOrder,
 } = require("../Controllers/ordersController");
 
 const getOrdersHandler = async (req, res) => {
   // FUNCIONANDO
-  // const { clientId, tradeId } = req.query;
+  const { clientId, tradeId } = req.query;
   // let orders = [];
-  // let parameter = {}
+  let parameter = {}
   try {
-    // if (clientId) parameter.clientId = clientId
-    // if (tradeId) parameter.tradeId = tradeId
-    // if (parameter === {}) res.status(200).json("Faltan parámetros para la búsqueda"); 
-    // orders = await getOrdersByClient(parameter);
-    res.status(200).json(`Funcion no lista`);    
+    if (clientId) parameter.clientId = clientId
+    if (tradeId) parameter.tradeId = tradeId
+    if (parameter === {}) res.status(200).json("Faltan parámetros para la búsqueda"); 
+    const orders = await getOrdersByClient(parameter);
+    res.status(200).json(parameter);    
   } catch (error) {
     res.status(404).json({ Error: "Error al obtener las órdenes" });
   }
