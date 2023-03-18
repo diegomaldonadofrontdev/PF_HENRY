@@ -257,10 +257,10 @@ export default function rootReducer(state = initialState, action) {
 			};
 
 		case GET_PRODUCT:
-			console.log("En el reducer " + action.payload);
-			const resFastFilter = state.products.filter(
-				(x) => x.name === action.payload
+			const resFastFilter = state.products.filter((x) =>
+				x.name.includes(action.payload)
 			);
+
 			console.log(resFastFilter);
 			return {
 				...state,
