@@ -9,6 +9,7 @@ const ObjectId = require("mongoose").ObjectId;
 const getOrdersForClient = async (clientId) => { // FUNCIONANDO
   try {
     const orders = await Order.find({clientId: clientId});    
+    console.log(orders)
     const ordersCompilated = [];
     if (orders.length) {
       for (let i = 0; i < orders.length; i++) {

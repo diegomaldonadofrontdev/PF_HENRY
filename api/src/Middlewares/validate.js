@@ -33,7 +33,7 @@ const validateTradeFeedback = (req, res, next) => {
 };
 
 const validateOrder = (req, res, next) => {
-	const products = req.body;
+	const { products, total } = req.body;
 	const { tradeId, clientId } = req.query;
 	if (!tradeId)
 		return res
@@ -43,32 +43,43 @@ const validateOrder = (req, res, next) => {
 		return res
 			.status(400)
 			.json({ Error: "No se ha recibido el id del cliente" });
-	if (!products) return res.status(400).json({ Error: "La lista de productos esta vacía" });
+	if (!products)
+		return res.status(400).json({ Error: "La lista de productos esta vacía" });
+	if (!total)
+		return res
+			.status(400)
+			.json({ Error: "No se recibió el monto total de la compra" });
 	next();
 };
 
-  const validateOrder = (req, res, next) => {
-    const { products, total } = req.body;
-    const {tradeId, clientId} = req.query
-    if (!tradeId) return res.status(400).json({ Error: "No se ha recibido el id del comercio" });
-    if (!clientId) return res.status(400).json({ Error: "No se ha recibido el id del cliente" });
-    if (!products) return res.status(400).json({ Error: "La lista de productos esta vacía" });
-    if (!total) return res.status(400).json({ Error: "No se recibió el monto total de la compra" });
-    next();
-  };
-
-  const validateClient = (req, res, next) => {
-    const {firstname ,lastname, email, password, country, city, address, phone} = req.body;
-    if(!firstname) return res.status(400).json({ Error: "No se ha recibido el nombre" });
-    if(!lastname) return res.status(400).json({ Error: "No se ha recibido el apellido" });   
-    if(!email) return res.status(400).json({ Error: "No se ha recibido el email" });
-    if(!password) return res.status(400).json({ Error: "No se ha recibido la contraseña" });
-    if(!country) return res.status(400).json({ Error: "No se ha recibido el pais" });
-    if(!city) return res.status(400).json({ Error: "No se ha recibido la ciudad" });
-    if(!address) return res.status(400).json({ Error: "No se ha recibido la direccion" });
-    if(!phone) return res.status(400).json({ Error: "No se ha recibido el telefono" });    
-    next();
-  }
+const validateClient = (req, res, next) => {
+	const {
+		firstname,
+		lastname,
+		email,
+		password,
+		country,
+		city,
+		address,
+		phone,
+	} = req.body;
+	if (!firstname)
+		return res.status(400).json({ Error: "No se ha recibido el nombre" });
+	if (!lastname)
+		return res.status(400).json({ Error: "No se ha recibido el apellido" });
+	if (!email)
+		return res.status(400).json({ Error: "No se ha recibido el email" });
+	if (!password)
+		return res.status(400).json({ Error: "No se ha recibido la contraseña" });
+	if (!country)
+		return res.status(400).json({ Error: "No se ha recibido el pais" });
+	if (!city)
+		return res.status(400).json({ Error: "No se ha recibido la ciudad" });
+	if (!address)
+		return res.status(400).json({ Error: "No se ha recibido la direccion" });
+	if (!phone)
+		return res.status(400).json({ Error: "No se ha recibido el telefono" });
+	next();
 
 	if (!commerceName)
 		return res
