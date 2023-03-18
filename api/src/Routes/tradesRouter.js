@@ -43,7 +43,7 @@ tradesRouter.get("/orders/search", getOrdersHandler);
 // tradesRouter.get("/orders/:id", getOrderHandler);
 // tradesRouter.get("/membership", getMembershipHandler);
 
-// // POST
+// // POST 
 tradesRouter.post("/newTrade", validateTrade, createTradeHandler);
 // tradesRouter.post("/users", validateUsers, createUserHandler);
 // tradesRouter.post("/products", validateProducts, createProductHandler);
