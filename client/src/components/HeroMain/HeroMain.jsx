@@ -1,18 +1,30 @@
+// React and Hooks
 import React from "react";
+
+// React Redux
 import { useSelector } from "react-redux";
-import styles from "./HeroMain.module.css";
+
+// React Router
 import { Link } from "react-router-dom";
+
+// Components
 import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
 
-export default function HeroMain() {
+// Styles
+import styles from "./HeroMain.module.css";
 
-	const currentClient = useSelector(state => state.currentClient);
+export default function HeroMain() {
+	const currentClient = useSelector((state) => state.currentClient);
 
 	return (
 		<div className={styles.hero__main}>
 			<div className={styles.container}>
 				<div className={styles.searchContainer}>
-					<h1>{currentClient.firstname ? `Bienvenido ${currentClient.firstname} ${currentClient.lastname}`: null}</h1>
+					<h1>
+						{currentClient.firstname
+							? `Bienvenido ${currentClient.firstname} ${currentClient.lastname}`
+							: null}
+					</h1>
 					<h2>Pedí lo que quieras!</h2>
 					<p>Restaurantes, mercados, farmacias, kioscos y mucho más</p>
 					<div className={styles.buscador}>

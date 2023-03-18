@@ -11,7 +11,6 @@ export default function OpinionCard(props) {
 				<h4>{props.name}</h4>
 				<p>{props.opinion}</p>
 				<div className={styles.rating}>
-					<p>Rating:</p>
 					<p>{props.rating}</p>
 					<i class="bx bxs-star"></i>
 				</div>

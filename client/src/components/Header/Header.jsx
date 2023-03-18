@@ -1,17 +1,28 @@
-import React from "react";
-import Navbar from "../NavBar/Navbar";
-import styles from "./Header.module.css";
-import { Link, useLocation} from "react-router-dom";
+// React and Hooks
+import React, { useState } from "react";
 import useUser from "../../Hooks/useUser";
-import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
+
+// React Router
+import { Link, useLocation } from "react-router-dom";
+
+// Auth0
 import { useAuth0 } from "@auth0/auth0-react";
+
+// Components
+import Navbar from "../NavBar/Navbar";
+import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
+
+// Styles
+import styles from "./Header.module.css";
 
 export default function Header() {
 	const { logout1 } = useUser();
 	const { isAuthenticated, logout } = useAuth0();
-	const location = useLocation();;
+	const location = useLocation();
 
-	const token = window.localStorage.getItem('token');
+	const [isOpen, setIsOpen] = useState(false);
+
+	const token = window.localStorage.getItem("token");
 
 	const handleClick = (e) => {
 		e.preventDefault();
@@ -28,7 +39,7 @@ export default function Header() {
 						<h1>PEDI-VERY</h1>
 					</div>
 				</Link>
-				<div>
+				<div className={`${styles.nav} ${isOpen && styles.open}`}>
 					{location.pathname !== "/login" &&
 						location.pathname !== "/registration" &&
 						location.pathname !== "/registration_product" &&
@@ -53,6 +64,9 @@ export default function Header() {
 								<ButtonPrimary texto="Register" />
 							</Link>
 						)}
+				</div>
+				<div className={styles.icon__menu} onClick={() => setIsOpen(!isOpen)}>
+					<i class="bx bx-menu"></i>
 				</div>
 			</div>
 		</header>

@@ -1,25 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getCLient } from "../../redux/actions/actions";
+import { getCLient } from "../../redux/actions/index";
 import Header from "../../components/Header/Header";
 import styles from "./DashboardClient.module.css";
 import mila from "./../../images/milanesa.avif";
 import avatar from "./../../images/avatar.avif";
 
 export default function DashboardClient() {
-	const loggedUser = useSelector((state) => state.currentClient)
-	console.log(loggedUser)
-	const dispatch = useDispatch(); 
+	const loggedUser = useSelector((state) => state.currentClient);
+	console.log(loggedUser);
+	const dispatch = useDispatch();
 
-	const idUser = window.localStorage.getItem('idUser')
-	console.log(idUser)
+	const idUser = window.localStorage.getItem("idUser");
+	console.log(idUser);
 
 	useEffect(() => {
-		if(idUser) {
-			dispatch(getCLient(idUser))
+		if (idUser) {
+			dispatch(getCLient(idUser));
 		}
-	},[dispatch, idUser])
-
+	}, [dispatch, idUser]);
 
 	return (
 		<div>
@@ -47,7 +46,6 @@ export default function DashboardClient() {
 								<div className={styles.perfil__container}>
 									<div className={styles.user__informacion}>
 										<div className={styles.perfil__actual}>
-											
 											<div>
 												<h3>Nombre:</h3>
 												<p>{loggedUser.firstname}</p>
@@ -83,11 +81,17 @@ export default function DashboardClient() {
 													</div>
 													<div className={styles.form__sm}>
 														<label htmlFor="">Nombre</label>
-														<input type="text" placeholder={loggedUser.firstname} />
+														<input
+															type="text"
+															placeholder={loggedUser.firstname}
+														/>
 													</div>
 													<div className={styles.form__sm}>
 														<label htmlFor="">Apellido</label>
-														<input type="text" placeholder={loggedUser.lastname} />
+														<input
+															type="text"
+															placeholder={loggedUser.lastname}
+														/>
 													</div>
 												</div>
 												<div>
@@ -107,7 +111,10 @@ export default function DashboardClient() {
 												<div>
 													<div>
 														<label htmlFor="">Direccion de Entrega</label>
-														<input type="text" placeholder={loggedUser.address} />
+														<input
+															type="text"
+															placeholder={loggedUser.address}
+														/>
 													</div>
 													<div>
 														<label htmlFor="">Imagen de perfil</label>
