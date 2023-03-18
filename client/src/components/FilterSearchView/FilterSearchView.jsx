@@ -1,16 +1,22 @@
+// React and Hooks
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import styles from "./Filter__SearchView.module.css";
 
+// React Redux
+import { useDispatch, useSelector } from "react-redux";
+
+// Actions
 import {
 	getSubCategories,
-	getZonas,
+	getDeliveryZones,
 	getTradesCategories,
-	allFilters,
+	handlerTradesFilter,
 	getTradesFilter,
-} from "../../Redux/Actions/actions";
+} from "../../redux/actions/index";
 
-export default function Filter__SearchView() {
+// Styles
+import styles from "./FilterSearchView.module.css";
+
+export default function FilterSearchView() {
 	const dispatch = useDispatch();
 	const { tradesCategories, tradesSubCategories, zones, filters } = useSelector(
 		(state) => state
@@ -19,12 +25,12 @@ export default function Filter__SearchView() {
 	const [filtersActive, setFiltersActive] = useState(filters);
 
 	useEffect(() => {
-		dispatch(getZonas());
+		dispatch(getDeliveryZones());
 		dispatch(getTradesCategories());
-	}, []);
+	}, [dispatch]);
 
 	useEffect(() => {
-		dispatch(allFilters(filtersActive));
+		dispatch(handlerTradesFilter(filtersActive));
 		dispatch(
 			getTradesFilter(
 				filtersActive.city,
@@ -79,7 +85,7 @@ export default function Filter__SearchView() {
 						))}
 					</select>
 				</div>
-				{filters.category !== "default" ? (
+				{tradesSubCategories.length > 0 ? (
 					<div>
 						<p>Agregar Subcategoria:</p>
 						<select

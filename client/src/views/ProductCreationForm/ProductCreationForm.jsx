@@ -1,17 +1,26 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
-import { getCategories, postProduct } from "../../Redux/Actions/actions";
-import styles from "./ProductCreationForm.module.css";
-import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
-import Header from "../../components/Header/Header";
+// React and Hooks
+import React, { useState } from "react";
+
+// React Redux
+import { useDispatch } from "react-redux";
+
+// Actions
+import { postProduct } from "../../redux/actions/index";
+
+// Libraries
 import swal from "sweetalert";
+
+// Components
+import Header from "../../components/Header/Header";
+import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
+
+// Styles
+import styles from "./ProductCreationForm.module.css";
 
 export default function ProductCreation() {
 	const dispatch = useDispatch();
 	// const categories = useSelector((state) => state.categories)
-	const tradeId = "640db76e947f971bf4531e36"
-	const [productImg, setProductImg] = useState("");
+	const tradeId = "640db76e947f971bf4531e36";
 	// const [currentErrorsCategory, setCurrentErrorsCategory] = useState({})
 	//guarda los datos de los inputs
 	const [currentInput, setCurrentInput] = useState({

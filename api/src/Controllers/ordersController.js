@@ -1,15 +1,16 @@
 const Orders = require("../models/Order");
 const Trade = require("../models/Trades");
 const sendMailOrder = require("../Helpers/emailCreateOrder");
+const Clients = require('../models/Clients')
+const sendMailOrderTrade = require('../Helpers/emailCreateOrderTrade');
+const ObjectId = require('mongoose').ObjectId
 
-const getOrdersByClient = async (clientId) => { // FUNCIONANDO
+
+const getOrdersByClient = async (parameter) => { // FUNCIONANDO
   try {
-    const orders = await Orders.find(
-      { clientId: clientId },      
-    );
-    if (orders.length) {
-      console.log(orders);
-      const ordersCompilated = [];
+    const orders = await Orders.find( parameter );
+    const ordersCompilated = [];
+    if (orders.length && parameter.clientId) {
       for (let i = 0; i < orders.length; i++) {
         const trade = await Trade.findById(orders[i].tradeId, "commerceName");
         ordersCompilated.push({
@@ -20,8 +21,16 @@ const getOrdersByClient = async (clientId) => { // FUNCIONANDO
         });
       }      
       return ordersCompilated;
-    } else
-      return `Vaya! Parece que no tenemos pedidos registrados con su usuario!`;
+    } else if (orders.length) {
+        for (let j = 0; j < orders.length; j++) {
+          const client = Clients.find(orders[i].clientId, "firstName lastName")
+          ordersCompilated.push({
+            orderId: orders[i]._id,
+            createdAt: orders[i].createdAt,
+            client: orders[i].firstName + " " + orders[i].lastName
+          })
+        }
+    }
   } catch (error) {
     return error.message;
   }
@@ -56,8 +65,16 @@ const createOrder = async (tradeId, clientId, products) => { // FUNCIONANDO, REV
   try {
     const newOrder = new Orders({ tradeId, clientId, products });
     await newOrder.save();
+
+    //const _idTrade = new ObjectId(tradeId)
+    //const _idClient = new ObjectId(clientId)
+
+    const trade = await Trade.findById(newOrder.tradeId)
+    const client = await Clients.findById(newOrder.clientId)
+    
     if (newOrder) {
-      // await sendMailOrder(newOrder.email, newOrder.products.length, newOrder.total)
+        await sendMailOrder(client.email,client.firstname,client.lastname,newOrder.products,newOrder._id)
+        await sendMailOrderTrade(trade.email,trade.userName,client.firstname,client.lastname,newOrder.products,newOrder._id)
       return `El pedido fue enviado al comercio. Su número de orden es ${newOrder._id}`;
     } else return `Vaya! Ocurrió un problema al registrar su pedido.`;
   } catch (error) {

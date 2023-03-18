@@ -1,32 +1,41 @@
+// React and Hooks
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import Features from "../../components/Features/Features";
-import Footer from "../../components/Footer/Footer";
+import { useDispatch, useSelector } from "react-redux";
+
+// Actions
+import { getTrades, getClient } from "../../redux/actions/index";
+
+// Components
 import Header from "../../components/Header/Header";
 import HeroMain from "../../components/HeroMain/HeroMain";
-import OpinionesContainer from "../../components/OpinionesContainer/OpinionesContainer";
 import SliderSmall from "../../components/SliderSmall/SliderSmall";
-import { getCLient } from "../../redux/actions/actions";
+import Features from "../../components/Features/Features";
+import FeedbackContainer from "../../components/FeedbackContainer/FeedbackContainer";
+import Footer from "../../components/Footer/Footer";
 
 export default function Home() {
+	const dispatch = useDispatch();
 
-	const dispatch = useDispatch(); 
-
-	const idUser = window.localStorage.getItem('idUser')
+	const idUser = window.localStorage.getItem("idUser");
+	const allCommerces = useSelector((state) => state.allCommerces);
 
 	useEffect(() => {
-		if(idUser) {
-			dispatch(getCLient(idUser))
+		if (idUser) {
+			dispatch(getClient(idUser));
 		}
-	},[dispatch, idUser])
+	}, [dispatch, idUser]);
+
+	useEffect(() => {
+		dispatch(getTrades());
+	}, [dispatch]);
 
 	return (
 		<div>
 			<Header />
 			<HeroMain />
-			<SliderSmall />
+			<SliderSmall commerces={allCommerces} />
 			<Features />
-			<OpinionesContainer />
+			<FeedbackContainer />
 			<Footer />
 		</div>
 	);

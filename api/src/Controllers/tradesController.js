@@ -6,7 +6,12 @@ const Trade = require("../models/Trades");
 // const { trades } = require("../Auxiliares/comerciantes");
 // const { trades } = require("../Auxiliares/comercios");
 const bcrypt = require("bcryptjs");
-
+const sendMail = require('../Helpers/emailTrade')
+const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
+const jwt = require('jsonwebtoken');
+const sendMailWelcome = require('../Helpers/emailRegisterTrades')
+const sendMailResetSuccess = require('../Helpers/emailResetPasswordSuccesTrade')
+const sendMailReset = require('../Helpers/emailResetPassword')
 // GET COMERCIOS
 // [Todos los comercios de todas las categorias]
 const getAllTrades = async () => {
@@ -63,50 +68,12 @@ const searchByZoneAndCatAndEpagos = async (deliveryZone, category, epagos) => {
 	}
 };
 
-// [Todos los comercios con reparto en la zona, de la categoria y subcategoria especificada]
-const searchByZoneAndCatAndSC = async (deliveryZone, category, subcategory) => {
-	// OK FUNCIONANDO 12/03
-	try {
-		const tradesFound = await Trade.find({
-			deliveryZone: deliveryZone,
-			category: category,
-			subcategory: subcategory,
-		});
-		if (tradesFound.length) {
-			return tradesFound;
-		} else return `Vaya! No encontramos comercios para esa busqueda!`;
-	} catch (error) {
-		return error.message;
-	}
-};
 
 // [Todos los comercios con todos los filtros activados]
-const searchTradesByAll = async (
-	deliveryZone,
-	category,
-	subcategory,
-	epagos
-) => {
-	// OK FUNCIONANDO 12/03
-
-	try {
-		let obj = {};
-		if (deliveryZone && deliveryZone !== "default") {
-			obj.deliveryZone = deliveryZone;
-		}
-		if (category && category !== "default") {
-			obj.category = category;
-		}
-		if (subcategory && subcategory !== "default") {
-			obj.subcategory = subcategory;
-		}
-		if (epagos && epagos !== "default") {
-			obj.epagos = epagos;
-		}
-		const tradesFound = await Trade.find(obj);
-
+const searchTradesByFilters = async (tradesFilter) => {	// OK FUNCIONANDO 16/03
+	try {		
+		const tradesFound = await Trade.find(tradesFilter);
 		if (tradesFound.length) {
-			console.log(tradesFound);
 			return tradesFound;
 		} else return [];
 	} catch (error) {
@@ -115,8 +82,7 @@ const searchTradesByAll = async (
 };
 
 // [El comercio que corresponde con el ID]
-const searchTradeById = async (id) => {
-	// FUNCIONANDO 12/03
+const searchTradeById = async (id) => {	// FUNCIONANDO 12/03
 	try {
 		const tradeById = await Trade.findById(id);
 		if (tradeById) {
@@ -128,8 +94,7 @@ const searchTradeById = async (id) => {
 };
 
 // [Lista de categorias sin repetir para poder mapear en un select en el front]
-const getAllCategories = async () => {
-	// FUNCIONANDO 12/03
+const getAllCategories = async () => {	// FUNCIONANDO 12/03
 	try {
 		const allTrades = await Trade.find({}, "category");
 		if (allTrades.length) {
@@ -145,8 +110,7 @@ const getAllCategories = async () => {
 };
 
 // [Lista de subcategorias sin repetir que corresponden a la categoria seleccionada]
-const getSubCategories = async (category) => {
-	// FUNCIONANDO 12/03
+const getSubCategories = async (category) => {	// FUNCIONANDO 12/03
 	try {
 		const allTrades = await Trade.find({ category: category }, "subcategory");
 		if (allTrades.length) {
@@ -162,8 +126,7 @@ const getSubCategories = async (category) => {
 };
 
 // [Lista de zonas de delivery disponibles] [{deliveryZone: []}, {deliveryZone: []}]
-const getDeliveryZones = async () => {
-	// FUNCIONANDO 12/03
+const getDeliveryZones = async () => {	// FUNCIONANDO 12/03
 	try {
 		const allTrades = await Trade.find({}, "deliveryZone");
 		if (allTrades.length) {
@@ -180,29 +143,8 @@ const getDeliveryZones = async () => {
 	}
 };
 
-//GET
-// .metodo({filtro}, {lo que quiero mostrar(actualizar, eliminar, postear)})
-// .update({filtro}, {$set:{propiedad a agregar: [{}]}})
-// .update({_id:req.params},{$push:{product}} ) <---- agregar product al comercio
-// .find({"propenlaquequierobuscar":"valor a buscar"}) <--- para filtrar por categoria por ejemplo
-// .find({array:"valor a buscar"}) <--- para filtrar por deliveryzone por ejemplo
-// const getDeliveryZone = async () => {
-//   try {
-//     const deliveryZones = await DeliveryZone.find();
-//     return deliveryZones;
-//   } catch (error) {
-//     return false;
-//   }
-// };
 
-// const getSubCategoriesController = async () => {
-//   try {
-//     const subcategories = await Subcategory.find();
-//     return subcategories;
-//   } catch (error) {
-//     return;
-//   }
-// };
+
 
 // const updateTradeC = async (id, trade) => {
 //   try {
@@ -244,136 +186,83 @@ const getDeliveryZones = async () => {
 //   }
 // };
 
-// // CATEGORIAS -> [strings de categorias sin repetir]
-// const getAllCategories = async () => {  // Fusionada Emi
-//   const categories = await Trade.find();
-//   if (categories.length) {
-//     const categoriesRepeats = [];
-//     categories.map((t) => categoriesRepeats.push(t.category));
-//     return [...new Set(categoriesRepeats)];
-//   }
-//   return `No se pudo recuperar la lista de categorias.`;
-// };
 
-// // SUBCATEGORIAS -> [strings de subcategorias sin repetir de la categoria buscada]
-// const getSubCategories = async (category) => {  // Readecuada
-//   const allTradesByCategory = await searchTradesByCategory(category);
-//   const allSubcategoriesRepeats = [];
-//   if (allTradesByCategory) {
-//     allTradesByCategory.map((t) => allSubcategoriesRepeats.push(t.subcategory));
-//     return [...new Set(allSubcategoriesRepeats)];
-//   }
-//   return `No se pudo recuperar la lista de subcategorias.`;
-// };
-
-// // [comercios de la categoria buscada]
-// const searchTradesByCategory = async (category) => {  // Readecuada Emi
-//   const allTradesByCategory = await Trade.find({ category: category });
-//   if (allTradesByCategory.length) return allTradesByCategory;
-//   return `No se encontraron comercios para la categoría ${category}`;
-// };
-
-// // COMERCIOS -> [comercios con reparto en esa ciudad]
-// const searchTradesByZone = async (zone) => {  // Readecuada Emi
-//   const alltrades = getAllTrades();
-//   if (alltrades.length) {
-//     const tradesByZone = alltrades.filter((t) => t.deliveryZone.includes(zone));
-//     if (tradesByZone.length) {
-//       return tradesByZone;
-//     }
-//     return `No se pudieron filtrar los comercios con delivery en ${zone}`;
-//   }
-//   return `No se pudieron recuperar los comercio de la base de datos`;
-// };
-
-// // COMERCIOS -> [comercios con reparto en esa ciudad y categoria seleccionada]
-// const searchTradesByZoneAndCat = async (zone, category) => {            // Readecuada Emi
-//   const tradeByZone = await searchTradesByZone(zone);
-//   if (tradeByZone.length) {
-//     const tradesByCat = tradeByZone.filter((t) => t.category === category);
-//     if (tradesByCat.length) {
-//       return tradesByCat;
-//     }
-//     return `No se pudieron filtrar los comercios con delivery en ${zone}`;
-//   }
-//   return tradeByZone;
-// };
-
-// // COMERCIOS -> [comercios que coinciden con la búsqueda]
-// const searchTradesByZoneAndCatAndSC = async (zone, category, subcategory) => {  // Readecuada Emi
-//   const tradesByZoneAndCat = await searchTradesByZoneAndCat(zone, category);
-//   if (tradesByZoneAndCat.length) {
-//     const tradesBySC = tradesByZoneAndCat.filter(
-//       (t) => t.subcategory === subcategory
-//     );
-//     if (tradesBySC.length) {
-//       return tradesBySC
-//     }
-//     return `No se pudieron filtrar los comercios con delivery en ${zone}`
-//   }
-//   return tradesByZoneAndCat
-// };
-
-// // COMERCIOS -> [comercios que coinciden con la búsqueda]
-// const searchProductByZoneAndCatAndEpagos = (zone, category, epagos) => {
-//   const tradesByCityAndCat = searchTradesByCityAndCat(deliveryCity, category);
-//   let tradesByEpagos = tradesByCityAndCat.filter((x) => x.epagos === epagos);
-
-//   if (tradesByEpagos.length) {
-//     return tradesByEpagos;
-//   } else if (tradesByCityAndCat.length) {
-//     return `No existen comercios de ${category} con entregas en ${deliveryCity} con el método de pago seleccionado`;
-//   } else
-//     return `No existen comercios de ${category} con entregas en ${deliveryCity}`;
-// };
-
-// // COMERCIOS -> [comercios que coinciden con la búsqueda]
-// const searchProductosByCityAndCatAndSCCAndEpagos = (deliveryCity, category, subcategory, epagos) => {
-//   const tradesByCityAndCatAndSCAndEpagos = searchProductByCityAndCatAndEpagos(deliveryCity, category, epagos);
-//   const tradesBySC = tradesByCityAndCatAndSCAndEpagos.filter((t) => t.subcategory === subcategory);
-//   if (tradesBySC.length) {
-//     return tradesBySC;
-//   } else if (tradesByCityAndCatAndSCAndEpagos.length) {
-//     return `No existen comercios del tipo ${
-//       category + "/" + subcategory
-//     } en ${deliveryCity} con el método de pago seleccionado`;
-//   } else
-//     return `No existen comercios del tipo ${category} en ${deliveryCity} con el método de pago seleccionado`;
-// };
-
-// // COMERCIOS -> [{comercio que coincide con ID}]
-// const searchTradeById = (id) => {
-//   var tradeById = [];
-//   for (const category in trades[0].categories) {
-//     trades[0].categories[category].map((t) =>
-//       t.id == id ? tradeById.push(t) : null
-//     );
-//     if (tradeById.length) break;
-//   }
-//   return tradeById;
-// };
-
-// // [comercios de la subcategoria buscada]
-// const searchTradesBySubCategory = (category, subcategory) => {
-//   const tradesByCategory = searchTradesByCategory(category);
-//   return tradesByCategory.filter((t) => t.subcategory === subcategory);
-// };
 //POST
 const postCreateTrades = async (body) => {
-	const { password } = body;
+	const { password,email } = body;
+
+	
 	try {
+		const token = jwt.sign(
+			{ email: email },
+			TOKEN_KEY,
+			{ expiresIn: "2h" }
+		)
 		newTrade = new Trade(body);
 
 		const salt = bcrypt.genSaltSync(10);
 		newTrade.password = bcrypt.hashSync(password, salt);
 		await newTrade.save();
-		sendMail(newTrade.email,newTrade.commerceName)
+		sendMail(newTrade.email,token)
 
 		return `Èl comercio se registró correctamente`;
 	} catch (error) {
 		return error.message;
 	}
 };
+
+const confirmEmail = async (token ) => { // FUNCIONANDO
+	try {
+		const payload = jwt.verify(token,TOKEN_KEY)
+		
+		let email = payload.email;
+		
+		const trades = await Trade.findOne({email});
+		
+		if (!trades) return "No se encontro el usuario"
+		if (trades.emailVerified) return "El correo ya se encuentra verificado"
+		
+		trades.emailVerified = true;
+		await trades.save()
+		await sendMailWelcome(trades.email,trades.username);
+		return "El correo electronico ha sido verificado"
+  
+	} catch (error) {
+	  return "Token invalido";
+	}
+  }
+
+  const sendMailNewPassword = async (email,token) => {
+	try {
+	  await sendMailReset(email,token)
+	  return "Se ha enviado el link a tu email"
+	} catch (error) {
+	  return "Error al enviar el email"
+	}
+  }
+  
+  const resetPasswordController = async (password, token) => {
+	try {
+	  const payload = jwt.verify(token,TOKEN_KEY)
+	
+	  let email = payload.email;
+  
+	  const salt = bcrypt.genSaltSync(10);
+	  const trade = await Trade.findOne({email})
+	  
+	  let newPassword = bcrypt.hashSync(password, salt)
+  
+	  trade.password = newPassword;
+  
+	  await trade.save();
+	  await sendMailResetSuccess(trade.email,trade.userName);
+  
+	  return "Se actulizo la contraseña"
+	} catch (error) {
+	  return "No se ha encontrado al cliente"
+	}
+  }
+  
 
 // const postCreateCategory = async (body) => {
 //   try {
@@ -408,13 +297,15 @@ const postCreateTrades = async (body) => {
 module.exports = {
 	getAllTrades,
 	searchByZone,
-	searchByZoneAndCat,
-	searchByZoneAndCatAndSC,
+	searchByZoneAndCat,	
 	searchByZoneAndCatAndEpagos,
-	searchTradesByAll,
+	searchTradesByFilters,
 	searchTradeById,
 	postCreateTrades,
 	getAllCategories,
 	getSubCategories,
 	getDeliveryZones,
+	confirmEmail,
+	resetPasswordController,
+	sendMailNewPassword
 };

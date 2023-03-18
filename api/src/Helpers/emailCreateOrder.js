@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 
-const sendMailOrder = async(email,productos,precio) => {
+const sendMailOrder = async(email,firstName,lastName,productos,orden) => {
     const config = {
         host: "smtp.gmail.com",
         port: 587,
@@ -23,7 +23,7 @@ const sendMailOrder = async(email,productos,precio) => {
             <meta name="x-apple-disable-message-reformatting">
             <title></title>
             <style>
-                table, td, div, h1, p {font-family: Monserrat, sans-serif;}
+                table, td, div, h1, p, li {font-family: Monserrat, sans-serif;}
             </style>
         </head>
         <body style="margin:0;padding:0;">
@@ -41,9 +41,11 @@ const sendMailOrder = async(email,productos,precio) => {
                                     <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;">
                                         <tr>
                                             <td style="padding:0 0 36px 0;color:#153643;">
-                                                <h1 style="font-size:24px;margin:0 0 20px 0;color:#ff441f">Estamos procesando tu pedido</h1>
-                                                <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;">Compraste ${productos} productos y pagaste ${precio}, espera las indicaciones del comercio para poder recibirlo</p>
+                                                <h1 style="font-size:24px;margin:0 0 20px 0;color:#ff441f">Hola ${firstName} ${lastName} estamos procesando tu pedido</h1>
+                                                <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;">Compraste los siguientes productos ${productos}, espera las indicaciones del comercio para poder recibirlo, tu numero de orden es: ${orden}</p>
                                                 <p style="margin:0;font-size:16px;line-height:24px;color:#ff441f">PEDI-VERY</p>
+                                                <ul> 
+                                            </ul>
                                             </td>
                                         </tr>
                                     </table>

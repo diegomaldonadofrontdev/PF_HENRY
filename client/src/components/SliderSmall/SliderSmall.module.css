@@ -18,6 +18,16 @@
 	overflow: hidden;
 }
 
+.carrusel__container {
+	margin-top: 50px;
+	display: flex;
+	justify-content: space-between;
+	gap: 1em;
+	width: 200%;
+	flex-flow: row wrap;
+	overflow: hidden;
+}
+
 .container__img {
 	background-color: white;
 	width: 90px;
@@ -30,4 +40,22 @@
 
 .carrusel img {
 	width: 50px;
+}
+
+@media (max-width: 1200px) {
+	.container {
+		padding: 100px 0;
+		margin: auto;
+		max-width: 80%;
+	}
+	.carrusel {
+		margin-top: 25px;
+		height: 100px;
+		display: flex;
+		justify-content: space-between;
+		gap: 1em;
+		width: 100%;
+		flex-flow: row wrap;
+		overflow: hidden;
+	}
 }
