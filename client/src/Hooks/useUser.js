@@ -55,12 +55,15 @@ export default function useUser() {
         setToken(null)
     }, [])
 
+    const hrefcompra = window.localStorage.getItem('hrefcompra')
+
     return {
         isLogged: Boolean(token),
         login,
         logout1,
         sigin,
-        registerWhitGoogle
+        registerWhitGoogle,
+        loginFromCart: Boolean(hrefcompra)
     }
 
 }

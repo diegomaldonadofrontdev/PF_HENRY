@@ -4,8 +4,15 @@ import ButtonCTA from "../../components/ButtonCTA/ButtonCTA";
 import styles from "./Cart.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { postPayment } from "../../redux/actions/actions";
+import useUser from "../../Hooks/useUser";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Cart({ id }) {
+
+	const { isLogged, loginFromCart } = useUser();
+	const navigate = useNavigate();
+	const location = useLocation().pathname;
+
 	const carritos = useSelector((state) => state.carritos);
 	const sandbox = useSelector((state) => state.mercadoPago.sandbox);
 	const [carrito, setCarrito] = useState({ ...carritos });
@@ -16,15 +23,21 @@ export default function Cart({ id }) {
 		}
 	}, [carritos]);
 
+	const idUser = window.localStorage.getItem('idUser');
+
 	function handlerPostPayment() {
-		dispatch(postPayment(id, "DiegoMaldonado", carrito));
+		dispatch(postPayment(id, "DiegoMaldonado", carrito))
 	}
 
 	useEffect(() => {
-		if (sandbox) {
+		if (!idUser) {
+			window.localStorage.setItem('hrefcompra', location)
+			navigate("/login")
+		}
+		else if (sandbox) {
 			window.location.replace(sandbox);
 		}
-	}, [sandbox]);
+	}, [idUser, location, navigate, sandbox]);
 
 	return (
 		<div className={styles.cart}>

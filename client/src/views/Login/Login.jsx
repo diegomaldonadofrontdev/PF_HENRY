@@ -8,17 +8,21 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Login() {
 
-	const token = window.localStorage.getItem('token');
 	const { isAuthenticated, loginWithPopup } = useAuth0();
-	const { isLogged ,login, registerWhitGoogle } = useUser()
+	const { loginFromCart ,isLogged ,login, registerWhitGoogle } = useUser()
 	const navigate = useNavigate();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const trade = window.localStorage.getItem('hrefcompra');
 
 	useEffect(() => {
+		if((isLogged || isAuthenticated) && loginFromCart) {
+			window.location.href = `http://localhost:3000${trade}`
+			window.localStorage.getItem('hrefcompra')
+		} 
 		if(isLogged || isAuthenticated) navigate("/");
 		if (isAuthenticated) registerWhitGoogle();
-	}, [isAuthenticated, isLogged, navigate, registerWhitGoogle, token]);
+	}, [isAuthenticated, isLogged, loginFromCart, navigate, registerWhitGoogle, trade]);
 
 	const handleLogin = async (e) => {
 		e.preventDefault();
@@ -34,7 +38,10 @@ export default function Login() {
 			<div className={styles.login}>
 				<Header />
 				<div className={styles.container}>
-					<h2>Registrá o ingresá para continuar</h2>
+					{loginFromCart 
+					? <h2>Debes iniciar sesion para continuar con la compra</h2>
+					: <h2>Registrá o ingresá para continuar</h2> 
+					}
 					<ButtonPrimary texto="Registra tu negocio" />
 					<form onSubmit={handleLogin} className={styles.form}>
 						<div className={styles.user}>

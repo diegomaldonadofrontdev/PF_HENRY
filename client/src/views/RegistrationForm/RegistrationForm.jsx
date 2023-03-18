@@ -8,9 +8,9 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 export default function RegistrationForm() {
 
-	const { sigin, isLogged } = useUser();
+	const { sigin, isLogged, registerWhitGoogle } = useUser();
 	const navigate = useNavigate();
-	const { isAuthenticated } = useAuth0();
+	const { isAuthenticated, loginWithPopup } = useAuth0();
 
 	const [user, setUser] = useState({
 		firstname: "",
@@ -26,7 +26,8 @@ export default function RegistrationForm() {
 
 	useEffect(() => {
 		if (isLogged || isAuthenticated) navigate("/");
-	}, [isAuthenticated, isLogged, navigate])
+		if (isAuthenticated) registerWhitGoogle();
+	}, [isAuthenticated, isLogged, navigate, registerWhitGoogle])
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
@@ -41,6 +42,10 @@ export default function RegistrationForm() {
 		sigin(user);
 		console.log(user);
 	}
+
+	const handleSiginWhitGoogle = (e) => {
+		loginWithPopup();
+	};
 
 	return (
 		<>
@@ -90,7 +95,12 @@ export default function RegistrationForm() {
 							</div>
 						</div>
 
-						<button style={{ border: "none" }}><ButtonPrimary texto="CREAR CUENTA" /></button>
+						<button type="submit" style={{ border: "none" }}><ButtonPrimary texto="CREAR CUENTA" /></button>
+
+						<div className={styles.other}>
+							<button style={{ border: "none" }} onClick={handleSiginWhitGoogle}><ButtonPrimary texto="Sing In con Google" /></button>
+							{/* <ButtonPrimary texto="Sing In con Facebook" /> */}
+						</div>
 					</form>
 				</div>
 			</div>
