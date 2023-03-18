@@ -16,9 +16,8 @@ import {
   GET_PRODUCT_BY_ID,
   CURRENT_CLIENT,
   PRODUCT_FILTERS,
+  GET_USER,
 } from "../actions/types";
-
-// export default allReducers;
 
 const initialState = {
   product: [],
@@ -63,7 +62,7 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         products: action.payload,
       };
-    case "GET_USERS":
+    case GET_USER:
       return {
         ...state,
         users: action.payload,

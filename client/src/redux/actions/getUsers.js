@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const GET_USER = "GET_USER";
+import { GET_USER } from "../actions/types";
 
 export const getUsers = () => {
   return async function (dispatch) {

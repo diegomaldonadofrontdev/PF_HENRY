@@ -1,25 +1,47 @@
+// Trades
 const { getTrades } = require("../actions/getTrades");
-const { getTradesCategories } = require("../actions/getTradesCategory");
-const { getClient } = require("../actions/getClient");
-const { getSubCategories } = require("../actions/getTradesSubCategories");
-const { getDeliveryZones } = require("../actions/getDeliveryZones");
-const { handlerTradesFilter } = require("../actions/handlerTradesFilters");
-const { getTradesFilter } = require("../actions/getTradesFilters");
-const { getAllProducts } = require("../actions/getAllProducts");
-const { postPayment } = require("../actions/postPayment");
-const { deleteItemCart } = require("../actions/deleteItemCart");
-const { getReviews } = require("../actions/getReviews");
-const { getEpagos } = require("../actions/getEpagos");
-const { commerceRegister } = require("../actions/commerceRegister");
-const { postReview } = require("../actions/postReview");
-const { getProductById } = require("../actions/getProductById");
 const { getTradesByName } = require("../actions/getTradesByName");
-const { getUsers } = require("../actions/getUsers");
-const { postProduct } = require("../actions/postProduct");
-const { setCarrito } = require("../actions/setCarrito");
-const { filterCategoryCommerce } = require("../actions/filterCategoryCommerce");
-const { createCarritos } = require("../actions/createCarritos");
 
+// Categories
+const { getTradesCategories } = require("../actions/getTradesCategory");
+
+// SubCategories
+const { getSubCategories } = require("../actions/getTradesSubCategories");
+
+// Delivery Zones
+const { getDeliveryZones } = require("../actions/getDeliveryZones");
+
+// Epagos
+const { getEpagos } = require("../actions/getEpagos");
+
+// Clients
+const { getClient } = require("../actions/getClient");
+
+// Users
+const { getUsers } = require("../actions/getUsers");
+
+// Products
+const { getAllProducts } = require("../actions/getAllProducts");
+const { getProductById } = require("../actions/getProductById");
+
+// Reviews
+const { getReviews } = require("../actions/getReviews");
+
+// Filters
+const { getTradesFilter } = require("../actions/getTradesFilters");
+const { handlerTradesFilter } = require("../actions/handlerTradesFilters");
+const { filterCategoryCommerce } = require("../actions/filterCategoryCommerce");
+
+// Forms
+const { commerceRegister } = require("../actions/commerceRegister");
+const { postProduct } = require("../actions/postProduct");
+const { postReview } = require("../actions/postReview");
+
+// Cart
+const { deleteItemCart } = require("../actions/deleteItemCart");
+const { setCarrito } = require("../actions/setCarrito");
+const { createCarritos } = require("../actions/createCarritos");
+const { postPayment } = require("../actions/postPayment");
 const {
   addAmount,
   substractAmount,
