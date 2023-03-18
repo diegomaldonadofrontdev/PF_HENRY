@@ -10,7 +10,7 @@ export default function SliderSmall(props) {
 				<div className={styles.carrusel}>
 					{allCommerces.map((x) => (
 						<div className={styles.container__img} key={x._id}>
-							<img src={x.image} alt="logo_burger" />
+							<img src={x.image} alt={x.name} />
 						</div>
 					))}
 				</div>

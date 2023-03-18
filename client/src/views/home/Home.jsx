@@ -14,29 +14,29 @@ import FeedbackContainer from "../../components/FeedbackContainer/FeedbackContai
 import Footer from "../../components/Footer/Footer";
 
 export default function Home() {
-  const dispatch = useDispatch();
+	const dispatch = useDispatch();
 
-  const idUser = window.localStorage.getItem("idUser");
-  const allCommerces = useSelector((state) => state.allCommerces);
+	const idUser = window.localStorage.getItem("idUser");
+	const allCommerces = useSelector((state) => state.allCommerces);
 
-  useEffect(() => {
-    if (idUser) {
-      dispatch(getClient(idUser));
-    }
-  }, [dispatch, idUser]);
+	useEffect(() => {
+		if (idUser) {
+			dispatch(getClient(idUser));
+		}
+	}, [dispatch, idUser]);
 
-  useEffect(() => {
-    dispatch(getTrades());
-  }, [dispatch]);
+	useEffect(() => {
+		dispatch(getTrades());
+	}, [dispatch]);
 
-  return (
-    <div>
-      <Header />;
-      <HeroMain />
-      <SliderSmall commerces={allCommerces} />
-      <Features />
-      <FeedbackContainer />
-      <Footer />
-    </div>
-  );
+	return (
+		<div>
+			<Header />
+			<HeroMain />
+			<SliderSmall commerces={allCommerces} />
+			<Features />
+			<FeedbackContainer />
+			<Footer />
+		</div>
+	);
 }
