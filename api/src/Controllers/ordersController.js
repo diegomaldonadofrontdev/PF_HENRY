@@ -21,7 +21,16 @@ const getOrdersByClient = async (parameter) => { // FUNCIONANDO
         });
       }      
       return ordersCompilated;
-    } else return []
+    } else if (orders.length) {
+        for (let j = 0; j < orders.length; j++) {
+          const client = Clients.find(orders[i].clientId, "firstName lastName")
+          ordersCompilated.push({
+            orderId: orders[i]._id,
+            createdAt: orders[i].createdAt,
+            client: orders[i].firstName + " " + orders[i].lastName
+          })
+        }
+    }
   } catch (error) {
     return error.message;
   }
