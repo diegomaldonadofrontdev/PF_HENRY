@@ -22,23 +22,24 @@ import {
 } from "../actions/types";
 
 const initialState = {
-	product: [],
-	products: [],
-	productsFilter: [],
-	allCommerces: [],
-	tradesCategories: [],
-	tradesSubCategories: [],
-	feedback: [],
-	zones: [],
-	filters: {
-		city: "default",
-		category: "default",
-		subcategory: "default",
-		epagos: "default",
-	},
-	carritos: {},
-	mercadoPago: "",
-	currentClient: {},
+  product: [],
+  products: [],
+  productsFilter: [],
+  allCommerces: [],
+  tradesCategories: [],
+  tradesSubCategories: [],
+  feedback: [],
+  zones: [],
+  filters: {
+    city: "default",
+    category: "default",
+    subcategory: "default",
+    epagos: "default",
+  },
+  carritos: {},
+  mercadoPago: "",
+  currentClient: {},
+  currentPage: 1
 };
 
 export default function rootReducer(state = initialState, action) {

@@ -3,11 +3,7 @@ import React, { useEffect } from "react";
 
 // React Redux
 import { useSelector, useDispatch } from "react-redux";
-
-// Actions
 import getCLient from "../../redux/actions/getClient";
-
-// Components
 import Header from "../../components/Header/Header";
 
 // img
