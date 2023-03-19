@@ -174,14 +174,12 @@ const validateDeliveryZone = (req, res, next) => {
 };
 
 const validateCategoryProduct = (req, res, next) => {
-	const { categoryName, status } = req.body;
+	const { productCategory } = req.body;
 
-	if (!categoryName)
+	if (!productCategory)
 		return res
 			.status(400)
 			.json({ Error: "No se ha recibido el nombre de la categoria" });
-	if (!status)
-		return res.status(400).json({ Error: "No se ha recibido el estatus" });
 	next();
 };
 
@@ -210,7 +208,6 @@ const validateResetPassword = (req, res, next) => {
 
 const validatePassword = (req, res, next) => {
 	const { password } = req.body;
-
 	if (!password)
 		return res
 			.status(400)
@@ -218,6 +215,13 @@ const validatePassword = (req, res, next) => {
 
 	next();
 };
+
+const validateLoginTrade = (req, res, next) => {
+	const {username, password} = req.body
+	if (!username) return res.status(400).json({ Error: "No se ha recibido el usuario" });
+	if (!password) return res.status(400).json({ Error: "No se ha recibido la constraseña" });
+	next()
+}
 
 module.exports = {
 	validateAppFeedback,
@@ -232,4 +236,5 @@ module.exports = {
 	validateSubcategory,
 	validateResetPassword,
 	validatePassword,
+	validateLoginTrade
 };
