@@ -6,6 +6,7 @@ const Trade = require('../models/Trades')
 const Product = require('../models/Products');
 const ProductCategories = require ("../models/ProductCategory")
 
+// GETS
 // [{producto buscado}]
 const getProductById = async (id) => { // FUNCIONANDO 12/03
   try {
@@ -83,6 +84,7 @@ const getAllProductsCategories = async (tradeId) => { // FUNCIONANDO 12/03
 
 }
 
+// POSTS
 const createProduct = async (id, body) => { // FUNCIONANDO
   try {
     const newProduct =  new Product(body);
@@ -104,6 +106,17 @@ const createProductCategory = async (productCat) => {
   }
 }
 
+// PUTS
+const updateProduct = async (productId, body) => {  
+  try {
+    const productUpdate = await Product.findByIdAndUpdate(productId, body, { new: true })
+    if (productUpdate) return true
+    return false
+  } catch (error) {
+    return error.message
+  }
+}
+
 module.exports = {
   searchByNameAndPoductCat,
   searchByProductCat,
@@ -112,5 +125,6 @@ module.exports = {
   getProductById,
   createProduct,
   getAllProductsCategories,
-  createProductCategory
+  createProductCategory,
+  updateProduct
 }

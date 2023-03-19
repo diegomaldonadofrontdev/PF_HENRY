@@ -13,7 +13,9 @@ const {
 } = require("../Controllers/tradesController");
 const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
 const jwt = require('jsonwebtoken');
-// GET ---------> /trades/search
+const Products = require("../models/Products");
+
+// GET 
 const getTradesHandler = async (req, res) => {	// FUNCIONANDO 16/03
 	const def = "default"
 	const {deliveryZone, category, subcategory, epagos} = req.query
@@ -30,7 +32,6 @@ const getTradesHandler = async (req, res) => {	// FUNCIONANDO 16/03
 	}
 };
 
-// GET ---------> /trades/search/:id
 const getTradeHandler = async (req, res) => {	// FUNCIONANDO 12/03
 	const { id } = req.params;
 	try {
@@ -41,7 +42,6 @@ const getTradeHandler = async (req, res) => {	// FUNCIONANDO 12/03
 	}
 };
 
-// GET ----------> /trades/categories
 const getCategoriesHandler = async (req, res) => {	// FUNCIONANDO 12/03
 	try {
 		const categories = await getAllCategories();
@@ -51,7 +51,6 @@ const getCategoriesHandler = async (req, res) => {	// FUNCIONANDO 12/03
 	}
 };
 
-// GET ----------> /trades/subcategories
 const getSubCategoriesHandler = async (req, res) => {	// FUNCIONANDO 12/03
 	const { category } = req.query;
 	try {
@@ -73,7 +72,7 @@ const getDeliveryZoneHandler = async (req, res) => {	//FUNCIONANDO 12/03
 	}
 };
 
-//POST
+// POST
 const postTradeHandler = async (req, res) => { // PROBAR
 	const {commerceName} = req.body
 	const body = req.body
@@ -123,7 +122,7 @@ const newSubcategory = async (req, res) => {
 	}
 };
 
-const loginTradeHandler = async (req, res) => {
+const loginTradeHandler = async (req, res) => { // FUNCIONANDO
 	const {username, password} = req.body
 	try {
 		const verify = await verifyTradeLog(username, password)
@@ -133,7 +132,8 @@ const loginTradeHandler = async (req, res) => {
 	}
 }
 
-// UPDATES
+// PUT
+
 const updateTrade = async (req, res) => {
 	const { id } = req.params;
 	const tradeUpdate = {
@@ -200,7 +200,7 @@ const confirmEmailHandler = async( req, res) => { // FUNCIONANDO
 	}
 }
 
-const sendMailResetPassword = async (req,res ) => {
+const sendMailResetPassword = async (req,res ) => { // FUNCIONANDO
 	const { email } = req.body;
 	console.log(email);
 	try {
@@ -217,7 +217,7 @@ const sendMailResetPassword = async (req,res ) => {
 	}
   }
   
-  const resetPassword = async (req, res) => {
+  const resetPassword = async (req, res) => { // FUNCIONANDO
 	const { password } = req.body
 	const { token } = req.params;
 	console.log(token);

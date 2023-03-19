@@ -9,12 +9,9 @@ const {
 } = require("../Handlers/tradesHandler");
 const {
   postProductHandler,
-  postProductCategoryHandler,
   getProductsHandler,
   getProductHandler,
-  updateProduct,
-  updateCategoryProduct,
-
+  putProductHandler,
 } = require("../Handlers/productsHandler");
 const {
   validateProduct,  
@@ -44,27 +41,24 @@ tradesRouter.get("/feedbacks/search/:tradeId", getFeedbacksHandler); // FUNCIONA
 tradesRouter.get("/clients/search/:id", getClientHandler);  // FUNCIONANDO
 tradesRouter.get("/orders/search", getOrdersHandler); // FUNCIONANDO
 tradesRouter.get("/orders/actives/:tradeId", getActiveOrdersHandler); // FUNCIONANDO
-// tradesRouter.get("/membership", getMembershipHandler);
+
 
 // // POST 
-
 tradesRouter.post("/newProduct", validateProduct, postProductHandler); // FUNCIONANDO
 tradesRouter.post("/login", validateLoginTrade, loginTradeHandler); // 
-// tradesRouter.post("/new-delivery-zone", validateDeliveryZone, newDeliveryZone);
-// tradesRouter.post("/new-subcategory", validateSubcategory, newSubcategory);
+
 
 // //DELETE
 // tradesRouter.delete("/users/:id", validateUsers, deleteUserHandler);
 // tradesRouter.delete("/products/:id", validateProducts, deleteProductHandler);
 
 // // PUT
+tradesRouter.put("/products/update/:productId", putProductHandler);
 // tradesRouter.put("/users/:id", validateUsers, putUserHandler);
 // tradesRouter.put("/products/:id", validateProducts, putProductHandler);
 // tradesRouter.put("/update-trade", updateTrade);
-tradesRouter.put("/update-product", updateProduct);
 // tradesRouter.put("/update-category", updateCategory);
 // tradesRouter.put("/update-delivery-zone", updateDeliveryZone);
-tradesRouter.put("/update-category-product", updateCategoryProduct);
 // tradesRouter.put("/update-subcategory", updateSubcategory);
 
 tradesRouter.get('/confirm-email/:token',confirmEmailHandler) // FUNCIONANDO
