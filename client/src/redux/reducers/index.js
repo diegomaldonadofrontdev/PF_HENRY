@@ -282,7 +282,7 @@ export default function rootReducer(state = initialState, action) {
 
 		case GET_PRODUCT:
 			const resFastFilter = state.products.filter((x) =>
-				x.name.includes(action.payload)
+				x.name.toUpperCase().includes(action.payload.toUpperCase())
 			);
 
 			console.log(resFastFilter);

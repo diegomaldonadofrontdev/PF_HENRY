@@ -125,7 +125,7 @@ export default function CommerceDetail() {
 									/>
 							  ))}
 					</div>
-					<Cart id={id} />
+					<Cart id={id} stateEpagos={commerce.epagos} />
 				</div>
 			</div>
 		</div>
