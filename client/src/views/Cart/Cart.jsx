@@ -6,6 +6,8 @@ import { useSelector, useDispatch } from "react-redux";
 
 // Actions
 import { postPayment } from "../../redux/actions/index";
+import postOrder from "../../redux/actions/postOrder";
+import createCarritos from "../../redux/actions/createCarritos";
 
 // Components
 import CardCart from "../../components/CardCart/CardCart";
@@ -16,7 +18,7 @@ import styles from "./Cart.module.css";
 import useUser from "../../Hooks/useUser";
 import { useLocation, useNavigate } from "react-router-dom";
 
-export default function Cart({ id }) {
+export default function Cart({ id, stateEpagos }) {
 	const { isLogged, loginFromCart } = useUser();
 	const navigate = useNavigate();
 	const location = useLocation().pathname;
@@ -24,7 +26,10 @@ export default function Cart({ id }) {
 	const carritos = useSelector((state) => state.carritos);
 	const sandbox = useSelector((state) => state.mercadoPago.sandbox);
 	const idClient = useSelector((state) => state.currentClient._id);
-	const [carrito, setCarrito] = useState({ ...carritos });
+	const [carrito, setCarrito] = useState({});
+
+	const [epagos, setEpagos] = useState("");
+
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -39,8 +44,35 @@ export default function Cart({ id }) {
 
 	const idUser = window.localStorage.getItem("idUser");
 
-	function handlerPostPayment() {
-		dispatch(postPayment(id, "DiegoMaldonado", carrito));
+	useEffect(() => {
+		const carritoStorage = window.localStorage.getItem("carritos");
+
+		if (carritoStorage) {
+			const carritoParse = JSON.parse(carritoStorage);
+
+			setCarrito({ ...carritoParse[id] });
+			dispatch(createCarritos(carritoParse));
+		}
+	}, [id]);
+
+	useEffect(() => {
+		if (stateEpagos) {
+			if (
+				stateEpagos === "Efectivo/Tarjetas" ||
+				stateEpagos === "Sólo efectivo"
+			) {
+				setEpagos("efectivo");
+			} else {
+				setEpagos("tarjeta");
+			}
+		}
+	}, [stateEpagos]);
+
+	function handlerPostPayment(creditCard) {
+		dispatch(postOrder(id, idClient, carrito));
+		if (creditCard) {
+			dispatch(postPayment(id, idClient, carrito));
+		}
 	}
 
 	useEffect(() => {
@@ -51,6 +83,10 @@ export default function Cart({ id }) {
 			window.location.replace(sandbox);
 		}
 	}, [idUser, location, navigate, sandbox]);
+
+	function handlerRadioButton(e) {
+		setEpagos(e.target.value);
+	}
 
 	return (
 		<div className={styles.cart}>
@@ -76,8 +112,50 @@ export default function Cart({ id }) {
 			<p className={styles.total__container}>
 				Total: <span>${carrito?.total || 0}</span>
 			</p>
+
+			{
+				<div>
+					<select
+						name=""
+						id=""
+						onChange={(e) => {
+							handlerRadioButton(e);
+						}}
+					>
+						{stateEpagos === "Efectivo/Tarjetas" ||
+						stateEpagos === "Sólo efectivo" ? (
+							<option value="efectivo" name="efectivo">
+								Efectivo
+							</option>
+						) : null}
+						{stateEpagos === "Efectivo/Tarjetas" ||
+						stateEpagos === "Sólo tarjetas" ? (
+							<option value="tarjeta" name="tarjeta">
+								Tarjeta
+							</option>
+						) : null}
+					</select>
+				</div>
+			}
+
 			<div>
-				<ButtonCTA fc={handlerPostPayment} />
+				<ButtonCTA
+					fc={
+						epagos === "efectivo"
+							? () => {
+									handlerPostPayment();
+							  }
+							: () => {
+									handlerPostPayment(true);
+							  }
+					}
+					title={
+						epagos === "efectivo"
+							? "Pagar en Efectivo"
+							: "Pagar con Tarjeta"
+					}
+					background={stateEpagos === "efectivo" ? "blue" : "green"}
+				/>
 			</div>
 		</div>
 	);

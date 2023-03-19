@@ -1,10 +1,11 @@
 const {  
   getProductById,
-  postCreateProduct,
+  createProduct,
+  createProductCategory,
   getAllProductsCategories,
-  getAllProducts
+  getAllProducts,
+  updateProduct
 } = require("../Controllers/productController");
-const Product = require('../models/Products')
 
 
 // GETS
@@ -43,11 +44,11 @@ const getProductCategoryHandler = async (req, res) => { // FUNCIONANDO 12/03
 }
 
 //POST
-const newProduct = async (req,res) => {
+const postProductHandler = async (req,res) => { // FUNCIONANDO
   const body = req.body;
   const {id} = req.params
     try {
-      const createProduct = await postCreateProduct(id, body);
+      await createProduct(id, body);
       res.status(200).json(`Se creo correctamente el producto`);
     } catch (error) {
       res.status(404).json({Error: 'Hubo un problema con el producto '})
@@ -55,14 +56,14 @@ const newProduct = async (req,res) => {
 
 }
 
-const newCategory = async (req,res) => {
-    try {
-  
-      const createCategory = await postCreateCategoryProduct(req.body);
-      
-      res.status(200).json(`Se creo correctamente la categoria`);
+const postProductCategoryHandler = async (req,res) => { // 
+    const {productCategory} = req.body
+    const productCat = {name: productCategory}
+    try {  
+      await createProductCategory(productCat);
+      res.status(200).json(`Se creo correctamente la categoria ${productCategory}`);
     } catch (error) {
-      res.status(404).json({Error: 'Hubo un problema con la categoria '})
+      res.status(404).json({Error: `Hubo un problema al crear la categoria ${productCategory}`})
     }
 
 }
@@ -78,18 +79,15 @@ const getCategoryProducts = async (req,res) => {
 }
 
 // PUT
-const updateProduct = async(req, res) => {
-  const { id } = req.params;
-  const productUpdate = {
-    ...req.body,
-    user: id
-  }
-  try {
-    const product = await  updateProductC(id,productUpdate)
-    res.status(200).json(`Se actualizo El producto`)
-  } catch (error) {
-    res.status(404).json(`Error al actualizar el producto`)   
-  }
+const putProductHandler = async (req, res) => {
+  const {productId} = req.params
+  const body = req.body
+	try {
+		const update = await updateProduct(productId, body)
+    if (update) res.status(200).json(`El producto se actualizó correctamente`)
+	} catch (error) {
+		res.status(404).json({Error: `No se pudo actualizar el producto`})
+	}
 }
 
 const updateCategoryProduct = async(req, res) => {
@@ -113,11 +111,10 @@ module.exports = {
   getProductsHandler,
   getProductHandler,
   getProductCategoryHandler,
-  newProduct,
-  newCategory,
+  postProductHandler,
+  postProductCategoryHandler,
   getProductsHandler,
   getCategoryProducts,
-  updateProduct,
+  putProductHandler,
   updateCategoryProduct,
-
 };

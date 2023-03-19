@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
 import PanelCajaDiaria from "../../components/PanelCajaDiaria/PanelCajaDiaria";
 import PanelMiNegocio from "../../components/PanelMiNegocio/PanelMiNegocio";
@@ -6,13 +6,49 @@ import PanelMisProductos from "../../components/PanelMisProductos/PanelMisProduc
 import PanelPedidos from "../../components/PanelPedidos/PanelPedidos";
 import logo from "../../images/logoowner.avif";
 import styles from "./AdminOwner.module.css";
+import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
+import useTradeBoss from "../../Hooks/useTradeBoss";
+import useTrade from "../../Hooks/useTrade";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import getTradesById from "../../redux/actions/getTradesById"
 
 export default function AdminOwner() {
+
+	const { isLoggedTradeBoss, logoutTradeBoss } = useTradeBoss();
+	const { logoutTrade } = useTrade(); 
+
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
+
 	const [currentTab, setCurrentTab] = useState({ id: 0, title: "" });
+
+	const idTrade = window.localStorage.getItem('idTrade');
+
+	useEffect(() => {
+		if (idTrade) {
+			dispatch(getTradesById(idTrade))
+		} else {
+			navigate("/login/trades")
+		}
+	}, [dispatch, idTrade, navigate])
+
+	const currentTrade = useSelector(state => state.currentTrade)
+	// console.log(currentTrade);
 
 	const handleTabClick = (id, title) => {
 		setCurrentTab({ id: id, title: title });
 	};
+
+	const buttonHandler = (e) => {
+		logoutTradeBoss();
+		// navigate("/registration/tradeboss")
+	}
+
+	const logoutHandler = (e) => {
+		logoutTrade();
+		navigate("/login/trades");
+	}
 
 	return (
 		<>
@@ -31,7 +67,7 @@ export default function AdminOwner() {
 									<img src={logo} alt="" />
 								</div>
 								<div className={styles.owner__info}>
-									<h4>Parrilla 'El Toro'</h4>
+									<h4>{currentTrade.commerceName}</h4>
 									<p>Administrador</p>
 								</div>
 							</div>
@@ -89,6 +125,7 @@ export default function AdminOwner() {
 								<a href="/">Tutoriales</a>
 								<a href="/">Soporte</a>
 							</div>
+							<button style={{border:"none"}} onClick={logoutHandler}><ButtonPrimary texto="Logout trade"/></button>
 						</div>
 						<div className={styles.panel}>
 							{currentTab.id === 1 ? (
@@ -104,6 +141,7 @@ export default function AdminOwner() {
 					</div>
 				</div>
 			</div>
+			{isLoggedTradeBoss && <button style={{ border: "none" }} onClick={buttonHandler}><ButtonPrimary texto="Logout TradeBoss" /></button>}
 		</>
 	);
 }

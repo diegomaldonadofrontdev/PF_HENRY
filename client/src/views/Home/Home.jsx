@@ -3,7 +3,8 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 // Actions
-import { getTrades, getClient } from "../../redux/actions/index";
+import { getTrades } from "../../redux/actions/index";
+import getClient from "../../redux/actions/getClient";
 
 // Components
 import Header from "../../components/Header/Header";

@@ -1,10 +1,5 @@
 const Trade = require("../models/Trades");
-// const Category = require("../models/Category");
-// const DeliveryZone = require("../models/DeliveryZone");
-// const Subcategory = require("../models/Subcategory");
-// const Products = require("../models/Products");
-// const { trades } = require("../Auxiliares/comerciantes");
-// const { trades } = require("../Auxiliares/comercios");
+const Categories = require("../models/Categories");
 const bcrypt = require("bcryptjs");
 const sendMail = require('../Helpers/emailTrade')
 const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
@@ -12,10 +7,11 @@ const jwt = require('jsonwebtoken');
 const sendMailWelcome = require('../Helpers/emailRegisterTrades')
 const sendMailResetSuccess = require('../Helpers/emailResetPasswordSuccesTrade')
 const sendMailReset = require('../Helpers/emailResetPassword')
+
+
 // GET COMERCIOS
 // [Todos los comercios de todas las categorias]
-const getAllTrades = async () => {
-	// OK FUNCIONANDO 12/03
+const getAllTrades = async () => {	// OK FUNCIONANDO 12/03
 	const alltrades = await Trade.find();
 	if (alltrades.length) {
 		return alltrades;
@@ -23,8 +19,7 @@ const getAllTrades = async () => {
 };
 
 // [Todos los comercios con reparto en la ciudad especificada]
-const searchByZone = async (deliveryZone) => {
-	// OK FUNCIONANDO 12/03
+const searchByZone = async (deliveryZone) => {	// OK FUNCIONANDO 12/03
 	try {
 		const tradesFound = await Trade.find({ deliveryZone: deliveryZone });
 		if (tradesFound.length) {
@@ -36,8 +31,7 @@ const searchByZone = async (deliveryZone) => {
 };
 
 // [Todos los comercios con reparto en la zona y de la categoria especificada]
-const searchByZoneAndCat = async (deliveryZone, category) => {
-	// OK FUNCIONANDO 12/03
+const searchByZoneAndCat = async (deliveryZone, category) => {	// OK FUNCIONANDO 12/03
 	try {
 		const tradesFound = await Trade.find({
 			deliveryZone: deliveryZone,
@@ -52,8 +46,7 @@ const searchByZoneAndCat = async (deliveryZone, category) => {
 };
 
 // [Todos los comercios con reparto en la zona, de la categoria y tipo de pago especificado]
-const searchByZoneAndCatAndEpagos = async (deliveryZone, category, epagos) => {
-	// OK FUNCIONANDO 12/03
+const searchByZoneAndCatAndEpagos = async (deliveryZone, category, epagos) => {	// OK FUNCIONANDO 12/03
 	try {
 		const tradesFound = await Trade.find({
 			deliveryZone: deliveryZone,
@@ -67,7 +60,6 @@ const searchByZoneAndCatAndEpagos = async (deliveryZone, category, epagos) => {
 		return error.message;
 	}
 };
-
 
 // [Todos los comercios con todos los filtros activados]
 const searchTradesByFilters = async (tradesFilter) => {	// OK FUNCIONANDO 16/03
@@ -188,24 +180,22 @@ const getDeliveryZones = async () => {	// FUNCIONANDO 12/03
 
 
 //POST
-const postCreateTrades = async (body) => {
-	const { password,email } = body;
-
-	
+const createTrades = async (body) => { // FUNCIONANDO
+	const {password, email} = body
 	try {
 		const token = jwt.sign(
 			{ email: email },
 			TOKEN_KEY,
 			{ expiresIn: "2h" }
 		)
-		newTrade = new Trade(body);
+		const newTrade = new Trade(body);
 
 		const salt = bcrypt.genSaltSync(10);
 		newTrade.password = bcrypt.hashSync(password, salt);
 		await newTrade.save();
 		sendMail(newTrade.email,token)
 
-		return `Èl comercio se registró correctamente`;
+		return true;
 	} catch (error) {
 		return error.message;
 	}
@@ -264,15 +254,29 @@ const confirmEmail = async (token ) => { // FUNCIONANDO
   }
   
 
-// const postCreateCategory = async (body) => {
-//   try {
-//     const newCategory = new Category(body);
-//     await newCategory.save();
-//     return true;
-//   } catch (error) {
-//     return false;
-//   }
-// };
+const createCategory = async (category) => {
+  try {
+    const newCategory = new Categories(category);    
+    await newCategory.save()
+	return true;
+  } catch (error) {
+    return error.message;
+  }
+};
+
+const verifyTradeLog = async (username, password) => {
+	try {
+		const existUser = await Trade.find({userName: username})
+		const trade = existUser[0]
+		if (existUser.length) {
+			const pass = bcrypt.compareSync(password, trade.password);
+    		if (pass) return trade._id
+    		return false
+		} return false
+	} catch (error) {
+		return error.message
+	}
+}
 
 // const postCreateDeliveryZone = async (body) => {
 //   try {
@@ -301,11 +305,13 @@ module.exports = {
 	searchByZoneAndCatAndEpagos,
 	searchTradesByFilters,
 	searchTradeById,
-	postCreateTrades,
+	createTrades,
+	createCategory,
 	getAllCategories,
 	getSubCategories,
 	getDeliveryZones,
 	confirmEmail,
 	resetPasswordController,
-	sendMailNewPassword
+	sendMailNewPassword,
+	verifyTradeLog
 };
