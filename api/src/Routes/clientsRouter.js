@@ -71,7 +71,7 @@ clientsRouter.post("/newPassword/:token",validatePassword,resetPassword)
 
 
 // PUT
-clientsRouter.put("/clients/update/:clientId", updateClientHandler); // FUNCIONANDO
+clientsRouter.put("/update/:clientId", updateClientHandler); // FUNCIONANDO
 
 
 
