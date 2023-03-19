@@ -244,8 +244,20 @@ export default function rootReducer(state = initialState, action) {
 		case CURRENT_CLIENT:
 			return {
 				...state,
-				currentClient: action.payload,
+				currentClient: { ...state.currentClient, ...action.payload },
 			};
+
+		case GET_ORDERS_CLIENT: {
+			const copyData = action.payload.data;
+			const orders = copyData.map((x) => ({
+				...x,
+				createdAt: dateTransform(x.createdAt),
+			}));
+			return {
+				...state,
+				currentClient: { ...state.currentClient, orders: orders },
+			};
+		}
 		case SET_FILTER_CATEGORY_COMMERCE:
 			const allProductos = state.products;
 			const categorySelected = action.payload.category;
@@ -281,17 +293,6 @@ export default function rootReducer(state = initialState, action) {
 				...state,
 				carritos: action.payload,
 			};
-		case GET_ORDERS_CLIENT: {
-			const copyData = action.payload.data;
-			const orders = copyData.map((x) => ({
-				...x,
-				createdAt: dateTransform(x.createdAt),
-			}));
-			return {
-				...state,
-				currentClient: { ...state.currentClient, orders: orders },
-			};
-		}
 
 		case EDIT_CLIENT: {
 			return {
