@@ -1,12 +1,12 @@
 const Product = require('../models/Products');
-const {postCreateTrades} = require("./tradesController")
+const {createTrades} = require("./tradesController")
 
 
 
 const createTradesInDb = async (trades) => {
     try {
         for (let i = 0; i < trades.length; i++) {            
-          await postCreateTrades(trades[i])
+          await createTrades(trades[i])
         }   
         console.log("Comercios cargados!");
         return `Los comercios se cargaron correctamente`;

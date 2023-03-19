@@ -1,14 +1,15 @@
 const { Router } = require("express");
 const {
   getTradeHandler,
-  createTradeHandler,  
+  postTradeHandler,
+  postCategoryHandler,
   getCategoriesHandler,  
   confirmEmailHandler,
   resetPassword,
   sendMailResetPassword
 } = require("../Handlers/tradesHandler");
 const {
-  newProduct,
+  postProductHandler,
   newCategory,
   getProductsHandler,
   getProductHandler,
@@ -18,6 +19,8 @@ const {
 } = require("../Handlers/productsHandler");
 const {
   validateTrade,
+  validateProduct,
+  validateCategory,
   validateCategoryProduct,
   validateResetPassword,
   validatePassword
@@ -47,11 +50,9 @@ tradesRouter.get("/orders/actives/:tradeId", getActiveOrdersHandler);
 // tradesRouter.get("/membership", getMembershipHandler);
 
 // // POST 
-tradesRouter.post("/newTrade", validateTrade, createTradeHandler);
-// tradesRouter.post("/users", validateUsers, createUserHandler);
-// tradesRouter.post("/products", validateProducts, createProductHandler);
-tradesRouter.post("/:id/new-product", /*validateProduct, */newProduct);
-// tradesRouter.post("/new-category", validateCategory, newCategoryTrade);
+tradesRouter.post("/newTrade", validateTrade, postTradeHandler);
+tradesRouter.post("/newProduct", validateProduct, postProductHandler);
+tradesRouter.post("/newCategory", validateCategory, postCategoryHandler);
 // tradesRouter.post("/new-delivery-zone", validateDeliveryZone, newDeliveryZone);
 tradesRouter.post("/new-category-products", validateCategoryProduct, newCategory);
 // tradesRouter.post("/new-subcategory", validateSubcategory, newSubcategory);
