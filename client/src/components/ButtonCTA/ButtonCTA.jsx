@@ -3,12 +3,13 @@ import styles from "./ButtonCTA.module.css";
 export default function ButtonCTA(props) {
 	return (
 		<div
-			className={styles.buttonCTA}
+			className={`${styles.buttonCTA} ${styles.props}`}
 			onClick={() => {
 				props.fc();
 			}}
 		>
-			<i class="bx bx-money"></i>Hacer el pedido
+			<i class="bx bx-money"></i>
+			{props.title}
 		</div>
 	);
 }
