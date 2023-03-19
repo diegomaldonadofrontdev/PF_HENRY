@@ -5,17 +5,17 @@ import Header from "../../components/Header/Header";
 import { Link, useNavigate } from "react-router-dom";
 import useTrade from "../../Hooks/useTrade";
 
-export default function LoginTradeBoss() {
+export default function LoginTrade() {
 
-	const { login } = useTrade();
+	const { isLoggedTrade, login } = useTrade();
 	const navigate = useNavigate();
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const idTrade = window.localStorage.getItem('idTrade');
 
 	useEffect(() => {
-		if (idTrade) navigate("/adminowner");
-	}, [idTrade, navigate]);
+		if (isLoggedTrade) navigate("/adminowner");
+	}, [idTrade, isLoggedTrade, navigate]);
 
 	const handleLogin = async (e) => {
 		e.preventDefault();
@@ -27,7 +27,7 @@ export default function LoginTradeBoss() {
 			<div className={styles.login}>
 				<Header />
 				<div className={styles.container}>
-					<h2>Inicio de sesion de comerciante</h2>
+					<h2>Inicio de sesion del comercio</h2>
 					<ButtonPrimary texto="Registra tu negocio" />
 					<form onSubmit={handleLogin} className={styles.form}>
 						<div className={styles.user}>
