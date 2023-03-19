@@ -1,30 +1,26 @@
 import { useEffect, useState } from "react";
-import styles from "./LoginTradeBoss.module.css";
+import styles from "./LoginTrade.module.css";
 import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
 import Header from "../../components/Header/Header";
 import { Link, useNavigate } from "react-router-dom";
-import useTradeBoss from "../../Hooks/useTradeBoss";
+import useTrade from "../../Hooks/useTrade";
 
 export default function LoginTradeBoss() {
 
-	const { login } = useTradeBoss()
-	// const navigate = useNavigate();
-	const [email, setEmail] = useState("");
+	const { login } = useTrade();
+	const navigate = useNavigate();
+	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
-	// const idTradeBoss = window.localStorage.getItem('idTradeBoss');
+	const idTrade = window.localStorage.getItem('idTrade');
 
-	// useEffect(() => {
-	// 	if (idTradeBoss) navigate("/adminowner");
-	// }, [idTradeBoss, navigate]);
+	useEffect(() => {
+		if (idTrade) navigate("/adminowner");
+	}, [idTrade, navigate]);
 
 	const handleLogin = async (e) => {
 		e.preventDefault();
-		login({ email, password });
+		login({ username, password });
 	};
-
-	// const handleSiginWhitGoogle = (e) => {
-	// 	loginWithPopup();
-	// };
 
 	return (
 		<>
@@ -36,7 +32,7 @@ export default function LoginTradeBoss() {
 					<form onSubmit={handleLogin} className={styles.form}>
 						<div className={styles.user}>
 							<label htmlFor="">Usuario</label>
-							<input type="text" value={email} name="email" placeholder="Ingrese su usuario" onChange={(e) => setEmail(e.target.value)} />
+							<input type="text" value={username} name="email" placeholder="Ingrese su usuario" onChange={(e) => setUsername(e.target.value)} />
 						</div>
 						<div className={styles.password}>
 							<label htmlFor="">Clave</label>
@@ -47,10 +43,6 @@ export default function LoginTradeBoss() {
 							<button style={{ border: "none" }} ><ButtonPrimary texto="Login" /></button>
 						</div>
 					</form>
-					<div className={styles.other}>
-						{/* <button style={{ border: "none" }} onClick={handleSiginWhitGoogle}><ButtonPrimary texto="Sing In con Google" /></button> */}
-						{/* <ButtonPrimary texto="Sing In con Facebook" /> */}
-					</div>
 
 					<div className={styles.faqs}>
 						<a href="/">Que es pedivey?</a>

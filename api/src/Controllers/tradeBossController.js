@@ -16,10 +16,21 @@ const validatePasswordTradeBoss = async (email, password) => {
     return true
 }
 
-const searchTradeBoss = async (email) => {
+const searchTradeBoss = async (email) => { // FUNCIONANDO
     try {
         const tradeBossBDD = await TradeBoss.find({ email: email }, { password: 0 });
         return tradeBossBDD[0]
+    } catch (error) {
+        return error.message;
+    }
+}
+
+const searchTradeBossById = async (id) => {
+    try {
+        const tradeBossBDD = await TradeBoss.findById(id, {password: 0});
+        if(tradeBossBDD !== null) {
+            return tradeBossBDD;
+        } else return []
     } catch (error) {
         return error.message;
     }
@@ -49,5 +60,6 @@ module.exports = {
     searchTradeBossExist,
     validatePasswordTradeBoss,
     searchTradeBoss,
+    searchTradeBossById,
     registerTradeBoss
 };
