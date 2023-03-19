@@ -53,7 +53,22 @@ const postTradeBossHandler = async (req, res) => {
 }
 
 const registerWhitGoogleTradeBosshandler = async (req, res) => {
-    res.status(200).json("TODO OK")
+    const tradeBoss = req.body;
+
+    try {
+        const tradeBossBDD = await registerTradeBoss(tradeBoss);
+
+        const token = jwt.sign(
+            { name: tradeBoss.firstname, email: tradeBoss.email },
+            TOKEN_KEY,
+            { expiresIn: "2h" }
+        )
+
+        res.status(200).json([tradeBossBDD, {token: token}])
+    } catch (error) {
+        res.status(400).json("Ocurrio un error en el registro!")
+    }
+
 }
 
 module.exports = {

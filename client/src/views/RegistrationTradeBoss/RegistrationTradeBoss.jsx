@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
 import Header from "../../components/Header/Header";
 import styles from "./RegistrationForm.module.css";
-import useUser from "../../Hooks/useUser";
+import useTradeBoss from "../../Hooks/useTradeBoss";
 import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 
-export default function RegistrationAdmins() {
+export default function RegistrationTradeBoss() {
 
-	const { sigin, isLogged, registerWhitGoogle } = useUser();
+	const { sigin, isLogged, registerWhitGoogle } = useTradeBoss();
 	const navigate = useNavigate();
 	const { isAuthenticated, loginWithPopup } = useAuth0();
 
@@ -17,12 +17,8 @@ export default function RegistrationAdmins() {
 		lastname: "",
 		email: "",
 		password: "",
-		country: "",
-		city: "",
-		address: "",
 		phone: "",
-		active: false,
-		role: "admin"
+		active: false
 	});
 
 	useEffect(() => {
@@ -72,20 +68,6 @@ export default function RegistrationAdmins() {
 							<div className={styles.input__container}>
 								<label htmlFor="">Password</label>
 								<input type="password" placeholder="" name="password" value={user.password} onChange={handleChange} />
-							</div>
-						</div>
-						<div className={styles.twoColumns}>
-							<div className={styles.input__container}>
-								<label htmlFor="">País</label>
-								<input type="text" placeholder="" name="country" value={user.country} onChange={handleChange} />
-							</div>
-							<div className={styles.input__container}>
-								<label htmlFor="">Ciudad</label>
-								<input type="text" placeholder="" name="city" value={user.city} onChange={handleChange} />
-							</div>
-							<div className={styles.input__container}>
-								<label htmlFor="">Dirección</label>
-								<input type="text" placeholder="" name="address" value={user.address} onChange={handleChange} />
 							</div>
 						</div>
 
