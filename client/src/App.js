@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import getClient from "./redux/actions/getClient";
 import { useEffect } from "react";
 import RegistrationTradeBoss from "./views/RegistrationTradeBoss/RegistrationTradeBoss";
+import LoginTrade from "./views/LoginTrade/LoginTrade";
 
 function App() {
 	const dispatch = useDispatch();
@@ -38,6 +39,7 @@ function App() {
 				<Route path="/useradmin" element={<DashboardClient />} />
 
 				<Route path="/login" element={<Login />} />
+				<Route path="/login/trades" element={< LoginTrade/>} />
 				<Route path="/login/tradeboss" element={<LoginTradeBoss />} />
 				<Route path="/s" element={<HomeLocal />} />
 				<Route path="/search" element={<UserSearch />} />
