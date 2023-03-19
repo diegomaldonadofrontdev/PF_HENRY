@@ -1,16 +1,15 @@
 const { Router } = require("express");
 const {
   getTradeHandler,
-  postTradeHandler,
-  postCategoryHandler,
   getCategoriesHandler,  
   confirmEmailHandler,
   resetPassword,
-  sendMailResetPassword
+  sendMailResetPassword,
+  loginTradeHandler
 } = require("../Handlers/tradesHandler");
 const {
   postProductHandler,
-  newCategory,
+  postProductCategoryHandler,
   getProductsHandler,
   getProductHandler,
   updateProduct,
@@ -18,12 +17,10 @@ const {
 
 } = require("../Handlers/productsHandler");
 const {
-  validateTrade,
-  validateProduct,
-  validateCategory,
-  validateCategoryProduct,
+  validateProduct,  
   validateResetPassword,
-  validatePassword
+  validatePassword,
+  validateLoginTrade
 } = require("../Middlewares/validate");
 const {
   getFeedbacksHandler
@@ -50,11 +47,10 @@ tradesRouter.get("/orders/actives/:tradeId", getActiveOrdersHandler); // FUNCION
 // tradesRouter.get("/membership", getMembershipHandler);
 
 // // POST 
-tradesRouter.post("/newTrade", validateTrade, postTradeHandler); // FUNCIONANDO
-tradesRouter.post("/newProduct", validateProduct, postProductHandler);
-tradesRouter.post("/newCategory", validateCategory, postCategoryHandler);
+
+tradesRouter.post("/newProduct", validateProduct, postProductHandler); // FUNCIONANDO
+tradesRouter.post("/login", validateLoginTrade, loginTradeHandler); // 
 // tradesRouter.post("/new-delivery-zone", validateDeliveryZone, newDeliveryZone);
-tradesRouter.post("/new-category-products", validateCategoryProduct, newCategory);
 // tradesRouter.post("/new-subcategory", validateSubcategory, newSubcategory);
 
 // //DELETE

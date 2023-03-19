@@ -4,6 +4,7 @@ const {
 } = require("../Controllers/tradesController");
 const Trade = require('../models/Trades')
 const Product = require('../models/Products');
+const ProductCategories = require ("../models/ProductCategory")
 
 // [{producto buscado}]
 const getProductById = async (id) => { // FUNCIONANDO 12/03
@@ -82,12 +83,22 @@ const getAllProductsCategories = async (tradeId) => { // FUNCIONANDO 12/03
 
 }
 
-const postCreateProduct = async (id, body) => { //*
+const createProduct = async (id, body) => { // FUNCIONANDO
   try {
     const newProduct =  new Product(body);
     newProduct.tradeId = id
     await newProduct.save()  
     return `El producto ${body.name} se creo correctamente`
+  } catch (error) {
+    return error.message
+  }
+}
+
+const createProductCategory = async (productCat) => {
+  try {
+    const newCategory = new ProductCategories(productCat);    
+    await newCategory.save()
+	return true;
   } catch (error) {
     return error.message
   }
@@ -99,6 +110,7 @@ module.exports = {
   searchByName,
   getAllProducts,
   getProductById,
-  postCreateProduct,
-  getAllProductsCategories
+  createProduct,
+  getAllProductsCategories,
+  createProductCategory
 }
