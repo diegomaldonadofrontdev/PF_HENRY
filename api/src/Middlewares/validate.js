@@ -33,7 +33,7 @@ const validateTradeFeedback = (req, res, next) => {
 };
 
 const validateOrder = (req, res, next) => {
-	const { products, total } = req.body;
+	const { products } = req.body;
 	const { tradeId, clientId } = req.query;
 	if (!tradeId)
 		return res
@@ -44,11 +44,7 @@ const validateOrder = (req, res, next) => {
 			.status(400)
 			.json({ Error: "No se ha recibido el id del cliente" });
 	if (!products)
-		return res.status(400).json({ Error: "La lista de productos esta vacía" });
-	if (!total)
-		return res
-			.status(400)
-			.json({ Error: "No se recibió el monto total de la compra" });
+		return res.status(400).json({ Error: "La lista de productos esta vacía" });	
 	next();
 };
 
@@ -133,7 +129,7 @@ const validateTrade = (req, res, next) => {
 };
 
 const validateProduct = (req, res, next) => {
-	const { name, description, price, image, status } = req.body;
+	const { name, category, description, price, image } = req.body;
 
 	if (!name)
 		return res
@@ -147,20 +143,16 @@ const validateProduct = (req, res, next) => {
 		return res.status(400).json({ Error: "No se ha recibido el precio" });
 	if (!image)
 		return res.status(400).json({ Error: "No se ha recibido la imagen" });
-	if (!status)
-		return res.status(400).json({ Error: "No se ha recibido el estatus" });
+	if (!category)
+		return res.status(400).json({ Error: "No se ha recibido la categoría" });
 	next();
 };
 
 const validateCategory = (req, res, next) => {
-	const { categoryName, status } = req.body;
+	const { category } = req.body;
 
-	if (!categoryName)
-		return res
-			.status(400)
-			.json({ Error: "No se ha recibido el nombre de la categoria" });
-	if (!status)
-		return res.status(400).json({ Error: "No se ha recibido el estatus" });
+	if (!category)
+		return res.status(400).json({ Error: "No se ha recibido el nombre de la categoria" });	
 	next();
 };
 

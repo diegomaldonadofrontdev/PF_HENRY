@@ -3,6 +3,7 @@ const {
 	getOrdersForClient,
 	getOrdersForTrade,
 	createOrder,
+  searchActiveOrders
 } = require("../Controllers/ordersController");
 
 const getOrdersHandler = async (req, res) => {
@@ -33,6 +34,16 @@ const getOrderHandler = async (req, res) => {
 	}
 };
 
+const getActiveOrdersHandler = async (req, res) => {
+  const {tradeId} = req.params
+  try {
+    const activeOrders = await searchActiveOrders(tradeId)
+    res.status(200).json(activeOrders)
+  } catch (error) {
+    res.status(404).json({Error: `Error al buscar los pedidos pendientes`})
+  }
+}
+
 const postNewOrderHandler = async (req, res) => {
 	// FUNCIONANDO
 	const { products, total } = req.body;
@@ -60,4 +71,5 @@ module.exports = {
 	getOrdersHandler,
 	getOrderHandler,
 	postNewOrderHandler,
+  getActiveOrdersHandler
 };

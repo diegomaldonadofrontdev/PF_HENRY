@@ -5,11 +5,11 @@ const {
 	getAllCategories,
 	getSubCategories,
 	getDeliveryZones,
-	postCreateTrades,
+	createTrades,
+	createCategory,
 	confirmEmail,
 	resetPasswordController,
 	sendMailNewPassword
-
 } = require("../Controllers/tradesController");
 const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
 const jwt = require('jsonwebtoken');
@@ -74,12 +74,12 @@ const getDeliveryZoneHandler = async (req, res) => {	//FUNCIONANDO 12/03
 };
 
 //POST
-const createTradeHandler = async (req, res) => {
+const postTradeHandler = async (req, res) => { // PROBAR
+	const {password, email, commerceName} = req.body
 	try {
-		const newTrade = await postCreateTrades(req.body);		
-		res
-			.status(200)
-			.json(`Se creo correctamente el comercio ${req.body.commerceName}`);
+		const newTrade = await createTrades(password, email);
+		if (newTrade) 
+		return res.status(200).json(`Se creo correctamente el comercio ${commerceName}`);
 	} catch (error) {
 		res.status(404).json({
 			Error: `Error al registrar el comercio ${req.body.commerceName}`,
@@ -87,13 +87,14 @@ const createTradeHandler = async (req, res) => {
 	}
 };
 
-const newCategoryTrade = async (req, res) => {
+const postCategoryHandler = async (req, res) => {
+	const {category} = req.body
+	const cat = {name: category}
 	try {
-		const createCategory = await postCreateCategory(req.body);
-
-		res
-			.status(200)
-			.json(`Se creo la categoria correctamente ${req.body.categoryName}`);
+		const newCategory = await createCategory(cat);
+		if (newCategory) {
+			return res.status(200).json(`Se creo la categoria correctamente ${category}`);
+		} else return `No se pudo crear la categoría.`
 	} catch (error) {
 		res.status(404).json({ Error: "Error al registar la categoria" });
 	}
@@ -228,8 +229,8 @@ module.exports = {
 	getCategoriesHandler,
 	getSubCategoriesHandler,
 	getDeliveryZoneHandler,
-	createTradeHandler,
-	newCategoryTrade,
+	postTradeHandler,
+	postCategoryHandler,
 	newDeliveryZone,
 	newSubcategory,
 	updateTrade,

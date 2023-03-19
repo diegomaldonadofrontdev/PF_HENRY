@@ -1,15 +1,14 @@
 const Order = require("../models/Order");
 const Trade = require("../models/Trades");
 const sendMailOrder = require("../Helpers/emailCreateOrder");
-const Clients = require("../models/Clients");
-const sendMailOrderTrade = require("../Helpers/emailCreateOrderTrade");
-const ObjectId = require("mongoose").ObjectId;
+const Clients = require('../models/Clients')
+const sendMailOrderTrade = require('../Helpers/emailCreateOrderTrade');
+const ObjectId = require('mongoose').ObjectId
 
 const getOrdersForClient = async (clientId) => {
 	// FUNCIONANDO
 	try {
 		const orders = await Order.find({ clientId: clientId });
-		console.log(orders);
 		const ordersCompilated = [];
 		if (orders.length) {
 			for (let i = 0; i < orders.length; i++) {
@@ -44,13 +43,18 @@ const getOrdersForTrade = async (tradeId) => {
 				const client = await Clients.findById(
 					orders[j].clientId,
 					"firstname lastname"
-				);
+				);        
+        let total = 0;
 				ordersCompilated.push({
 					orderId: orders[j]._id,
 					createdAt: orders[j].createdAt,
 					client: client.firstname + " " + client.lastname,
 					status: orders[j].status,
-					total: orders[j].total,
+          products: orders[j].products.map((x) => {
+						total += x.cantidad * x.price;
+						return x;
+					}),
+					total: total,
 				});
 			}
 			return ordersCompilated;
@@ -84,12 +88,20 @@ const getOrderByOrderId = async (orderId) => {
 	}
 };
 
-const createOrder = async (tradeId, clientId, products, total) => {
-	// FUNCIONANDO
+const searchActiveOrders = async (tradeId) => {
+  try {
+    const search = await Order.find({tradeId: tradeId, status: {$ne: "Entregado"}})
+    if (search.length) return search
+    return `Todos los pedidos se encuentran en estado ENTREGADO.`
+  } catch (error) {
+    return error.message
+  }
+}
+
+const createOrder = async (tradeId, clientId, products) => {	// FUNCIONANDO
 	try {
-		const newOrder = new Order({ tradeId, clientId, products, total: total });
+		const newOrder = new Order({ tradeId, clientId, products });
 		await newOrder.save();
-		console.log(newOrder.total);
 
 		const trade = await Trade.findById(newOrder.tradeId);
 		const client = await Clients.findById(newOrder.clientId);
@@ -101,7 +113,6 @@ const createOrder = async (tradeId, clientId, products, total) => {
 				client.lastname,
 				newOrder.products,
 				newOrder._id,
-				newOrder.toal
 			);
 			await sendMailOrderTrade(
 				trade.email,
@@ -110,7 +121,6 @@ const createOrder = async (tradeId, clientId, products, total) => {
 				client.lastname,
 				newOrder.products,
 				newOrder._id,
-				newOrder.total
 			);
 			return `El pedido fue enviado al comercio. Su número de orden es ${newOrder._id} por un total de ${newOrder.total}`;
 		} else return `Vaya! Ocurrió un problema al registrar su pedido.`;
@@ -129,8 +139,9 @@ const createOrder = async (tradeId, clientId, products, total) => {
 // }
 
 module.exports = {
-	getOrdersForClient,
-	getOrdersForTrade,
-	getOrderByOrderId,
-	createOrder,
+  getOrdersForClient,
+  getOrdersForTrade,
+  getOrderByOrderId,
+  createOrder,
+  searchActiveOrders
 };
