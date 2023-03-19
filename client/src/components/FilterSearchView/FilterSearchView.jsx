@@ -85,7 +85,7 @@ export default function FilterSearchView() {
 						))}
 					</select>
 				</div>
-				{tradesSubCategories.length > 0 ? (
+				{tradesSubCategories.length > 0 && filters.category !== "default" ? (
 					<div>
 						<p>Agregar Subcategoria:</p>
 						<select

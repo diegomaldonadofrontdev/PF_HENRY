@@ -20,6 +20,7 @@ import {
 	GET_PRODUCT,
 	ARMADO_CARRITO,
 	GET_ORDERS_CLIENT,
+	EDIT_CLIENT,
 } from "../actions/types";
 
 const initialState = {
@@ -289,6 +290,13 @@ export default function rootReducer(state = initialState, action) {
 			return {
 				...state,
 				currentClient: { ...state.currentClient, orders: orders },
+			};
+		}
+
+		case EDIT_CLIENT: {
+			return {
+				...state,
+				currentClient: { ...state.currentClient, ...action.payload.body },
 			};
 		}
 		default:

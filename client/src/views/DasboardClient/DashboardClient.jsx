@@ -1,5 +1,5 @@
 // React and hooks
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 // React Redux
 import { useSelector, useDispatch } from "react-redux";
@@ -16,6 +16,7 @@ import avatar from "../../images/avatar.avif";
 
 // Styles
 import styles from "./DashboardClient.module.css";
+import { editClient } from "../../redux/actions/editClient";
 
 export default function DashboardClient() {
 	const loggedUser = useSelector((state) => state.currentClient);
@@ -25,12 +26,41 @@ export default function DashboardClient() {
 	const idUser = window.localStorage.getItem("idUser");
 	console.log(idUser);
 
+	const [body, setBody] = useState({
+		firstname: "",
+		lastname: "",
+		email: "",
+		phone: "",
+		address: "",
+	});
+
 	useEffect(() => {
 		if (idUser) {
 			dispatch(getCLient(idUser));
 			dispatch(getOrdersClient(idUser));
 		}
 	}, [dispatch, idUser]);
+
+	useEffect(() => {
+		if (loggedUser) {
+			setBody({
+				...body,
+				firstname: loggedUser.firstname,
+				lastname: loggedUser.lastname,
+				email: loggedUser.email,
+			});
+		}
+	}, [loggedUser]);
+
+	function handlerChange(e) {
+		const { name, value } = e.target;
+		setBody({ ...body, [name]: value });
+	}
+
+	function handlerSubmit(e) {
+		e.preventDefault();
+		dispatch(editClient(body, idUser));
+	}
 
 	return (
 		<div>
@@ -90,40 +120,59 @@ export default function DashboardClient() {
 												</p>
 											</div>
 										</div>
-										<form action="" className={styles.form__editInfoUser}>
+										<form
+											action=""
+											className={styles.form__editInfoUser}
+											onSubmit={handlerSubmit}
+										>
 											<h3>Modificar Datos</h3>
 
 											<div>
 												<div className={styles.form__sm}>
-													<label htmlFor="">Nombre De usuario:</label>
+													<label htmlFor="">Nombre:</label>
 													<input
 														type="text"
-														value={`${loggedUser.firstname} ${loggedUser.lastname}`}
+														value={loggedUser.firstname}
+														disabled
 													/>
 												</div>
 												<div className={styles.form__sm}>
-													<label htmlFor="">Nombre:</label>
-													<input type="text" value={loggedUser.firstname} />
-												</div>
-												<div className={styles.form__sm}>
 													<label htmlFor="">Apellido:</label>
-													<input type="text" value={loggedUser.lastname} />
+													<input
+														type="text"
+														value={loggedUser.lastname}
+														disabled
+													/>
 												</div>
 											</div>
 											<div>
 												<div className={styles.form__sm}>
 													<label htmlFor="">email:</label>
-													<input type="text" value={loggedUser.email} />
+													<input
+														type="text"
+														value={loggedUser.email}
+														disabled
+													/>
 												</div>
 												<div className={styles.form__sm}>
 													<label htmlFor="">Teléfono:</label>
-													<input type="text" placeholder={loggedUser.phone} />
+													<input
+														type="text"
+														placeholder={loggedUser.phone}
+														name="phone"
+														onChange={handlerChange}
+													/>
 												</div>
 											</div>
 											<div>
 												<div className={styles.form__sm}>
 													<label htmlFor="">Direccion de Entrega:</label>
-													<input type="text" placeholder={loggedUser.address} />
+													<input
+														type="text"
+														placeholder={loggedUser.address}
+														name="address"
+														onChange={handlerChange}
+													/>
 												</div>
 												<div className={styles.form__sm}>
 													<label htmlFor="">Imagen de perfil</label>

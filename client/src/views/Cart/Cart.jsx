@@ -59,7 +59,7 @@ export default function Cart({ id }) {
 
 	function handlerPostPayment() {
 		dispatch(postOrder(id, idClient, carrito));
-		dispatch(postPayment(id, idClient, carrito));
+		// dispatch(postPayment(id, idClient, carrito));
 	}
 
 	useEffect(() => {

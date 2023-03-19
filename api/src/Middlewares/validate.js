@@ -33,7 +33,7 @@ const validateTradeFeedback = (req, res, next) => {
 };
 
 const validateOrder = (req, res, next) => {
-	const { products, total } = req.body;
+	const { data, total } = req.body;
 	const { tradeId, clientId } = req.query;
 	if (!tradeId)
 		return res
@@ -43,7 +43,7 @@ const validateOrder = (req, res, next) => {
 		return res
 			.status(400)
 			.json({ Error: "No se ha recibido el id del cliente" });
-	if (!products)
+	if (!data)
 		return res.status(400).json({ Error: "La lista de productos esta vacía" });
 	if (!total)
 		return res
