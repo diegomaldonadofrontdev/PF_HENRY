@@ -15,7 +15,7 @@ const getTradeBossHandler = async (req, res) => {
 // POST HANDLERS 
 
 const loginTradeBossHandler = async (req, res) => {
-    const { email, password } = req.query;
+    const { email, password } = req.body;
 
     const findEmail = await searchTradeBossExist(email);
     if (!findEmail) res.status(404).json("No existe el comerciante");

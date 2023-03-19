@@ -4,8 +4,8 @@ const TradeBoss = require('../models/TradeBoss');
 // GET CONTROLLERS 
 const searchTradeBossExist = async (email) => {
     try {
-        const findTradeBoss = await TradeBoss.find({email: email});
-        if(findTradeBoss.length) return true
+        const findTradeBoss = await TradeBoss.find({ email: email });
+        if (findTradeBoss.length) return true
         return false
     } catch (error) {
         return error.message
@@ -18,7 +18,7 @@ const validatePasswordTradeBoss = async (email, password) => {
 
 const searchTradeBoss = async (email) => {
     try {
-        const tradeBossBDD = await TradeBoss.find({email: email}, {password:0});
+        const tradeBossBDD = await TradeBoss.find({ email: email }, { password: 0 });
         return tradeBossBDD[0]
     } catch (error) {
         return error.message;

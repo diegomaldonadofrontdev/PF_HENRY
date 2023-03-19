@@ -28,7 +28,6 @@ export default function Header() {
 		e.preventDefault();
 		logout1();
 		logout();
-		window.localStorage.clear();
 	};
 
 	return (
