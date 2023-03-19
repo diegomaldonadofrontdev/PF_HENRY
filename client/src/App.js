@@ -12,6 +12,7 @@ import ProductCreationForm from "./views/ProductCreationForm/ProductCreationForm
 import CommerceRegistrationForm from "./views/CommerceRegistrationForm/CommerceRegistrationForm";
 import DashboardClient from "./views/DasboardClient/DashboardClient";
 import ResponsePayment from "./views/ResponsePayment/ResponsePayment";
+import RegistrationTradeBoss from "./views/RegistrationTradeBoss/RegistrationTradeBoss";
 
 function App() {
 	return (
@@ -27,6 +28,7 @@ function App() {
 					<Route path="/opinion" element={<OpinionForm />} />
 					<Route path="/comercio/:id" element={<CommerceDetail />} />
 					<Route path="/registration" element={<RegistrationForm />} />
+					<Route path="/registration/tradeboss" element={<RegistrationTradeBoss />} />
 					<Route
 						path="/registration_product"
 						element={<ProductCreationForm />}

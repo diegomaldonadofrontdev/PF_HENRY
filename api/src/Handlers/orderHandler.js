@@ -1,35 +1,37 @@
-const {  
-  getOrderByOrderId,
-  getOrdersForClient,
-  getOrdersForTrade,
-  createOrder,
+const {
+	getOrderByOrderId,
+	getOrdersForClient,
+	getOrdersForTrade,
+	createOrder,
   searchActiveOrders
 } = require("../Controllers/ordersController");
 
-const getOrdersHandler = async (req, res) => {  // FUNCIONANDO
-  const { clientId, tradeId } = req.query;
-  let orders;
-  try {    
-    if (clientId) {
-      orders = await getOrdersForClient(clientId);
-    }
-    if (tradeId) {
-      orders = await getOrdersForTrade(tradeId);
-    }      
-    res.status(200).json(orders);    
-  } catch (error) {
-    res.status(404).json({ Error: "Error al obtener las órdenes" });    
-  }
+const getOrdersHandler = async (req, res) => {
+	// FUNCIONANDO
+	const { clientId, tradeId } = req.query;
+	let orders;
+	try {
+		if (clientId) {
+			orders = await getOrdersForClient(clientId);
+		}
+		if (tradeId) {
+			orders = await getOrdersForTrade(tradeId);
+		}
+		res.status(200).json(orders);
+	} catch (error) {
+		res.status(404).json({ Error: "Error al obtener las órdenes" });
+	}
 };
 
-const getOrderHandler = async (req, res) => {  // FUNCIONANDO
-  const { orderId } = req.params;
-  try {
-    const order = await getOrderByOrderId(orderId);
-    res.status(200).json(order);
-  } catch (error) {
-    res.status(404).json({ error: error.message });
-  }
+const getOrderHandler = async (req, res) => {
+	// FUNCIONANDO
+	const { orderId } = req.params;
+	try {
+		const order = await getOrderByOrderId(orderId);
+		res.status(200).json(order);
+	} catch (error) {
+		res.status(404).json({ error: error.message });
+	}
 };
 
 const getActiveOrdersHandler = async (req, res) => {
@@ -42,16 +44,17 @@ const getActiveOrdersHandler = async (req, res) => {
   }
 }
 
-const postNewOrderHandler = async (req, res) => {  // FUNCIONANDO
-  const { products, total } = req.body;
-  const { tradeId, clientId } = req.query;
-  console.log("TRADEID=", tradeId);
-  try {
-    const newOrder = await createOrder(tradeId, clientId, products, total);
-    res.status(200).json(newOrder);
-  } catch (error) {
-    res.status(404).json({ Error: "Error al registrar la orden" });
-  }
+const postNewOrderHandler = async (req, res) => {
+	// FUNCIONANDO
+	const { products, total } = req.body;
+	const { tradeId, clientId } = req.query;
+	console.log("TRADEID=", tradeId);
+	try {
+		const newOrder = await createOrder(tradeId, clientId, products, total);
+		res.status(200).json(newOrder);
+	} catch (error) {
+		res.status(404).json({ Error: "Error al registrar la orden" });
+	}
 };
 
 // const putOrderHandler = async (req, res) => { // <--------- VER PARA LOS COMERCIOS, EL CLIENTE NO PUEDE ACTUALIZAR EL PEDIDO
@@ -65,8 +68,8 @@ const postNewOrderHandler = async (req, res) => {  // FUNCIONANDO
 // }
 
 module.exports = {
-  getOrdersHandler,
-  getOrderHandler,
-  postNewOrderHandler,
+	getOrdersHandler,
+	getOrderHandler,
+	postNewOrderHandler,
   getActiveOrdersHandler
 };

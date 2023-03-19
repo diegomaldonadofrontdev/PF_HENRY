@@ -1,10 +1,17 @@
+// React and hooks
 import React, { useEffect } from "react";
+
+// React Redux
 import { useSelector, useDispatch } from "react-redux";
-import { getCLient } from "../../redux/actions/index";
+import getCLient from "../../redux/actions/getClient";
 import Header from "../../components/Header/Header";
+
+// img
+import avatar from "../../images/avatar.avif";
+
+// Styles
 import styles from "./DashboardClient.module.css";
-import mila from "./../../images/milanesa.avif";
-import avatar from "./../../images/avatar.avif";
+import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
 
 export default function DashboardClient() {
 	const loggedUser = useSelector((state) => state.currentClient);
@@ -28,16 +35,14 @@ export default function DashboardClient() {
 					<div className={styles.userDashboard__handler}>
 						<div className={styles.profile}>
 							<div className={styles.img__container}>
-								<img src={avatar} alt="" />
+								<img src={loggedUser.img || avatar} alt="" />
 							</div>
 							<h2>{loggedUser.firstname}</h2>
-							<p>{loggedUser.email}</p>
+							<p>{loggedUser.lastname}</p>
 						</div>
 						<a href="#miperfil">Mi perfil</a>
 						<a href="#mispedidos">Mis pedidos</a>
-						<a href="#misfavoritos">Mis favoritos</a>
-						<a href="#">Mi direcciones</a>
-						<a href="#">Ayuda / Reclamo</a>
+						<a href="#">Reclamo</a>
 					</div>
 					<div className={styles.panel__handlers}>
 						<div className={styles.view__handler}>
@@ -60,66 +65,64 @@ export default function DashboardClient() {
 											</div>
 											<div>
 												<h3>Ciudad:</h3>
-												<p>{loggedUser.city}</p>
+												<p className={styles.alert}>
+													{loggedUser.city ||
+														`Por favor completá tus datos de Ciudad`}
+												</p>
 											</div>
 											<div>
 												<h3>Telefono:</h3>
-												<p>{loggedUser.phone}</p>
+												<p className={styles.alert}>
+													{loggedUser.phone ||
+														`Por favor completá tus datos de Teléfono`}
+												</p>
 											</div>
 											<div>
 												<h3>Dirección de entrega</h3>
-												<p>{loggedUser.address}</p>
+												<p className={styles.alert}>
+													{loggedUser.address ||
+														`Por favor completá tus datos de Dirección de entrega`}
+												</p>
 											</div>
 										</div>
-										<form action="">
+										<form action="" className={styles.form__editInfoUser}>
 											<h3>Modificar Datos</h3>
+
 											<div>
-												<div>
-													<div className={styles.form__sm}>
-														<label htmlFor="">Nombre De usuario</label>
-														<input type="text" placeholder="Nombre actual" />
-													</div>
-													<div className={styles.form__sm}>
-														<label htmlFor="">Nombre</label>
-														<input
-															type="text"
-															placeholder={loggedUser.firstname}
-														/>
-													</div>
-													<div className={styles.form__sm}>
-														<label htmlFor="">Apellido</label>
-														<input
-															type="text"
-															placeholder={loggedUser.lastname}
-														/>
-													</div>
+												<div className={styles.form__sm}>
+													<label htmlFor="">Nombre De usuario:</label>
+													<input
+														type="text"
+														value={`${loggedUser.firstname} ${loggedUser.lastname}`}
+													/>
 												</div>
-												<div>
-													<div>
-														<label htmlFor="">email</label>
-														<input type="text" placeholder={loggedUser.email} />
-													</div>
-													<div>
-														<label htmlFor="">Telefono</label>
-														<input type="text" placeholder={loggedUser.phone} />
-													</div>
-													<div>
-														<label htmlFor="">Password</label>
-														<input type="text" placeholder="******" />
-													</div>
+												<div className={styles.form__sm}>
+													<label htmlFor="">Nombre:</label>
+													<input type="text" value={loggedUser.firstname} />
 												</div>
-												<div>
-													<div>
-														<label htmlFor="">Direccion de Entrega</label>
-														<input
-															type="text"
-															placeholder={loggedUser.address}
-														/>
-													</div>
-													<div>
-														<label htmlFor="">Imagen de perfil</label>
-														<input type="text" placeholder="ingresar imagen" />
-													</div>
+												<div className={styles.form__sm}>
+													<label htmlFor="">Apellido:</label>
+													<input type="text" value={loggedUser.lastname} />
+												</div>
+											</div>
+											<div>
+												<div className={styles.form__sm}>
+													<label htmlFor="">email:</label>
+													<input type="text" value={loggedUser.email} />
+												</div>
+												<div className={styles.form__sm}>
+													<label htmlFor="">Teléfono:</label>
+													<input type="text" placeholder={loggedUser.phone} />
+												</div>
+											</div>
+											<div>
+												<div className={styles.form__sm}>
+													<label htmlFor="">Direccion de Entrega:</label>
+													<input type="text" placeholder={loggedUser.address} />
+												</div>
+												<div className={styles.form__sm}>
+													<label htmlFor="">Imagen de perfil</label>
+													<input type="text" placeholder="ingresar imagen" />
 												</div>
 											</div>
 
@@ -139,177 +142,29 @@ export default function DashboardClient() {
 									<div className={styles.user__informacion}>
 										<table>
 											<tr>
-												<th>Nro</th>
+												<th>ID de compra</th>
 												<th>Fecha</th>
-												<th>Producto</th>
-												<th>Local</th>
-												<th>Metodo de Pago</th>
+												<th>Compra</th>
+												<th>Comercio</th>
 												<th>Valoracion</th>
-												<th>Estado</th>
+												<th>Ver info</th>
 											</tr>
 											<tr>
 												<td>1</td>
 												<td>1 / 2 / 3</td>
 												<td>Hamburguesa con queso</td>
 												<td>Burger-Heros</td>
-												<td>MercadoPago</td>
 												<td>
 													<i class="bx bxs-star"></i>
 													<i class="bx bxs-star"></i>
 													<i class="bx bxs-star"></i>
 													<i class="bx bxs-star"></i>
 												</td>
-												<td>Pago</td>
-											</tr>
-											<tr>
-												<td>2</td>
-												<td>1 / 2 / 3</td>
-												<td>Hamburguesa con queso</td>
-												<td>Burger-Heros</td>
-												<td>MercadoPago</td>
-												<td></td>
-												<td>Rechazado</td>
-											</tr>
-											<tr>
-												<td>3</td>
-												<td>1 / 2 / 3</td>
-												<td>Hamburguesa con queso</td>
-												<td>Burger-Heros</td>
-												<td>MercadoPago</td>
 												<td>
-													<i class="bx bxs-star"></i>
-													<i class="bx bxs-star"></i>
-													<i class="bx bxs-star"></i>
-													<i class="bx bxs-star-half"></i>
+													<ButtonPrimary texto="Ver detalle" />
 												</td>
-												<td>Pago</td>
-											</tr>
-											<tr>
-												<td>4</td>
-												<td>1 / 2 / 3</td>
-												<td>Hamburguesa con queso</td>
-												<td>Burger-Heros</td>
-												<td>MercadoPago</td>
-												<td>
-													<i class="bx bxs-star"></i>
-													<i class="bx bxs-star"></i>
-													<i class="bx bxs-star"></i>
-													<i class="bx bxs-star"></i>
-												</td>
-												<td>Pago</td>
-											</tr>
-											<tr>
-												<td>5</td>
-												<td>1 / 2 / 3</td>
-												<td>Hamburguesa con queso</td>
-												<td>Burger-Heros</td>
-												<td>MercadoPago</td>
-												<td>
-													<i class="bx bxs-star"></i>
-													<i class="bx bxs-star"></i>
-													<i class="bx bxs-star-half"></i>
-												</td>
-												<td>Pago</td>
 											</tr>
 										</table>
-									</div>
-								</div>
-							</div>
-							<div id="misfavoritos">
-								<h2>Mis favoritos</h2>
-
-								<div className={styles.view__container}>
-									<div className={styles.cardsFav__container}>
-										<div className={styles.card_fav}>
-											<div className={styles.img__container}>
-												<img src={mila} alt="" />
-											</div>
-											<div className={styles.descripcion}>
-												<h5>Nombre del producto</h5>
-												<p>
-													Lorem ipsum dolor sit, amet consectetur adipisicing
-													elit. Repellendus sed quos exercitationem consequuntur
-													quam quo.
-												</p>
-											</div>
-											<p>$1.000</p>
-											<h3>Hambur-heros</h3>
-											<a href="#">Hacer Pedido</a>
-											<a href="#">Ir al comercio</a>
-											<a href="#">Quitar de Favoritos</a>
-										</div>
-										<div className={styles.card_fav}>
-											<div className={styles.img__container}>
-												<img src={mila} alt="" />
-											</div>
-											<div className={styles.descripcion}>
-												<h5>Nombre del producto</h5>
-												<p>
-													Lorem ipsum dolor sit, amet consectetur adipisicing
-													elit. Repellendus sed quos exercitationem consequuntur
-													quam quo.
-												</p>
-											</div>
-											<p>$1.000</p>
-											<h3>Hambur-heros</h3>
-											<a href="#">Hacer Pedido</a>
-											<a href="#">Ir al comercio</a>
-											<a href="#">Quitar de Favoritos</a>
-										</div>
-										<div className={styles.card_fav}>
-											<div className={styles.img__container}>
-												<img src={mila} alt="" />
-											</div>
-											<div className={styles.descripcion}>
-												<h5>Nombre del producto</h5>
-												<p>
-													Lorem ipsum dolor sit, amet consectetur adipisicing
-													elit. Repellendus sed quos exercitationem consequuntur
-													quam quo.
-												</p>
-											</div>
-											<p>$1.000</p>
-											<h3>Hambur-heros</h3>
-											<a href="#">Hacer Pedido</a>
-											<a href="#">Ir al comercio</a>
-											<a href="#">Quitar de Favoritos</a>
-										</div>
-										<div className={styles.card_fav}>
-											<div className={styles.img__container}>
-												<img src={mila} alt="" />
-											</div>
-											<div className={styles.descripcion}>
-												<h5>Nombre del producto</h5>
-												<p>
-													Lorem ipsum dolor sit, amet consectetur adipisicing
-													elit. Repellendus sed quos exercitationem consequuntur
-													quam quo.
-												</p>
-											</div>
-											<p>$1.000</p>
-											<h3>Hambur-heros</h3>
-											<a href="#">Hacer Pedido</a>
-											<a href="#">Ir al comercio</a>
-											<a href="#">Quitar de Favoritos</a>
-										</div>
-										<div className={styles.card_fav}>
-											<div className={styles.img__container}>
-												<img src={mila} alt="" />
-											</div>
-											<div className={styles.descripcion}>
-												<h5>Nombre del producto</h5>
-												<p>
-													Lorem ipsum dolor sit, amet consectetur adipisicing
-													elit. Repellendus sed quos exercitationem consequuntur
-													quam quo.
-												</p>
-											</div>
-											<p>$1.000</p>
-											<h3>Hambur-heros</h3>
-											<a href="#">Hacer Pedido</a>
-											<a href="#">Ir al comercio</a>
-											<a href="#">Quitar de Favoritos</a>
-										</div>
 									</div>
 								</div>
 							</div>

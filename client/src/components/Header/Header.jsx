@@ -46,10 +46,16 @@ export default function Header() {
 						location.pathname !== "/registration_commerce" && <Navbar />}
 
 					{(token || isAuthenticated) && (
-						<div onClick={handleClick}>
+						<div className={styles.loggedButtons} onClick={handleClick}>
 							<ButtonPrimary texto="Logout" />
 						</div>
 					)}
+					{(token || isAuthenticated) && (
+						<Link to="/useradmin">
+							<ButtonPrimary texto="Mi Perfil" />
+						</Link>
+					)}
+
 					{!token && !isAuthenticated && location.pathname !== "/login" && (
 						<div>
 							<Link to="/login">
