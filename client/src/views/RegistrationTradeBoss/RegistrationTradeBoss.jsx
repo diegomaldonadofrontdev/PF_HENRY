@@ -8,7 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 export default function RegistrationTradeBoss() {
 
 	const { sigin } = useTradeBoss();
-	const navigate = useNavigate();
+	// const navigate = useNavigate();
 
 	const [user, setUser] = useState({
 		firstname: "",
@@ -19,11 +19,11 @@ export default function RegistrationTradeBoss() {
 		active: false
 	});
 
-	const tokenTradeBoss = window.localStorage.getItem("tokenTradeBoss");
+	// const tokenTradeBoss = window.localStorage.getItem("tokenTradeBoss");
 
-	useEffect(() => {
-		if (tokenTradeBoss) navigate("/adminowner");
-	}, [navigate, tokenTradeBoss])
+	// useEffect(() => {
+	// 	if (tokenTradeBoss) navigate("/adminowner");
+	// }, [navigate, tokenTradeBoss])
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
