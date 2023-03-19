@@ -180,14 +180,15 @@ const getDeliveryZones = async () => {	// FUNCIONANDO 12/03
 
 
 //POST
-const createTrades = async (password, email) => { // probar 19/03
+const createTrades = async (body) => { // FUNCIONANDO
+	const {password, email} = body
 	try {
 		const token = jwt.sign(
 			{ email: email },
 			TOKEN_KEY,
 			{ expiresIn: "2h" }
 		)
-		newTrade = new Trade(body);
+		const newTrade = new Trade(body);
 
 		const salt = bcrypt.genSaltSync(10);
 		newTrade.password = bcrypt.hashSync(password, salt);
@@ -263,6 +264,20 @@ const createCategory = async (category) => {
   }
 };
 
+const verifyTradeLog = async (username, password) => {
+	try {
+		const existUser = await Trade.find({userName: username})
+		const trade = existUser[0]
+		if (existUser.length) {
+			const pass = bcrypt.compareSync(password, trade.password);
+    		if (pass) return trade._id
+    		return false
+		} return false
+	} catch (error) {
+		return error.message
+	}
+}
+
 // const postCreateDeliveryZone = async (body) => {
 //   try {
 //     const newDeliveryZone = new DeliveryZone(body);
@@ -297,5 +312,6 @@ module.exports = {
 	getDeliveryZones,
 	confirmEmail,
 	resetPasswordController,
-	sendMailNewPassword
+	sendMailNewPassword,
+	verifyTradeLog
 };

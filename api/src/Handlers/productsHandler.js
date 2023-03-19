@@ -1,6 +1,7 @@
 const {  
   getProductById,
-  postCreateProduct,
+  createProduct,
+  createProductCategory,
   getAllProductsCategories,
   getAllProducts
 } = require("../Controllers/productController");
@@ -43,11 +44,11 @@ const getProductCategoryHandler = async (req, res) => { // FUNCIONANDO 12/03
 }
 
 //POST
-const postProductHandler = async (req,res) => {
+const postProductHandler = async (req,res) => { // FUNCIONANDO
   const body = req.body;
   const {id} = req.params
     try {
-      const createProduct = await createProduct(id, body);
+      await createProduct(id, body);
       res.status(200).json(`Se creo correctamente el producto`);
     } catch (error) {
       res.status(404).json({Error: 'Hubo un problema con el producto '})
@@ -55,14 +56,14 @@ const postProductHandler = async (req,res) => {
 
 }
 
-const newCategory = async (req,res) => {
-    try {
-  
-      const createCategory = await postCreateCategoryProduct(req.body);
-      
-      res.status(200).json(`Se creo correctamente la categoria`);
+const postProductCategoryHandler = async (req,res) => { // 
+    const {productCategory} = req.body
+    const productCat = {name: productCategory}
+    try {  
+      await createProductCategory(productCat);
+      res.status(200).json(`Se creo correctamente la categoria ${productCategory}`);
     } catch (error) {
-      res.status(404).json({Error: 'Hubo un problema con la categoria '})
+      res.status(404).json({Error: `Hubo un problema al crear la categoria ${productCategory}`})
     }
 
 }
@@ -114,10 +115,9 @@ module.exports = {
   getProductHandler,
   getProductCategoryHandler,
   postProductHandler,
-  newCategory,
+  postProductCategoryHandler,
   getProductsHandler,
   getCategoryProducts,
   updateProduct,
   updateCategoryProduct,
-
 };

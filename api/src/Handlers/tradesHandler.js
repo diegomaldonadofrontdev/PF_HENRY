@@ -1,5 +1,4 @@
 const {
-	getAllTrades,
 	searchTradeById,
 	searchTradesByFilters,	
 	getAllCategories,
@@ -9,7 +8,8 @@ const {
 	createCategory,
 	confirmEmail,
 	resetPasswordController,
-	sendMailNewPassword
+	sendMailNewPassword,
+	verifyTradeLog
 } = require("../Controllers/tradesController");
 const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
 const jwt = require('jsonwebtoken');
@@ -75,9 +75,10 @@ const getDeliveryZoneHandler = async (req, res) => {	//FUNCIONANDO 12/03
 
 //POST
 const postTradeHandler = async (req, res) => { // PROBAR
-	const {password, email, commerceName} = req.body
+	const {commerceName} = req.body
+	const body = req.body
 	try {
-		const newTrade = await createTrades(password, email);
+		const newTrade = await createTrades(body);
 		if (newTrade) 
 		return res.status(200).json(`Se creo correctamente el comercio ${commerceName}`);
 	} catch (error) {
@@ -91,12 +92,10 @@ const postCategoryHandler = async (req, res) => {
 	const {category} = req.body
 	const cat = {name: category}
 	try {
-		const newCategory = await createCategory(cat);
-		if (newCategory) {
-			return res.status(200).json(`Se creo la categoria correctamente ${category}`);
-		} else return `No se pudo crear la categoría.`
+		await createCategory(cat);
+		res.status(200).json(`Se creo la categoria correctamente ${category}`);		
 	} catch (error) {
-		res.status(404).json({ Error: "Error al registar la categoria" });
+		res.status(404).json({ Error: `Error al registar la categoria ${category}` });
 	}
 };
 
@@ -123,6 +122,16 @@ const newSubcategory = async (req, res) => {
 		res.status(404).json({ Error: "Error al registar la zona" });
 	}
 };
+
+const loginTradeHandler = async (req, res) => {
+	const {username, password} = req.body
+	try {
+		const verify = await verifyTradeLog(username, password)
+		if (verify) res.status(200).json(verify)
+	} catch (error) {
+		res.status(404).json({Error: `Usuario o contraseña incorrecto`})
+	}
+}
 
 // UPDATES
 const updateTrade = async (req, res) => {
@@ -174,7 +183,7 @@ const updateSubcategory = async (req, res) => {
 		user: id,
 	};
 	try {
-		const subcategory = await updateSubcategoryC(id, subcategoryUpdate);
+		await updateSubcategoryC(id, subcategoryUpdate);
 		res.status(200).json(`Se actualizo la subcategoria`);
 	} catch (error) {
 		res.status(404).json(`Error al actualizar la subcategoria`);
@@ -239,5 +248,6 @@ module.exports = {
 	updateSubcategory,
 	confirmEmailHandler,
 	sendMailResetPassword,
-	resetPassword
+	resetPassword,
+	loginTradeHandler
 };

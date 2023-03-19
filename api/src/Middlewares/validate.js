@@ -33,7 +33,7 @@ const validateTradeFeedback = (req, res, next) => {
 };
 
 const validateOrder = (req, res, next) => {
-	const { products } = req.body;
+	const { data, total } = req.body;
 	const { tradeId, clientId } = req.query;
 	if (!tradeId)
 		return res
@@ -43,8 +43,12 @@ const validateOrder = (req, res, next) => {
 		return res
 			.status(400)
 			.json({ Error: "No se ha recibido el id del cliente" });
-	if (!products)
-		return res.status(400).json({ Error: "La lista de productos esta vacía" });	
+	if (!data)
+		return res.status(400).json({ Error: "La lista de productos esta vacía" });
+	if (!total)
+		return res
+			.status(400)
+			.json({ Error: "No se recibió el monto total de la compra" });
 	next();
 };
 
@@ -90,6 +94,9 @@ const validateTrade = (req, res, next) => {
 		province,
 		city,
 		address,
+		phone,
+		epagos,
+		deliveryZone
 	} = req.body;
 	if (!commerceName)
 		return res
@@ -124,6 +131,8 @@ const validateTrade = (req, res, next) => {
 	if (!email)
 		return res.status(400).json({ Error: "No se ha recibido el email" });
 	if (!epagos)
+		return res.status(400).json({ Error: "No se ha recibido el tipo de pago" });
+	if (!deliveryZone)
 		return res.status(400).json({ Error: "No se ha recibido el tipo de pago" });
 	next();
 };
@@ -169,14 +178,12 @@ const validateDeliveryZone = (req, res, next) => {
 };
 
 const validateCategoryProduct = (req, res, next) => {
-	const { categoryName, status } = req.body;
+	const { productCategory } = req.body;
 
-	if (!categoryName)
+	if (!productCategory)
 		return res
 			.status(400)
 			.json({ Error: "No se ha recibido el nombre de la categoria" });
-	if (!status)
-		return res.status(400).json({ Error: "No se ha recibido el estatus" });
 	next();
 };
 
@@ -205,7 +212,6 @@ const validateResetPassword = (req, res, next) => {
 
 const validatePassword = (req, res, next) => {
 	const { password } = req.body;
-
 	if (!password)
 		return res
 			.status(400)
@@ -213,6 +219,13 @@ const validatePassword = (req, res, next) => {
 
 	next();
 };
+
+const validateLoginTrade = (req, res, next) => {
+	const {username, password} = req.body
+	if (!username) return res.status(400).json({ Error: "No se ha recibido el usuario" });
+	if (!password) return res.status(400).json({ Error: "No se ha recibido la constraseña" });
+	next()
+}
 
 module.exports = {
 	validateAppFeedback,
@@ -227,4 +240,5 @@ module.exports = {
 	validateSubcategory,
 	validateResetPassword,
 	validatePassword,
+	validateLoginTrade
 };
