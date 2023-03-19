@@ -41,6 +41,8 @@ const initialState = {
 	carritos: {},
 	mercadoPago: "",
 	currentClient: {},
+	currentTradeBoss: {},
+	currentTrade: {},
 	currentPage: 1,
 };
 
@@ -299,6 +301,18 @@ export default function rootReducer(state = initialState, action) {
 				...state,
 				currentClient: { ...state.currentClient, ...action.payload.body },
 			};
+		}
+		case 'CURRENT_TRADEBOSS': {
+			return {
+				...state,
+				currentTradeBoss: action.payload
+			}
+		}
+		case 'CURRENT_TRADE': {
+			return {
+				...state,
+				currentTrade: action.payload
+			}
 		}
 		default:
 			return state;

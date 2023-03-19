@@ -4,10 +4,19 @@ const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
 const { searchTradeBossExist,
     validatePasswordTradeBoss,
     searchTradeBoss,
+    searchTradeBossById,
     registerTradeBoss } = require("../Controllers/tradeBossController");
 
 // GET HANDLERS 
 const getTradeBossHandler = async (req, res) => {
+    const { id } = req.params
+
+    try {
+        const tradeBossBDD = await searchTradeBossById(id);
+        res.status(200).json(tradeBossBDD);
+    } catch (error) {
+        res.status(400).json({ error: "Error al obtener al comerciante" })
+    }
 
 }
 
@@ -64,7 +73,7 @@ const registerWhitGoogleTradeBosshandler = async (req, res) => {
             { expiresIn: "2h" }
         )
 
-        res.status(200).json([tradeBossBDD, {token: token}])
+        res.status(200).json([tradeBossBDD, { token: token }])
     } catch (error) {
         res.status(400).json("Ocurrio un error en el registro!")
     }

@@ -1,29 +1,23 @@
 const { Router } = require("express");
 const {
   getTradeHandler,
-  postTradeHandler,
-  postCategoryHandler,
   getCategoriesHandler,  
   confirmEmailHandler,
   resetPassword,
-  sendMailResetPassword
+  sendMailResetPassword,
+  loginTradeHandler
 } = require("../Handlers/tradesHandler");
 const {
   postProductHandler,
-  newCategory,
   getProductsHandler,
   getProductHandler,
-  updateProduct,
-  updateCategoryProduct,
-
+  putProductHandler,
 } = require("../Handlers/productsHandler");
 const {
-  validateTrade,
-  validateProduct,
-  validateCategory,
-  validateCategoryProduct,
+  validateProduct,  
   validateResetPassword,
-  validatePassword
+  validatePassword,
+  validateLoginTrade
 } = require("../Middlewares/validate");
 const {
   getFeedbacksHandler
@@ -47,28 +41,24 @@ tradesRouter.get("/feedbacks/search/:tradeId", getFeedbacksHandler); // FUNCIONA
 tradesRouter.get("/clients/search/:id", getClientHandler);  // FUNCIONANDO
 tradesRouter.get("/orders/search", getOrdersHandler); // FUNCIONANDO
 tradesRouter.get("/orders/actives/:tradeId", getActiveOrdersHandler); // FUNCIONANDO
-// tradesRouter.get("/membership", getMembershipHandler);
+
 
 // // POST 
-tradesRouter.post("/newTrade", validateTrade, postTradeHandler); // FUNCIONANDO
-tradesRouter.post("/newProduct", validateProduct, postProductHandler);
-tradesRouter.post("/newCategory", validateCategory, postCategoryHandler);
-// tradesRouter.post("/new-delivery-zone", validateDeliveryZone, newDeliveryZone);
-tradesRouter.post("/new-category-products", validateCategoryProduct, newCategory);
-// tradesRouter.post("/new-subcategory", validateSubcategory, newSubcategory);
+tradesRouter.post("/newProduct", validateProduct, postProductHandler); // FUNCIONANDO
+tradesRouter.post("/login", validateLoginTrade, loginTradeHandler); // 
+
 
 // //DELETE
 // tradesRouter.delete("/users/:id", validateUsers, deleteUserHandler);
 // tradesRouter.delete("/products/:id", validateProducts, deleteProductHandler);
 
 // // PUT
+tradesRouter.put("/products/update/:productId", putProductHandler);
 // tradesRouter.put("/users/:id", validateUsers, putUserHandler);
 // tradesRouter.put("/products/:id", validateProducts, putProductHandler);
 // tradesRouter.put("/update-trade", updateTrade);
-tradesRouter.put("/update-product", updateProduct);
 // tradesRouter.put("/update-category", updateCategory);
 // tradesRouter.put("/update-delivery-zone", updateDeliveryZone);
-tradesRouter.put("/update-category-product", updateCategoryProduct);
 // tradesRouter.put("/update-subcategory", updateSubcategory);
 
 tradesRouter.get('/confirm-email/:token',confirmEmailHandler) // FUNCIONANDO

@@ -1,5 +1,4 @@
 const {
-	getAllTrades,
 	searchTradeById,
 	searchTradesByFilters,	
 	getAllCategories,
@@ -9,11 +8,14 @@ const {
 	createCategory,
 	confirmEmail,
 	resetPasswordController,
-	sendMailNewPassword
+	sendMailNewPassword,
+	verifyTradeLog
 } = require("../Controllers/tradesController");
 const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
 const jwt = require('jsonwebtoken');
-// GET ---------> /trades/search
+const Products = require("../models/Products");
+
+// GET 
 const getTradesHandler = async (req, res) => {	// FUNCIONANDO 16/03
 	const def = "default"
 	const {deliveryZone, category, subcategory, epagos} = req.query
@@ -30,7 +32,6 @@ const getTradesHandler = async (req, res) => {	// FUNCIONANDO 16/03
 	}
 };
 
-// GET ---------> /trades/search/:id
 const getTradeHandler = async (req, res) => {	// FUNCIONANDO 12/03
 	const { id } = req.params;
 	try {
@@ -41,7 +42,6 @@ const getTradeHandler = async (req, res) => {	// FUNCIONANDO 12/03
 	}
 };
 
-// GET ----------> /trades/categories
 const getCategoriesHandler = async (req, res) => {	// FUNCIONANDO 12/03
 	try {
 		const categories = await getAllCategories();
@@ -51,7 +51,6 @@ const getCategoriesHandler = async (req, res) => {	// FUNCIONANDO 12/03
 	}
 };
 
-// GET ----------> /trades/subcategories
 const getSubCategoriesHandler = async (req, res) => {	// FUNCIONANDO 12/03
 	const { category } = req.query;
 	try {
@@ -73,7 +72,7 @@ const getDeliveryZoneHandler = async (req, res) => {	//FUNCIONANDO 12/03
 	}
 };
 
-//POST
+// POST
 const postTradeHandler = async (req, res) => { // PROBAR
 	const {commerceName} = req.body
 	const body = req.body
@@ -92,12 +91,10 @@ const postCategoryHandler = async (req, res) => {
 	const {category} = req.body
 	const cat = {name: category}
 	try {
-		const newCategory = await createCategory(cat);
-		if (newCategory) {
-			return res.status(200).json(`Se creo la categoria correctamente ${category}`);
-		} else return `No se pudo crear la categoría.`
+		await createCategory(cat);
+		res.status(200).json(`Se creo la categoria correctamente ${category}`);		
 	} catch (error) {
-		res.status(404).json({ Error: "Error al registar la categoria" });
+		res.status(404).json({ Error: `Error al registar la categoria ${category}` });
 	}
 };
 
@@ -125,7 +122,18 @@ const newSubcategory = async (req, res) => {
 	}
 };
 
-// UPDATES
+const loginTradeHandler = async (req, res) => { // FUNCIONANDO
+	const {username, password} = req.body
+	try {
+		const verify = await verifyTradeLog(username, password)
+		if (verify) res.status(200).json(verify)
+	} catch (error) {
+		res.status(404).json({Error: `Usuario o contraseña incorrecto`})
+	}
+}
+
+// PUT
+
 const updateTrade = async (req, res) => {
 	const { id } = req.params;
 	const tradeUpdate = {
@@ -175,7 +183,7 @@ const updateSubcategory = async (req, res) => {
 		user: id,
 	};
 	try {
-		const subcategory = await updateSubcategoryC(id, subcategoryUpdate);
+		await updateSubcategoryC(id, subcategoryUpdate);
 		res.status(200).json(`Se actualizo la subcategoria`);
 	} catch (error) {
 		res.status(404).json(`Error al actualizar la subcategoria`);
@@ -192,7 +200,7 @@ const confirmEmailHandler = async( req, res) => { // FUNCIONANDO
 	}
 }
 
-const sendMailResetPassword = async (req,res ) => {
+const sendMailResetPassword = async (req,res ) => { // FUNCIONANDO
 	const { email } = req.body;
 	console.log(email);
 	try {
@@ -209,7 +217,7 @@ const sendMailResetPassword = async (req,res ) => {
 	}
   }
   
-  const resetPassword = async (req, res) => {
+  const resetPassword = async (req, res) => { // FUNCIONANDO
 	const { password } = req.body
 	const { token } = req.params;
 	console.log(token);
@@ -240,5 +248,6 @@ module.exports = {
 	updateSubcategory,
 	confirmEmailHandler,
 	sendMailResetPassword,
-	resetPassword
+	resetPassword,
+	loginTradeHandler
 };
