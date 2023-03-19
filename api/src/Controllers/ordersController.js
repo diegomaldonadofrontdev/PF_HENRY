@@ -50,7 +50,7 @@ const getOrdersForTrade = async (tradeId) => {
 					createdAt: orders[j].createdAt,
 					client: client.firstname + " " + client.lastname,
 					status: orders[j].status,
-          products: orders[j].products.map((x) => {
+          			products: orders[j].products.map((x) => {
 						total += x.cantidad * x.price;
 						return x;
 					}),

@@ -75,9 +75,10 @@ const getDeliveryZoneHandler = async (req, res) => {	//FUNCIONANDO 12/03
 
 //POST
 const postTradeHandler = async (req, res) => { // PROBAR
-	const {password, email, commerceName} = req.body
+	const {commerceName} = req.body
+	const body = req.body
 	try {
-		const newTrade = await createTrades(password, email);
+		const newTrade = await createTrades(body);
 		if (newTrade) 
 		return res.status(200).json(`Se creo correctamente el comercio ${commerceName}`);
 	} catch (error) {

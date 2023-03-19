@@ -94,6 +94,9 @@ const validateTrade = (req, res, next) => {
 		province,
 		city,
 		address,
+		phone,
+		epagos,
+		deliveryZone
 	} = req.body;
 	if (!commerceName)
 		return res
@@ -128,6 +131,8 @@ const validateTrade = (req, res, next) => {
 	if (!email)
 		return res.status(400).json({ Error: "No se ha recibido el email" });
 	if (!epagos)
+		return res.status(400).json({ Error: "No se ha recibido el tipo de pago" });
+	if (!deliveryZone)
 		return res.status(400).json({ Error: "No se ha recibido el tipo de pago" });
 	next();
 };

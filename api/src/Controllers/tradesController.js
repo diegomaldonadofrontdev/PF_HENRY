@@ -180,14 +180,15 @@ const getDeliveryZones = async () => {	// FUNCIONANDO 12/03
 
 
 //POST
-const createTrades = async (password, email) => { // probar 19/03
+const createTrades = async (body) => { // probar 19/03
+	const {password, email} = body
 	try {
 		const token = jwt.sign(
 			{ email: email },
 			TOKEN_KEY,
 			{ expiresIn: "2h" }
 		)
-		newTrade = new Trade(body);
+		const newTrade = new Trade(body);
 
 		const salt = bcrypt.genSaltSync(10);
 		newTrade.password = bcrypt.hashSync(password, salt);

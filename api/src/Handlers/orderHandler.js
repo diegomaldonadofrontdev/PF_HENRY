@@ -51,12 +51,7 @@ const postNewOrderHandler = async (req, res) => {
 	const { tradeId, clientId } = req.query;
 	console.log("TRADEID=", tradeId);
 	try {
-		const newOrder = await createOrder(
-			tradeId,
-			clientId,
-			carrito,
-			carrito.total
-		);
+		const newOrder = await createOrder(tradeId, clientId, carrito);
 		res.status(200).json(newOrder);
 	} catch (error) {
 		res.status(404).json({ Error: "Error al registrar la orden" });
