@@ -53,7 +53,7 @@ const clientsSchema= Schema (
     
     loginG: {
       type: Boolean,
-      default: true,
+      default: false,
       require: true
     },
 

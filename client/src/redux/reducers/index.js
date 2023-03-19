@@ -37,6 +37,7 @@ const initialState = {
   carritos: {},
   mercadoPago: "",
   currentClient: {},
+  currentPage: 1
 };
 
 export default function rootReducer(state = initialState, action) {
