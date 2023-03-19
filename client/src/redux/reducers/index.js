@@ -20,6 +20,7 @@ import {
 	GET_PRODUCT,
 	ARMADO_CARRITO,
 	GET_ORDERS_CLIENT,
+	EDIT_CLIENT,
 } from "../actions/types";
 
 const initialState = {
@@ -243,8 +244,20 @@ export default function rootReducer(state = initialState, action) {
 		case CURRENT_CLIENT:
 			return {
 				...state,
-				currentClient: action.payload,
+				currentClient: { ...state.currentClient, ...action.payload },
 			};
+
+		case GET_ORDERS_CLIENT: {
+			const copyData = action.payload.data;
+			const orders = copyData.map((x) => ({
+				...x,
+				createdAt: dateTransform(x.createdAt),
+			}));
+			return {
+				...state,
+				currentClient: { ...state.currentClient, orders: orders },
+			};
+		}
 		case SET_FILTER_CATEGORY_COMMERCE:
 			const allProductos = state.products;
 			const categorySelected = action.payload.category;
@@ -280,15 +293,11 @@ export default function rootReducer(state = initialState, action) {
 				...state,
 				carritos: action.payload,
 			};
-		case GET_ORDERS_CLIENT: {
-			const copyData = action.payload.data;
-			const orders = copyData.map((x) => ({
-				...x,
-				createdAt: dateTransform(x.createdAt),
-			}));
+
+		case EDIT_CLIENT: {
 			return {
 				...state,
-				currentClient: { ...state.currentClient, orders: orders },
+				currentClient: { ...state.currentClient, ...action.payload.body },
 			};
 		}
 		default:

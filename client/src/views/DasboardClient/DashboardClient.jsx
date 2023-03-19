@@ -1,5 +1,5 @@
 // React and hooks
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 // React Redux
 import { useSelector, useDispatch } from "react-redux";
@@ -16,14 +16,23 @@ import avatar from "../../images/avatar.avif";
 
 // Styles
 import styles from "./DashboardClient.module.css";
+import { editClient } from "../../redux/actions/editClient";
 
 export default function DashboardClient() {
 	const loggedUser = useSelector((state) => state.currentClient);
 	const orders = useSelector((state) => state.currentClient.orders);
+	console.log(orders);
 	const dispatch = useDispatch();
 
 	const idUser = window.localStorage.getItem("idUser");
-	console.log(idUser);
+
+	const [body, setBody] = useState({
+		firstname: "",
+		lastname: "",
+		email: "",
+		phone: "",
+		address: "",
+	});
 
 	useEffect(() => {
 		if (idUser) {
@@ -31,6 +40,29 @@ export default function DashboardClient() {
 			dispatch(getOrdersClient(idUser));
 		}
 	}, [dispatch, idUser]);
+
+	useEffect(() => {
+		if (loggedUser) {
+			setBody({
+				...body,
+				firstname: loggedUser.firstname,
+				lastname: loggedUser.lastname,
+				email: loggedUser.email,
+			});
+		}
+	}, [loggedUser]);
+
+	function handlerChange(e) {
+		const { name, value } = e.target;
+		setBody({ ...body, [name]: value });
+	}
+
+	function handlerSubmit(e) {
+		e.preventDefault();
+		dispatch(editClient(body, idUser));
+	}
+
+	let total = 0;
 
 	return (
 		<div>
@@ -68,13 +100,7 @@ export default function DashboardClient() {
 												<h3>Email:</h3>
 												<p>{loggedUser.email}</p>
 											</div>
-											<div>
-												<h3>Ciudad:</h3>
-												<p className={styles.alert}>
-													{loggedUser.city ||
-														`Por favor completá tus datos de Ciudad`}
-												</p>
-											</div>
+
 											<div>
 												<h3>Telefono:</h3>
 												<p className={styles.alert}>
@@ -90,40 +116,59 @@ export default function DashboardClient() {
 												</p>
 											</div>
 										</div>
-										<form action="" className={styles.form__editInfoUser}>
+										<form
+											action=""
+											className={styles.form__editInfoUser}
+											onSubmit={handlerSubmit}
+										>
 											<h3>Modificar Datos</h3>
 
 											<div>
 												<div className={styles.form__sm}>
-													<label htmlFor="">Nombre De usuario:</label>
+													<label htmlFor="">Nombre:</label>
 													<input
 														type="text"
-														value={`${loggedUser.firstname} ${loggedUser.lastname}`}
+														value={loggedUser.firstname}
+														disabled
 													/>
 												</div>
 												<div className={styles.form__sm}>
-													<label htmlFor="">Nombre:</label>
-													<input type="text" value={loggedUser.firstname} />
-												</div>
-												<div className={styles.form__sm}>
 													<label htmlFor="">Apellido:</label>
-													<input type="text" value={loggedUser.lastname} />
+													<input
+														type="text"
+														value={loggedUser.lastname}
+														disabled
+													/>
 												</div>
 											</div>
 											<div>
 												<div className={styles.form__sm}>
 													<label htmlFor="">email:</label>
-													<input type="text" value={loggedUser.email} />
+													<input
+														type="text"
+														value={loggedUser.email}
+														disabled
+													/>
 												</div>
 												<div className={styles.form__sm}>
 													<label htmlFor="">Teléfono:</label>
-													<input type="text" placeholder={loggedUser.phone} />
+													<input
+														type="text"
+														placeholder={loggedUser.phone}
+														name="phone"
+														onChange={handlerChange}
+													/>
 												</div>
 											</div>
 											<div>
 												<div className={styles.form__sm}>
 													<label htmlFor="">Direccion de Entrega:</label>
-													<input type="text" placeholder={loggedUser.address} />
+													<input
+														type="text"
+														placeholder={loggedUser.address}
+														name="address"
+														onChange={handlerChange}
+													/>
 												</div>
 												<div className={styles.form__sm}>
 													<label htmlFor="">Imagen de perfil</label>
@@ -153,26 +198,29 @@ export default function DashboardClient() {
 												<th>Total</th>
 												<th>Comercio</th>
 											</tr>
-											{orders &&
-												orders.map((x) => (
+											{loggedUser &&
+												orders?.map((x) => (
 													<tr>
 														<td className={styles.orderId}>{x.orderId}</td>
 														<td>{x.createdAt}</td>
 														<td>
 															<ul className={styles.descripcionOrder}>
-																{x.products.map((productos) => (
-																	<li>
-																		-
-																		{`${productos.name} ($${
-																			productos.price
-																		}) x ${productos.cantidad}. Total: $${
-																			productos.price * productos.cantidad
-																		}`}
-																	</li>
-																))}
+																{x.products[0].data.map((productos) => {
+																	total += productos.price * productos.cantidad;
+																	return (
+																		<li>
+																			-
+																			{`${productos.name} ($${
+																				productos.price
+																			}) x ${productos.cantidad}. Total: $${
+																				productos.price * productos.cantidad
+																			}`}
+																		</li>
+																	);
+																})}
 															</ul>
 														</td>
-														<td>${x.total}</td>
+														<td>${total}</td>
 														<td>{x.commerceName}</td>
 													</tr>
 												))}

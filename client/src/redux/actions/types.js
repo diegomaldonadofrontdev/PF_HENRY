@@ -20,3 +20,5 @@ export const GET_USER = "GET_USER";
 export const ARMADO_CARRITO = "ARMADO_CARRITO";
 export const GET_PRODUCT = "GET_PRODUCT";
 export const GET_ORDERS_CLIENT = "GET_ORDER_CLIENT";
+export const EDIT_CLIENT = "EDIT_CLIENT";
+
