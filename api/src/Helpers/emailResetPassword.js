@@ -43,7 +43,7 @@ const sendMailReset = async(email,token) => {
                                             <td style="padding:0 0 36px 0;color:#153643;">
                                                 <h1 style="font-size:24px;margin:0 0 20px 0;color:#ff441f">Comprobar la direccion de correo</h1>
                                                 <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;">Gracias por comprobar la direccion de correo ${email}. Accede al enlace que se incluye en este mensaje para restablecer tu contraseña..</p>
-                                                <p style="margin:0;font-size:16px;line-height:24px"><a href="http://localhost:3001/clients/newPassword/${token}" style="color:#ff441f;text-decoration:underline;">Confirma el correo electronico</a></p>
+                                                <p style="margin:0;font-size:16px;line-height:24px"><a href="https://servidor-pedivery.onrender.com/clients/newPassword/${token}" style="color:#ff441f;text-decoration:underline;">Confirma el correo electronico</a></p>
                                             </td>
                                         </tr>
                                     </table>
