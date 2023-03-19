@@ -6,13 +6,25 @@ import PanelMisProductos from "../../components/PanelMisProductos/PanelMisProduc
 import PanelPedidos from "../../components/PanelPedidos/PanelPedidos";
 import logo from "../../images/logoowner.avif";
 import styles from "./AdminOwner.module.css";
+import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
+import useTradeBoss from "../../Hooks/useTradeBoss";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminOwner() {
+
+	const { isLoggedTradeBoss, logoutTradeBoss } = useTradeBoss();
+	const navigate = useNavigate();
+
 	const [currentTab, setCurrentTab] = useState({ id: 0, title: "" });
 
 	const handleTabClick = (id, title) => {
 		setCurrentTab({ id: id, title: title });
 	};
+
+	const buttonHandler = (e) => {
+		logoutTradeBoss();
+		navigate("/registration/tradeboss")
+	}
 
 	return (
 		<>
@@ -104,6 +116,7 @@ export default function AdminOwner() {
 					</div>
 				</div>
 			</div>
+			{isLoggedTradeBoss && <button style={{ border: "none" }} onClick={buttonHandler}><ButtonPrimary texto="Logout TradeBoss" /></button>}
 		</>
 	);
 }
