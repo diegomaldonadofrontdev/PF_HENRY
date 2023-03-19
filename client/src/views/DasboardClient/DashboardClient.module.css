@@ -36,18 +36,22 @@
 
 .profile {
 	padding-bottom: 25px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .profile h2 {
+	padding-top: 20px;
 	text-align: center;
-	line-height: 1em;
+	line-height: 0.5em;
 }
 
 .profile p {
-	font-size: 0.9em;
+	font-size: 1.5em;
 	content: gray;
 	padding-top: 5px;
-	font-weight: 600;
+	font-weight: 500;
 }
 .user__dashboard .container .userDashboard__handler a {
 	background-color: var(--main-color);
@@ -105,6 +109,11 @@
 	display: flex;
 	gap: 2em;
 }
+
+.user__informacion .alert {
+	color: var(--main-color);
+}
+
 .perfil__container {
 	padding-top: 20px;
 }
@@ -145,29 +154,30 @@
 	-webkit-box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
 }
 
-.user__informacion form > div {
+.user__informacion .form__editInfoUser {
 	display: flex;
 	flex-direction: column;
-	gap: 1em;
 }
 
-.user__informacion form > div > div {
+.user__informacion .form__editInfoUser > div {
 	display: flex;
-	gap: 2em;
+	flex-direction: column;
+	width: 100%;
+	gap: 0.5em;
 }
 
-.user__informacion form > div > div > div {
-	width: 30%;
+.user__informacion .form__editInfoUser > div > .form__sm {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
 }
 
-.user__informacion form .form__sm {
-	width: 30%;
-}
-
-.user__informacion form input {
-	background-color: white;
-	outline: none;
+.user__informacion .form__editInfoUser > div > .form__sm > input {
+	width: 50%;
+	border: 1px solid rgb(195, 195, 195);
 	border-radius: 0.3em;
+	padding: 0.3em 1em;
+	outline: none;
 }
 
 .user__informacion form input.submit {
@@ -265,4 +275,18 @@
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
+}
+
+td.orderId {
+	font-size: 0.5em;
+	font-weight: 100;
+}
+
+.descripcionOrder {
+	padding: 1em;
+	text-align: start;
+	font-weight: 400;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5em;
 }

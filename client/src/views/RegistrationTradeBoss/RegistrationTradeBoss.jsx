@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
 import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
 import Header from "../../components/Header/Header";
-import styles from "./RegistrationForm.module.css";
+import styles from "./RegistrationTradeBoss.module.css";
 import useTradeBoss from "../../Hooks/useTradeBoss";
-import { useNavigate } from "react-router-dom";
-import { useAuth0 } from "@auth0/auth0-react";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function RegistrationTradeBoss() {
 
-	const { sigin, isLogged, registerWhitGoogle } = useTradeBoss();
+	const { sigin } = useTradeBoss();
 	const navigate = useNavigate();
-	const { isAuthenticated, loginWithPopup } = useAuth0();
 
 	const [user, setUser] = useState({
 		firstname: "",
@@ -21,10 +19,11 @@ export default function RegistrationTradeBoss() {
 		active: false
 	});
 
+	const tokenTradeBoss = window.localStorage.getItem("tokenTradeBoss");
+
 	useEffect(() => {
-		if (isLogged || isAuthenticated) navigate("/");
-		if (isAuthenticated) registerWhitGoogle();
-	}, [isAuthenticated, isLogged, navigate, registerWhitGoogle])
+		if (tokenTradeBoss) navigate("/adminowner");
+	}, [navigate, tokenTradeBoss])
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
@@ -40,9 +39,9 @@ export default function RegistrationTradeBoss() {
 		console.log(user);
 	}
 
-	const handleSiginWhitGoogle = (e) => {
-		loginWithPopup();
-	};
+	// const handleSiginWhitGoogle = (e) => {
+	// 	loginWithPopup();
+	// };
 
 	return (
 		<>
@@ -80,10 +79,12 @@ export default function RegistrationTradeBoss() {
 
 						<button type="submit" style={{ border: "none" }}><ButtonPrimary texto="CREAR CUENTA" /></button>
 
-						<div className={styles.other}>
-							<button style={{ border: "none" }} onClick={handleSiginWhitGoogle}><ButtonPrimary texto="Sing In con Google" /></button>
-							{/* <ButtonPrimary texto="Sing In con Facebook" /> */}
-						</div>
+						{/* <div className={styles.other}> */}
+						{/* <button style={{ border: "none" }} onClick={handleSiginWhitGoogle}><ButtonPrimary texto="Sing In con Google" /></button> */}
+						{/* <ButtonPrimary texto="Sing In con Facebook" /> */}
+						{/* </div> */}
+
+						<Link to="/login/tradeboss"><h2>Si ya tienes una cuenta da click aqui</h2></Link>
 					</form>
 				</div>
 			</div>

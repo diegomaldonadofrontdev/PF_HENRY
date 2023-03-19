@@ -52,6 +52,11 @@ h1 {
 	color: white;
 }
 
+.loggedButtons {
+	display: flex;
+	gap: 1em;
+}
+
 @media (max-width: 900px) {
 	.header {
 		/* background-color: #f4eaeb; */
