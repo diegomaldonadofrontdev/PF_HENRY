@@ -3,7 +3,12 @@ import React, { useEffect } from "react";
 
 // React Redux
 import { useSelector, useDispatch } from "react-redux";
+
+// Actions
 import getCLient from "../../redux/actions/getClient";
+import { getOrdersClient } from "../../redux/actions/getOrdersClient";
+
+// Components
 import Header from "../../components/Header/Header";
 
 // img
@@ -11,11 +16,10 @@ import avatar from "../../images/avatar.avif";
 
 // Styles
 import styles from "./DashboardClient.module.css";
-import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
 
 export default function DashboardClient() {
 	const loggedUser = useSelector((state) => state.currentClient);
-	console.log(loggedUser);
+	const orders = useSelector((state) => state.currentClient.orders);
 	const dispatch = useDispatch();
 
 	const idUser = window.localStorage.getItem("idUser");
@@ -24,6 +28,7 @@ export default function DashboardClient() {
 	useEffect(() => {
 		if (idUser) {
 			dispatch(getCLient(idUser));
+			dispatch(getOrdersClient(idUser));
 		}
 	}, [dispatch, idUser]);
 
@@ -144,26 +149,33 @@ export default function DashboardClient() {
 											<tr>
 												<th>ID de compra</th>
 												<th>Fecha</th>
-												<th>Compra</th>
+												<th>Descripción</th>
+												<th>Total</th>
 												<th>Comercio</th>
-												<th>Valoracion</th>
-												<th>Ver info</th>
 											</tr>
-											<tr>
-												<td>1</td>
-												<td>1 / 2 / 3</td>
-												<td>Hamburguesa con queso</td>
-												<td>Burger-Heros</td>
-												<td>
-													<i class="bx bxs-star"></i>
-													<i class="bx bxs-star"></i>
-													<i class="bx bxs-star"></i>
-													<i class="bx bxs-star"></i>
-												</td>
-												<td>
-													<ButtonPrimary texto="Ver detalle" />
-												</td>
-											</tr>
+											{orders &&
+												orders.map((x) => (
+													<tr>
+														<td className={styles.orderId}>{x.orderId}</td>
+														<td>{x.createdAt}</td>
+														<td>
+															<ul className={styles.descripcionOrder}>
+																{x.products.map((productos) => (
+																	<li>
+																		-
+																		{`${productos.name} ($${
+																			productos.price
+																		}) x ${productos.cantidad}. Total: $${
+																			productos.price * productos.cantidad
+																		}`}
+																	</li>
+																))}
+															</ul>
+														</td>
+														<td>${x.total}</td>
+														<td>{x.commerceName}</td>
+													</tr>
+												))}
 										</table>
 									</div>
 								</div>

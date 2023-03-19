@@ -17,7 +17,7 @@ const getOrdersForClient = async (clientId) => {
 				let total = 0;
 				ordersCompilated.push({
 					orderId: orders[i]._id,
-					createdAt: orders[i].createdAt,
+					createdAt: new Date(orders[i].createdAt),
 					commerceName: trade.commerceName,
 					status: orders[i].status,
 					products: orders[i].products.map((x) => {

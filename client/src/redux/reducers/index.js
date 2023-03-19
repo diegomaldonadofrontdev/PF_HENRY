@@ -19,28 +19,34 @@ import {
 	GET_USER,
 	GET_PRODUCT,
 	ARMADO_CARRITO,
+	GET_ORDERS_CLIENT,
 } from "../actions/types";
 
 const initialState = {
-  product: [],
-  products: [],
-  productsFilter: [],
-  allCommerces: [],
-  tradesCategories: [],
-  tradesSubCategories: [],
-  feedback: [],
-  zones: [],
-  filters: {
-    city: "default",
-    category: "default",
-    subcategory: "default",
-    epagos: "default",
-  },
-  carritos: {},
-  mercadoPago: "",
-  currentClient: {},
-  currentPage: 1
+	product: [],
+	products: [],
+	productsFilter: [],
+	allCommerces: [],
+	tradesCategories: [],
+	tradesSubCategories: [],
+	feedback: [],
+	zones: [],
+	filters: {
+		city: "default",
+		category: "default",
+		subcategory: "default",
+		epagos: "default",
+	},
+	carritos: {},
+	mercadoPago: "",
+	currentClient: {},
+	currentPage: 1,
 };
+
+function dateTransform(date) {
+	const [year, month, day] = date.split("T")[0].split("-");
+	return `${day}/${month}/${year}`;
+}
 
 export default function rootReducer(state = initialState, action) {
 	switch (action.type) {
@@ -274,6 +280,17 @@ export default function rootReducer(state = initialState, action) {
 				...state,
 				carritos: action.payload,
 			};
+		case GET_ORDERS_CLIENT: {
+			const copyData = action.payload.data;
+			const orders = copyData.map((x) => ({
+				...x,
+				createdAt: dateTransform(x.createdAt),
+			}));
+			return {
+				...state,
+				currentClient: { ...state.currentClient, orders: orders },
+			};
+		}
 		default:
 			return state;
 	}
