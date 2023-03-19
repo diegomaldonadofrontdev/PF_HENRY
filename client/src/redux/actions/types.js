@@ -17,3 +17,6 @@ export const GET_PRODUCT_BY_ID = "GET_PRODUCT_BY_ID";
 export const CURRENT_CLIENT = "CURRENT_CLIENT";
 export const PRODUCT_FILTERS = "PRODUCT_FILTERS";
 export const GET_USER = "GET_USER";
+export const ARMADO_CARRITO = "ARMADO_CARRITO";
+export const GET_PRODUCT = "GET_PRODUCT";
+export const GET_ORDERS_CLIENT = "GET_ORDER_CLIENT";

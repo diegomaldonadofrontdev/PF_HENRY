@@ -17,17 +17,12 @@ const orderSchema = Schema(
             type: Schema.Types.Array,            
             require: true
         },
-
-        total: {
-            type: Number,
-            require: true
-        },
-
+        
         status: {
             type: String,
             require: false,
             default: "Procesando pedido"
-        }
+        },        
     },
     {timestamps: true}
 )

@@ -37,38 +37,43 @@ const { commerceRegister } = require("../actions/commerceRegister");
 const { postProduct } = require("../actions/postProduct");
 const { postReview } = require("../actions/postReview");
 
+// Search Product
+
+const { fastProductSearch } = require("../actions/fastProductSearch");
+
 // Cart
 const { deleteItemCart } = require("../actions/deleteItemCart");
 const { setCarrito } = require("../actions/setCarrito");
 const { createCarritos } = require("../actions/createCarritos");
 const { postPayment } = require("../actions/postPayment");
 const {
-  addAmount,
-  substractAmount,
+	addAmount,
+	substractAmount,
 } = require("../actions/handlerAmountItemCart");
 
 module.exports = {
-  getTrades,
-  getTradesCategories,
-  getSubCategories,
-  getAllProducts,
-  getProductById,
-  getClient,
-  getDeliveryZones,
-  getTradesFilter,
-  getEpagos,
-  getReviews,
-  postPayment,
-  postReview,
-  handlerTradesFilter,
-  commerceRegister,
-  addAmount,
-  substractAmount,
-  deleteItemCart,
-  getTradesByName,
-  getUsers,
-  setCarrito,
-  filterCategoryCommerce,
-  postProduct,
-  createCarritos,
+	getTrades,
+	getTradesCategories,
+	getSubCategories,
+	getAllProducts,
+	getProductById,
+	getClient,
+	getDeliveryZones,
+	getTradesFilter,
+	getEpagos,
+	getReviews,
+	postPayment,
+	postReview,
+	handlerTradesFilter,
+	commerceRegister,
+	addAmount,
+	substractAmount,
+	deleteItemCart,
+	getTradesByName,
+	getUsers,
+	setCarrito,
+	filterCategoryCommerce,
+	postProduct,
+	createCarritos,
+	fastProductSearch,
 };
