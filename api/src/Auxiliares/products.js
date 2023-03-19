@@ -2,7 +2,7 @@
 const products = [
     // Los hijos de frutas
     {              
-    tradeId: "641134af11a91a8a9f49e3ac",
+    tradeId: "1",
     name: "Banana",
     category: "Frutas",
     description: "Bananas del Ecuador",

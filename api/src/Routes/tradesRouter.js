@@ -45,12 +45,12 @@ tradesRouter.get("/products/search/:id", getProductHandler); // FUNCIONANDO
 tradesRouter.get("/trades/categories", getCategoriesHandler); // FUNCIONANDO
 tradesRouter.get("/feedbacks/search/:tradeId", getFeedbacksHandler); // FUNCIONANDO
 tradesRouter.get("/clients/search/:id", getClientHandler);  // FUNCIONANDO
-tradesRouter.get("/orders/search", getOrdersHandler);
-tradesRouter.get("/orders/actives/:tradeId", getActiveOrdersHandler);
+tradesRouter.get("/orders/search", getOrdersHandler); // FUNCIONANDO
+tradesRouter.get("/orders/actives/:tradeId", getActiveOrdersHandler); // FUNCIONANDO
 // tradesRouter.get("/membership", getMembershipHandler);
 
 // // POST 
-tradesRouter.post("/newTrade", validateTrade, postTradeHandler);
+tradesRouter.post("/newTrade", validateTrade, postTradeHandler); // FUNCIONANDO
 tradesRouter.post("/newProduct", validateProduct, postProductHandler);
 tradesRouter.post("/newCategory", validateCategory, postCategoryHandler);
 // tradesRouter.post("/new-delivery-zone", validateDeliveryZone, newDeliveryZone);
