@@ -22,13 +22,7 @@ const orderSchema = Schema(
             type: String,
             require: false,
             default: "Procesando pedido"
-        },
-
-        total: {
-            type: Number,
-            require: true,
-            default: 1
-        }
+        },        
     },
     {timestamps: true}
 )
