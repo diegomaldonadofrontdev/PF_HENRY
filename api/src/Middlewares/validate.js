@@ -80,7 +80,21 @@ const validateClient = (req, res, next) => {
 	if (!phone)
 		return res.status(400).json({ Error: "No se ha recibido el telefono" });
 	next();
+};
 
+const validateTrade = (req, res, next) => {
+	const {
+		commerceName,
+		category,
+		subcategory,
+		description,
+		userName,
+		email,
+		password,
+		province,
+		city,
+		address,
+	} = req.body;
 	if (!commerceName)
 		return res
 			.status(400)

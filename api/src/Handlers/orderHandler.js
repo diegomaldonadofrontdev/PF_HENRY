@@ -10,10 +10,7 @@ const getOrdersHandler = async (req, res) => {
 	const { clientId, tradeId } = req.query;
 	let orders;
 	try {
-		console.log(clientId);
-
 		if (clientId) {
-			console.log(orders);
 			orders = await getOrdersForClient(clientId);
 		}
 		if (tradeId) {
