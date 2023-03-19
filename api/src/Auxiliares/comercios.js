@@ -263,7 +263,7 @@ const trades = [
   },{
     commerceName: "Decoraland",
     category: "Hogar",
-    subcategory: "Decoracion",
+    subcategory: "Bazar",
     description: "Tanto los productos, como la mano de obra para embellecer tu hogar",
     image: "https://img.freepik.com/vector-premium/plantilla-logotipo-estilo-lineal-minimo-simple-concepto-decoracion-hogar_68196-4040.jpg",
     province: "Córdoba",
@@ -518,7 +518,7 @@ const trades = [
   },{
     commerceName: "Nivel10",
     category: "Gastronomia",
-    subcategory: "Hamburgueseria",
+    subcategory: "Fast Food",
     description: "Bueno, sabroso, barato y rapido",
     image: "https://buscomida.com/wp-content/uploads/2021/02/nivel10.jpg",
     province: "Misiones",
