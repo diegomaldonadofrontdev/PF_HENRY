@@ -3,9 +3,9 @@ const {
   createProduct,
   createProductCategory,
   getAllProductsCategories,
-  getAllProducts
+  getAllProducts,
+  updateProduct
 } = require("../Controllers/productController");
-const Product = require('../models/Products')
 
 
 // GETS
@@ -79,18 +79,15 @@ const getCategoryProducts = async (req,res) => {
 }
 
 // PUT
-const updateProduct = async(req, res) => {
-  const { id } = req.params;
-  const productUpdate = {
-    ...req.body,
-    user: id
-  }
-  try {
-    const product = await  updateProductC(id,productUpdate)
-    res.status(200).json(`Se actualizo El producto`)
-  } catch (error) {
-    res.status(404).json(`Error al actualizar el producto`)   
-  }
+const putProductHandler = async (req, res) => {
+  const {productId} = req.params
+  const body = req.body
+	try {
+		const update = await updateProduct(productId, body)
+    if (update) res.status(200).json(`El producto se actualizó correctamente`)
+	} catch (error) {
+		res.status(404).json({Error: `No se pudo actualizar el producto`})
+	}
 }
 
 const updateCategoryProduct = async(req, res) => {
@@ -118,6 +115,6 @@ module.exports = {
   postProductCategoryHandler,
   getProductsHandler,
   getCategoryProducts,
-  updateProduct,
+  putProductHandler,
   updateCategoryProduct,
 };
