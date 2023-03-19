@@ -46,11 +46,11 @@ const getActiveOrdersHandler = async (req, res) => {
 
 const postNewOrderHandler = async (req, res) => {
 	// FUNCIONANDO
-	const { products, total } = req.body;
+	const { products} = req.body;
 	const { tradeId, clientId } = req.query;
 	console.log("TRADEID=", tradeId);
 	try {
-		const newOrder = await createOrder(tradeId, clientId, products, total);
+		const newOrder = await createOrder(tradeId, clientId, products);
 		res.status(200).json(newOrder);
 	} catch (error) {
 		res.status(404).json({ Error: "Error al registrar la orden" });
@@ -71,5 +71,5 @@ module.exports = {
 	getOrdersHandler,
 	getOrderHandler,
 	postNewOrderHandler,
-  getActiveOrdersHandler
+  	getActiveOrdersHandler
 };

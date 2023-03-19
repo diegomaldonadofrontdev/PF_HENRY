@@ -209,7 +209,8 @@ const trades = [
     rating: 3,
     epagos: "Sólo efectivo",
     active: true,
-  },{
+  },
+  {
     commerceName: "Fravega",
     category: "Hogar",
     subcategory: "Electrodomesticos",
@@ -226,7 +227,8 @@ const trades = [
     rating: 5,
     epagos: "Efectivo/Tarjetas",
     active: true,
-  },{
+  },
+  {
     commerceName: "Samsung",
     category: "Electronica",
     subcategory: "Celulares",
@@ -243,7 +245,8 @@ const trades = [
     rating: 4,
     epagos: "Sólo tarjetas",
     active: false,
-  },{
+  },
+  {
     commerceName: "Ferreteria Roman",
     category: "Hogar",
     subcategory: "Ferreteria",
@@ -260,7 +263,8 @@ const trades = [
     rating: 3,
     epagos: "Efectivo/Tarjetas",
     active: true,
-  },{
+  },
+  {
     commerceName: "Decoraland",
     category: "Hogar",
     subcategory: "Bazar",
@@ -277,7 +281,8 @@ const trades = [
     rating: 5,
     epagos: "Sólo tarjetas",
     active: true,
-  },{
+  },
+  {
     commerceName: "Farmacia Condor",
     category: "Salud",
     subcategory: "Farmacia",
@@ -294,7 +299,8 @@ const trades = [
     rating: 4,
     epagos: "Efectivo/Tarjetas",
     active: true,
-  },{
+  },
+  {
     commerceName: "Kumanda",
     category: "Salud",
     subcategory: "Dietetica",
@@ -311,7 +317,8 @@ const trades = [
     rating: 3,
     epagos: "Sólo tarjetas",
     active: true,
-  },{
+  },
+  {
     commerceName: "Ortopedia 9 de julio",
     category: "Salud",
     subcategory: "Ortopedia",
@@ -328,7 +335,8 @@ const trades = [
     rating: 3,
     epagos: "Sólo efectivo",
     active: false,
-  },{
+  },
+  {
     commerceName: "La casa del angel",
     category: "Hogar",
     subcategory: "Bazar",
@@ -345,7 +353,8 @@ const trades = [
     rating: 4,
     epagos: "Efectivo/Tarjetas",
     active: true,
-  },{
+  },
+  {
     commerceName: "Compragamer",
     category: "Electronica",
     subcategory: "Consolas",
@@ -362,7 +371,8 @@ const trades = [
     rating: 5,
     epagos: "Sólo tarjetas",
     active: true,
-  },{
+  },
+  {
     commerceName: "Sony",
     category: "Electronica",
     subcategory: "Consolas",
@@ -379,7 +389,8 @@ const trades = [
     rating: 4,
     epagos: "Sólo tarjetas",
     active: true,
-  },{
+  },
+  {
     commerceName: "Pampagames",
     category: "Electronica",
     subcategory: "Videojuegos",
@@ -396,7 +407,8 @@ const trades = [
     rating: 2,
     epagos: "Efectivo/Tarjetas",
     active: false,
-  },{
+  },
+  {
     commerceName: "Motorola",
     category: "Electronica",
     subcategory: "Celulares",
@@ -413,7 +425,8 @@ const trades = [
     rating: 4,
     epagos: "Sólo tarjetas",
     active: true,
-  },{
+  },
+  {
     commerceName: "Showsport",
     category: "Ropa",
     subcategory: "Deportes",
@@ -430,7 +443,8 @@ const trades = [
     rating: 3,
     epagos: "Sólo efectivo",
     active: false,
-  },{
+  },
+  {
     commerceName: "Waiting",
     category: "Ropa",
     subcategory: "Moda",
@@ -447,7 +461,8 @@ const trades = [
     rating: 3,
     epagos: "Efectivo/Tarjetas",
     active: true,
-  },{
+  },
+  {
     commerceName: "Gucci",
     category: "Ropa",
     subcategory: "Moda",
@@ -464,7 +479,8 @@ const trades = [
     rating: 5,
     epagos: "Efectivo/Tarjetas",
     active: true,
-  },{
+  },
+  {
     commerceName: "Pasito a pasito",
     category: "Ropa",
     subcategory: "Bebes",
@@ -481,7 +497,8 @@ const trades = [
     rating: 3,
     epagos: "Sólo efectivo",
     active: false,
-  },{
+  },
+  {
     commerceName: "PioPio",
     category: "Ropa",
     subcategory: "Bebe",
@@ -498,7 +515,8 @@ const trades = [
     rating: 4,
     epagos: "Efectivo/Tarjetas",
     active: true,
-  },{
+  },
+  {
     commerceName: "Los Pinos",
     category: "Gastronomia",
     subcategory: "Pizzeria",
@@ -515,7 +533,8 @@ const trades = [
     rating: 3,
     epagos: "Sólo efectivo",
     active: true,
-  },{
+  },
+  {
     commerceName: "Nivel10",
     category: "Gastronomia",
     subcategory: "Fast Food",
@@ -532,7 +551,8 @@ const trades = [
     rating: 4,
     epagos: "Efectivo/Tarjetas",
     active: true,
-  },{
+  },
+  {
     commerceName: "Duomo",
     category: "Gastronomia",
     subcategory: "Heladeria",
@@ -549,7 +569,8 @@ const trades = [
     rating: 3,
     epagos: "Sólo tarjetas",
     active: true,
-  },{
+  },
+  {
     commerceName: "La granjita",
     category: "Gastronomia",
     subcategory: "Verduleria",
