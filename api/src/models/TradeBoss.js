@@ -1,7 +1,7 @@
 const {Schema,model} = require('mongoose');
 
 
-const clientsSchema= Schema (
+const tradeBossSchema= Schema (
   {
     firstname: { 
       type : String,
@@ -31,21 +31,6 @@ const clientsSchema= Schema (
       require: true,
     },
 
-    country : {
-      type: String,
-      require: false,
-    },
-
-    city : {
-      type: String,
-      require: false,
-    },
-
-    address: {
-      type: String,
-      require: false
-    },
-
     phone: {
       type: Number,
       require: false,
@@ -54,13 +39,13 @@ const clientsSchema= Schema (
     loginG: {
       type: Boolean,
       default: false,
-      require: true
+      require: false
     },
 
     emailVerified : {
       type: Boolean,
       default: false,
-      require: true,
+      require: false,
     },
 
     active : {
@@ -71,4 +56,4 @@ const clientsSchema= Schema (
   }, {timestamps: true}
 )
 
-module.exports = model("Clients", clientsSchema)
+module.exports = model("TradeBoss", tradeBossSchema)
