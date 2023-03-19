@@ -43,11 +43,11 @@ const getProductCategoryHandler = async (req, res) => { // FUNCIONANDO 12/03
 }
 
 //POST
-const newProduct = async (req,res) => {
+const postProductHandler = async (req,res) => {
   const body = req.body;
   const {id} = req.params
     try {
-      const createProduct = await postCreateProduct(id, body);
+      const createProduct = await createProduct(id, body);
       res.status(200).json(`Se creo correctamente el producto`);
     } catch (error) {
       res.status(404).json({Error: 'Hubo un problema con el producto '})
@@ -113,7 +113,7 @@ module.exports = {
   getProductsHandler,
   getProductHandler,
   getProductCategoryHandler,
-  newProduct,
+  postProductHandler,
   newCategory,
   getProductsHandler,
   getCategoryProducts,

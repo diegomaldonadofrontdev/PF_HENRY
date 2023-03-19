@@ -133,7 +133,7 @@ const validateTrade = (req, res, next) => {
 };
 
 const validateProduct = (req, res, next) => {
-	const { name, description, price, image, status } = req.body;
+	const { name, category, description, price, image } = req.body;
 
 	if (!name)
 		return res
@@ -147,20 +147,16 @@ const validateProduct = (req, res, next) => {
 		return res.status(400).json({ Error: "No se ha recibido el precio" });
 	if (!image)
 		return res.status(400).json({ Error: "No se ha recibido la imagen" });
-	if (!status)
-		return res.status(400).json({ Error: "No se ha recibido el estatus" });
+	if (!category)
+		return res.status(400).json({ Error: "No se ha recibido la categoría" });
 	next();
 };
 
 const validateCategory = (req, res, next) => {
-	const { categoryName, status } = req.body;
+	const { category } = req.body;
 
-	if (!categoryName)
-		return res
-			.status(400)
-			.json({ Error: "No se ha recibido el nombre de la categoria" });
-	if (!status)
-		return res.status(400).json({ Error: "No se ha recibido el estatus" });
+	if (!category)
+		return res.status(400).json({ Error: "No se ha recibido el nombre de la categoria" });	
 	next();
 };
 
