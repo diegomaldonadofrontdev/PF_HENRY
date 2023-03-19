@@ -28,7 +28,10 @@ const {
 const {
   getClientHandler
 } = require ("../Handlers/clientsHandler")
-const {getOrdersHandler} = require ("../Handlers/orderHandler")
+const {
+  getOrdersHandler, 
+  getActiveOrdersHandler
+} = require ("../Handlers/orderHandler")
 
 const tradesRouter = Router();
 
@@ -40,14 +43,13 @@ tradesRouter.get("/trades/categories", getCategoriesHandler); // FUNCIONANDO
 tradesRouter.get("/feedbacks/search/:tradeId", getFeedbacksHandler); // FUNCIONANDO
 tradesRouter.get("/clients/search/:id", getClientHandler);  // FUNCIONANDO
 tradesRouter.get("/orders/search", getOrdersHandler);
-// tradesRouter.get("/orders/:id", getOrderHandler);
+tradesRouter.get("/orders/actives/:tradeId", getActiveOrdersHandler);
 // tradesRouter.get("/membership", getMembershipHandler);
 
 // // POST 
 tradesRouter.post("/newTrade", validateTrade, createTradeHandler);
 // tradesRouter.post("/users", validateUsers, createUserHandler);
 // tradesRouter.post("/products", validateProducts, createProductHandler);
-//tradesRouter.post("/new-trade", validateTrade, trade);
 tradesRouter.post("/:id/new-product", /*validateProduct, */newProduct);
 // tradesRouter.post("/new-category", validateCategory, newCategoryTrade);
 // tradesRouter.post("/new-delivery-zone", validateDeliveryZone, newDeliveryZone);

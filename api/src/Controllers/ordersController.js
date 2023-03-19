@@ -76,6 +76,16 @@ const getOrderByOrderId = async (orderId) => { // FUNCIONANDO
   }
 };
 
+const searchActiveOrders = async (tradeId) => {
+  try {
+    const search = await Order.find({tradeId: tradeId, status: {$ne: "Entregado"}})
+    if (search.length) return search
+    return `Todos los pedidos se encuentran en estado ENTREGADO.`
+  } catch (error) {
+    return error.message
+  }
+}
+
 const createOrder = async (tradeId, clientId, products, total) => { // FUNCIONANDO
   try {
     const newOrder = new Order({ tradeId, clientId, products, total: total });
@@ -109,4 +119,5 @@ module.exports = {
   getOrdersForTrade,
   getOrderByOrderId,
   createOrder,
+  searchActiveOrders
 };
