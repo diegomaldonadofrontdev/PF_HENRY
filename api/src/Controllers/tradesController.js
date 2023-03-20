@@ -64,7 +64,7 @@ const searchByZoneAndCatAndEpagos = async (deliveryZone, category, epagos) => {	
 // [Todos los comercios con todos los filtros activados]
 const searchTradesByFilters = async (tradesFilter) => {	// OK FUNCIONANDO 16/03
 	try {		
-		const tradesFound = await Trade.find(tradesFilter);
+		const tradesFound = await Trade.find(tradesFilter); 
 		if (tradesFound.length) {
 			return tradesFound;
 		} else return [];
