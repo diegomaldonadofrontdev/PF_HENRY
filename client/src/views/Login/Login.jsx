@@ -17,7 +17,7 @@ export default function Login() {
 
 	useEffect(() => {
 		if((isLogged || isAuthenticated) && loginFromCart) {
-			window.location.href = `https://pf-henry-two.vercel.app/${trade}`
+			window.location.href = `http://localhost:3000${trade}`
 			window.localStorage.getItem('hrefcompra')
 		} 
 		if(isLogged || isAuthenticated) navigate("/");
