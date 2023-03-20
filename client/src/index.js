@@ -9,19 +9,19 @@ import reportWebVitals from "./reportWebVitals";
 import { Auth0Provider } from "@auth0/auth0-react";
 import axios from "axios";
 
-axios.defaults.baseURL = "http://localhost:3001/";
-// axios.defaults.baseURL = "https://servidor-pedivery.onrender.com/";
+// axios.defaults.baseURL = "http://localhost:3001/";
+ axios.defaults.baseURL = "https://servidor-pedivery.onrender.com/";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Auth0Provider
     // DEPLOY
-    // domain="dev-8ibisdy7ybcv51iu.us.auth0.com"
-    // clientId="SPG3HypwMkKavRZ5SO6plNBJXe5WGIug"
+     domain="dev-8ibisdy7ybcv51iu.us.auth0.com"
+     clientId="SPG3HypwMkKavRZ5SO6plNBJXe5WGIug"
 
     // LOCAL
-    domain="dev-zpzzomv5vnift4jo.us.auth0.com"
-    clientId="JhaLDMR8rgrFZRYqHEz38bgscOHZCeIP"
+    //domain="dev-zpzzomv5vnift4jo.us.auth0.com"
+    //clientId="JhaLDMR8rgrFZRYqHEz38bgscOHZCeIP"
 
     authorizationParams={{
       redirect_uri: window.location.origin,
