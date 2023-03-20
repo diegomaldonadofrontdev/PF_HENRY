@@ -43,10 +43,19 @@ const getProductCategoryHandler = async (req, res) => { // FUNCIONANDO 12/03
   }
 }
 
+const getCategoryProducts = async (req,res) => {
+  try {
+    const categories = await getCategoriesProducts()
+    res.status(200).json(categories)
+  } catch (error) {
+    res.status(404).json({Error: "Error al obtener las categorias"})
+  }
+}
+
 //POST
 const postProductHandler = async (req,res) => { // FUNCIONANDO
   const body = req.body;
-  const {id} = req.params
+  const {productId} = req.params
     try {
       await createProduct(id, body);
       res.status(200).json(`Se creo correctamente el producto`);
@@ -68,18 +77,8 @@ const postProductCategoryHandler = async (req,res) => { //
 
 }
 
-
-const getCategoryProducts = async (req,res) => {
-  try {
-    const categories = await getCategoriesProducts()
-    res.status(200).json(categories)
-  } catch (error) {
-    res.status(404).json({Error: "Error al obtener las categorias"})
-  }
-}
-
 // PUT
-const putProductHandler = async (req, res) => {
+const putProductHandler = async (req, res) => { // FUNCIONANDO
   const {productId} = req.params
   const body = req.body
 	try {
@@ -90,21 +89,15 @@ const putProductHandler = async (req, res) => {
 	}
 }
 
-const updateCategoryProduct = async(req, res) => {
-  const { id } = req.params;
-  const categoryProductUpdate = {
-    ...req.body,
-    user: id
-  }
+// DELETE
+const deleteProductHandler = async (productId) => { // PROBAR
   try {
-    const categoryProduct = await  updateCategoryProductC(id,categoryProductUpdate)
-    res.status(200).json(`Se actualizo la categoria del producto`)
+    const productDeleted = await deleteProduct(productId)
+    if (productDeleted) res.status(200).json(`El producto se eliminó correctamente`)
   } catch (error) {
-    res.status(404).json(`Error al actualizar la categoria del producto`)   
+    res.status(404).json({Error: `Se produjo un problema al intentar eliminar el producto`})
   }
 }
-
-
 
 
 module.exports = {
@@ -115,6 +108,6 @@ module.exports = {
   postProductCategoryHandler,
   getProductsHandler,
   getCategoryProducts,
-  putProductHandler,
-  updateCategoryProduct,
+  putProductHandler,  
+  deleteProductHandler
 };
