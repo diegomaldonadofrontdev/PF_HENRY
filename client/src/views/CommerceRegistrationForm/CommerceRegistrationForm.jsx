@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
 	getSubCategories,
 	getTradesCategories,
-	getZones,
+	getDeliveryZones,
 	commerceRegister,
 } from "../../redux/actions/index";
 
@@ -135,7 +135,7 @@ export default function CommerceRegistrationForm() {
 
 	useEffect(() => {
 		dispatch(getTradesCategories());
-		dispatch(getZones());
+		dispatch(getDeliveryZones());
 	}, [dispatch]);
 
 	useEffect(() => {
