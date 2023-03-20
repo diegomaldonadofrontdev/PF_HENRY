@@ -5,6 +5,7 @@ import styles from "./RegistrationForm.module.css";
 import useUser from "../../Hooks/useUser";
 import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
+import swal from "sweetalert";
 
 export default function RegistrationForm() {
 
@@ -39,7 +40,24 @@ export default function RegistrationForm() {
 
 	const handleRegister = async (e) => {
 		e.preventDefault();
+		const {firstname, lastname, email, password, country, city, address, phone} = user
+		if (!firstname || !lastname || !email || !password || !country || !city || !address || !phone) {
+			swal({
+				title: "Error!",
+				text: "Rellena todos los campos correctamente, por favor",
+				icon: "error",
+				button: "Ok",
+			});
+		} else {
 		sigin(user);
+		swal({
+			title: "Listo!",
+			text: "Tu usuario fue registrado correctamente",
+			icon: "success",
+			button: "Ok",
+		});
+
+		}
 		console.log(user);
 	}
 
