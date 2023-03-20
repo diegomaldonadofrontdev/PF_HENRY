@@ -75,8 +75,5 @@ clientsRouter.put("/update/:clientId", updateClientHandler); // FUNCIONANDO
 
 
 
-// clientsRouter.post("/login", validateClients, createClientHandler);
-// clientsRouter.post("/order", validateOrder, createOrderHandler);
-
 
 module.exports = clientsRouter;

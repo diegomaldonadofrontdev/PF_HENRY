@@ -13,6 +13,7 @@ const {
   getProductsHandler,
   getProductHandler,
   putProductHandler,
+  deleteProductHandler
 } = require("../Handlers/productsHandler");
 const {
   validateProduct,  
@@ -45,19 +46,18 @@ tradesRouter.get("/orders/actives/:tradeId", getActiveOrdersHandler); // FUNCION
 tradesRouter.get('/confirm-email/:token',confirmEmailHandler) // FUNCIONANDO
 
 // POST 
-tradesRouter.post("/newProduct", validateProduct, postProductHandler); // FUNCIONANDO
+tradesRouter.post("/newProduct/:tradeId", validateProduct, postProductHandler); // FUNCIONANDO
 tradesRouter.post("/login", validateLoginTrade, loginTradeHandler); // FUNCIONANDO
+tradesRouter.post ('/resetPassword',validateResetPassword,sendMailResetPassword);
+tradesRouter.post ('/newPassword/:token',validatePassword,resetPassword);
 
 
 // //DELETE
-// tradesRouter.delete("/users/:id", validateUsers, deleteUserHandler);
-// tradesRouter.delete("/products/:id", validateProducts, deleteProductHandler);
+tradesRouter.delete("/products/:productId", deleteProductHandler);
 
 // // PUT
 tradesRouter.put("/products/update/:productId", putProductHandler); // FUNCIONANDO
 tradesRouter.put("/trade/update/:tradeId", putTradeHandler); // FUNCIONANDO
-tradesRouter.post ('/resetPassword',validateResetPassword,sendMailResetPassword);
-tradesRouter.post ('/newPassword/:token',validatePassword,resetPassword);
 
 
 module.exports = tradesRouter;
