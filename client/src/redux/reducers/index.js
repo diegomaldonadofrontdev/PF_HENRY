@@ -21,6 +21,7 @@ import {
 	ARMADO_CARRITO,
 	GET_ORDERS_CLIENT,
 	EDIT_CLIENT,
+	GET_ORDERS_BY_COMMERCE,
 } from "../actions/types";
 
 const initialState = {
@@ -44,6 +45,7 @@ const initialState = {
 	currentTradeBoss: {},
 	currentTrade: {},
 	currentPage: 1,
+	ordersCommerces: [],
 };
 
 function dateTransform(date) {
@@ -302,17 +304,23 @@ export default function rootReducer(state = initialState, action) {
 				currentClient: { ...state.currentClient, ...action.payload.body },
 			};
 		}
-		case 'CURRENT_TRADEBOSS': {
+		case "CURRENT_TRADEBOSS": {
 			return {
 				...state,
-				currentTradeBoss: action.payload
-			}
+				currentTradeBoss: action.payload,
+			};
 		}
-		case 'CURRENT_TRADE': {
+		case "CURRENT_TRADE": {
 			return {
 				...state,
-				currentTrade: action.payload
-			}
+				currentTrade: action.payload,
+			};
+		}
+		case GET_ORDERS_BY_COMMERCE: {
+			return {
+				...state,
+				ordersCommerces: action.payload,
+			};
 		}
 		default:
 			return state;
