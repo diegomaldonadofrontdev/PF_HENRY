@@ -20,7 +20,8 @@ export default function Login() {
 
 			window.location.href = `https://pf-henry-two.vercel.app/${trade}`
 
-			window.localStorage.getItem('hrefcompra')
+			// window.localStorage.getItem('hrefcompra')
+			window.localStorage.remoteItem('hrefcompra')
 		} 
 		if(isLogged || isAuthenticated) navigate("/");
 		if (isAuthenticated) registerWhitGoogle();
