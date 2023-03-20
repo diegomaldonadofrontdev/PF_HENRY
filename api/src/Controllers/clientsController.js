@@ -78,8 +78,9 @@ const registerClient = async (client,token) => { //FUNCIONANDO
       const dataClient = clientBDD[0]
       return dataClient
     }
-    const dataClient = clientBDD[0]
-    return dataClient
+    // const dataClient = clientBDD[0]
+    // return dataClient
+    return false
 
   } catch (error) {
     return error.message
