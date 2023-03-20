@@ -15,8 +15,8 @@ axios.defaults.baseURL = "https://servidor-pedivery.onrender.com/";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Auth0Provider
-    domain="dev-zpzzomv5vnift4jo.us.auth0.com"
-    clientId="JhaLDMR8rgrFZRYqHEz38bgscOHZCeIP"
+    domain="dev-8ibisdy7ybcv51iu.us.auth0.com"
+    clientId="SPG3HypwMkKavRZ5SO6plNBJXe5WGIug"
     authorizationParams={{
       redirect_uri: window.location.origin,
     }}
