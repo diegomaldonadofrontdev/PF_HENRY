@@ -26,6 +26,7 @@ const getTradesHandler = async (req, res) => {	// FUNCIONANDO 16/03
 		if (category && category !== def) tradesFilter.category = category
 		if (subcategory && subcategory !== def) tradesFilter.subcategory = subcategory
 		if (epagos && epagos !== def) tradesFilter.epagos = epagos
+		tradesFilter.active = true
 		const tradesFiltered = await searchTradesByFilters(tradesFilter)			
 		res.status(200).json(tradesFiltered);
 	} catch (error) {

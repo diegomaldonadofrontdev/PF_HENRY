@@ -33,7 +33,7 @@ const {
 
 const tradesRouter = Router();
 
-// // GET
+// GET
 tradesRouter.get("/trades/search/:id", getTradeHandler); // FUNCIONANDO
 tradesRouter.get("/products/search", getProductsHandler); // FUNCIONANDO
 tradesRouter.get("/products/search/:id", getProductHandler); // FUNCIONANDO
@@ -44,8 +44,7 @@ tradesRouter.get("/orders/search", getOrdersHandler); // FUNCIONANDO
 tradesRouter.get("/orders/actives/:tradeId", getActiveOrdersHandler); // FUNCIONANDO
 tradesRouter.get('/confirm-email/:token',confirmEmailHandler) // FUNCIONANDO
 
-
-// // POST 
+// POST 
 tradesRouter.post("/newProduct", validateProduct, postProductHandler); // FUNCIONANDO
 tradesRouter.post("/login", validateLoginTrade, loginTradeHandler); // FUNCIONANDO
 
@@ -55,8 +54,8 @@ tradesRouter.post("/login", validateLoginTrade, loginTradeHandler); // FUNCIONAN
 // tradesRouter.delete("/products/:id", validateProducts, deleteProductHandler);
 
 // // PUT
-tradesRouter.put("/products/update/:productId", putProductHandler);
-tradesRouter.put("/trade/update/:tradeId", putTradeHandler);
+tradesRouter.put("/products/update/:productId", putProductHandler); // FUNCIONANDO
+tradesRouter.put("/trade/update/:tradeId", putTradeHandler); // FUNCIONANDO
 tradesRouter.post ('/resetPassword',validateResetPassword,sendMailResetPassword);
 tradesRouter.post ('/newPassword/:token',validatePassword,resetPassword);
 
