@@ -23,7 +23,7 @@ const getProductById = async (id) => { // FUNCIONANDO 12/03
 // [Todos los prodcutos del comercio]
 const getAllProducts = async (tradeId) => { // FUNCIONANDO 12/03
   try {
-    const allProductsOfTrade = await Product.find({tradeId: tradeId})
+    const allProductsOfTrade = await Product.find({tradeId: tradeId, active: true})
     if (allProductsOfTrade.length) {
       return allProductsOfTrade
     } else return `Vaya! Parece que el comercio no tiene ningún producto en este momento!`
