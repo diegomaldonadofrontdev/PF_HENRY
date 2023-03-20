@@ -117,6 +117,16 @@ const updateProduct = async (productId, body) => {
   }
 }
 
+// DELETE
+const deleteProduct = async (productId) => { // PROBAR
+  try { 
+    const productDeleted = await Product.deleteOne({_id: productId})
+    return true
+  } catch (error) {
+    return error.message
+  }
+}
+
 module.exports = {
   searchByNameAndPoductCat,
   searchByProductCat,
@@ -126,5 +136,6 @@ module.exports = {
   createProduct,
   getAllProductsCategories,
   createProductCategory,
-  updateProduct
+  updateProduct,
+  deleteProduct
 }
