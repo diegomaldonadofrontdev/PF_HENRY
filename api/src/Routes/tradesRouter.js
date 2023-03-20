@@ -5,7 +5,8 @@ const {
   confirmEmailHandler,
   resetPassword,
   sendMailResetPassword,
-  loginTradeHandler
+  loginTradeHandler,
+  putTradeHandler
 } = require("../Handlers/tradesHandler");
 const {
   postProductHandler,
@@ -54,9 +55,9 @@ tradesRouter.post("/login", validateLoginTrade, loginTradeHandler); //
 
 // // PUT
 tradesRouter.put("/products/update/:productId", putProductHandler);
+tradesRouter.put("/trade/update/:tradeId", putTradeHandler);
 // tradesRouter.put("/users/:id", validateUsers, putUserHandler);
 // tradesRouter.put("/products/:id", validateProducts, putProductHandler);
-// tradesRouter.put("/update-trade", updateTrade);
 // tradesRouter.put("/update-category", updateCategory);
 // tradesRouter.put("/update-delivery-zone", updateDeliveryZone);
 // tradesRouter.put("/update-subcategory", updateSubcategory);
