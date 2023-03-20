@@ -23,7 +23,7 @@ const getProductById = async (id) => { // FUNCIONANDO 12/03
 // [Todos los prodcutos del comercio]
 const getAllProducts = async (tradeId) => { // FUNCIONANDO 12/03
   try {
-    const allProductsOfTrade = await Product.find({tradeId: tradeId})
+    const allProductsOfTrade = await Product.find({tradeId: tradeId, active: true})
     if (allProductsOfTrade.length) {
       return allProductsOfTrade
     } else return `Vaya! Parece que el comercio no tiene ningún producto en este momento!`
@@ -117,6 +117,16 @@ const updateProduct = async (productId, body) => {
   }
 }
 
+// DELETE
+const deleteProduct = async (productId) => { // PROBAR
+  try { 
+    const productDeleted = await Product.deleteOne({_id: productId})
+    return true
+  } catch (error) {
+    return error.message
+  }
+}
+
 module.exports = {
   searchByNameAndPoductCat,
   searchByProductCat,
@@ -126,5 +136,6 @@ module.exports = {
   createProduct,
   getAllProductsCategories,
   createProductCategory,
-  updateProduct
+  updateProduct,
+  deleteProduct
 }

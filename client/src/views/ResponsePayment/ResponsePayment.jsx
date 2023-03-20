@@ -5,9 +5,15 @@ import Header from "../../components/Header/Header";
 import check from "../../images/check.png";
 import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
 import Footer from "../../components/Footer/Footer";
+import { useDispatch } from "react-redux";
+import { updateStatusAndPayment } from "../../redux/actions/updateStatusAndPayment";
 
 export default function ResponsePayment() {
 	const { status } = useParams();
+	const dispatch = useDispatch();
+
+	// dispatch(updateStatusAndPayment(orderId, { payment: "MercadoPago" }));
+
 	useEffect(() => {
 		if (status === "success") {
 			localStorage.removeItem("carritos");

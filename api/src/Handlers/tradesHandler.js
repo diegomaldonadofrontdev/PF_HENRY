@@ -9,11 +9,11 @@ const {
 	confirmEmail,
 	resetPasswordController,
 	sendMailNewPassword,
-	verifyTradeLog
+	verifyTradeLog,
+	updateTrade,
 } = require("../Controllers/tradesController");
 const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
 const jwt = require('jsonwebtoken');
-const Products = require("../models/Products");
 
 // GET 
 const getTradesHandler = async (req, res) => {	// FUNCIONANDO 16/03
@@ -25,6 +25,7 @@ const getTradesHandler = async (req, res) => {	// FUNCIONANDO 16/03
 		if (category && category !== def) tradesFilter.category = category
 		if (subcategory && subcategory !== def) tradesFilter.subcategory = subcategory
 		if (epagos && epagos !== def) tradesFilter.epagos = epagos
+		tradesFilter.active = true
 		const tradesFiltered = await searchTradesByFilters(tradesFilter)			
 		res.status(200).json(tradesFiltered);
 	} catch (error) {
@@ -71,6 +72,16 @@ const getDeliveryZoneHandler = async (req, res) => {	//FUNCIONANDO 12/03
 		});
 	}
 };
+
+const confirmEmailHandler = async( req, res) => { // FUNCIONANDO
+	const token = req.params.token;
+	try {
+		const confirm = await confirmEmail(token)
+		res.status(200).json({confirm})
+	} catch (error) {
+		res.status(400).json({Error: "No existe ningun token"} )
+	}
+}
 
 // POST
 const postTradeHandler = async (req, res) => { // PROBAR
@@ -132,74 +143,6 @@ const loginTradeHandler = async (req, res) => { // FUNCIONANDO
 	}
 }
 
-// PUT
-
-const updateTrade = async (req, res) => {
-	const { id } = req.params;
-	const tradeUpdate = {
-		...req.body,
-		user: id,
-	};
-	try {
-		const trade = await updateTradeC(id, tradeUpdate);
-		res.status(200).json(`Se actualizo el comercio`);
-	} catch (error) {
-		res.status(404).json(`Error al actualizar el comercio`);
-	}
-};
-
-const updateCategory = async (req, res) => {
-	const { id } = req.params;
-	const categoryUpdate = {
-		...req.body,
-		user: id,
-	};
-	try {
-		const category = await updateCategoryC(id, categoryUpdate);
-		res.status(200).json(`Se actualizo la categoria`);
-	} catch (error) {
-		res.status(404).json(`Error al actualizar categoria`);
-	}
-};
-
-const updateDeliveryZone = async (req, res) => {
-	const { id } = req.params;
-	const deliveryUpdate = {
-		...req.body,
-		user: id,
-	};
-	try {
-		const delivery = await updateDeliveryC(id, deliveryUpdate);
-		res.status(200).json(`Se actualizo la zona`);
-	} catch (error) {
-		res.status(404).json(`Error al actualizar la zona`);
-	}
-};
-
-const updateSubcategory = async (req, res) => {
-	const { id } = req.params;
-	const subcategoryUpdate = {
-		...req.body,
-		user: id,
-	};
-	try {
-		await updateSubcategoryC(id, subcategoryUpdate);
-		res.status(200).json(`Se actualizo la subcategoria`);
-	} catch (error) {
-		res.status(404).json(`Error al actualizar la subcategoria`);
-	}
-};
-
-const confirmEmailHandler = async( req, res) => { // FUNCIONANDO
-	const token = req.params.token;
-	try {
-		const confirm = await confirmEmail(token)
-		res.status(200).json({confirm})
-	} catch (error) {
-		res.status(400).json({Error: "No existe ningun token"} )
-	}
-}
-
 const sendMailResetPassword = async (req,res ) => { // FUNCIONANDO
 	const { email } = req.body;
 	console.log(email);
@@ -210,27 +153,42 @@ const sendMailResetPassword = async (req,res ) => { // FUNCIONANDO
 		{ expiresIn: "2h" }
 	  )
 		console.log(token);
-	  const sendMail = await sendMailNewPassword(email,token);
-	  res.status(200).json(sendMail)
+		const sendMail = await sendMailNewPassword(email,token);
+		res.status(200).json(sendMail)
 	} catch (error) {
-	  res.status(404).json({Error: "No se ha enviado el link para resetear la contraseña" })
+		res.status(404).json({Error: "No se ha enviado el link para resetear la contraseña" })
 	}
+}
+const resetPassword = async (req, res) => { // FUNCIONANDO
+  const { password } = req.body
+  const { token } = req.params;
+  console.log(token);
+  console.log(password);
+  
+  try {
+	const reset = await resetPasswordController(password,token)
+	res.status(200).json(reset)  
+
+  } catch (error) {
+	res.status(404).json({Error: "No se pudo cambiar la contraseña"})
   }
-  
-  const resetPassword = async (req, res) => { // FUNCIONANDO
-	const { password } = req.body
-	const { token } = req.params;
-	console.log(token);
-	console.log(password);
-	
-	try {
-	  const reset = await resetPasswordController(password,token)
-	  res.status(200).json(reset)  
-  
+}
+
+// PUT
+const putTradeHandler = async (req, res) => { //FUNCIONANDO
+	const { tradeId } = req.params;
+	const body = req.body
+		try {
+		const trade = await updateTrade(tradeId, body);
+		if (trade) res.status(200).json(`Se actualizo el comercio`);
 	} catch (error) {
-	  res.status(404).json({Error: "No se pudo cambiar la contraseña"})
+		res.status(404).json(`Error al actualizar el comercio`);
 	}
-  }
+};
+
+
+
+  
 
 module.exports = {
 	getTradesHandler,
@@ -242,12 +200,9 @@ module.exports = {
 	postCategoryHandler,
 	newDeliveryZone,
 	newSubcategory,
-	updateTrade,
-	updateCategory,
-	updateDeliveryZone,
-	updateSubcategory,
+	putTradeHandler,
 	confirmEmailHandler,
 	sendMailResetPassword,
 	resetPassword,
-	loginTradeHandler
+	loginTradeHandler,	
 };

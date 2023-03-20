@@ -25,8 +25,7 @@ h3 {
 }
 
 .panel .container {
-	max-width: 100%;
-
+	width: 100%;
 	display: flex;
 	flex-direction: column;
 	height: 750px;
@@ -34,8 +33,7 @@ h3 {
 
 .pedidosContainer {
 	display: flex;
-	width: 100%;
-	flex-flow: row wrap;
+	width: 100% !important;
 	gap: 1em;
 	padding-right: 0.5em;
 }
@@ -54,28 +52,45 @@ h3 {
 	border: 1px solid white;
 }
 
-@media (max-witdh: 700px) {
-	.panel {
-	}
+.user__informacion {
+	width: 100%;
+}
 
-	.container {
-		max-width: 80%;
-		margin: auto;
-	}
+.user__informacion table {
+	width: 100%;
+	border-radius: 0.5em;
+	padding-top: 15px;
+	padding-bottom: 25px;
+}
 
-	.panel .container {
-		border: 1px solid black;
-		border-radius: 15px;
-		padding: 1em;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: 50px;
-	}
+.user__informacion table tr {
+	border-radius: 0.5em;
+}
 
-	.pedidosContainer {
-		display: flex;
-		flex-direction: column;
-		gap: 50px;
-	}
+.user__informacion table tr:nth-child(2n + 1) {
+	border-radius: 0.5em;
+	background-color: rgb(244, 244, 244);
+}
+
+.user__informacion table tr th {
+	background-color: var(--main-color);
+	color: white;
+	font-weight: 400;
+	border-radius: 0.3em;
+	padding: 0.3em 0;
+}
+
+.user__informacion table td {
+	text-align: center;
+	padding: 0.5em 0;
+	font-size: 0.9em;
+	font-weight: 600;
+	color: gray;
+}
+.user__informacion td i {
+	color: goldenrod;
+}
+
+.view__container {
+	width: 100%;
 }

@@ -64,7 +64,7 @@ const searchByZoneAndCatAndEpagos = async (deliveryZone, category, epagos) => {	
 // [Todos los comercios con todos los filtros activados]
 const searchTradesByFilters = async (tradesFilter) => {	// OK FUNCIONANDO 16/03
 	try {		
-		const tradesFound = await Trade.find(tradesFilter);
+		const tradesFound = await Trade.find(tradesFilter); 
 		if (tradesFound.length) {
 			return tradesFound;
 		} else return [];
@@ -136,15 +136,18 @@ const getDeliveryZones = async () => {	// FUNCIONANDO 12/03
 };
 
 
+// PUTS
+const updateTrade = async (tradeId, body) => { // FUNCIONANDO
+  try {
+    const updateTrade = await Trade.findByIdAndUpdate(tradeId, body, { new: true });
+    if (updateTrade) return true
+	return false
+  } catch (error) {
+    return error.message;
+  }
+}
 
 
-// const updateTradeC = async (id, trade) => {
-//   try {
-//     const updateTrade = Trade.findByIdAndUpdate(id, trade, { new: true });
-//     return updateTrade;
-//   } catch (error) {
-//     return false;
-//   }
 // };
 // const updateCategoryC = async (id, category) => {
 //   try {
@@ -254,7 +257,7 @@ const confirmEmail = async (token ) => { // FUNCIONANDO
   }
   
 
-const createCategory = async (category) => {
+const createCategory = async (category) => { //FUNCIONANDO
   try {
     const newCategory = new Categories(category);    
     await newCategory.save()
@@ -313,5 +316,6 @@ module.exports = {
 	confirmEmail,
 	resetPasswordController,
 	sendMailNewPassword,
-	verifyTradeLog
+	verifyTradeLog,
+	updateTrade,	
 };

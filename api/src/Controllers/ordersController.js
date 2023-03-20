@@ -1,9 +1,9 @@
 const Order = require("../models/Order");
 const Trade = require("../models/Trades");
 const sendMailOrder = require("../Helpers/emailCreateOrder");
-const Clients = require('../models/Clients')
-const sendMailOrderTrade = require('../Helpers/emailCreateOrderTrade');
-const ObjectId = require('mongoose').ObjectId
+const Clients = require("../models/Clients");
+const sendMailOrderTrade = require("../Helpers/emailCreateOrderTrade");
+const ObjectId = require("mongoose").ObjectId;
 
 const getOrdersForClient = async (clientId) => {
 	// FUNCIONANDO
@@ -40,20 +40,20 @@ const getOrdersForTrade = async (tradeId) => {
 		const ordersCompilated = [];
 		if (orders.length) {
 			for (let j = 0; j < orders.length; j++) {
-				const client = await Clients.findById(
-					orders[j].clientId,
-					"firstname lastname"
-				);        
-        let total = 0;
+				const client = await Clients.findById(orders[j].clientId);
+				let total = 0;
+				orders[j].products.forEach((x) => (total += x.price * x.cantidad));
 				ordersCompilated.push({
 					orderId: orders[j]._id,
 					createdAt: orders[j].createdAt,
-					client: client.firstname + " " + client.lastname,
+					client: {
+						fullname: `${client.firstname} ${client.lastname}`,
+						address: client.address,
+						phone: client.phone,
+					},
 					status: orders[j].status,
-          			products: orders[j].products.map((x) => {
-						total += x.cantidad * x.price;
-						return x;
-					}),
+					payment: orders[j].payment,
+					products: orders[j].products,
 					total: total,
 				});
 			}
@@ -89,18 +89,23 @@ const getOrderByOrderId = async (orderId) => {
 };
 
 const searchActiveOrders = async (tradeId) => {
-  try {
-    const search = await Order.find({tradeId: tradeId, status: {$ne: "Entregado"}})
-    if (search.length) return search
-    return `Todos los pedidos se encuentran en estado ENTREGADO.`
-  } catch (error) {
-    return error.message
-  }
-}
-
-const createOrder = async (tradeId, clientId, products) => {	// FUNCIONANDO
 	try {
-		const newOrder = new Order({ tradeId, clientId, products });
+		const search = await Order.find({
+			tradeId: tradeId,
+			status: { $ne: "Entregado" },
+		});
+		if (search.length) return search;
+		return `Todos los pedidos se encuentran en estado ENTREGADO.`;
+	} catch (error) {
+		return error.message;
+	}
+};
+
+const createOrder = async (tradeId, clientId, products) => {
+	// FUNCIONANDO
+	try {
+		console.log(products);
+		const newOrder = new Order({ tradeId, clientId, products: products.data });
 		await newOrder.save();
 
 		const trade = await Trade.findById(newOrder.tradeId);
@@ -112,7 +117,7 @@ const createOrder = async (tradeId, clientId, products) => {	// FUNCIONANDO
 				client.firstname,
 				client.lastname,
 				newOrder.products,
-				newOrder._id,
+				newOrder._id
 			);
 			await sendMailOrderTrade(
 				trade.email,
@@ -120,12 +125,28 @@ const createOrder = async (tradeId, clientId, products) => {	// FUNCIONANDO
 				client.firstname,
 				client.lastname,
 				newOrder.products,
-				newOrder._id,
+				newOrder._id
 			);
 			return `El pedido fue enviado al comercio. Su número de orden es ${newOrder._id} por un total de ${newOrder.total}`;
 		} else return `Vaya! Ocurrió un problema al registrar su pedido.`;
 	} catch (error) {
 		return error.message;
+	}
+};
+
+const updateOrderController = async (orderId, payment, status) => {
+	try {
+		if (payment) {
+			await Order.findByIdAndUpdate(orderId, { payment });
+		}
+
+		if (status) {
+			await Order.findByIdAndUpdate(orderId, { status });
+		}
+		return true;
+	} catch (error) {
+		console.log(error);
+		return false;
 	}
 };
 
@@ -139,9 +160,10 @@ const createOrder = async (tradeId, clientId, products) => {	// FUNCIONANDO
 // }
 
 module.exports = {
-  getOrdersForClient,
-  getOrdersForTrade,
-  getOrderByOrderId,
-  createOrder,
-  searchActiveOrders
+	getOrdersForClient,
+	getOrdersForTrade,
+	getOrderByOrderId,
+	createOrder,
+	searchActiveOrders,
+	updateOrderController,
 };

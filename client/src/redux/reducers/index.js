@@ -21,6 +21,8 @@ import {
 	ARMADO_CARRITO,
 	GET_ORDERS_CLIENT,
 	EDIT_CLIENT,
+	GET_ORDERS_BY_COMMERCE,
+	PUT_ORDER_STATUS_PAYMENT,
 } from "../actions/types";
 
 const initialState = {
@@ -44,7 +46,9 @@ const initialState = {
 	currentTradeBoss: {},
 	currentTrade: {},
 	currentPageProducts: 1,
-	currentPageTrades: 1
+	currentPageTrades: 1,
+	currentPage: 1,
+	ordersCommerces: [],
 };
 
 function dateTransform(date) {
@@ -303,17 +307,45 @@ export default function rootReducer(state = initialState, action) {
 				currentClient: { ...state.currentClient, ...action.payload.body },
 			};
 		}
-		case 'CURRENT_TRADEBOSS': {
+		case "CURRENT_TRADEBOSS": {
 			return {
 				...state,
-				currentTradeBoss: action.payload
-			}
+				currentTradeBoss: action.payload,
+			};
 		}
-		case 'CURRENT_TRADE': {
+		case "CURRENT_TRADE": {
 			return {
 				...state,
-				currentTrade: action.payload
+				currentTrade: action.payload,
+			};
+		}
+		case GET_ORDERS_BY_COMMERCE: {
+			const copyData = action.payload;
+			const orders = copyData.map((x) => ({
+				...x,
+				createdAt: dateTransform(x.createdAt),
+			}));
+			console.log(orders, action.payload);
+			return {
+				...state,
+				ordersCommerces: orders
+			};
+		}
+		case PUT_ORDER_STATUS_PAYMENT: {
+			const ordersCommerceCopy = state.ordersCommerces;
+			const index = ordersCommerceCopy.findIndex(
+				(x) => x.orderId === action.payload.orderId
+			);
+			if (index !== -1) {
+				ordersCommerceCopy[index] = {
+					...ordersCommerceCopy[index],
+					...action.payload.data,
+				};
 			}
+			return {
+				...state,
+				ordersCommerces: [...ordersCommerceCopy],
+			};
 		}
 		case 'CURRENT_PAGE_PRODUCTS': {
 			return {
