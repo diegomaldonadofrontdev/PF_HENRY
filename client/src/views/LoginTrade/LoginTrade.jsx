@@ -11,15 +11,15 @@ export default function LoginTrade() {
 	const navigate = useNavigate();
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
-	const idTrade = window.localStorage.getItem('idTrade');
 
 	useEffect(() => {
 		if (isLoggedTrade) navigate("/adminowner");
-	}, [idTrade, isLoggedTrade, navigate]);
+	}, [isLoggedTrade, navigate]);
 
 	const handleLogin = async (e) => {
 		e.preventDefault();
-		login({ username, password });
+		const registro = login({ username, password });
+		if(registro === true) navigate("/adminowner")
 	};
 
 	return (
