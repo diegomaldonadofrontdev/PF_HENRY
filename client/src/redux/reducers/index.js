@@ -45,6 +45,8 @@ const initialState = {
 	currentClient: {},
 	currentTradeBoss: {},
 	currentTrade: {},
+	currentPageProducts: 1,
+	currentPageTrades: 1,
 	currentPage: 1,
 	ordersCommerces: [],
 };
@@ -344,6 +346,18 @@ export default function rootReducer(state = initialState, action) {
 				...state,
 				ordersCommerces: [...ordersCommerceCopy],
 			};
+		}
+		case 'CURRENT_PAGE_PRODUCTS': {
+			return {
+				...state,
+				currentPageProducts: action.payload
+			}
+		}
+		case 'CURRENT_PAGE_TRADES': {
+			return {
+				...state,
+				currentPageTrades: action.payload
+			}
 		}
 		default:
 			return state;
