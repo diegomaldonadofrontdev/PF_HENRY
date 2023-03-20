@@ -1,9 +1,8 @@
 import axios from "axios";
-const baseUrl = "http://localhost:3001/trades/login";
 
 const login = async credentials => {
     try {
-        const { data } = await axios.post(baseUrl, credentials);
+        const { data } = await axios.post("/trades/login", credentials);
 
         //     [{dataUser},{token}]
         return data;
