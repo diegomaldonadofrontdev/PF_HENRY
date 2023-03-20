@@ -1,7 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import styles from "./PanelCajaDiaria.module.css";
 
 export default function PanelCajaDiaria() {
+	const cajaDiaria = useSelector((state) => state.ordersCommerces);
+
+	const [caja, setCaja] = useState({
+		efectivo: 0,
+		mercadoPago: 0,
+		total: 0,
+		data: [],
+	});
+
+	useEffect(() => {
+		const res = cajaDiaria.filter((x) => x.payment !== "Pago no recibido");
+
+		setCaja({ ...caja, data: res });
+	}, [cajaDiaria]);
+
+	useEffect(() => {
+		caja.data &&
+			caja.data.forEach((x) => {
+				if (x.payment === "MercadoPago") {
+					setCaja({
+						...caja,
+						mercadoPago: (caja.mercadoPago += x.total),
+						total: (caja.total += x.total),
+					});
+				} else {
+					setCaja({
+						...caja,
+						efectivo: (caja.efectivo += x.total),
+						total: (caja.total += x.total),
+					});
+				}
+			});
+	}, [caja.data]);
+
 	return (
 		<div className={styles.panel__cajaDiaria}>
 			<div className={styles.container}>
@@ -10,184 +45,28 @@ export default function PanelCajaDiaria() {
 						<tr>
 							<th>Nro</th>
 							<th>Fecha</th>
-							<th>Vendedor</th>
+							<th>Cliente</th>
 							<th>Producto</th>
+							<th>Medio de Pago</th>
 							<th>Monto</th>
 						</tr>
-						<tr>
-							<td>1</td>
-							<td>1 / 2 / 3</td>
-							<td>Sebastian</td>
-							<td>Hamburguesa Triple con Queso</td>
-							<td>$1000</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>1 / 2 / 3</td>
-							<td>Sebastian</td>
-							<td>Hamburguesa Triple con Queso</td>
-							<td>$1000</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>1 / 2 / 3</td>
-							<td>Sebastian</td>
-							<td>Hamburguesa Triple con Queso</td>
-							<td>$1000</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>1 / 2 / 3</td>
-							<td>Sebastian</td>
-							<td>Hamburguesa Triple con Queso</td>
-							<td>$1000</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>1 / 2 / 3</td>
-							<td>Sebastian</td>
-							<td>Hamburguesa Triple con Queso</td>
-							<td>$1000</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>1 / 2 / 3</td>
-							<td>Sebastian</td>
-							<td>Hamburguesa Triple con Queso</td>
-							<td>$1000</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>1 / 2 / 3</td>
-							<td>Sebastian</td>
-							<td>Hamburguesa Triple con Queso</td>
-							<td>$1000</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>1 / 2 / 3</td>
-							<td>Sebastian</td>
-							<td>Hamburguesa Triple con Queso</td>
-							<td>$1000</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>1 / 2 / 3</td>
-							<td>Sebastian</td>
-							<td>Hamburguesa Triple con Queso</td>
-							<td>$1000</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>1 / 2 / 3</td>
-							<td>Sebastian</td>
-							<td>Hamburguesa Triple con Queso</td>
-							<td>$1000</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>1 / 2 / 3</td>
-							<td>Sebastian</td>
-							<td>Hamburguesa Triple con Queso</td>
-							<td>$1000</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>1 / 2 / 3</td>
-							<td>Sebastian</td>
-							<td>Hamburguesa Triple con Queso</td>
-							<td>$1000</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>1 / 2 / 3</td>
-							<td>Sebastian</td>
-							<td>Hamburguesa Triple con Queso</td>
-							<td>$1000</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>1 / 2 / 3</td>
-							<td>Sebastian</td>
-							<td>Hamburguesa Triple con Queso</td>
-							<td>$1000</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>1 / 2 / 3</td>
-							<td>Sebastian</td>
-							<td>Hamburguesa Triple con Queso</td>
-							<td>$1000</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>1 / 2 / 3</td>
-							<td>Sebastian</td>
-							<td>Hamburguesa Triple con Queso</td>
-							<td>$1000</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>1 / 2 / 3</td>
-							<td>Sebastian</td>
-							<td>Hamburguesa Triple con Queso</td>
-							<td>$1000</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>1 / 2 / 3</td>
-							<td>Sebastian</td>
-							<td>Hamburguesa Triple con Queso</td>
-							<td>$1000</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>1 / 2 / 3</td>
-							<td>Sebastian</td>
-							<td>Hamburguesa Triple con Queso</td>
-							<td>$1000</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>1 / 2 / 3</td>
-							<td>Sebastian</td>
-							<td>Hamburguesa Triple con Queso</td>
-							<td>$1000</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>1 / 2 / 3</td>
-							<td>Sebastian</td>
-							<td>Hamburguesa Triple con Queso</td>
-							<td>$1000</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>1 / 2 / 3</td>
-							<td>Sebastian</td>
-							<td>Hamburguesa Triple con Queso</td>
-							<td>$1000</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>1 / 2 / 3</td>
-							<td>Sebastian</td>
-							<td>Hamburguesa Triple con Queso</td>
-							<td>$1000</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>1 / 2 / 3</td>
-							<td>Sebastian</td>
-							<td>Hamburguesa Triple con Queso</td>
-							<td>$1000</td>
-						</tr>
+						{caja.data.map((x) => (
+							<tr>
+								<td>{x.orderId}</td>
+								<td>{x.createdAt}</td>
+								<td>{x.client.fullname}</td>
+								<td>{x.products.map((x) => x.name)}</td>
+								<td>{x.payment}</td>
+								<td>{x.total}</td>
+							</tr>
+						))}
 					</table>
 				</div>
 
 				<div className={styles.statusGains}>
-					<div>Status Gains</div>
-					<div>Status Gains</div>
+					<div>{`Caja Total: ${caja.total}`}</div>
+					<div>{`Caja Efectivo: ${caja.efectivo}`}</div>
+					<div>{`Caja Mercado Pago: ${caja.mercadoPago}`}</div>
 				</div>
 			</div>
 			<div className={styles.buttons}>

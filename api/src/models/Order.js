@@ -1,30 +1,35 @@
-const { Schema, model } = require('mongoose');
-
+const { Schema, model } = require("mongoose");
 
 const orderSchema = Schema(
-    {
-        clientId :{
-            type: String,        
-            require: true
-        },
+	{
+		clientId: {
+			type: String,
+			require: true,
+		},
 
-        tradeId :{
-            type: String,            
-            require: true
-        },
+		tradeId: {
+			type: String,
+			require: true,
+		},
 
-        products: {
-            type: Schema.Types.Array,            
-            require: true
-        },
-        
-        status: {
-            type: String,
-            require: false,
-            default: "Procesando pedido"
-        },        
-    },
-    {timestamps: true}
-)
+		products: {
+			type: Schema.Types.Array,
+			require: true,
+		},
 
-module.exports = model("Order",orderSchema);
+		status: {
+			type: String,
+			require: false,
+			default: "Procesando pedido",
+		},
+
+		payment: {
+			type: String,
+			require: false,
+			default: "Pago no recibido",
+		},
+	},
+	{ timestamps: true }
+);
+
+module.exports = model("Order", orderSchema);
