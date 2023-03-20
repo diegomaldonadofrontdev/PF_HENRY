@@ -137,7 +137,7 @@ const getDeliveryZones = async () => {	// FUNCIONANDO 12/03
 
 
 // PUTS
-const updateTrade = async (tradeId, body) => {
+const updateTrade = async (tradeId, body) => { // FUNCIONANDO
   try {
     const updateTrade = await Trade.findByIdAndUpdate(tradeId, body, { new: true });
     if (updateTrade) return true
@@ -146,6 +146,8 @@ const updateTrade = async (tradeId, body) => {
     return error.message;
   }
 }
+
+
 // };
 // const updateCategoryC = async (id, category) => {
 //   try {
@@ -255,7 +257,7 @@ const confirmEmail = async (token ) => { // FUNCIONANDO
   }
   
 
-const createCategory = async (category) => {
+const createCategory = async (category) => { //FUNCIONANDO
   try {
     const newCategory = new Categories(category);    
     await newCategory.save()
@@ -315,5 +317,5 @@ module.exports = {
 	resetPasswordController,
 	sendMailNewPassword,
 	verifyTradeLog,
-	updateTrade
+	updateTrade,	
 };

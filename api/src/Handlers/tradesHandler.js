@@ -10,7 +10,8 @@ const {
 	resetPasswordController,
 	sendMailNewPassword,
 	verifyTradeLog,
-	updateTrade
+	updateTrade,
+	updateSchedule
 } = require("../Controllers/tradesController");
 const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
 const jwt = require('jsonwebtoken');
@@ -134,7 +135,7 @@ const loginTradeHandler = async (req, res) => { // FUNCIONANDO
 
 // PUT
 
-const putTradeHandler = async (req, res) => {
+const putTradeHandler = async (req, res) => { //FUNCIONANDO
 	const { tradeId } = req.params;
 	const body = req.body
 		try {
@@ -144,6 +145,7 @@ const putTradeHandler = async (req, res) => {
 		res.status(404).json(`Error al actualizar el comercio`);
 	}
 };
+
 
 const updateCategory = async (req, res) => {
 	const { id } = req.params;
@@ -246,5 +248,5 @@ module.exports = {
 	confirmEmailHandler,
 	sendMailResetPassword,
 	resetPassword,
-	loginTradeHandler
+	loginTradeHandler,	
 };
