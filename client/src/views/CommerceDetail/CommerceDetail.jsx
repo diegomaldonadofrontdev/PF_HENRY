@@ -41,6 +41,13 @@ export default function CommerceDetail() {
 	const startIndex = (currentPage - 1) * productsPerPage;
 	const endIndex = startIndex + productsPerPage;
 	const productsToShow = products.slice(startIndex, endIndex);
+	let productsFilterToShow = [];
+	let totalPagesFilter = 0;
+	if (productsFilter) {
+		const totalProductsFilter = productsFilter.length;
+		totalPagesFilter = Math.ceil(totalProductsFilter / productsPerPage);
+		productsFilterToShow = [...productsFilter.slice(startIndex, endIndex)]
+	}
 
 
 	const [commerce, setCommerce] = useState({});
@@ -68,15 +75,18 @@ export default function CommerceDetail() {
 
 	function handlerCategoryCommerce(category) {
 		dispatch(filterCategoryCommerce(category));
+		dispatch(setCurrentPageProducts(1));
 	}
 
 	const prevHandler = (e) => {
-		if(endIndex === productsPerPage) return;
+		if (endIndex === productsPerPage) return;
 		dispatch(setCurrentPageProducts(currentPage - 1))
 	}
 
 	const nextHandler = (e) => {
-		if (currentPage >= totalPages) return;
+		if (totalPagesFilter) {
+			if (currentPage >= totalPagesFilter) return;
+		} else if (currentPage >= totalPages) return;
 		dispatch(setCurrentPageProducts(currentPage + 1))
 	}
 
@@ -123,14 +133,15 @@ export default function CommerceDetail() {
 				</div>
 
 				<div>
-					<h2>Pagina {currentPage} de {totalPages}</h2>
+					{totalPagesFilter ? <h2>Pagina {currentPage} de {totalPagesFilter}</h2>
+						: <h2>Pagina {currentPage} de {totalPages}</h2>}
 					<button onClick={prevHandler}>←</button>
 					<button onClick={nextHandler}>→</button>
 				</div>
 				<div className={styles.results}>
 					<div className={styles.productCard__container}>
 						{productsFilter.length
-							? productsFilter?.map((x) => (
+							? productsFilterToShow?.map((x) => (
 								<ProductoCard
 									idCommerce={id}
 									idProduct={x._id}
