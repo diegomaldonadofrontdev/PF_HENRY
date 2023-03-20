@@ -8,7 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 // Actions
-import { postReview, getCLient } from "../../redux/actions/index";
+import { postReview } from "../../redux/actions/index";
+import getCLient from "../../redux/actions/getClient";
 
 // Libraries
 import swal from "sweetalert"; //npm i sweetalert
