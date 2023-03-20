@@ -22,6 +22,7 @@ import {
 	GET_ORDERS_CLIENT,
 	EDIT_CLIENT,
 	GET_ORDERS_BY_COMMERCE,
+	PUT_ORDER_STATUS_PAYMENT,
 } from "../actions/types";
 
 const initialState = {
@@ -317,9 +318,31 @@ export default function rootReducer(state = initialState, action) {
 			};
 		}
 		case GET_ORDERS_BY_COMMERCE: {
+			const copyData = action.payload;
+			const orders = copyData.map((x) => ({
+				...x,
+				createdAt: dateTransform(x.createdAt),
+			}));
+			console.log(orders, action.payload);
 			return {
 				...state,
-				ordersCommerces: action.payload,
+				ordersCommerces: orders
+			};
+		}
+		case PUT_ORDER_STATUS_PAYMENT: {
+			const ordersCommerceCopy = state.ordersCommerces;
+			const index = ordersCommerceCopy.findIndex(
+				(x) => x.orderId === action.payload.orderId
+			);
+			if (index !== -1) {
+				ordersCommerceCopy[index] = {
+					...ordersCommerceCopy[index],
+					...action.payload.data,
+				};
+			}
+			return {
+				...state,
+				ordersCommerces: [...ordersCommerceCopy],
 			};
 		}
 		default:

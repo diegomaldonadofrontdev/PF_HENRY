@@ -1,4 +1,6 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { updateStatusAndPayment } from "../../redux/actions/updateStatusAndPayment";
 import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
 import PedidoCard from "../PedidoCard/PedidoCard";
 
@@ -7,6 +9,14 @@ import styles from "./PanelPedidos.module.css";
 export default function PanelPedidos(props) {
 	console.log(props.orders);
 	let total = 0;
+
+	const dispatch = useDispatch();
+
+	function handlerStatusAndPayment(e, orderId) {
+		if (e.target.name === "Pagos") {
+			dispatch(updateStatusAndPayment(orderId, { payment: e.target.value }));
+		}
+	}
 	return (
 		<div className={styles.panel}>
 			<div className={styles.container}>
@@ -33,7 +43,7 @@ export default function PanelPedidos(props) {
 											<td>
 												<ul className={styles.descripcionOrder}>
 													<li>
-														{x.products[0].data.map((productos) => {
+														{x.products.map((productos) => {
 															total += productos.price * productos.cantidad;
 															return (
 																<li>
@@ -50,9 +60,43 @@ export default function PanelPedidos(props) {
 												</ul>
 											</td>
 											<td>{x.status}</td>
-											<td>{x.payment}</td>
+											<td>
+												{x.payment}{" "}
+												{x.payment === "Pago no recibido" ? (
+													<div>
+														<button
+															value={"MercadoPago"}
+															name={"Pagos"}
+															onClick={(e) => {
+																handlerStatusAndPayment(e, x.orderId);
+															}}
+														>
+															MercadoPago
+														</button>
+														<button
+															value={"Efectivo"}
+															name={"Pagos"}
+															onClick={(e) => {
+																handlerStatusAndPayment(e, x.orderId);
+															}}
+														>
+															Efectivo
+														</button>
+													</div>
+												) : (
+													<button
+														value={"Pago no recibido"}
+														name={"Pagos"}
+														onClick={(e) => {
+															handlerStatusAndPayment(e, x.orderId);
+														}}
+													>
+														Cancelar Pago
+													</button>
+												)}
+											</td>
 											<td>{`${x.client.fullname}, ${x.client.phone}, ${x.client.address}`}</td>
-											<td>${total}</td>
+											<td>${x.total}</td>
 										</tr>
 									))}
 								</table>

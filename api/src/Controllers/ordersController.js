@@ -42,6 +42,7 @@ const getOrdersForTrade = async (tradeId) => {
 			for (let j = 0; j < orders.length; j++) {
 				const client = await Clients.findById(orders[j].clientId);
 				let total = 0;
+				orders[j].products.forEach((x) => (total += x.price * x.cantidad));
 				ordersCompilated.push({
 					orderId: orders[j]._id,
 					createdAt: orders[j].createdAt,
@@ -52,10 +53,7 @@ const getOrdersForTrade = async (tradeId) => {
 					},
 					status: orders[j].status,
 					payment: orders[j].payment,
-					products: orders[j].products.map((x) => {
-						total += x.cantidad * x.price;
-						return x;
-					}),
+					products: orders[j].products,
 					total: total,
 				});
 			}
@@ -106,7 +104,8 @@ const searchActiveOrders = async (tradeId) => {
 const createOrder = async (tradeId, clientId, products) => {
 	// FUNCIONANDO
 	try {
-		const newOrder = new Order({ tradeId, clientId, products });
+		console.log(products);
+		const newOrder = new Order({ tradeId, clientId, products: products.data });
 		await newOrder.save();
 
 		const trade = await Trade.findById(newOrder.tradeId);
@@ -135,6 +134,22 @@ const createOrder = async (tradeId, clientId, products) => {
 	}
 };
 
+const updateOrderController = async (orderId, payment, status) => {
+	try {
+		if (payment) {
+			await Order.findByIdAndUpdate(orderId, { payment });
+		}
+
+		if (status) {
+			await Order.findByIdAndUpdate(orderId, { status });
+		}
+		return true;
+	} catch (error) {
+		console.log(error);
+		return false;
+	}
+};
+
 // const updateOrderC = async (id, updateOrder) => { // <---------- putOrderHandler
 //   try {
 //     const order = Order.findByIdAndUpdate(id, updateOrder, { new: true })
@@ -150,4 +165,5 @@ module.exports = {
 	getOrderByOrderId,
 	createOrder,
 	searchActiveOrders,
+	updateOrderController,
 };

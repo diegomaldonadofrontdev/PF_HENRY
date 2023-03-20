@@ -4,6 +4,7 @@ const {
 	getOrdersForTrade,
 	createOrder,
 	searchActiveOrders,
+	updateOrderController,
 } = require("../Controllers/ordersController");
 
 const getOrdersHandler = async (req, res) => {
@@ -58,6 +59,30 @@ const postNewOrderHandler = async (req, res) => {
 	}
 };
 
+const updateOrderHandler = async (req, res) => {
+	const { payment, status } = req.body;
+	const { orderId } = req.params;
+
+	try {
+		let resUpdate;
+		if (payment) {
+			resUpdate = await updateOrderController(orderId, payment, null);
+		}
+		if (status) {
+			resUpdate = await updateOrderController(orderId, null, status);
+		}
+		if (resUpdate) {
+			res.status(200).send("Actualizado");
+		} else {
+			res.status(400).send("Problemas actualizando");
+		}
+	} catch (error) {
+		res
+			.status(404)
+			.json(`Problema de actualización en la orden nro ${orderId}`);
+	}
+};
+
 // const putOrderHandler = async (req, res) => { // <--------- VER PARA LOS COMERCIOS, EL CLIENTE NO PUEDE ACTUALIZAR EL PEDIDO
 //   const { orderId } = req.params;
 //   try {
@@ -73,4 +98,5 @@ module.exports = {
 	getOrderHandler,
 	postNewOrderHandler,
 	getActiveOrdersHandler,
+	updateOrderHandler,
 };
