@@ -13,6 +13,7 @@ import {
 	filterCategoryCommerce,
 	getAllProducts,
 } from "../../redux/actions/index";
+import setCurrentPageProducts from "../../redux/actions/setCurrentPageProducts";
 
 // Components
 import Header from "../../components/Header/Header";
@@ -32,12 +33,23 @@ export default function CommerceDetail() {
 	const commerceRedux = useSelector((state) => state.allCommerces);
 	const productsFilter = useSelector((state) => state.productsFilter);
 
+	// PAGINADO
+	const currentPage = useSelector((state) => state.currentPageProducts);
+	const productsPerPage = 2;
+	const totalProducts = products.length;
+	const totalPages = Math.ceil(totalProducts / productsPerPage);
+	const startIndex = (currentPage - 1) * productsPerPage;
+	const endIndex = startIndex + productsPerPage;
+	const productsToShow = products.slice(startIndex, endIndex);
+
+
 	const [commerce, setCommerce] = useState({});
 	const [category, setCategory] = useState([]);
 
 	useEffect(() => {
 		dispatch(getAllProducts(id));
 		dispatch(getTrades());
+		dispatch(setCurrentPageProducts(1));
 	}, [dispatch]);
 
 	useEffect(() => {
@@ -56,6 +68,16 @@ export default function CommerceDetail() {
 
 	function handlerCategoryCommerce(category) {
 		dispatch(filterCategoryCommerce(category));
+	}
+
+	const prevHandler = (e) => {
+		if(endIndex === productsPerPage) return;
+		dispatch(setCurrentPageProducts(currentPage - 1))
+	}
+
+	const nextHandler = (e) => {
+		if (currentPage >= totalPages) return;
+		dispatch(setCurrentPageProducts(currentPage + 1))
 	}
 
 	return (
@@ -99,31 +121,37 @@ export default function CommerceDetail() {
 						))}
 					</ul>
 				</div>
+
+				<div>
+					<h2>Pagina {currentPage} de {totalPages}</h2>
+					<button onClick={prevHandler}>←</button>
+					<button onClick={nextHandler}>→</button>
+				</div>
 				<div className={styles.results}>
 					<div className={styles.productCard__container}>
 						{productsFilter.length
 							? productsFilter?.map((x) => (
-									<ProductoCard
-										idCommerce={id}
-										idProduct={x._id}
-										key={x._id}
-										name={x.name}
-										price={x.price}
-										description={x.description}
-										img={x.image}
-									/>
-							  ))
-							: products?.map((x) => (
-									<ProductoCard
-										idCommerce={id}
-										idProduct={x._id}
-										key={x._id}
-										name={x.name}
-										price={x.price}
-										description={x.description}
-										img={x.image}
-									/>
-							  ))}
+								<ProductoCard
+									idCommerce={id}
+									idProduct={x._id}
+									key={x._id}
+									name={x.name}
+									price={x.price}
+									description={x.description}
+									img={x.image}
+								/>
+							))
+							: productsToShow?.map((x) => (
+								<ProductoCard
+									idCommerce={id}
+									idProduct={x._id}
+									key={x._id}
+									name={x.name}
+									price={x.price}
+									description={x.description}
+									img={x.image}
+								/>
+							))}
 					</div>
 					<Cart id={id} stateEpagos={commerce.epagos} />
 				</div>

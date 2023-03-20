@@ -1,9 +1,8 @@
 import axios from "axios";
-const baseUrl = "http://localhost:3001/tradeboss/siginWhitGoogle";
 
 const siginWhitGoogle = async credentials => {
     try {
-        const {data} = await axios.post(baseUrl, credentials);
+        const {data} = await axios.post("/tradeboss/siginWhitGoogle", credentials);
         return data;
     } catch (error) {
         console.log(error);
