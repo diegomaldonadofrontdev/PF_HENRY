@@ -41,7 +41,12 @@ const productsSchema = Schema(
       stock : {
         type: Number,
         require: false,
-      }      
+      },
+      active: {
+        type: Boolean,
+        require: true,
+        default: true
+      }
     }, {timestamps: true}
 )
 

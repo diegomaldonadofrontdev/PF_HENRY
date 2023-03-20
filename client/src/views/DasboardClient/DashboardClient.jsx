@@ -205,7 +205,7 @@ export default function DashboardClient() {
 														<td>{x.createdAt}</td>
 														<td>
 															<ul className={styles.descripcionOrder}>
-																{x.products[0].data.map((productos) => {
+																{x.products.map((productos) => {
 																	total += productos.price * productos.cantidad;
 																	return (
 																		<li>

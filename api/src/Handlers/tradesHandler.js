@@ -9,11 +9,12 @@ const {
 	confirmEmail,
 	resetPasswordController,
 	sendMailNewPassword,
-	verifyTradeLog
+	verifyTradeLog,
+	updateTrade,
+	updateSchedule
 } = require("../Controllers/tradesController");
 const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
 const jwt = require('jsonwebtoken');
-const Products = require("../models/Products");
 
 // GET 
 const getTradesHandler = async (req, res) => {	// FUNCIONANDO 16/03
@@ -25,6 +26,7 @@ const getTradesHandler = async (req, res) => {	// FUNCIONANDO 16/03
 		if (category && category !== def) tradesFilter.category = category
 		if (subcategory && subcategory !== def) tradesFilter.subcategory = subcategory
 		if (epagos && epagos !== def) tradesFilter.epagos = epagos
+		tradesFilter.active = true
 		const tradesFiltered = await searchTradesByFilters(tradesFilter)			
 		res.status(200).json(tradesFiltered);
 	} catch (error) {
@@ -134,19 +136,17 @@ const loginTradeHandler = async (req, res) => { // FUNCIONANDO
 
 // PUT
 
-const updateTrade = async (req, res) => {
-	const { id } = req.params;
-	const tradeUpdate = {
-		...req.body,
-		user: id,
-	};
-	try {
-		const trade = await updateTradeC(id, tradeUpdate);
-		res.status(200).json(`Se actualizo el comercio`);
+const putTradeHandler = async (req, res) => { //FUNCIONANDO
+	const { tradeId } = req.params;
+	const body = req.body
+		try {
+		const trade = await updateTrade(tradeId, body);
+		if (trade) res.status(200).json(`Se actualizo el comercio`);
 	} catch (error) {
 		res.status(404).json(`Error al actualizar el comercio`);
 	}
 };
+
 
 const updateCategory = async (req, res) => {
 	const { id } = req.params;
@@ -242,12 +242,12 @@ module.exports = {
 	postCategoryHandler,
 	newDeliveryZone,
 	newSubcategory,
-	updateTrade,
+	putTradeHandler,
 	updateCategory,
 	updateDeliveryZone,
 	updateSubcategory,
 	confirmEmailHandler,
 	sendMailResetPassword,
 	resetPassword,
-	loginTradeHandler
+	loginTradeHandler,	
 };

@@ -3,7 +3,7 @@ import styles from "./PedidoCard.module.css";
 import mila from "./../../images/milanesa.avif";
 import ButtonDashboard from "../ButtonDashboard/ButtonDashboard";
 
-export default function PedidoCard() {
+export default function PedidoCard(props) {
 	return (
 		<div className={styles.pedidoCard}>
 			<div className={styles.imgContainer}>
@@ -11,11 +11,15 @@ export default function PedidoCard() {
 			</div>
 			<div className={styles.datosPedido}>
 				<div>
-					<h4>Milanesa Napolitana con fritas</h4>
+					<h4>
+						{props.products[0].data.map((x) => (
+							<p>{x.name}</p>
+						))}
+					</h4>
 					<p className={styles.datos}>Av. Medrano 600</p>
 					<p className={styles.datos}>12:30hs</p>
 					<p className={styles.datos}>$1000</p>
-					<p className={styles.datos}>usuario@hola</p>
+					<p className={styles.datos}>{props.client}</p>
 				</div>
 				<div>
 					<p className={styles.datos}>Telefono: 11-11111111</p>
@@ -24,7 +28,7 @@ export default function PedidoCard() {
 				<div className={styles.estado_pedido}>
 					<p>Estado del pedido</p>
 					<div>
-						<div>Aceptado</div>
+						<div>{props.status}</div>
 					</div>
 					<div className={styles.cambiar}>Cambiar</div>
 				</div>
