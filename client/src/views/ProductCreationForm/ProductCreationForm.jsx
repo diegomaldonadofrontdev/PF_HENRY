@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 
 // React Redux
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // Actions
 import { postProduct } from "../../redux/actions/index";
@@ -19,8 +19,10 @@ import styles from "./ProductCreationForm.module.css";
 
 export default function ProductCreation() {
 	const dispatch = useDispatch();
-	// const categories = useSelector((state) => state.categories)
-	const tradeId = "640db76e947f971bf4531e36";
+    
+	const tradeId = localStorage.idTrade;
+	console.log(tradeId)
+	
 	// const [currentErrorsCategory, setCurrentErrorsCategory] = useState({})
 	//guarda los datos de los inputs
 	const [currentInput, setCurrentInput] = useState({
@@ -31,7 +33,7 @@ export default function ProductCreation() {
 		image: "",
 		rating: "",
 		stock: "",
-		status: true,
+		active: true,
 	});
 	console.log(currentInput);
 

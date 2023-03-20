@@ -11,7 +11,6 @@ const {
 	sendMailNewPassword,
 	verifyTradeLog,
 	updateTrade,
-	updateSchedule
 } = require("../Controllers/tradesController");
 const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
 const jwt = require('jsonwebtoken');
@@ -74,6 +73,16 @@ const getDeliveryZoneHandler = async (req, res) => {	//FUNCIONANDO 12/03
 	}
 };
 
+const confirmEmailHandler = async( req, res) => { // FUNCIONANDO
+	const token = req.params.token;
+	try {
+		const confirm = await confirmEmail(token)
+		res.status(200).json({confirm})
+	} catch (error) {
+		res.status(400).json({Error: "No existe ningun token"} )
+	}
+}
+
 // POST
 const postTradeHandler = async (req, res) => { // PROBAR
 	const {commerceName} = req.body
@@ -134,8 +143,38 @@ const loginTradeHandler = async (req, res) => { // FUNCIONANDO
 	}
 }
 
-// PUT
+const sendMailResetPassword = async (req,res ) => { // FUNCIONANDO
+	const { email } = req.body;
+	console.log(email);
+	try {
+	  const token = jwt.sign(
+		{ email: email },
+		TOKEN_KEY,
+		{ expiresIn: "2h" }
+	  )
+		console.log(token);
+		const sendMail = await sendMailNewPassword(email,token);
+		res.status(200).json(sendMail)
+	} catch (error) {
+		res.status(404).json({Error: "No se ha enviado el link para resetear la contraseña" })
+	}
+}
+const resetPassword = async (req, res) => { // FUNCIONANDO
+  const { password } = req.body
+  const { token } = req.params;
+  console.log(token);
+  console.log(password);
+  
+  try {
+	const reset = await resetPasswordController(password,token)
+	res.status(200).json(reset)  
 
+  } catch (error) {
+	res.status(404).json({Error: "No se pudo cambiar la contraseña"})
+  }
+}
+
+// PUT
 const putTradeHandler = async (req, res) => { //FUNCIONANDO
 	const { tradeId } = req.params;
 	const body = req.body
@@ -148,89 +187,8 @@ const putTradeHandler = async (req, res) => { //FUNCIONANDO
 };
 
 
-const updateCategory = async (req, res) => {
-	const { id } = req.params;
-	const categoryUpdate = {
-		...req.body,
-		user: id,
-	};
-	try {
-		const category = await updateCategoryC(id, categoryUpdate);
-		res.status(200).json(`Se actualizo la categoria`);
-	} catch (error) {
-		res.status(404).json(`Error al actualizar categoria`);
-	}
-};
 
-const updateDeliveryZone = async (req, res) => {
-	const { id } = req.params;
-	const deliveryUpdate = {
-		...req.body,
-		user: id,
-	};
-	try {
-		const delivery = await updateDeliveryC(id, deliveryUpdate);
-		res.status(200).json(`Se actualizo la zona`);
-	} catch (error) {
-		res.status(404).json(`Error al actualizar la zona`);
-	}
-};
-
-const updateSubcategory = async (req, res) => {
-	const { id } = req.params;
-	const subcategoryUpdate = {
-		...req.body,
-		user: id,
-	};
-	try {
-		await updateSubcategoryC(id, subcategoryUpdate);
-		res.status(200).json(`Se actualizo la subcategoria`);
-	} catch (error) {
-		res.status(404).json(`Error al actualizar la subcategoria`);
-	}
-};
-
-const confirmEmailHandler = async( req, res) => { // FUNCIONANDO
-	const token = req.params.token;
-	try {
-		const confirm = await confirmEmail(token)
-		res.status(200).json({confirm})
-	} catch (error) {
-		res.status(400).json({Error: "No existe ningun token"} )
-	}
-}
-
-const sendMailResetPassword = async (req,res ) => { // FUNCIONANDO
-	const { email } = req.body;
-	console.log(email);
-	try {
-	  const token = jwt.sign(
-		{ email: email },
-		TOKEN_KEY,
-		{ expiresIn: "2h" }
-	  )
-		console.log(token);
-	  const sendMail = await sendMailNewPassword(email,token);
-	  res.status(200).json(sendMail)
-	} catch (error) {
-	  res.status(404).json({Error: "No se ha enviado el link para resetear la contraseña" })
-	}
-  }
   
-  const resetPassword = async (req, res) => { // FUNCIONANDO
-	const { password } = req.body
-	const { token } = req.params;
-	console.log(token);
-	console.log(password);
-	
-	try {
-	  const reset = await resetPasswordController(password,token)
-	  res.status(200).json(reset)  
-  
-	} catch (error) {
-	  res.status(404).json({Error: "No se pudo cambiar la contraseña"})
-	}
-  }
 
 module.exports = {
 	getTradesHandler,
@@ -243,9 +201,6 @@ module.exports = {
 	newDeliveryZone,
 	newSubcategory,
 	putTradeHandler,
-	updateCategory,
-	updateDeliveryZone,
-	updateSubcategory,
 	confirmEmailHandler,
 	sendMailResetPassword,
 	resetPassword,

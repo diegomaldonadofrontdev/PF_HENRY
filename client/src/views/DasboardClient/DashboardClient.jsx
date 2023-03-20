@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 // Actions
 import getCLient from "../../redux/actions/getClient";
 import { getOrdersClient } from "../../redux/actions/getOrdersClient";
+import { editClient } from "../../redux/actions/editClient";
 
 // Components
 import Header from "../../components/Header/Header";
@@ -16,7 +17,8 @@ import avatar from "../../images/avatar.avif";
 
 // Styles
 import styles from "./DashboardClient.module.css";
-import { editClient } from "../../redux/actions/editClient";
+import swal from "sweetalert"
+
 
 export default function DashboardClient() {
 	const loggedUser = useSelector((state) => state.currentClient);
@@ -59,7 +61,24 @@ export default function DashboardClient() {
 
 	function handlerSubmit(e) {
 		e.preventDefault();
-		dispatch(editClient(body, idUser));
+		const {phone, address, profileImg} = body
+		if (!phone || !address || !profileImg){
+			swal({
+				title: "Error!",
+				text: "Rellena todos los campos correctamente, por favor",
+				icon: "error",
+				button: "Ok",
+			})
+		} else {
+			dispatch(editClient(body, idUser))
+			swal({
+				title: "Listo!",
+				text: "Tus datos fueron actualizados",
+				icon: "success",
+				button: "Ok",
+			})
+
+		}
 	}
 
 	let total = 0;

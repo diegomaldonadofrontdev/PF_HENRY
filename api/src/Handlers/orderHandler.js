@@ -7,8 +7,7 @@ const {
 	updateOrderController,
 } = require("../Controllers/ordersController");
 
-const getOrdersHandler = async (req, res) => {
-	// FUNCIONANDO
+const getOrdersHandler = async (req, res) => {	// FUNCIONANDO
 	const { clientId, tradeId } = req.query;
 	let orders;
 	try {

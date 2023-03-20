@@ -14,7 +14,7 @@ import CommerceRegistrationForm from "./views/CommerceRegistrationForm/CommerceR
 import DashboardClient from "./views/DasboardClient/DashboardClient";
 import ResponsePayment from "./views/ResponsePayment/ResponsePayment";
 import { useDispatch, useSelector } from "react-redux";
-import getClient from "./redux/actions/getClient";
+import getCLient from "./redux/actions/getClient";
 import { useEffect } from "react";
 import RegistrationTradeBoss from "./views/RegistrationTradeBoss/RegistrationTradeBoss";
 import LoginTrade from "./views/LoginTrade/LoginTrade";
@@ -27,7 +27,7 @@ function App() {
 	useEffect(() => {
 		const idUser = window.localStorage.getItem("idUser");
 		if (idUser) {
-			dispatch(getClient(idUser));
+			dispatch(getCLient(idUser));
 		}
 	}, []);
 

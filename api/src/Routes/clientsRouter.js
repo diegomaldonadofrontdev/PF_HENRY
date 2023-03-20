@@ -81,7 +81,5 @@ clientsRouter.post("/newPassword/:token", validatePassword, resetPassword);
 clientsRouter.put("/update/:clientId", updateClientHandler); // FUNCIONANDO
 clientsRouter.put("/order/update/:orderId", updateOrderHandler);
 
-// clientsRouter.post("/login", validateClients, createClientHandler);
-// clientsRouter.post("/order", validateOrder, createOrderHandler);
 
 module.exports = clientsRouter;
