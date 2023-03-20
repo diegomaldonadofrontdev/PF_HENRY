@@ -41,11 +41,19 @@ const postClientHandler = async (req, res) => {
 	// FUNCIONANDO
 	const client = req.body;
 	try {
+		const findEmail = await searchClientExist(email);
+
 		const token = jwt.sign({ email: client.email }, TOKEN_KEY, {
 			expiresIn: "2h",
 		});
-		const clientBDD = await registerClient(client, token);
-		res.status(200).json([clientBDD, { token: token }]);
+
+		if(findEmail) {
+			res.status(404).json({error: "Usuario ya registrado!"})
+		} else {
+			const clientBDD = await registerClient(client, token);
+			res.status(200).json([clientBDD, { token: token }]);
+		}
+		
 	} catch (error) {
 		res.status(404).json({ error: error.message });
 	}
