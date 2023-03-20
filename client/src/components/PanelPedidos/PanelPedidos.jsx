@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateStatusAndPayment } from "../../redux/actions/updateStatusAndPayment";
 import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
@@ -7,16 +7,33 @@ import PedidoCard from "../PedidoCard/PedidoCard";
 import styles from "./PanelPedidos.module.css";
 
 export default function PanelPedidos(props) {
-	console.log(props.orders);
-	let total = 0;
+	const [statePedido, setStatePedido] = useState("");
+
+	const [statusPedido, setStatusPedido] = useState([
+		{ texto: "Pasar a pendiente", status: "Pendiente" },
+		{ texto: "Aceptar", status: "Aceptado" },
+		{ texto: "Finalizar", status: "Finalizado" },
+		{ texto: "Rechazar", status: "Rechazado" },
+	]);
 
 	const dispatch = useDispatch();
 
-	function handlerStatusAndPayment(e, orderId) {
+	function handlerStatusAndPayment(e, o) {
 		if (e.target.name === "Pagos") {
-			dispatch(updateStatusAndPayment(orderId, { payment: e.target.value }));
+			dispatch(updateStatusAndPayment(o.orderId, { payment: e.target.value }));
+		}
+		if (e.target.name === "Status") {
+			if (e.target.value === "Rechazado" && o.payment !== "Pago no recibido") {
+				dispatch(
+					updateStatusAndPayment(o.orderId, {
+						status: e.target.value,
+					})
+				);
+			}
+			dispatch(updateStatusAndPayment(o.orderId, { status: e.target.value }));
 		}
 	}
+
 	return (
 		<div className={styles.panel}>
 			<div className={styles.container}>
@@ -44,7 +61,6 @@ export default function PanelPedidos(props) {
 												<ul className={styles.descripcionOrder}>
 													<li>
 														{x.products.map((productos) => {
-															total += productos.price * productos.cantidad;
 															return (
 																<li>
 																	-
@@ -59,16 +75,37 @@ export default function PanelPedidos(props) {
 													</li>
 												</ul>
 											</td>
-											<td>{x.status}</td>
+											<td>
+												{x.status}
+												{x.status !== "Rechazado" &&
+													statusPedido.map((s) => {
+														if (x.status !== s.status) {
+															return (
+																<div>
+																	<button
+																		value={s.status}
+																		name={"Status"}
+																		onClick={(e) => {
+																			handlerStatusAndPayment(e, x);
+																		}}
+																	>
+																		{s.texto}
+																	</button>
+																</div>
+															);
+														}
+													})}
+											</td>
 											<td>
 												{x.payment}{" "}
-												{x.payment === "Pago no recibido" ? (
+												{x.payment === "Pago no recibido" &&
+												x.status === "Aceptado" ? (
 													<div>
 														<button
 															value={"MercadoPago"}
 															name={"Pagos"}
 															onClick={(e) => {
-																handlerStatusAndPayment(e, x.orderId);
+																handlerStatusAndPayment(e, x);
 															}}
 														>
 															MercadoPago
@@ -77,23 +114,42 @@ export default function PanelPedidos(props) {
 															value={"Efectivo"}
 															name={"Pagos"}
 															onClick={(e) => {
-																handlerStatusAndPayment(e, x.orderId);
+																handlerStatusAndPayment(e, x);
 															}}
 														>
 															Efectivo
 														</button>
 													</div>
-												) : (
-													<button
-														value={"Pago no recibido"}
-														name={"Pagos"}
-														onClick={(e) => {
-															handlerStatusAndPayment(e, x.orderId);
-														}}
-													>
-														Cancelar Pago
-													</button>
-												)}
+												) : null}
+												{x.status !== "Rechazado" &&
+												x.payment !== "Pago no recibido" ? (
+													<div>
+														<button
+															value={"Pago no recibido"}
+															name={"Pagos"}
+															onClick={(e) => {
+																handlerStatusAndPayment(e, x);
+															}}
+														>
+															Cancelar pago
+														</button>
+													</div>
+												) : null}
+												{x.status === "Rechazado" &&
+												(x.payment === "MercadoPago" ||
+													x.payment === "Efectivo") ? (
+													<div>
+														<button
+															value={"Devuelto"}
+															name={"Pagos"}
+															onClick={(e) => {
+																handlerStatusAndPayment(e, x);
+															}}
+														>
+															Devolver Pago
+														</button>
+													</div>
+												) : null}
 											</td>
 											<td>{`${x.client.fullname}, ${x.client.phone}, ${x.client.address}`}</td>
 											<td>${x.total}</td>

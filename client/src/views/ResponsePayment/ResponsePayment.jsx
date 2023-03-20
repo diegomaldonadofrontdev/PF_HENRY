@@ -7,6 +7,7 @@ import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
 import Footer from "../../components/Footer/Footer";
 import { useDispatch } from "react-redux";
 import { updateStatusAndPayment } from "../../redux/actions/updateStatusAndPayment";
+import swal from "sweetalert";
 
 export default function ResponsePayment() {
 	const { status } = useParams();
@@ -19,6 +20,14 @@ export default function ResponsePayment() {
 			localStorage.removeItem("carritos");
 		}
 	}, [status]);
+
+	swal({
+		title: "Listo!",
+		text: "Tu compra se realizó correctamente",
+		icon: "success",
+		button: "Ok",
+	});
+	
 	return (
 		<div className={styles.responsePayment}>
 			<Header />
@@ -37,6 +46,8 @@ export default function ResponsePayment() {
 					<h2>Algo salio mal con tu compra</h2>
 				</div>
 			)}
+			<h5></h5>
+
 			<Footer />
 		</div>
 	);

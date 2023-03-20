@@ -30,7 +30,6 @@ export default function AdminOwner() {
 	}, []);
 
 	const ordersCommerce = useSelector((state) => state.ordersCommerces);
-	console.log(ordersCommerce);
 
 	useEffect(() => {
 		if (idTrade) {
