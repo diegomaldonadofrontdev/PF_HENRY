@@ -43,7 +43,8 @@ const initialState = {
 	currentClient: {},
 	currentTradeBoss: {},
 	currentTrade: {},
-	currentPage: 1,
+	currentPageProducts: 1,
+	currentPageTrades: 1
 };
 
 function dateTransform(date) {
@@ -312,6 +313,18 @@ export default function rootReducer(state = initialState, action) {
 			return {
 				...state,
 				currentTrade: action.payload
+			}
+		}
+		case 'CURRENT_PAGE_PRODUCTS': {
+			return {
+				...state,
+				currentPageProducts: action.payload
+			}
+		}
+		case 'CURRENT_PAGE_TRADES': {
+			return {
+				...state,
+				currentPageTrades: action.payload
 			}
 		}
 		default:
