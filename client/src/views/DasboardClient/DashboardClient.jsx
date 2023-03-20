@@ -27,6 +27,7 @@ export default function DashboardClient() {
 	const dispatch = useDispatch();
 
 	const idUser = window.localStorage.getItem("idUser");
+	console.log(idUser)
 
 	const [body, setBody] = useState({
 		firstname: "",
@@ -34,7 +35,9 @@ export default function DashboardClient() {
 		email: "",
 		phone: "",
 		address: "",
+		profileImg: "",
 	});
+	console.log(body)
 
 	useEffect(() => {
 		if (idUser) {
@@ -50,9 +53,28 @@ export default function DashboardClient() {
 				firstname: loggedUser.firstname,
 				lastname: loggedUser.lastname,
 				email: loggedUser.email,
+				profileImg: loggedUser.profileImg
 			});
 		}
 	}, [loggedUser]);
+
+	// Manejo la imagen con CLOUDINARY
+	const handleUserImgUpload = async (e) => {
+		const files = e.target.files;
+		console.log(files);
+		const datas = new FormData();
+		datas.append("file", files[0]);
+		datas.append("upload_preset", "PEDI-VERY");
+		const res = await fetch("https://api.cloudinary.com/v1_1/sebov96/upload", {
+			method: "POST",
+			body: datas,
+		});
+		const file = await res.json();
+		setBody({
+			...body,
+			profileImg: file.secure_url,
+		});
+	};
 
 	function handlerChange(e) {
 		const { name, value } = e.target;
@@ -91,7 +113,7 @@ export default function DashboardClient() {
 					<div className={styles.userDashboard__handler}>
 						<div className={styles.profile}>
 							<div className={styles.img__container}>
-								<img src={loggedUser.img || avatar} alt="" />
+								<img src={loggedUser.profileImg || avatar} alt="" />
 							</div>
 							<h2>{loggedUser.firstname}</h2>
 							<p>{loggedUser.lastname}</p>
@@ -191,7 +213,7 @@ export default function DashboardClient() {
 												</div>
 												<div className={styles.form__sm}>
 													<label htmlFor="">Imagen de perfil</label>
-													<input type="text" placeholder="ingresar imagen" />
+													<input type="file" placeholder="ingresar imagen" onChange={handleUserImgUpload}/>
 												</div>
 											</div>
 
