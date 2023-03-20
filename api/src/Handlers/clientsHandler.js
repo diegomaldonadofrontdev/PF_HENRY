@@ -3,6 +3,7 @@ const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
 
 const {
 	registerClient,
+	registerClientPerGoogle,
 	searchClientById,
 	updateClient,
 	searchClientExist,
@@ -81,7 +82,7 @@ const registerWhitGoogle = async (req, res) => {
 	const client = req.body;
 
 	try {
-		const clientBDD = await registerClient(client);
+		const clientBDD = await registerClientPerGoogle(client);
 
 		const token = jwt.sign(
 			{ name: client.firstname, email: client.email },

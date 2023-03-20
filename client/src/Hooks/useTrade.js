@@ -1,12 +1,15 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import loginService from "../services/trade/login";
 
 export default function useTrade() {
+
+    const [id, setId] = useState("");
 
     const login = useCallback(({ username, password }) => {
         loginService({ username, password })
             .then((data) => {
                 window.localStorage.setItem('idTrade', data)
+                setId(data)
             })
             .catch((err) => {
                 window.localStorage.removeItem('idTrade');
@@ -16,14 +19,13 @@ export default function useTrade() {
 
     const logoutTrade = useCallback(() => {
         window.localStorage.removeItem('idTrade');
+        setId(null)
     }, [])
-
-    const isTrade = window.localStorage.getItem('idTrade');
 
     return {
         login,
         logoutTrade,
-        isLoggedTrade: Boolean(isTrade)
+        isLoggedTrade: Boolean(id)
     }
 
 }
