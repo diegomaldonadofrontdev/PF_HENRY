@@ -53,6 +53,11 @@ const tradesSchema= Schema (
       type: Schema.Types.Array,
       require: true
     },    
+
+    schedule: {
+      type: Object,
+      require: true
+    },
     
     userName: {
       type : String,
