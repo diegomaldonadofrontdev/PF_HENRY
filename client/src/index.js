@@ -21,7 +21,7 @@ root.render(
 
     // LOCAL
     //domain="dev-zpzzomv5vnift4jo.us.auth0.com"
-    //clientId="JhaLDMR8rgrFZRYqHEz38bgscOHZCeIP"
+    //clientId="JhaLDMR8rgrFZRYqHEz38bgscOHZCeIP"1
 
     authorizationParams={{
       redirect_uri: window.location.origin,
