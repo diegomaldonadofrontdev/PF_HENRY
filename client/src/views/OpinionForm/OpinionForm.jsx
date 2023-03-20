@@ -43,8 +43,8 @@ export default function OpinionForm() {
 	const [nameInput, setNameInput] = useState("");
 
 	useEffect(() => {
-		dispatch(getCLient());
-	});
+		dispatch(getCLient(userId));
+	}, []);
 
 	const handleClick = (value) => {
 		setCurrentValue(value);
@@ -75,7 +75,7 @@ export default function OpinionForm() {
 				image:
 					"https://cdn.pixabay.com/photo/2022/01/17/22/20/add-6945894_640.png",
 			};
-			dispatch(postReview(dataPost));
+			dispatch(postReview(dataPost, userId));
 			setOpinionInput("");
 			setNameInput("");
 			swal({
