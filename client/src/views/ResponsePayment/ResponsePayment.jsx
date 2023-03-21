@@ -8,7 +8,6 @@ import Footer from "../../components/Footer/Footer";
 import { useDispatch } from "react-redux";
 import swal from "sweetalert";
 import { updateStatusAndPayment } from "../../redux/actions/updateStatusAndPayment";
-import swal from "sweetalert";
 
 export default function ResponsePayment() {
 	const { status } = useParams();

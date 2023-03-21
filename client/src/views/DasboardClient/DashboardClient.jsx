@@ -22,7 +22,6 @@ import swal from "sweetalert";
 export default function DashboardClient() {
 	const loggedUser = useSelector((state) => state.currentClient);
 	const orders = useSelector((state) => state.currentClient.orders);
-	console.log(orders);
 	const dispatch = useDispatch();
 
 	const idUser = window.localStorage.getItem("idUser");
@@ -36,7 +35,6 @@ export default function DashboardClient() {
 		address: "",
 		profileImg: "",
 	});
-	console.log(body)
 
 	useEffect(() => {
 		if (idUser) {
@@ -60,7 +58,6 @@ export default function DashboardClient() {
 	// Manejo la imagen con CLOUDINARY
 	const handleUserImgUpload = async (e) => {
 		const files = e.target.files;
-		console.log(files);
 		const datas = new FormData();
 		datas.append("file", files[0]);
 		datas.append("upload_preset", "PEDI-VERY");

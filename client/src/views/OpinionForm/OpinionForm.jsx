@@ -33,9 +33,7 @@ export default function OpinionForm() {
 
 	//Estados
 	const loggedUser = useSelector((state) => state.currentClient);
-	console.log(loggedUser._id);
 	const userId = localStorage.idUser;
-	console.log(userId);
 
 	const [currentValue, setCurrentValue] = useState(0);
 	const [hoverValue, setHoverValue] = useState(undefined);

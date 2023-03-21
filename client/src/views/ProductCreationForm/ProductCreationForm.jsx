@@ -16,6 +16,7 @@ import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
 
 // Styles
 import styles from "./ProductCreationForm.module.css";
+import { updateProduct } from "../../redux/actions/updateProduct";
 
 export default function ProductCreation(props) {
 	const dispatch = useDispatch();
@@ -43,14 +44,13 @@ export default function ProductCreation(props) {
 				description: "",
 				image: "",
 				price: "",
-				stock: "",
+				stock: 1,
 				active: true,
 			});
 		}
 	}, [props.product]);
 
 	const tradeId = localStorage.idTrade;
-	console.log(tradeId);
 
 	// const [currentErrorsCategory, setCurrentErrorsCategory] = useState({})
 	//guarda los datos de los inputs
@@ -61,10 +61,9 @@ export default function ProductCreation(props) {
 		description: "",
 		price: "",
 		image: "",
-		stock: "",
+		stock: 1,
 		active: true,
 	});
-	console.log(currentInput);
 
 	// useEffect(()=>{
 	// 	dispatch(getCategories())
@@ -72,13 +71,20 @@ export default function ProductCreation(props) {
 
 	//Registra los cambios en los inputs
 	const handleChangeInputs = (e) => {
-		setCurrentInput({ ...currentInput, [e.target.name]: e.target.value });
+		const { name, value } = e.target;
+		setCurrentInput({
+			...currentInput,
+			[name]: name === "stock" || name === "price" ? parseInt(value) : value,
+		});
 	};
+
+	function handlerChangeCheck(e) {
+		setCurrentInput({ ...currentInput, [e.target.name]: e.target.checked });
+	}
 
 	// Manejo la imagen con CLOUDINARY
 	const handleProductImgUpload = async (e) => {
 		const files = e.target.files;
-		console.log(files);
 		const datas = new FormData();
 		datas.append("file", files[0]);
 		datas.append("upload_preset", "PEDI-VERY");
@@ -105,7 +111,18 @@ export default function ProductCreation(props) {
 				button: "Ok",
 			});
 		} else {
-			dispatch(postProduct(currentInput, tradeId));
+			console.log("llego");
+			if (props.product) {
+				dispatch(updateProduct(currentInput));
+				console.log("Update");
+
+				props.fc(null);
+			} else {
+				dispatch(postProduct(currentInput, tradeId));
+				console.log("Post");
+
+				props.fc(null);
+			}
 			swal({
 				title: "Listo!",
 				text: "Producto creado correctamente",
@@ -119,7 +136,7 @@ export default function ProductCreation(props) {
 				description: "",
 				price: "",
 				image: "",
-				stock: "",
+				stock: 1,
 				active: true,
 			});
 		}
@@ -156,7 +173,7 @@ export default function ProductCreation(props) {
 
 					<label htmlFor="">Precio</label>
 					<input
-						type="text"
+						type="number"
 						placeholder=""
 						name="price"
 						value={currentInput.price}
@@ -172,22 +189,23 @@ export default function ProductCreation(props) {
 
 					<label htmlFor="">Stock</label>
 					<input
-						type="text"
+						type="number"
+						min={0}
 						placeholder=""
 						name="stock"
 						value={currentInput.stock}
 						onChange={handleChangeInputs}
 					/>
-					
+
 					{props.product ? <label htmlFor="">Cambiar estado</label> : null}
 
 					{props.product ? (
 						<input
 							type="checkbox"
-							placeholder=""
 							name="active"
+							checked={currentInput.active}
 							value={currentInput.active}
-							onChange={handleChangeInputs}
+							onChange={handlerChangeCheck}
 						/>
 					) : null}
 
