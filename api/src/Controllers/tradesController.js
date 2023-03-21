@@ -1,6 +1,6 @@
 const Trade = require("../models/Trades");
 const Categories = require("../models/Categories");
-const Subcategories = require("../models/Subcategory");
+const Subcategories = require ("../models/Subcategory")
 const bcrypt = require("bcryptjs");
 const sendMail = require("../Helpers/emailTrade");
 const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
@@ -272,7 +272,7 @@ const createSubcategory = async (subCat) => {
 	} catch (error) {
 		throw new Error({ Error: error.message });
 	}
-};
+}
 
 const verifyTradeLog = async (username, password) => {
 	// ?
@@ -303,7 +303,7 @@ const deleteTrade = async (id) => {
 		console.log(error.message);
 		throw new Error(`Ocurrio un error al intentar eliminar el comercio`);
 	}
-};
+}
 
 module.exports = {
 	getAllTrades,
@@ -325,5 +325,9 @@ module.exports = {
 	deleteTrade,
 	searchTradeByName,
 	createSubcategory,
-	updateTrades
+	updateTrades,
+	createDeliveryZone,
+	deleteCaegory,
+	deleteSubcategory,
+	deleteDeliveryZone
 };
