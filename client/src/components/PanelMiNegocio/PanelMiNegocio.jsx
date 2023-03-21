@@ -42,6 +42,20 @@ export default function PanelMiNegocio() {
 						<td>1/1/1</td>
 					</tr>
 				</table>
+				<div className={styles.form__commerce}>
+					<form action="">
+						<label htmlFor="">Dato</label>
+						<input type="text" />
+						<label htmlFor="">Dato</label>
+						<input type="text" />
+						<label htmlFor="">Dato</label>
+						<input type="text" />
+						<label htmlFor="">Dato</label>
+						<input type="text" />
+						<label htmlFor="">Dato</label>
+						<input type="text" />
+					</form>
+				</div>
 			</div>
 		</div>
 	);
