@@ -26,6 +26,7 @@ import {
 	UPDATE_PRODUCT,
 	POST_PRODUCT,
 	UPDATE_COMMERCE,
+	GET_TRADES_BY_NAME,
 } from "../actions/types";
 
 const initialState = {
@@ -33,6 +34,7 @@ const initialState = {
 	products: [],
 	productsFilter: [],
 	allCommerces: [],
+	filterCommerce: [],
 	tradesCategories: [],
 	tradesSubCategories: [],
 	feedback: [],
@@ -386,9 +388,17 @@ export default function rootReducer(state = initialState, action) {
 			return {
 				...state,
 				currentTrade: { ...state.currentTrade, ...action.payload.body },
+			}
+		}
+		case GET_TRADES_BY_NAME: {
+			return {
+				...state,
+				filterCommerce: [...state.filterCommerce, action.payload],
 			};
 		}
 		default:
 			return state;
 	}
 }
+
+	

@@ -159,6 +159,15 @@ const updateTrade = async (tradeId, body) => { // OK
   }
 }
 
+const updateTrades = async (body) => {  // OK
+	try {
+	  const tradeUpdate = await Trade.updateMany({}, body)
+	  if (tradeUpdate) return `Comercios actualizados.`
+	  return `Problema al actualizar los comercios.`
+	} catch (error) {
+	  return error.message
+	}
+  }
 
 //POST
 const createTrades = async (body) => { // OK
@@ -273,7 +282,6 @@ const verifyTradeLog = async (username, password) => { // ?
 const deleteTrade = async (id) => { //OK
 	try {
 		const tradeDeleted = await Trade.deleteOne({_id: id})
-		console.log("ggggg", tradeDeleted);
 		if (tradeDeleted.deletedCount !== 0) {
 			return `Comercio eliminado!`
 		} return `No se encontró el comercio.`
@@ -302,5 +310,6 @@ module.exports = {
 	updateTrade,
 	deleteTrade,
 	searchTradeByName,
-	createSubcategory
+	createSubcategory,
+	updateTrades
 };
