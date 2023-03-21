@@ -27,7 +27,7 @@ export default function LoginTrade() {
 			<div className={styles.login}>
 				<Header />
 				<div className={styles.container}>
-					<h2>Inicio de sesion del comercio</h2>
+					<h2>Inicia sesion con tu negocio o comercio</h2>
 					<ButtonPrimary texto="Registra tu negocio" />
 					<form onSubmit={handleLogin} className={styles.form}>
 						<div className={styles.user}>

@@ -497,7 +497,7 @@ export default function CommerceRegistrationForm() {
 						<ButtonPrimary texto="CREAR COMERCIO" />
 					</button>
 
-					<Link to="/login/trades"><h4 style={{color: "blue", textDecorationLine:"underline"}}>Si ya tienes un negocio registrado da click aqui para iniciar sesion</h4></Link>
+					<Link to="/login/trades"><h4 style={{color: "blue", textDecorationLine:"underline"}}>Si ya tienes un comercio registrado da click aqui para iniciar sesion</h4></Link>
 				</form>
 			</div>
 		</div>
