@@ -1,6 +1,8 @@
 // Trades
 const { getTrades } = require("../actions/getTrades");
 const { getTradesByName } = require("../actions/getTradesByName");
+const { postNewPasswordTrades } = require('../actions/postNewPasswordTrades')
+const { postSendEmailPasswordTrades }= require('../actions/postSendEmailPasswordTrades')
 
 // Categories
 const { getTradesCategories } = require("../actions/getTradesCategory");
@@ -16,6 +18,8 @@ const { getEpagos } = require("../actions/getEpagos");
 
 // Clients
 const { getClient } = require("../actions/getClient");
+const { postSendEmailPassword } = require("../actions/postSendEmailPassword")
+const { postNewPassword }  = require('../actions/postNewPassword')
 
 // Users
 const { getUsers } = require("../actions/getUsers");
@@ -76,4 +80,8 @@ module.exports = {
 	postProduct,
 	createCarritos,
 	fastProductSearch,
+	postSendEmailPassword,
+	postNewPassword,
+	postNewPasswordTrades,
+	postSendEmailPasswordTrades
 };

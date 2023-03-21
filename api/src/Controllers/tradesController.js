@@ -4,10 +4,11 @@ const Subcategories = require("../models/Subcategory");
 const bcrypt = require("bcryptjs");
 const sendMail = require("../Helpers/emailTrade");
 const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
-const jwt = require("jsonwebtoken");
-const sendMailWelcome = require("../Helpers/emailRegisterTrades");
-const sendMailResetSuccess = require("../Helpers/emailResetPasswordSuccesTrade");
-const sendMailReset = require("../Helpers/emailResetPassword");
+const jwt = require('jsonwebtoken');
+const sendMailWelcome = require('../Helpers/emailRegisterTrades')
+const sendMailResetSuccess = require('../Helpers/emailResetPasswordSuccesTrade')
+const sendMailReset = require('../Helpers/emailResetPasswordTrades')
+
 
 // GET COMERCIOS
 // [Todos los comercios de todas las categorias]

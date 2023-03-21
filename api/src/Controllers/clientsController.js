@@ -171,9 +171,9 @@ const updateClient = async (clientId, body) => { // FUNCIONANDO
 }
 
 // DELETES CONTROLLERS
-const deleteClient = async (clientId) => {
+const deleteClient = async (id) => {
   try {
-    const clientDeleted = await Clients.deleteOne({_id: clientId})
+    const clientDeleted = await Clients.deleteOne({_id: id})
     console.log(clientDeleted);
 		if (clientDeleted.deletedCount !== 0) {
 			return `Cliente eliminado!`

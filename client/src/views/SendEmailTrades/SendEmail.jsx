@@ -3,10 +3,10 @@ import Header from "../../components/Header/Header";
 import styles from "./SendEmail.module.css";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { postSendEmailPassword} from '../../redux/actions/index' 
+import { postSendEmailPasswordTrades} from '../../redux/actions/index' 
 
 
-export default function SendEmail() {
+export default function SendEmailTrades() {
 	const dispatch = useDispatch()
 	
 	const [ newPassword, setEmail] = useState({
@@ -23,7 +23,7 @@ export default function SendEmail() {
 	
 	function handlerSubmit(e){
 		e.preventDefault()
-		dispatch(postSendEmailPassword(newPassword))
+		dispatch(postSendEmailPasswordTrades(newPassword))
 	}
 
 	return (
