@@ -27,6 +27,7 @@ import {
 	POST_PRODUCT,
 	UPDATE_COMMERCE,
 	GET_TRADES_BY_NAME,
+	POST_SEND_EMAIL_PASSWORD
 } from "../actions/types";
 
 const initialState = {
@@ -394,6 +395,11 @@ export default function rootReducer(state = initialState, action) {
 			return {
 				...state,
 				filterCommerce: [...state.filterCommerce, action.payload],
+			};
+		}
+		case POST_SEND_EMAIL_PASSWORD: {
+			return {
+				...state,
 			};
 		}
 		default:

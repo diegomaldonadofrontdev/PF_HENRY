@@ -4,9 +4,9 @@ import styles from "./ResetPassword.module.css";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useState  } from "react";
-import { postNewPassword } from "../../redux/actions/postNewPassword";
+import { postNewPasswordTrades } from "../../redux/actions/postNewPasswordTrades";
 
-export default function ResetPassword() {
+export default function ResetPasswordTrades() {
 
 	const {token} = useParams();
 	const dispatch = useDispatch();
@@ -24,7 +24,7 @@ export default function ResetPassword() {
 
 	function handlerSubmit(e){
 		e.preventDefault()
-		dispatch(postNewPassword(newPassword,token))
+		dispatch(postNewPasswordTrades(newPassword,token))
 	}
 	
 

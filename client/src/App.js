@@ -21,6 +21,8 @@ import LoginTrade from "./views/LoginTrade/LoginTrade";
 import SuperAdmin from "./views/SuperAdmin/SuperAdmin";
 import SendEmail from "./views/SendEmail/SendEmail";
 import ResetPassword from "./views/ResetPassword/ResetPassword";
+import SendEmailTrades from "./views/SendEmailTrades/SendEmail";
+import ResetPasswordTrades from "./views/ResetPasswordTrades/ResetPassword";
 
 function App() {
 	const dispatch = useDispatch();
@@ -63,7 +65,9 @@ function App() {
 				<Route path="/responsepayment/:status" element={<ResponsePayment />} />
 				<Route path="/superadmin" element={<SuperAdmin />} />
 				<Route path="/resetpassword" element={<SendEmail />} />
-				<Route path="/resetpassword2" element={<ResetPassword />} />
+				<Route path="/resetpassword2/:token" element={<ResetPassword />} />
+				<Route path="/trades/resetpassword" element={<SendEmailTrades />} />
+				<Route path="/trades/resetpassword2/:token" element={<ResetPasswordTrades />} />
 			</Routes>
 		</div>
 	);
