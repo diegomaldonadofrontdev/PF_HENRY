@@ -18,8 +18,8 @@ export default function LoginTrade() {
 
 	const handleLogin = async (e) => {
 		e.preventDefault();
-		const registro = login({ username, password });
-		if(registro === true) navigate("/adminowner")
+		login({ username, password });
+		// if(registro === true) navigate("/adminowner")
 	};
 
 	return (
