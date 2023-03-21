@@ -19,6 +19,8 @@ import { useEffect } from "react";
 import RegistrationTradeBoss from "./views/RegistrationTradeBoss/RegistrationTradeBoss";
 import LoginTrade from "./views/LoginTrade/LoginTrade";
 import SuperAdmin from "./views/SuperAdmin/SuperAdmin";
+import SendEmail from "./views/SendEmail/SendEmail";
+import ResetPassword from "./views/ResetPassword/ResetPassword";
 
 function App() {
 	const dispatch = useDispatch();
@@ -60,6 +62,8 @@ function App() {
 				<Route path="/responsepayment/:status" element={<ResponsePayment />} />
 				<Route path="/responsepayment/:status" element={<ResponsePayment />} />
 				<Route path="/superadmin" element={<SuperAdmin />} />
+				<Route path="/resetpassword" element={<SendEmail />} />
+				<Route path="/resetpassword2" element={<ResetPassword />} />
 			</Routes>
 		</div>
 	);
