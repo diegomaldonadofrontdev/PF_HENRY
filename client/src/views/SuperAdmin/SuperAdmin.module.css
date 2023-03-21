@@ -5,10 +5,16 @@
 
 .superadmin .container {
 	display: flex;
+	flex-direction: column;
+	justify-content: center;
 	gap: 1em;
 	margin: auto;
 	max-width: 90%;
 	padding: 100px 0;
+}
+
+.superadmin .container > h2 {
+	text-align: center;
 }
 
 .superadmin .container .lateralnav {
@@ -18,8 +24,42 @@
 	border-radius: 1em;
 }
 
+.superadmin .container > div {
+	display: flex;
+	flex-direction: column;
+	gap: 1em;
+}
+
 .superadmin .container .content {
-	background-color: white;
 	width: 100%;
+	padding: 1em;
+	display: flex;
+	flex-direction: column;
+}
+
+.superadmin .container .grid {
+	display: flex;
+	gap: 2em;
+	width: 100%;
+}
+
+.superadmin .container .grid > div {
+	padding: 1em;
+}
+
+.superadmin .grid form {
+	display: flex;
+	gap: 1em;
+	flex-direction: column;
+}
+
+.superadmin .container .content > div > div {
 	border-radius: 1em;
+	width: 390px;
+	background-color: white;
+	justify-content: space-around;
+}
+.sp_tradeCard {
+	display: flex;
+	align-items: center;
 }
