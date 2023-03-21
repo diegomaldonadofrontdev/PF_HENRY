@@ -14,7 +14,8 @@ const {
   getProductHandler,
   putProductHandler,
   deleteProductHandler,
-  putStockProductHandler
+  putRestStockHandler,
+  putAddStockHandler
 } = require("../Handlers/productsHandler");
 const {
   validateProduct,  
@@ -59,7 +60,8 @@ tradesRouter.delete("/products/:productId", deleteProductHandler);
 // // PUT
 tradesRouter.put("/products/update/:productId", putProductHandler); // OK
 tradesRouter.put("/trade/update/:tradeId", putTradeHandler); // OK
-tradesRouter.put('/products/updatestock', putStockProductHandler)
+tradesRouter.put('/products/reststock', putRestStockHandler)
+tradesRouter.put('/products/addstock/:productId', putAddStockHandler)
 
 
 module.exports = tradesRouter;

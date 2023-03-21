@@ -124,7 +124,7 @@ const updateProducts = async (body) => {  // OK
   }
 }
 
-const updateStock = async (productId, cantidad) => {
+const updateStock = async (productId, cantidad) => { // OK
   try {
     const find = await Product.findById(productId)
     const newStock = find.stock - cantidad
@@ -133,6 +133,22 @@ const updateStock = async (productId, cantidad) => {
     return false
   } catch (error) {
     throw new Error(`Error al actualizar el stock del producto ${productId}`)
+  }
+}
+
+const addStock = async (productId, newStock) => { // OK
+  try {
+    try {
+      const find = await Product.findById(productId)
+      const stock = find.stock + newStock
+      const update = await Product.findByIdAndUpdate(productId, {stock: stock})
+      if (update) return `Se actualizó el stock correctamente`
+      return `El stock no pudo ser actualizado`
+    } catch (error) {
+      throw new Error(`Error al actualizar el stock del producto ${productId}`)
+    }
+  } catch (error) {
+    
   }
 }
 
@@ -160,5 +176,6 @@ module.exports = {
   updateProduct,
   updateProducts,
   deleteProduct,
-  updateStock
+  updateStock,
+  addStock
 }
