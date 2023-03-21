@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import useUser from "../../Hooks/useUser";
 
 // React Router
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 // Auth0
 import { useAuth0 } from "@auth0/auth0-react";
@@ -14,11 +14,14 @@ import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
 
 // Styles
 import styles from "./Header.module.css";
+import useTrade from "../../Hooks/useTrade";
 
 export default function Header() {
 	const { logout1 } = useUser();
+	const { logoutTrade } = useTrade();
 	const { isAuthenticated, logout } = useAuth0();
 	const location = useLocation();
+	const navigate = useNavigate();
 
 	const [isOpen, setIsOpen] = useState(false);
 
@@ -29,6 +32,11 @@ export default function Header() {
 		e.preventDefault();
 		logout1();
 		logout();
+	};
+
+	const logoutHandler = (e) => {
+		logoutTrade();
+		navigate("/login/trades");
 	};
 
 	return (
@@ -43,7 +51,8 @@ export default function Header() {
 					{location.pathname !== "/login" &&
 						location.pathname !== "/registration" &&
 						location.pathname !== "/registration_product" &&
-						location.pathname !== "/registration_commerce" && <Navbar />}
+						location.pathname !== "/registration_commerce" &&
+						location.pathname !== "/adminowner" && <Navbar />}
 
 					{(token || isAuthenticated) && (
 						<div className={styles.loggedButtons} onClick={handleClick}>
@@ -56,6 +65,12 @@ export default function Header() {
 						</Link>
 					)}
 
+					{idTrade &&
+						<button style={{ border: "none" }} onClick={logoutHandler}>
+							<ButtonPrimary texto="Cerrar sesion de comercio" />
+						</button>
+					}
+
 					{!idTrade && !token && !isAuthenticated && location.pathname !== "/login" && (
 						<div>
 							<Link to="/login">
@@ -63,7 +78,7 @@ export default function Header() {
 							</Link>
 						</div>
 					)}
-					{ !idTrade && !token &&
+					{!idTrade && !token &&
 						!isAuthenticated &&
 						location.pathname !== "/registration" && (
 							<Link to="/registration">

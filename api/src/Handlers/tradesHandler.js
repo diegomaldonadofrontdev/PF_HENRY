@@ -13,7 +13,8 @@ const {
   updateTrade,
   deleteTrade,
   searchTradeByName,
-  createSubcategory
+  createSubcategory,
+  updateTrades
 } = require("../Controllers/tradesController");
 const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
 const jwt = require("jsonwebtoken");
@@ -204,6 +205,15 @@ const putTradeHandler = async (req, res) => { // OK
   }
 };
 
+const putTradesHandler = async (req, res) => { // OK
+	try {
+		const update = await updateTrades(req.body)
+    if (update) res.status(200).json(update)
+	} catch (error) {
+		res.status(404).json({Error: error.message})
+	}
+}
+
 // DELETE
 const deleteTradeHandler = async (req, res) => { // OK
 	const {id} = req.params
@@ -231,5 +241,6 @@ module.exports = {
   resetPassword,
   loginTradeHandler,
   deleteTradeHandler,
-  getTradeByNameHandler
+  getTradeByNameHandler,
+  putTradesHandler
 };

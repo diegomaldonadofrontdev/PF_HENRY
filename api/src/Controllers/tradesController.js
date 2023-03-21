@@ -159,18 +159,25 @@ const getDeliveryZones = async () => {
 };
 
 // PUTS
-const updateTrade = async (tradeId, body) => {
-	// OK
+const updateTrade = async (tradeId, body) => { // OK
+  try {
+    const updateTrade = await Trade.findByIdAndUpdate(tradeId, body, { new: true });
+    if (updateTrade) return true
+	return false
+  } catch (error) {
+    return error.message;
+  }
+}
+
+const updateTrades = async (body) => {  // OK
 	try {
-		const updateTrade = await Trade.findByIdAndUpdate(tradeId, body, {
-			new: true,
-		});
-		if (updateTrade) return true;
-		return false;
+	  const tradeUpdate = await Trade.updateMany({}, body)
+	  if (tradeUpdate) return `Comercios actualizados.`
+	  return `Problema al actualizar los comercios.`
 	} catch (error) {
-		return error.message;
+	  return error.message
 	}
-};
+  }
 
 //POST
 const createTrades = async (body) => {
@@ -287,8 +294,7 @@ const verifyTradeLog = async (username, password) => {
 const deleteTrade = async (id) => {
 	//OK
 	try {
-		const tradeDeleted = await Trade.deleteOne({ _id: id });
-		console.log("ggggg", tradeDeleted);
+		const tradeDeleted = await Trade.deleteOne({_id: id})
 		if (tradeDeleted.deletedCount !== 0) {
 			return `Comercio eliminado!`;
 		}
@@ -319,4 +325,5 @@ module.exports = {
 	deleteTrade,
 	searchTradeByName,
 	createSubcategory,
+	updateTrades
 };

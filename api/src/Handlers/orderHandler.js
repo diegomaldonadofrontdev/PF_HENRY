@@ -5,10 +5,12 @@ const {
 	createOrder,
 	searchActiveOrders,
 	updateOrderController,
+	deleteOrder
 } = require("../Controllers/ordersController");
 
-const getOrdersHandler = async (req, res) => {
-	// FUNCIONANDO
+
+// GETS
+const getOrdersHandler = async (req, res) => {	// OK
 	const { clientId, tradeId } = req.query;
 	let orders;
 	try {
@@ -24,8 +26,7 @@ const getOrdersHandler = async (req, res) => {
 	}
 };
 
-const getOrderHandler = async (req, res) => {
-	// FUNCIONANDO
+const getOrderHandler = async (req, res) => {	// OK
 	const { orderId } = req.params;
 	try {
 		const order = await getOrderByOrderId(orderId);
@@ -35,7 +36,7 @@ const getOrderHandler = async (req, res) => {
 	}
 };
 
-const getActiveOrdersHandler = async (req, res) => {
+const getActiveOrdersHandler = async (req, res) => { // OK
 	const { tradeId } = req.params;
 	try {
 		const activeOrders = await searchActiveOrders(tradeId);
@@ -45,12 +46,11 @@ const getActiveOrdersHandler = async (req, res) => {
 	}
 };
 
-const postNewOrderHandler = async (req, res) => {
-	// FUNCIONANDO
-	const carrito = req.body;
 
+// POSTS
+const postNewOrderHandler = async (req, res) => {	// OK
+	const carrito = req.body;
 	const { tradeId, clientId } = req.query;
-	console.log("TRADEID=", tradeId);
 	try {
 		const newOrder = await createOrder(tradeId, clientId, carrito);
 		res.status(200).json(newOrder);
@@ -59,7 +59,9 @@ const postNewOrderHandler = async (req, res) => {
 	}
 };
 
-const updateOrderHandler = async (req, res) => {
+
+// PUTS
+const updateOrderHandler = async (req, res) => { // ?
 	const { payment, status } = req.body;
 	const { orderId } = req.params;
 
@@ -93,10 +95,23 @@ const updateOrderHandler = async (req, res) => {
 //   }
 // }
 
+
+// DELETES
+const deleteOrderHandler = async (req, res) => { // OK
+	const {orderId} = req.params
+	try {
+		const orderDeleted = await deleteOrder(orderId)
+		res.status(200).json(orderDeleted)
+	} catch (error) {
+		res.status(400).json({Error: error.message})
+	}
+}
+
 module.exports = {
 	getOrdersHandler,
 	getOrderHandler,
 	postNewOrderHandler,
 	getActiveOrdersHandler,
 	updateOrderHandler,
+	deleteOrderHandler
 };
