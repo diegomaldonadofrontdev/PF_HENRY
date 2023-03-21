@@ -44,6 +44,11 @@ const {
   deleteAppFeedbacksHandler,
   putFeedbackHandler
 } = require ("../Handlers/appFeedbacksHandler")
+const {
+  getFeedbackHandler,
+  deleteTradeFeedbacksHandler,
+  putTradeFeedbackHandler
+} = require ("../Handlers/tradeFeedbacksHandler")
 
 const superAdminsRouter = Router();
 // BASE DE DATOS
@@ -99,10 +104,12 @@ superAdminsRouter.get("/feedbacks/app/search", getFeedbacksHandler); // OK
 superAdminsRouter.delete("/deletefeedbacks/app/:feedbackId", deleteAppFeedbacksHandler); // OK
 // Deshabilitar/Modificar reviews de la app
 superAdminsRouter.put("/updatefeedback/app/:feedbackId", putFeedbackHandler) // OK
-// Ver reviews de la app
-
-// Eliminar reviews de la app
-// Deshabilitar reviews de la app
+// Ver reviews de un comercio
+superAdminsRouter.get("/feedbacks/trade/search/:tradeId", getFeedbackHandler); // OK
+// Eliminar review de un comercio
+superAdminsRouter.delete("/deletefeedbacks/trade/:feedbackId", deleteTradeFeedbacksHandler); // OK
+// Deshabilitar/Modificar review de un comercio
+superAdminsRouter.put("/updatefeedback/trade/:feedbackId", putTradeFeedbackHandler) // OK
 
 // CLIENTES
 // Ver detalle del cliente

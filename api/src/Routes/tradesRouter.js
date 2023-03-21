@@ -22,7 +22,7 @@ const {
   validateLoginTrade
 } = require("../Middlewares/validate");
 const {
-  getFeedbacksHandler
+  getFeedbackHandler
 } = require ("../Handlers/tradeFeedbacksHandler")
 const {
   getClientHandler
@@ -39,7 +39,7 @@ tradesRouter.get("/trades/search/:id", getTradeHandler); // FUNCIONANDO
 tradesRouter.get("/products/search", getProductsHandler); // FUNCIONANDO
 tradesRouter.get("/products/search/:id", getProductHandler); // FUNCIONANDO
 tradesRouter.get("/trades/categories", getCategoriesHandler); // FUNCIONANDO
-tradesRouter.get("/feedbacks/search/:tradeId", getFeedbacksHandler); // FUNCIONANDO
+tradesRouter.get("/feedbacks/search/:tradeId", getFeedbackHandler); // FUNCIONANDO
 tradesRouter.get("/clients/search/:id", getClientHandler);  // FUNCIONANDO
 tradesRouter.get("/orders/search", getOrdersHandler); // FUNCIONANDO
 tradesRouter.get("/orders/actives/:tradeId", getActiveOrdersHandler); // FUNCIONANDO
