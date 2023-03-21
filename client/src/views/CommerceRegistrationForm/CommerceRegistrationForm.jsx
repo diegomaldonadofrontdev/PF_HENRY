@@ -21,6 +21,7 @@ import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
 
 // Styles
 import styles from "./CommerceRegistrationForm.module.css";
+import { Link } from "react-router-dom";
 
 export default function CommerceRegistrationForm() {
 	const Validate = (currentInput) => {
@@ -495,6 +496,8 @@ export default function CommerceRegistrationForm() {
 					<button type="submit">
 						<ButtonPrimary texto="CREAR COMERCIO" />
 					</button>
+
+					<Link to="/login/trades"><h4 style={{color: "blue", textDecorationLine:"underline"}}>Si ya tienes un negocio registrado da click aqui para iniciar sesion</h4></Link>
 				</form>
 			</div>
 		</div>
