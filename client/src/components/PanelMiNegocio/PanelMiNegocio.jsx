@@ -1,7 +1,19 @@
 import React from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getOrdersByCommerce } from "../../redux/actions/getOrdersByCommerce";
+
 import styles from "./PanelMiNegocio.module.css";
 
 export default function PanelMiNegocio() {
+	const ordersCommerce = useSelector((state) => state.ordersCommerces);
+	console.log(ordersCommerce);
+	// const dispatch = useDispatch();
+
+	// useEffect(() => {
+	// 	dispatch(getOrdersByCommerce());
+	// }, []);
+
 	return (
 		<div className={styles.panel__miNegocio}>
 			<div className={styles.miNegocio__body}>
@@ -34,13 +46,15 @@ export default function PanelMiNegocio() {
 						<th>Precio</th>
 						<th>Fecha</th>
 					</tr>
-					<tr>
-						<td>1</td>
-						<td>pgarcia</td>
-						<td>Descripcion</td>
-						<td>$1000</td>
-						<td>1/1/1</td>
-					</tr>
+					{ordersCommerce?.map((x) => (
+						<tr>
+							<td>{x.orderId}</td>
+							<td>{x.client.fullname}</td>
+							<td>{x.products.map((x) => x.name)}</td>
+							<td>{x.total}</td>
+							<td>{x.createdAt}</td>
+						</tr>
+					))}
 				</table>
 				<div className={styles.form__commerce}>
 					<form action="">
