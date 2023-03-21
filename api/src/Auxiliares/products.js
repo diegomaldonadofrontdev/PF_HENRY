@@ -9,6 +9,7 @@ const products = [
     price: 400,
     image:
       "https://upload.wikimedia.org/wikipedia/commons/4/4c/Bananas.jpg",
+      stock: 10
   },
   {
     tradeId: "6417200973a688bf33f96546",
@@ -17,7 +18,8 @@ const products = [
     description: "Mandarinas Dancing",
     price: 600,
     image:
-      "https://www.lavanguardia.com/files/article_main_microformat/files/fp/uploads/2021/10/26/6177ce4b24bbf.r_d.3122-142-2353.jpeg",   
+      "https://www.lavanguardia.com/files/article_main_microformat/files/fp/uploads/2021/10/26/6177ce4b24bbf.r_d.3122-142-2353.jpeg", 
+      stock: 12  
   },
   {
     tradeId: "6417200973a688bf33f96546",
@@ -26,7 +28,8 @@ const products = [
     description: "Calabazas medianas",
     price: 500,
     image:
-      "https://www.antojoentucocina.com/wp-content/uploads/2020/09/calabazas-scaled.jpg",    
+      "https://www.antojoentucocina.com/wp-content/uploads/2020/09/calabazas-scaled.jpg",   
+      stock: 14
   },
   {
     tradeId: "6417200973a688bf33f96546",
@@ -35,7 +38,8 @@ const products = [
     description: "Morrones verdes, rojos o amarillos",
     price: 740,
     image:
-      "https://www.recetas.com.bo/sites/default/files/2020-02/empanadas-de-jamon-y-queso-1012.jpg",    
+      "https://www.recetas.com.bo/sites/default/files/2020-02/empanadas-de-jamon-y-queso-1012.jpg",  
+      stock:  16
   },
   {
     tradeId: "6417200973a688bf33f96546",
@@ -44,7 +48,8 @@ const products = [
     description: "Carbon en bolsa 4kg.",
     price: 350,
     image:
-      "http://papelerabarchiesi.com.ar/store/1548-large_default/bolsa-p-carbon-de-papel-4-kg-c-u.jpg",    
+      "http://papelerabarchiesi.com.ar/store/1548-large_default/bolsa-p-carbon-de-papel-4-kg-c-u.jpg",  
+      stock:  13
   },
   {
     tradeId: "6417200973a688bf33f96546",
@@ -53,7 +58,8 @@ const products = [
     description: "2kg de manzana roja.",
     price: 500,
     image:
-      "https://cocina-casera.com/wp-content/uploads/2016/12/manzanas-rojas.jpg",    
+      "https://cocina-casera.com/wp-content/uploads/2016/12/manzanas-rojas.jpg",  
+      stock:  11
   },
   {
     tradeId: "6417200973a688bf33f96546",
@@ -62,7 +68,8 @@ const products = [
     description: "2kg de manzana verde",
     price: 600,
     image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS63uiG327RtBODiyXCZrNdJni6cU2lFqPCZw&usqp=CAU",    
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS63uiG327RtBODiyXCZrNdJni6cU2lFqPCZw&usqp=CAU", 
+      stock: 8   
   },
   {
     tradeId: "6417200973a688bf33f96546",
@@ -71,7 +78,8 @@ const products = [
     description: "2kg de peras.",
     price: 600,
     image:
-      "https://elpais.com/especiales-branded/la-despensa/2020/la-importancia-de-llevarnos-a-casa-las-peras-con-rabitos/img/1581683292_617447_1581684057_noticia_normal.jpg",    
+      "https://elpais.com/especiales-branded/la-despensa/2020/la-importancia-de-llevarnos-a-casa-las-peras-con-rabitos/img/1581683292_617447_1581684057_noticia_normal.jpg",  
+      stock: 9 
   },
   {
     tradeId: "6417200973a688bf33f96546",
@@ -80,7 +88,8 @@ const products = [
     description: "1 kg de uvas.",
     price: 400,
     image:
-      "https://eldiariony.com/wp-content/uploads/sites/2/2022/08/Uvas-shutterstock_210742753.jpg?quality=75&strip=all&w=1200",    
+      "https://eldiariony.com/wp-content/uploads/sites/2/2022/08/Uvas-shutterstock_210742753.jpg?quality=75&strip=all&w=1200",
+      stock:  7  
   },
   {
     tradeId: "6417200973a688bf33f96546",
@@ -89,7 +98,8 @@ const products = [
     description: "Kg de uvas blancas.",
     price: 450,
     image:
-      "https://www.vinetur.com/imagenes/2019/julio/15/uvablanca3.jpg",    
+      "https://www.vinetur.com/imagenes/2019/julio/15/uvablanca3.jpg",  
+      stock:  7
   },
   {
     tradeId: "6417200973a688bf33f96546",
@@ -98,7 +108,8 @@ const products = [
     description: "Kg de cebollas.",
     price: 325,
     image:
-      "https://5aldia.cl/wp-content/uploads/2018/03/cebolla.jpg",    
+      "https://5aldia.cl/wp-content/uploads/2018/03/cebolla.jpg", 
+      stock: 5  
   },
   {
     tradeId: "6417200973a688bf33f96546",
@@ -107,7 +118,8 @@ const products = [
     description: "3 cabezas de ajo.",
     price: 450,
     image:
-      "https://hdstatic.net/gridfs/holadoctor/ns_bottomline-garlic-sp-1548152502,074.jpg",    
+      "https://hdstatic.net/gridfs/holadoctor/ns_bottomline-garlic-sp-1548152502,074.jpg",  
+      stock: 5  
   },
   {
     tradeId: "6417200973a688bf33f96546",
@@ -116,7 +128,8 @@ const products = [
     description: "1kg de tomates.",
     price: 250,
     image:
-      "https://s1.eestatic.com/2021/07/12/actualidad/595952167_195030066_1706x960.jpg",    
+      "https://s1.eestatic.com/2021/07/12/actualidad/595952167_195030066_1706x960.jpg",  
+      stock: 3  
   },
   {
     tradeId: "6417200973a688bf33f96546",
@@ -125,7 +138,8 @@ const products = [
     description: "Kg de zanahoria.",
     price: 375,
     image:
-      "https://www.lavanguardia.com/files/content_image_mobile_filter/uploads/2021/07/09/60e81840d4549.jpeg",    
+      "https://www.lavanguardia.com/files/content_image_mobile_filter/uploads/2021/07/09/60e81840d4549.jpeg", 
+      stock: 4
   },
   {
     tradeId: "6417200973a688bf33f96546",
@@ -134,7 +148,8 @@ const products = [
     description: "2Kg de papas.",
     price: 500,
     image:
-      "https://www.herbazest.com/imgs/0/a/c/451775/papa.jpg",    
+      "https://www.herbazest.com/imgs/0/a/c/451775/papa.jpg",  
+      stock:  15
   },
   {
     tradeId: "6417200973a688bf33f96546",
@@ -143,7 +158,8 @@ const products = [
     description: "2Kg de batatas.",
     price: 700,
     image:
-      "https://www.cucinare.tv/wp-content/uploads/2019/04/Batata.jpg",    
+      "https://www.cucinare.tv/wp-content/uploads/2019/04/Batata.jpg",  
+      stock: 8  
   },
   //La granjita
   {              

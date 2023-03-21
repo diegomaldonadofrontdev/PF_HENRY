@@ -70,6 +70,9 @@ export default function Cart({ id, stateEpagos }) {
 
 	function handlerPostPayment(creditCard) {
 		dispatch(postOrder(id, idClient, carrito));
+
+		
+
 		if (creditCard) {
 			dispatch(postPayment(id, idClient, carrito));
 		}
@@ -150,9 +153,7 @@ export default function Cart({ id, stateEpagos }) {
 							  }
 					}
 					title={
-						epagos === "efectivo"
-							? "Pagar en Efectivo"
-							: "Pagar con Tarjeta"
+						epagos === "efectivo" ? "Pagar en Efectivo" : "Pagar con Tarjeta"
 					}
 					background={stateEpagos === "efectivo" ? "blue" : "green"}
 				/>

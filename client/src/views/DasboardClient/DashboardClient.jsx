@@ -17,13 +17,11 @@ import avatar from "../../images/avatar.avif";
 
 // Styles
 import styles from "./DashboardClient.module.css";
-import swal from "sweetalert"
-
+import swal from "sweetalert";
 
 export default function DashboardClient() {
 	const loggedUser = useSelector((state) => state.currentClient);
 	const orders = useSelector((state) => state.currentClient.orders);
-	console.log(orders);
 	const dispatch = useDispatch();
 
 	const idUser = window.localStorage.getItem("idUser");
@@ -37,7 +35,6 @@ export default function DashboardClient() {
 		address: "",
 		profileImg: "",
 	});
-	console.log(body)
 
 	useEffect(() => {
 		if (idUser) {
@@ -61,7 +58,6 @@ export default function DashboardClient() {
 	// Manejo la imagen con CLOUDINARY
 	const handleUserImgUpload = async (e) => {
 		const files = e.target.files;
-		console.log(files);
 		const datas = new FormData();
 		datas.append("file", files[0]);
 		datas.append("upload_preset", "PEDI-VERY");
@@ -83,27 +79,24 @@ export default function DashboardClient() {
 
 	function handlerSubmit(e) {
 		e.preventDefault();
-		const {phone, address, profileImg} = body
-		if (!phone || !address || !profileImg){
+		const { phone, address, profileImg } = body;
+		if (!phone || !address || !profileImg) {
 			swal({
 				title: "Error!",
 				text: "Rellena todos los campos correctamente, por favor",
 				icon: "error",
 				button: "Ok",
-			})
+			});
 		} else {
-			dispatch(editClient(body, idUser))
+			dispatch(editClient(body, idUser));
 			swal({
 				title: "Listo!",
 				text: "Tus datos fueron actualizados",
 				icon: "success",
 				button: "Ok",
-			})
-
+			});
 		}
 	}
-
-	let total = 0;
 
 	return (
 		<div>
@@ -247,7 +240,6 @@ export default function DashboardClient() {
 														<td>
 															<ul className={styles.descripcionOrder}>
 																{x.products.map((productos) => {
-																	total += productos.price * productos.cantidad;
 																	return (
 																		<li>
 																			-
@@ -261,7 +253,7 @@ export default function DashboardClient() {
 																})}
 															</ul>
 														</td>
-														<td>${total}</td>
+														<td>${x.total}</td>
 														<td>{x.commerceName}</td>
 													</tr>
 												))}

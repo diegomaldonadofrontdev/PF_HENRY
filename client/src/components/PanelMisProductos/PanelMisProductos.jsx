@@ -1,9 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./PanelMisProductos.module.css";
-import img from "../../images/pizza.jpg";
+import { useDispatch, useSelector } from "react-redux";
+
+import { Link } from "react-router-dom";
 import MiniCardProduct from "../MiniCardProduct/MiniCardProduct";
+import { getAllProducts } from "../../redux/actions/getAllProducts";
+
+import ProductCreationForm from "../../views/ProductCreationForm/ProductCreationForm";
 
 export default function PanelMisProductos() {
+	const dispatch = useDispatch();
+	const tradeId = useSelector((state) => state.currentTrade._id);
+	const [flag, setFlag] = useState(null);
+	const allProducts = useSelector((state) => state.products);
+
+	const [product, setProduct] = useState(null);
+
+	function handlerProductInfo(product) {
+		setProduct(product);
+	}
+
+	function handlerFlag(x) {
+		if (x !== "edit") {
+			setProduct(null);
+		}
+		setFlag(x);
+	}
+
+	useEffect(() => {
+		dispatch(getAllProducts(tradeId));
+	}, [tradeId]);
+
 	return (
 		<div className={styles.panel__misProductos}>
 			<div className={styles.container}>
@@ -16,92 +43,44 @@ export default function PanelMisProductos() {
 						</form>
 					</div>
 					<div className={styles.header__buttons}>
-						<div>
-							<a href="#" className={styles.button__green}>
-								Disponibles
-							</a>
-							<a href="#" className={styles.button__red}>
-								No Disponibles
-							</a>
-						</div>
-						<div>
-							<a href="#">Ver todos</a>
-							<a href="#">Ver promos</a>
-						</div>
-						<a href="#" className={styles.button__agregar}>
-							Agregar <br />
-							Producto
+						<a href="#" className={styles.button}>
+							Disponibles
+						</a>
+						<a href="#" className={styles.button}>
+							No Disponibles
+						</a>
+						<a href="#" className={styles.button}>
+							Ver todos
+						</a>
+
+						<a
+							onClick={() => {
+								handlerFlag("create");
+							}}
+						>
+							Agregar Producto
 						</a>
 					</div>
 				</div>
 				<div className={styles.productos__container}>
 					<div className={styles.resultados__productos}>
-						<MiniCardProduct />
+						{allProducts?.map((x) => (
+							<MiniCardProduct
+								product={x}
+								fc={handlerFlag}
+								fc2={handlerProductInfo}
+							/>
+						))}
 					</div>
-					<div className={styles.card__productDetail}>
-						<div className={styles.infoProducto}>
-							<div className={styles.img__container}>
-								<img src={img} alt="" />
-							</div>
-							<div className={styles.infoText}>
-								<h4>Pizza a la piedra</h4>
-								<p>
-									Lorem ipsum dolor sit amet consectetur adipisicing elit.
-									Officiis veritatis beatae excepturi provident cumque quisquam
-									voluptas, corporis deleniti ea, laborum cupiditate delectus
-									ducimus suscipit facilis? Cum et odit amet alias!
-								</p>
-								<p>Precio: $1.500</p>
-							</div>
+					{flag !== null ? (
+						<div className={styles.edicion__productos}>
+							<ProductCreationForm
+								flag={flag}
+								fc={handlerFlag}
+								product={product}
+							/>
 						</div>
-
-						<div className={styles.product__status}>
-							<p>Estado:</p> <p>Disponible</p>
-							<input type="checkbox" />
-						</div>
-						<div>
-							<div className={styles.buttons__editdelete}>
-								<a href="#" className={styles.editarProducto}>
-									Editar producto
-								</a>
-								<a href="#" className={styles.eliminarProducto}>
-									Eliminar producto
-								</a>
-							</div>
-						</div>
-					</div>
-					<div className={styles.productos__editForm}>
-						<h4>Editá tu producto</h4>
-						<form action="">
-							<div>
-								<input type="text" placeholder="Nuevo Nombre" />
-							</div>
-							<div>
-								<textarea
-									name=""
-									id=""
-									placeholder="Nueva Descripcion"
-								></textarea>
-							</div>
-							<div>
-								<textarea
-									name=""
-									id=""
-									placeholder="Nueva Descripcion"
-								></textarea>
-							</div>
-						</form>
-						<div className={styles.form__edit}>
-							<div className={styles.buttons__editdelete}>
-								<a href="#" className={styles.eliminarProducto}>
-									Cancelar
-								</a>
-								<a href="#" className={styles.editarProducto}>
-									Actualizar
-								</a>
-							</div>
-						</div>
-					</div>
+					) : null}
 				</div>
 			</div>
 		</div>
