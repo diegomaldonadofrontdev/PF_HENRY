@@ -3,7 +3,13 @@ const {
   tradesInDbHandlers,
   productsInDbHandlers,
 } = require("../Handlers/superAdminsHandler");
-const { postProductCategoryHandler } = require("../Handlers/productsHandler");
+const { 
+    postProductCategoryHandler,
+    postProductHandler,
+    putProductHandler,
+    deleteProductHandler,
+    getProductByNameHandler
+ } = require("../Handlers/productsHandler");
 const {
   postCategoryHandler,
   postTradeHandler,
@@ -18,7 +24,8 @@ const {
   validateTrade,
   validateCategoryProduct,
   validateSubcategory,
-  validateDeliveryZone
+  validateDeliveryZone,
+  validateProduct
 } = require("../Middlewares/validate");
 
 const superAdminsRouter = Router();
@@ -46,10 +53,13 @@ superAdminsRouter.post("/newDeliveryZone", validateDeliveryZone, postSubcategory
 
 // PRODUCTOS
 // Crear productos
-// Deshabilitar productos
+superAdminsRouter.post("/newProduct/:tradeId", validateProduct, postProductHandler) // OK
 // Modificar productos
+superAdminsRouter.put("/updateProduct/:productId", putProductHandler) // OK
 // Eliminar productos
+superAdminsRouter.delete("/deleteproduct/:productId", deleteProductHandler); // OK
 // Buscar productos
+superAdminsRouter.get("/products/search", getProductByNameHandler); // OK
 // Crear nueva categoría
 superAdminsRouter.post("/newCategoryProducts", validateCategoryProduct, postProductCategoryHandler); // OK
 
