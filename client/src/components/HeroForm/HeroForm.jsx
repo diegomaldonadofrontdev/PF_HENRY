@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styles from "./HeroForm.module.css";
 
 export default function HeroForm() {
@@ -48,7 +49,9 @@ export default function HeroForm() {
 							<input type="email" />
 						</div>
 					</div>
-					<button className={styles.form__button}>Comenzar</button>
+					<button type="submit" className={styles.form__button}>Comenzar</button>
+
+					<Link to="/login/trades"><h4 style={{color: "blue", textDecorationLine:"underline"}}>Si ya tienes un negocio registrado da click aqui para iniciar sesion</h4></Link>
 				</form>
 			</div>
 		</div>
