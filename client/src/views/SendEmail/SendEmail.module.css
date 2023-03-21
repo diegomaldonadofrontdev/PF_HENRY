@@ -1,0 +1,12 @@
+.sendEmail .container {
+	max-width: 80%;
+	margin: auto;
+	padding-top: 150px;
+	display: flex;
+	justify-content: center;
+}
+
+.sendEmail .container form {
+	display: flex;
+	flex-direction: column;
+}

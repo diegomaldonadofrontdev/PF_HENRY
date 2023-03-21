@@ -108,7 +108,6 @@ export default function CommerceRegistrationForm() {
 	const stateSubCategories = useSelector((state) => state.tradesSubCategories);
 	const stateZones = useSelector((state) => state.zones);
 	// const [subCat, setSubCat] = useState(stateSubCategories);
-	console.log(stateSubCategories);
 	//Estado que maneja la imagen
 	// const [commerceImg, setCommerceImg] = useState("");
 	const [currentErrors, setCurrentErrors] = useState({});
@@ -131,7 +130,6 @@ export default function CommerceRegistrationForm() {
 		epagos: "",
 		active: true,
 	});
-	console.log(currentInput);
 
 	useEffect(() => {
 		dispatch(getTradesCategories());
@@ -140,7 +138,6 @@ export default function CommerceRegistrationForm() {
 
 	useEffect(() => {
 		if (currentInput.category !== "default" && currentInput.category) {
-			console.log(currentInput.category);
 			dispatch(getSubCategories(currentInput.category));
 		}
 	}, [currentInput.category]);
@@ -172,7 +169,6 @@ export default function CommerceRegistrationForm() {
 	// Manejo la imagen con CLOUDINARY
 	const handleCommerceImgUpload = async (e) => {
 		const files = e.target.files;
-		console.log(files);
 		const datas = new FormData();
 		datas.append("file", files[0]);
 		datas.append("upload_preset", "PEDI-VERY");

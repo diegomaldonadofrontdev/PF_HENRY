@@ -36,7 +36,6 @@ export default function RegistrationTradeBoss() {
 	const handleRegister = async (e) => {
 		e.preventDefault();
 		sigin(user);
-		console.log(user);
 	}
 
 	// const handleSiginWhitGoogle = (e) => {

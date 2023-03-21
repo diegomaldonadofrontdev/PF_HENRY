@@ -62,7 +62,7 @@ const confirmEmail = async (token) => { // FUNCIONANDO
 }
 
 // POSTS CONTROLLERS
-const registerClient = async (client, token) => { //FUNCIONANDO
+const registerClient = async (client, token) => { // OK
 
   const { password } = client
   try {
@@ -87,7 +87,7 @@ const registerClient = async (client, token) => { //FUNCIONANDO
   }
 }
 
-const registerClientPerGoogle = async (client, token) => { //FUNCIONANDO
+const registerClientPerGoogle = async (client, token) => { // OK
 
   const { password } = client
   try {
@@ -112,7 +112,7 @@ const registerClientPerGoogle = async (client, token) => { //FUNCIONANDO
   }
 }
 
-const validatePasswordClient = async (email, password) => { // FUNCIONANDO
+const validatePasswordClient = async (email, password) => { // OK
   try {
     const findClient = await Clients.find({ email: email });
     const client = findClient[0];
@@ -128,20 +128,7 @@ const validatePasswordClient = async (email, password) => { // FUNCIONANDO
   }
 }
 
-// PUTS CONTROLLERS
-const updateClient = async (clientId, body) => { // FUNCIONANDO
-  try {
-    const client = await Clients.findByIdAndUpdate(clientId, body, { new: true })
-    if (client) return client;
-    return `Vaya! No fue posible actualizar sus datos!`
-  } catch (error) {
-    return error.message
-  }
-}
-
-// DELETES CONTROLLERS
-
-const sendMailNewPassword = async (email, token) => {
+const sendMailNewPassword = async (email, token) => { // ?
   try {
     await sendMailReset(email, token)
     return "Se ha enviado el link a tu email"
@@ -150,7 +137,7 @@ const sendMailNewPassword = async (email, token) => {
   }
 }
 
-const resetPasswordController = async (password, token) => {
+const resetPasswordController = async (password, token) => { // ?
   try {
     const payload = jwt.verify(token, TOKEN_KEY)
 
@@ -172,6 +159,32 @@ const resetPasswordController = async (password, token) => {
   }
 }
 
+// PUTS CONTROLLERS
+const updateClient = async (clientId, body) => { // FUNCIONANDO
+  try {
+    const client = await Clients.findByIdAndUpdate(clientId, body, { new: true })
+    if (client) return client;
+    return `Vaya! No fue posible actualizar sus datos!`
+  } catch (error) {
+    return error.message
+  }
+}
+
+// DELETES CONTROLLERS
+const deleteClient = async (id) => {
+  try {
+    const clientDeleted = await Clients.deleteOne({_id: id})
+    console.log(clientDeleted);
+		if (clientDeleted.deletedCount !== 0) {
+			return `Cliente eliminado!`
+		} return `No se encontró el cliente.`
+  } catch (error) {
+    throw new Error(error.message)
+  }
+}
+
+
+
 module.exports = {
   searchClientById,
   registerClient,
@@ -182,5 +195,6 @@ module.exports = {
   updateClient,
   confirmEmail,
   sendMailNewPassword,
-  resetPasswordController
+  resetPasswordController,
+  deleteClient
 }

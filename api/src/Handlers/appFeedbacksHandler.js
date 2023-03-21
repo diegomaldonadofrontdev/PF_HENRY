@@ -1,5 +1,6 @@
 const {createFeedback,
     getFeedbacks,
+    deleteFeedback
 } = require ("../Controllers/appFeedbacksController")
 
 // GET ------------> feedbacks
@@ -25,7 +26,29 @@ const getFeedbacksHandler = async (req, res) => {
     }
   };
 
+  // PUTS
+  const putFeedbackHandler = async () => {
+    
+  }
+
+// DELETE
+const deleteAppFeedbacksHandler = async (req, res) => { // OK
+  const {feedbackId} = req.params
+	try {
+		const fbDeleted = await deleteFeedback(feedbackId);
+		if (fbDeleted) res.status(200).json(`La review se eliminó correctamente`);
+    res.status(200).json(`No se encontró el feedback`)
+	} catch (error) {
+		res.status(404).json({
+			Error: `Se produjo un problema al intentar eliminar la review`
+		});
+	}
+};
+
+
   module.exports = {
     getFeedbacksHandler,
-    postFeedbackHandler
+    postFeedbackHandler,
+    deleteAppFeedbacksHandler,
+    putFeedbackHandler
   }

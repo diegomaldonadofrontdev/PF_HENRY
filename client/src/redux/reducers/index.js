@@ -23,6 +23,10 @@ import {
 	EDIT_CLIENT,
 	GET_ORDERS_BY_COMMERCE,
 	PUT_ORDER_STATUS_PAYMENT,
+	UPDATE_PRODUCT,
+	POST_PRODUCT,
+	UPDATE_COMMERCE,
+	GET_TRADES_BY_NAME,
 } from "../actions/types";
 
 const initialState = {
@@ -30,6 +34,7 @@ const initialState = {
 	products: [],
 	productsFilter: [],
 	allCommerces: [],
+	filterCommerce: [],
 	tradesCategories: [],
 	tradesSubCategories: [],
 	feedback: [],
@@ -328,7 +333,7 @@ export default function rootReducer(state = initialState, action) {
 			console.log(orders, action.payload);
 			return {
 				...state,
-				ordersCommerces: orders
+				ordersCommerces: orders,
 			};
 		}
 		case PUT_ORDER_STATUS_PAYMENT: {
@@ -347,19 +352,53 @@ export default function rootReducer(state = initialState, action) {
 				ordersCommerces: [...ordersCommerceCopy],
 			};
 		}
-		case 'CURRENT_PAGE_PRODUCTS': {
+		case "CURRENT_PAGE_PRODUCTS": {
 			return {
 				...state,
-				currentPageProducts: action.payload
+				currentPageProducts: action.payload,
+			};
+		}
+		case "CURRENT_PAGE_TRADES": {
+			return {
+				...state,
+				currentPageTrades: action.payload,
+			};
+		}
+		case UPDATE_PRODUCT: {
+			const copyProducts = state.products;
+			console.log(action.payload, copyProducts);
+			const index = copyProducts.findIndex((x) => x._id === action.payload.id);
+			console.log(index);
+			if (index !== -1) {
+				copyProducts[index] = action.payload;
+			}
+
+			return {
+				...state,
+				products: [...copyProducts],
+			};
+		}
+		case POST_PRODUCT: {
+			return {
+				...state,
+				products: [...state.products, action.payload],
+			};
+		}
+		case UPDATE_COMMERCE: {
+			return {
+				...state,
+				currentTrade: { ...state.currentTrade, ...action.payload.body },
 			}
 		}
-		case 'CURRENT_PAGE_TRADES': {
+		case GET_TRADES_BY_NAME: {
 			return {
 				...state,
-				currentPageTrades: action.payload
-			}
+				filterCommerce: [...state.filterCommerce, action.payload],
+			};
 		}
 		default:
 			return state;
 	}
 }
+
+	
