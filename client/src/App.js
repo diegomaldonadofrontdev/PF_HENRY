@@ -18,6 +18,7 @@ import getCLient from "./redux/actions/getClient";
 import { useEffect } from "react";
 import RegistrationTradeBoss from "./views/RegistrationTradeBoss/RegistrationTradeBoss";
 import LoginTrade from "./views/LoginTrade/LoginTrade";
+import SuperAdmin from "./views/SuperAdmin/SuperAdmin";
 
 function App() {
 	const dispatch = useDispatch();
@@ -39,7 +40,7 @@ function App() {
 				<Route path="/useradmin" element={<DashboardClient />} />
 
 				<Route path="/login" element={<Login />} />
-				<Route path="/login/trades" element={< LoginTrade/>} />
+				<Route path="/login/trades" element={<LoginTrade />} />
 				<Route path="/login/tradeboss" element={<LoginTradeBoss />} />
 				<Route path="/s" element={<HomeLocal />} />
 				<Route path="/search" element={<UserSearch />} />
@@ -47,20 +48,18 @@ function App() {
 				<Route path="/comercio/:id" element={<CommerceDetail />} />
 				<Route path="/registration" element={<RegistrationForm />} />
 				<Route path="/registration_product" element={<ProductCreationForm />} />
-				<Route path="/registration/tradeboss" element={<RegistrationTradeBoss />} />
 				<Route
-					path="/registration_product"
-					element={<ProductCreationForm />}
+					path="/registration/tradeboss"
+					element={<RegistrationTradeBoss />}
 				/>
+				<Route path="/registration_product" element={<ProductCreationForm />} />
 				<Route
 					path="/registration_commerce"
 					element={<CommerceRegistrationForm />}
 				/>
 				<Route path="/responsepayment/:status" element={<ResponsePayment />} />
-				<Route
-					path="/responsepayment/:status"
-					element={<ResponsePayment />}
-				/>
+				<Route path="/responsepayment/:status" element={<ResponsePayment />} />
+				<Route path="/superadmin" element={<SuperAdmin />} />
 			</Routes>
 		</div>
 	);

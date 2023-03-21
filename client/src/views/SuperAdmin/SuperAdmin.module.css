@@ -1,0 +1,25 @@
+.superadmin {
+	width: 100%;
+	padding-top: 200px 0;
+}
+
+.superadmin .container {
+	display: flex;
+	gap: 1em;
+	margin: auto;
+	max-width: 90%;
+	padding: 100px 0;
+}
+
+.superadmin .container .lateralnav {
+	background-color: white;
+	width: 250px;
+	padding: 2em;
+	border-radius: 1em;
+}
+
+.superadmin .container .content {
+	background-color: white;
+	width: 100%;
+	border-radius: 1em;
+}

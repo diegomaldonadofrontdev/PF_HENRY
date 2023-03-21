@@ -38,8 +38,7 @@ export default function PanelPedidos(props) {
 		<div className={styles.panel}>
 			<div className={styles.container}>
 				<div className={styles.pedidosContainer}>
-					<div id="mispedidos">
-						<h2>Mi pedidos</h2>
+					<div id="mispedidos" className={styles.mispedidos}>
 						<div className={styles.view__container}>
 							<div className={styles.user__informacion}>
 								<table>
