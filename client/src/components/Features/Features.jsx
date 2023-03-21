@@ -2,8 +2,13 @@ import React from "react";
 import styles from "./Features.module.css";
 import logo from "../../images/logo.png";
 import CardPrimary from "../CardPrimary/CardPrimary";
+import useUser from "../../Hooks/useUser";
 
 export default function Features() {
+
+	const { isLogged } = useUser();
+	const idUser = window.localStorage.getItem('idUser');
+
 	return (
 		<div className={styles.features}>
 			<div className={styles.container}>
@@ -30,14 +35,15 @@ export default function Features() {
 						}
 						to="/registration_commerce"
 					/>
-					<CardPrimary
-						titulo={"Unite como usuario"}
-						texto="Crea un perfil y pedí lo que quieras cuando quieras."
-						img={
-							"https://media.istockphoto.com/id/613241758/id/foto/wanita-muda-bekerja-pada-laptop.jpg?s=612x612&w=0&k=20&c=p1ReR76DS4RsqL5ojvCwGd3KsMbbtReKLJ43YY931AA="
-						}
-						to="/registration"
-					/>
+					{!idUser && !isLogged &&
+						<CardPrimary
+							titulo={"Unite como usuario"}
+							texto="Crea un perfil y pedí lo que quieras cuando quieras."
+							img={
+								"https://media.istockphoto.com/id/613241758/id/foto/wanita-muda-bekerja-pada-laptop.jpg?s=612x612&w=0&k=20&c=p1ReR76DS4RsqL5ojvCwGd3KsMbbtReKLJ43YY931AA="
+							}
+							to="/registration"
+						/>}
 				</div>
 			</div>
 		</div>

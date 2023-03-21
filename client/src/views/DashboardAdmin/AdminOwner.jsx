@@ -27,7 +27,7 @@ export default function AdminOwner() {
 
 	useEffect(() => {
 		dispatch(getOrdersByCommerce(idTrade));
-	}, []);
+	}, [dispatch, idTrade]);
 
 	const ordersCommerce = useSelector((state) => state.ordersCommerces);
 
@@ -51,10 +51,10 @@ export default function AdminOwner() {
 		// navigate("/registration/tradeboss")
 	};
 
-	const logoutHandler = (e) => {
-		logoutTrade();
-		navigate("/login/trades");
-	};
+	// const logoutHandler = (e) => {
+	// 	logoutTrade();
+	// 	navigate("/login/trades");
+	// };
 
 	return (
 		<>
@@ -121,9 +121,7 @@ export default function AdminOwner() {
 							<div className={styles.perfil__links}>
 								<a href="/">Soporte</a>
 							</div>
-							<button style={{ border: "none" }} onClick={logoutHandler}>
-								<ButtonPrimary texto="Logout trade" />
-							</button>
+						
 						</div>
 						<div className={styles.panel}>
 							{currentTab.id === 1 ? (
