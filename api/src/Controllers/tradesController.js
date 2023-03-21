@@ -1,6 +1,7 @@
 const Trade = require("../models/Trades");
 const Categories = require("../models/Categories");
 const Subcategories = require ("../models/Subcategory")
+const DeliveryZone = require ("../models/DeliveryZone")
 const bcrypt = require("bcryptjs");
 const sendMail = require('../Helpers/emailTrade')
 const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
@@ -264,6 +265,16 @@ const createSubcategory = async (subCat) => { // OK
 	}
 }
 
+const createDeliveryZone = async (deliZone) => { // OK 
+	try {
+		const newDZ = new DeliveryZone(deliZone)
+		newDZ.save()
+		return `Se creo la deliveryZone correctamente`
+	} catch (error) {
+		throw new Error(`Error al crear la delivery zone`)
+	}
+}
+
 const verifyTradeLog = async (username, password) => { // ?
 	try {
 		const existUser = await Trade.find({userName: username})
@@ -291,6 +302,36 @@ const deleteTrade = async (id) => { //OK
 	}
 }
 
+const deleteCaegory = async (category) => {
+try {
+	const deleted = await Categories.findOneAndDelete({name: category})
+	if (deleted) return `Se eliminó la categoría ${category}`
+	return `No fue posible eliminar la categoría ${category}`
+} catch (error) {
+	throw new Error(`Ocurrió un error al eliminar la categoría ${category}`)
+}
+}
+
+const deleteSubcategory = async (subcategory) => {
+	try {
+		const deleted = await Subcategories.findOneAndDelete({name: subcategory})
+		if (deleted) return `Se eliminó la subcategoría ${subcategory}`
+		return `No fue posible eliminar la subcategoría ${subcategory}`
+	} catch (error) {
+		throw new Error(`Ocurrió un error al eliminar la subcategoría ${subcategory}`)
+	}
+}
+
+const deleteDeliveryZone = async (deliveryZone) => {
+	try {
+		const deleted = await DeliveryZone.findOneAndDelete({name: deliveryZone})
+		if (deleted) return `Se eliminó la zona ${deliveryZone}`
+		return `No fue posible eliminar la zona ${deliveryZone}`
+	} catch (error) {
+		throw new Error(`Ocurrió un error al eliminar la zona ${deliveryZone}`)
+	}
+}
+
 module.exports = {
 	getAllTrades,
 	searchByZone,
@@ -311,5 +352,9 @@ module.exports = {
 	deleteTrade,
 	searchTradeByName,
 	createSubcategory,
-	updateTrades
+	updateTrades,
+	createDeliveryZone,
+	deleteCaegory,
+	deleteSubcategory,
+	deleteDeliveryZone
 };
