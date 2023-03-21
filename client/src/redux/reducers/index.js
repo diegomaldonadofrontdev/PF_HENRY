@@ -25,6 +25,7 @@ import {
 	PUT_ORDER_STATUS_PAYMENT,
 	UPDATE_PRODUCT,
 	POST_PRODUCT,
+	UPDATE_COMMERCE,
 	GET_TRADES_BY_NAME,
 } from "../actions/types";
 
@@ -383,6 +384,12 @@ export default function rootReducer(state = initialState, action) {
 				products: [...state.products, action.payload],
 			};
 		}
+		case UPDATE_COMMERCE: {
+			return {
+				...state,
+				currentTrade: { ...state.currentTrade, ...action.payload.body },
+			}
+		}
 		case GET_TRADES_BY_NAME: {
 			return {
 				...state,
@@ -393,3 +400,5 @@ export default function rootReducer(state = initialState, action) {
 			return state;
 	}
 }
+
+	
