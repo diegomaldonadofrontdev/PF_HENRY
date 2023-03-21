@@ -8,11 +8,12 @@ const {
   deleteProduct,
   searchProductByName,
   updateProducts,
-  updateStock
+  updateStock,
+  addStock
 } = require("../Controllers/productController");
 
 // GETS
-const getProductsHandler = async (req,res) => { // FUNCIONANDO
+const getProductsHandler = async (req,res) => { // OK
   const {tradeId} = req.query
   try {    
     const products = await getAllProducts(tradeId);
@@ -23,7 +24,7 @@ const getProductsHandler = async (req,res) => { // FUNCIONANDO
 }
 
 // GET 
-const getProductHandler = async (req, res) => { // FUNCIONANDO
+const getProductHandler = async (req, res) => { // OK
   const { id } = req.params;
   try {
     const product = await getProductById(id);
@@ -46,7 +47,7 @@ const getProductByNameHandler = async (req, res) => { // OK
   }
 }
 
-const getProductCategoryHandler = async (req, res) => { // FUNCIONANDO 12/03
+const getProductCategoryHandler = async (req, res) => { // OK
   const {tradeId} = req.query
   try {
     const categories = await getAllProductsCategories(tradeId)
@@ -56,7 +57,7 @@ const getProductCategoryHandler = async (req, res) => { // FUNCIONANDO 12/03
   }
 }
 
-const getCategoryProducts = async (req, res) => {
+const getCategoryProducts = async (req, res) => { // OK
 	try {
 		const categories = await getCategoriesProducts();
 		res.status(200).json(categories);
@@ -66,8 +67,7 @@ const getCategoryProducts = async (req, res) => {
 };
 
 //POST
-const postProductHandler = async (req, res) => {
-	// FUNCIONANDO
+const postProductHandler = async (req, res) => {	// OK
 	const body = req.body;
 	const { tradeId } = req.params;
 	try {
@@ -78,8 +78,7 @@ const postProductHandler = async (req, res) => {
 	}
 };
 
-const postProductCategoryHandler = async (req, res) => {
-	//
+const postProductCategoryHandler = async (req, res) => { // OK	
 	const { productCategory } = req.body;
 	const productCat = { name: productCategory };
 	try {
@@ -116,7 +115,7 @@ const putProductsHandler = async (req, res) => { // OK
 	}
 };
 
-const putStockProductHandler = async (req, res) => {
+const putRestStockHandler = async (req, res) => { // OK
 const products = req.body
 try {
   for (let i = 0; i < products.length; i++) {
@@ -127,6 +126,17 @@ try {
   res.status(404).json({Error: `Error al modificar el stock`})
 }
 }
+
+const putAddStockHandler = async (req, res) => { // OK
+  const {newStock} = req.body
+  const {productId} = req.params
+  try {   
+      const update = await addStock(productId, newStock)    
+    res.status(200).json(update)
+  } catch (error) {
+    res.status(404).json({Error: `Error al modificar el stock`})
+  }
+  }
 
 
 // DELETE
@@ -143,6 +153,8 @@ const deleteProductHandler = async (req, res) => {	// OK
 	}
 };
 
+
+
 module.exports = {
   getProductsHandler,
   getProductHandler,
@@ -155,5 +167,6 @@ module.exports = {
   deleteProductHandler,
   getProductByNameHandler,
   putProductsHandler,
-  putStockProductHandler
+  putRestStockHandler,
+  putAddStockHandler
 };
