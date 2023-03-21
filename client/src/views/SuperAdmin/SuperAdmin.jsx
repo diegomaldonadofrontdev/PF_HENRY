@@ -3,19 +3,34 @@ import styles from "./SuperAdmin.module.css";
 import Header from "../../components/Header/Header";
 import { getTradesByName } from "../../redux/actions/getTradesByName";
 import { getTrades } from "../../redux/actions/getTrades";
+import getClientForSP from "../../redux/actions/getClientForSP";
+import getAllClients from "../../redux/actions/getAllClients";
 
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
 
 export default function SuperAdmin() {
 	const dispatch = useDispatch();
 	const commerces = useSelector((state) => state.filterCommerce);
+	const clients = useSelector((state) => state.allClients);
+	const client = useSelector((state) => state.clientForSP)
+	console.log(client);
+
 	useEffect(() => {
 		dispatch(getTrades());
 	}, []);
 
+	useEffect(() => {
+		dispatch(getAllClients())
+	}, [dispatch])
+
 	function handlerFilterByName(e) {
 		console.log(e.target.value);
 		dispatch(getTradesByName(e.target.value));
+	}
+
+	function deleteHandler (e) {
+		axios.delete(`/superadmins/deleteClient/${client._id}`)
 	}
 
 	return (
@@ -191,16 +206,32 @@ export default function SuperAdmin() {
 									<th>Accion</th>
 								</tr>
 								<tr>
-									<td>John</td>
-									<td>Doe</td>
-									<td>
-										<button>Eliminar</button>
-									</td>
+									{clients?.map(c =>
+										<div style={{ display: "flex", flexDirection: "row" }}>
+											<div>
+												<td>{c.firstname}</td>
+												<td>{c.lastname}</td>
+											</div>
+											<td>
+												<button onClick={() => dispatch(getClientForSP(c._id))}>Seleccionar</button>
+												<button onClick={() => axios.delete(`/superadmins/deleteClient/${client._id}`)} >Eliminar</button>
+											</td>
+										</div>
+									)}
 								</tr>
 							</table>
 						</div>
 						<div>
 							<h3>Datos del usuario</h3>
+							<p>Nombre: {client?.firstname || "Undefined"}</p>
+							<p>Apellido: {client?.lastname || "Undefined"}</p>
+							<p>Email: {client?.email || "Undefined"}</p>
+							<p>Pais: {client?.country || "Undefined"}</p>
+							<p>Ciudad: {client?.city || "Undefined"}</p>
+							<p>Telefono: {client?.phone || "Undefined"}</p>
+							<p>Fecha de registro: {(client.createdAt) ? client.createdAt.slice(0,10) : "No encontrada"}</p>
+							<hr />
+							<hr />
 							<h5>Editar</h5>
 							<form action="">
 								<input type="text" />

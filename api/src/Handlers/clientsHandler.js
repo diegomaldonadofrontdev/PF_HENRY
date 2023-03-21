@@ -4,6 +4,7 @@ const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
 const {
 	registerClient,
 	registerClientPerGoogle,
+	searchAllClients,
 	searchClientById,
 	updateClient,
 	searchClientExist,
@@ -16,13 +17,22 @@ const {
 } = require("../Controllers/clientsController");
 
 // GETS HANDLERS
+const getAllClients = async (req, res) => {
+	try {
+		const clients = await searchAllClients();
+		res.status(200).json(clients);
+	} catch (error) {
+		res.status(404).json({ Error: "Error al obtener a los clientes" });
+	}
+}
+
 const getClientHandler = async (req, res) => {	// OK
 	const { id } = req.params;
 	try {
 		const client = await searchClientById(id);
 		res.status(200).json(client);
 	} catch (error) {
-		res.status(404).json({ Error: "Error al obtener a los clientes" });
+		res.status(404).json({ Error: "Error al obtener al cliente" });
 	}
 };
 
@@ -144,6 +154,7 @@ const deleteClientHandler = async (req, res) => {
 
 module.exports = {
 	postClientHandler,
+	getAllClients,
 	getClientHandler,
 	updateClientHandler,
 	login,

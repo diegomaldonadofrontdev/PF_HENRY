@@ -6,6 +6,7 @@ const {
 } = require("../Handlers/productsHandler");
 const {
 	postClientHandler,
+	getAllClients,
 	getClientHandler,
 	updateClientHandler,
 	login,
@@ -55,6 +56,7 @@ clientsRouter.get("/products/categories", getProductCategoryHandler); // FUNCION
 clientsRouter.get("/app/feedbacks", getFeedbacksHandler); // FUNCIONANDO
 clientsRouter.get("/order/search", getOrdersHandler); // FUNCIONANDO
 clientsRouter.get("/order/search/:orderId", getOrderHandler); // FUNCIONANDO
+clientsRouter.get("/all", getAllClients)
 clientsRouter.get("/clients/search/:id", getClientHandler); // FUNCIONANDO
 clientsRouter.get("/confirm-email/:token", confirmEmailHandler); // FUNCIONANDO
 
