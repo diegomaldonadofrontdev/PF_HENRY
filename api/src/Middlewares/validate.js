@@ -166,14 +166,12 @@ const validateCategory = (req, res, next) => {
 };
 
 const validateDeliveryZone = (req, res, next) => {
-	const { deliveryZoneName, status } = req.body;
+	const { deliveryZoneName } = req.body;
 
 	if (!deliveryZoneName)
 		return res
 			.status(400)
 			.json({ Error: "No se ha recibido el nombre de la zona" });
-	if (!status)
-		return res.status(400).json({ Error: "No se ha recibido el estatus" });
 	next();
 };
 
@@ -188,14 +186,14 @@ const validateCategoryProduct = (req, res, next) => {
 };
 
 const validateSubcategory = (req, res, next) => {
-	const { subcategoryName, status } = req.body;
-
-	if (!subcategoryName)
+	const { subcategory } = req.body;
+	const { category } = req.query;
+	if (!subcategory)
 		return res
 			.status(400)
 			.json({ Error: "No se ha recibido el nombre de la subcategoria" });
-	if (!status)
-		return res.status(400).json({ Error: "No se ha recibido el estatus" });
+	if (!category)
+		return res.status(400).json({ Error: "No se ha recibido la categoría" });
 	next();
 };
 

@@ -2,7 +2,7 @@ const Product = require('../models/Products');
 const {createTrades} = require("./tradesController")
 
 
-
+// 
 const createTradesInDb = async (trades) => {
     try {
         for (let i = 0; i < trades.length; i++) {            
