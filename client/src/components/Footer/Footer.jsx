@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./Footer.module.css";
 import { Link } from "react-router-dom";
+import logo from "../../images/logo.png";
 
 export default function Footer() {
 	return (
@@ -9,26 +10,18 @@ export default function Footer() {
 				<div className={styles.faqs}>
 					<div>
 						<Link className={styles.faq}>Quienes somos?</Link>
-						<Link className={styles.faq}>Terminos y condiciones</Link>
-						<Link className={styles.faq}>Privacidad</Link>
 						<Link className={styles.faq}>Se parte de Pedi-Very</Link>
-						<Link className={styles.faq}>Blog</Link>
-					</div>
-					<div>
-						<Link className={styles.faq}>Top comidas</Link>
-						<Link className={styles.faq}>Top cadenas</Link>
-						<Link className={styles.faq}>Top ciudades</Link>
-					</div>
-					<div>
 						<Link className={styles.faq}>Registra tu negocio</Link>
-						<Link className={styles.faq}>Centro de Socios</Link>
 					</div>
 					<div>
-						<Link className={styles.faq}>Acuerdos corporativos</Link>
+						<Link>
+							<img src={logo} alt="" className={styles.logo} />
+						</Link>
 					</div>
 				</div>
 			</div>
-			<div className={styles.container}>
+
+			<div className={styles.firma}>
 				<p>Desarrollado por PediVery</p>
 			</div>
 		</footer>
