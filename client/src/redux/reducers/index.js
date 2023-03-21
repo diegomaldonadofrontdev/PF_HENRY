@@ -25,6 +25,7 @@ import {
 	PUT_ORDER_STATUS_PAYMENT,
 	UPDATE_PRODUCT,
 	POST_PRODUCT,
+	UPDATE_COMMERCE,
 } from "../actions/types";
 
 const initialState = {
@@ -379,6 +380,12 @@ export default function rootReducer(state = initialState, action) {
 			return {
 				...state,
 				products: [...state.products, action.payload],
+			};
+		}
+		case UPDATE_COMMERCE: {
+			return {
+				...state,
+				currentTrade: { ...state.currentTrade, ...action.payload.body },
 			};
 		}
 		default:
