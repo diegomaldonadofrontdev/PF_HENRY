@@ -20,6 +20,13 @@ const {
   getTradeByNameHandler,
   postSubcategoryHandler,
   putTradesHandler,
+<<<<<<< HEAD
+=======
+  postDeliveryZoneHandler,
+  deleteDeliveryZoneHandler,
+  deleteCategoryHandler,
+  deleteSubcategoryHandler
+>>>>>>> fcc64a37e183e8d9d600eb691c2c287bc7c1db4a
 } = require("../Handlers/tradesHandler");
 const {
   validateCategory,
@@ -70,10 +77,16 @@ superAdminsRouter.get("/trades/search", getTradeByNameHandler); // OK
 superAdminsRouter.get("/trades/search/:id", getTradeHandler); // OK
 // Crear nueva categoria
 superAdminsRouter.post("/newCategory", validateCategory, postCategoryHandler); // OK
+// Eliminar categoría
+superAdminsRouter.delete("/deletecategory", deleteCategoryHandler); // OK
 // Crear nueva subcategoría
 superAdminsRouter.post("/newSubcategory", validateSubcategory, postSubcategoryHandler); // OK
+// Eliminar subcategoría
+superAdminsRouter.delete("/deletesubcategory", deleteSubcategoryHandler); // OK
 // Crear nueva deliveryZone
-superAdminsRouter.post("/newDeliveryZone", validateDeliveryZone, postSubcategoryHandler); // OK
+superAdminsRouter.post("/newDeliveryZone", validateDeliveryZone, postDeliveryZoneHandler); // OK
+// Eliminar deliveryZone
+superAdminsRouter.delete("/deleteDeliveryZone", deleteDeliveryZoneHandler); // OK
 
 // PRODUCTOS
 // Crear productos

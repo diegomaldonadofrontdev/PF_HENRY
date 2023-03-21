@@ -108,9 +108,6 @@ export default function CommerceRegistrationForm() {
 	const stateCategories = useSelector((state) => state.tradesCategories);
 	const stateSubCategories = useSelector((state) => state.tradesSubCategories);
 	const stateZones = useSelector((state) => state.zones);
-	// const [subCat, setSubCat] = useState(stateSubCategories);
-	//Estado que maneja la imagen
-	// const [commerceImg, setCommerceImg] = useState("");
 	const [currentErrors, setCurrentErrors] = useState({});
 
 	const [currentInput, setCurrentInput] = useState({
