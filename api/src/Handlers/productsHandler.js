@@ -6,7 +6,8 @@ const {
   getAllProducts,
   updateProduct,
   deleteProduct,
-  searchProductByName
+  searchProductByName,
+  updateProducts
 } = require("../Controllers/productController");
 
 
@@ -15,7 +16,7 @@ const getProductsHandler = async (req,res) => { // FUNCIONANDO
   const {tradeId} = req.query
   try {    
     const products = await getAllProducts(tradeId);
-    res.status(200).json( products)
+    res.status(200).json(products)
   } catch (error) {
     res.status(404).json({Error: "Error al obtener los productos"})
   }
@@ -90,7 +91,7 @@ const postProductCategoryHandler = async (req,res) => { //
 }
 
 // PUT
-const putProductHandler = async (req, res) => { // FUNCIONANDO
+const putProductHandler = async (req, res) => { // OK
   const {productId} = req.params
   const body = req.body
 	try {
@@ -101,8 +102,17 @@ const putProductHandler = async (req, res) => { // FUNCIONANDO
 	}
 }
 
+const putProductsHandler = async (req, res) => { // OK
+	try {
+		const update = await updateProducts(req.body)
+    if (update) res.status(200).json(update)
+	} catch (error) {
+		res.status(404).json({Error: error.message})
+	}
+}
+
 // DELETE
-const deleteProductHandler = async (req, res) => { // PROBAR
+const deleteProductHandler = async (req, res) => { // OK
   const {productId} = req.params
   try {
     const productDeleted = await deleteProduct(productId)
@@ -123,5 +133,6 @@ module.exports = {
   getCategoryProducts,
   putProductHandler,  
   deleteProductHandler,
-  getProductByNameHandler
+  getProductByNameHandler,
+  putProductsHandler
 };

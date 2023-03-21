@@ -119,6 +119,17 @@ const updateProduct = async (productId, body) => {  // OK
   }
 }
 
+const updateProducts = async (body) => {  // OK
+  try {
+    const productUpdate = await Product.updateMany({}, body)
+    if (productUpdate) return `Productos actualizados`
+    return `Problema al actualizar los productos`
+  } catch (error) {
+    return error.message
+  }
+}
+
+
 // DELETE
 const deleteProduct = async (productId) => { // OK
   try { 
@@ -139,5 +150,6 @@ module.exports = {
   getAllProductsCategories,
   createProductCategory,
   updateProduct,
-  deleteProduct
+  updateProducts,
+  deleteProduct,
 }

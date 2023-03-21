@@ -5,8 +5,9 @@ const Clients = require("../models/Clients");
 const sendMailOrderTrade = require("../Helpers/emailCreateOrderTrade");
 const ObjectId = require("mongoose").ObjectId;
 
-const getOrdersForClient = async (clientId) => {
-	// FUNCIONANDO
+
+// GETS
+const getOrdersForClient = async (clientId) => { // OK
 	try {
 		const orders = await Order.find({ clientId: clientId });
 		const ordersCompilated = [];
@@ -34,7 +35,7 @@ const getOrdersForClient = async (clientId) => {
 	}
 };
 
-const getOrdersForTrade = async (tradeId) => {
+const getOrdersForTrade = async (tradeId) => { // OK
 	try {
 		const orders = await Order.find({ tradeId: tradeId });
 		const ordersCompilated = [];
@@ -64,10 +65,8 @@ const getOrdersForTrade = async (tradeId) => {
 	}
 };
 
-const getOrderByOrderId = async (orderId) => {
-	// FUNCIONANDO
+const getOrderByOrderId = async (orderId) => { 	// OK
 	try {
-		console.log(orderId);
 		const order = await Order.findById(orderId);
 		const trade = await Trade.findById(
 			order.tradeId,
@@ -88,7 +87,7 @@ const getOrderByOrderId = async (orderId) => {
 	}
 };
 
-const searchActiveOrders = async (tradeId) => {
+const searchActiveOrders = async (tradeId) => { // OK
 	try {
 		const search = await Order.find({
 			tradeId: tradeId,
@@ -101,10 +100,9 @@ const searchActiveOrders = async (tradeId) => {
 	}
 };
 
-const createOrder = async (tradeId, clientId, products) => {
-	// FUNCIONANDO
+// POSTS
+const createOrder = async (tradeId, clientId, products) => {	// OK
 	try {
-		console.log(products);
 		const newOrder = new Order({ tradeId, clientId, products: products.data });
 		await newOrder.save();
 
@@ -127,13 +125,14 @@ const createOrder = async (tradeId, clientId, products) => {
 				newOrder.products,
 				newOrder._id
 			);
-			return `El pedido fue enviado al comercio. Su número de orden es ${newOrder._id} por un total de ${newOrder.total}`;
+			return `El pedido fue enviado al comercio. Su número de orden es ${newOrder._id}.`;
 		} else return `Vaya! Ocurrió un problema al registrar su pedido.`;
 	} catch (error) {
 		return error.message;
 	}
 };
 
+// PUTS
 const updateOrderController = async (orderId, payment, status) => {
 	try {
 		if (payment) {
@@ -159,6 +158,19 @@ const updateOrderController = async (orderId, payment, status) => {
 //   }
 // }
 
+// DELETES
+const deleteOrder = async (orderId) => { // OK
+	try {
+		const orderDeleted = await Order.deleteOne({_id: orderId})
+		if (orderDeleted.deletedCount !== 0) {
+			return `Pedido eliminado!`
+		} return `No se encontró el pedido.`
+	} catch (error) {
+		console.log(error.message);
+		throw new Error(`Ocurrio un error al intentar eliminar el pedido`)
+	}
+}
+
 module.exports = {
 	getOrdersForClient,
 	getOrdersForTrade,
@@ -166,4 +178,5 @@ module.exports = {
 	createOrder,
 	searchActiveOrders,
 	updateOrderController,
+	deleteOrder
 };

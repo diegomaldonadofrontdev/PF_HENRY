@@ -12,11 +12,11 @@ const {
 	confirmEmail,
 	sendMailNewPassword,
 	resetPasswordController,
+	deleteClient
 } = require("../Controllers/clientsController");
 
 // GETS HANDLERS
-const getClientHandler = async (req, res) => {
-	// FUNCIONANDO
+const getClientHandler = async (req, res) => {	// OK
 	const { id } = req.params;
 	try {
 		const client = await searchClientById(id);
@@ -26,8 +26,7 @@ const getClientHandler = async (req, res) => {
 	}
 };
 
-const confirmEmailHandler = async (req, res) => {
-	// FUNCIONANDO
+const confirmEmailHandler = async (req, res) => {	// OK
 	const token = req.params.token;
 	try {
 		const confirm = await confirmEmail(token);
@@ -38,8 +37,7 @@ const confirmEmailHandler = async (req, res) => {
 };
 
 // POSTS HANDLERS
-const postClientHandler = async (req, res) => {
-	// FUNCIONANDO
+const postClientHandler = async (req, res) => {	// ok
 	const client = req.body;
 	try {
 
@@ -55,8 +53,7 @@ const postClientHandler = async (req, res) => {
 	}
 };
 
-const login = async (req, res) => {
-	// FUNCIONANDO
+const login = async (req, res) => {	// OK
 	const { email, password } = req.body;
 
 	const findEmail = await searchClientExist(email);
@@ -76,43 +73,22 @@ const login = async (req, res) => {
 	}
 };
 
-const registerWhitGoogle = async (req, res) => {
-	// FUNCIONANDO
-	// const { firstname, lastname, email, password,} = req.body;
+const registerWhitGoogle = async (req, res) => { // OK	
 	const client = req.body;
-
 	try {
 		const clientBDD = await registerClientPerGoogle(client);
-
 		const token = jwt.sign(
 			{ name: client.firstname, email: client.email },
 			TOKEN_KEY,
 			{ expiresIn: "2h" }
 		);
-
 		res.status(200).json([clientBDD, { token: token }]);
 	} catch (error) {
 		res.status(400).json("Ocurrio un error en el registro!");
 	}
 };
 
-// PUTS HANDLERS
-const updateClientHandler = async (req, res) => {
-	// FUNCIONANDO
-	const { clientId } = req.params;
-	const body = req.body;
-
-	try {
-		const client = await updateClient(clientId, body);
-		res.status(200).json();
-	} catch (error) {
-		res.status(404).json({ error: `Error al actualizar el cliente` });
-	}
-};
-
-// DELETE HANDLERS
-
-const sendMailResetPassword = async (req, res) => {
+const sendMailResetPassword = async (req, res) => { // ?
 	const { email } = req.body;
 	try {
 		const token = jwt.sign({ email: email }, TOKEN_KEY, { expiresIn: "2h" });
@@ -126,7 +102,7 @@ const sendMailResetPassword = async (req, res) => {
 	}
 };
 
-const resetPassword = async (req, res) => {
+const resetPassword = async (req, res) => { // ?
 	const { password } = req.body;
 	const { token } = req.params;
 	console.log(token);
@@ -140,6 +116,32 @@ const resetPassword = async (req, res) => {
 	}
 };
 
+// PUTS HANDLERS
+const updateClientHandler = async (req, res) => { // OK
+	const { clientId } = req.params;
+	const body = req.body;
+
+	try {
+		const client = await updateClient(clientId, body);
+		res.status(200).json();
+	} catch (error) {
+		res.status(404).json({ error: `Error al actualizar el cliente` });
+	}
+};
+
+// DELETE HANDLERS
+const deleteClientHandler = async (req, res) => {
+	const {clientId} = req.params
+	console.log("CLIENTE", clientId);
+	try {
+		const clientDeleted = await deleteClient(clientId)
+		res.status(200).json(clientDeleted)
+	} catch (error) {
+		res.status(404).json({Error: error.message})
+	}
+}
+
+
 module.exports = {
 	postClientHandler,
 	getClientHandler,
@@ -149,4 +151,5 @@ module.exports = {
 	confirmEmailHandler,
 	sendMailResetPassword,
 	resetPassword,
+	deleteClientHandler
 };
