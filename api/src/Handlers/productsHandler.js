@@ -4,7 +4,9 @@ const {
   createProductCategory,
   getAllProductsCategories,
   getAllProducts,
-  updateProduct
+  updateProduct,
+  deleteProduct,
+  searchProductByName
 } = require("../Controllers/productController");
 
 
@@ -19,7 +21,7 @@ const getProductsHandler = async (req,res) => { // FUNCIONANDO
   }
 }
 
-// GET --------> products/:id
+// GET 
 const getProductHandler = async (req, res) => { // FUNCIONANDO
   const { id } = req.params;
   try {
@@ -32,7 +34,17 @@ const getProductHandler = async (req, res) => { // FUNCIONANDO
   }
 };
 
-// GET --------> products/categories?tradeId=${tradeId}
+const getProductByNameHandler = async (req, res) => { // OK
+  const {name} = req.body
+  const {tradeId} = req.query
+  try {
+      const find = await searchProductByName(tradeId, name)
+      res.status(200).json(find)
+  } catch (error) {
+      res.status(404).json({Error: error.message})
+  }
+}
+
 const getProductCategoryHandler = async (req, res) => { // FUNCIONANDO 12/03
   const {tradeId} = req.query
   try {
@@ -90,7 +102,8 @@ const putProductHandler = async (req, res) => { // FUNCIONANDO
 }
 
 // DELETE
-const deleteProductHandler = async (productId) => { // PROBAR
+const deleteProductHandler = async (req, res) => { // PROBAR
+  const {productId} = req.params
   try {
     const productDeleted = await deleteProduct(productId)
     if (productDeleted) res.status(200).json(`El producto se eliminó correctamente`)
@@ -109,5 +122,6 @@ module.exports = {
   getProductsHandler,
   getCategoryProducts,
   putProductHandler,  
-  deleteProductHandler
+  deleteProductHandler,
+  getProductByNameHandler
 };

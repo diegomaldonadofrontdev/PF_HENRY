@@ -1,46 +1,38 @@
 const {
     createTradesInDb,
     createProductsInDB,
-    deleteProduct,
 } = require("../Controllers/superAdminsController")
 const {trades} = require("../Auxiliares/comercios")
 const {products} = require ("../Auxiliares/products")
 
-// POST
-// La fn toma de trades los comercios y los crea en la base de datos
-const tradesInDbHandlers = async (req, res) => {
+// RELLENADO DE BASE DE DATOS
+// Comercios
+const tradesInDbHandlers = async (req, res) => { // OK
 try {
     const posteo = await createTradesInDb(trades)
     res.status(200).json(posteo);
 } catch (error) {
-    res.status(404).json({ error: `Error al cargar los comercios` })
+    res.status(404).json({ Error: error.message })
 }
 }
-
+// Productos
 // La fn toma los productos y los crea en la base de datos.
 // es necesario asignarle en products el id del comercio al que pertenecen una vez creados los comercios
-const productsInDbHandlers = async (req, res) => {
+const productsInDbHandlers = async (req, res) => { // OK
     try {
         const posteo = await createProductsInDB(products)
     res.status(200).json(posteo);
     } catch (error) {
-        
+        res.status(404).json({Error: error.message})
     }
 }
 
-//DELETE
-const deleteProductofDb = async (req, res) => {
-    const {id} = req.params
-    try {
-        const deleted = await deleteProduct(id)
-        res.status(200).json(`El comercio ${id} ${deleted.commerceName} ha sido eliminado de la base de datos`)
-    } catch (error) {
-        res.status(404).json({error: error.message})
-    }
-}
+// COMERCIOS
+// Busqueda por nombre
+
+
 
 module.exports = {
     tradesInDbHandlers,
-    productsInDbHandlers,
-    deleteProductofDb
+    productsInDbHandlers,    
 }
