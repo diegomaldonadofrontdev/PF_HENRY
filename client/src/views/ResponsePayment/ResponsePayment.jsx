@@ -26,7 +26,7 @@ export default function ResponsePayment() {
 		text: "Tu compra se realizó correctamente",
 		icon: "success",
 		button: "Ok",
-	})
+	});
 	return (
 		<div className={styles.responsePayment}>
 			<Header />
@@ -34,7 +34,7 @@ export default function ResponsePayment() {
 				<div className={styles.success_view}>
 					<img src={check} alt="" />
 					<h2>Compra realizada con éxito</h2>
-					
+
 					<div>
 						<Link to="/">
 							<ButtonPrimary texto="Seguir comprando" />
