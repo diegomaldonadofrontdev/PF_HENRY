@@ -93,7 +93,6 @@
 
 .miNegocio__body {
 	display: flex;
-	justify-content: space-between;
 	gap: 1em;
 }
 
@@ -103,12 +102,15 @@
 	background-color: white;
 	box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
 	-webkit-box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
-	width: 800px;
+	width: 70%;
+	display: flex;
 }
 
 .historial__filters {
 	display: flex;
 	align-items: center;
+	width: 100%;
+	gap: 1em;
 }
 
 .historial__filters > div {
@@ -121,7 +123,7 @@
 	background-color: white;
 	box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
 	-webkit-box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
-	width: 250px;
+	width: 30%;
 }
 
 .horarios {
@@ -136,7 +138,6 @@
 .historial__filters > form {
 	width: 100%;
 	display: flex;
-	flex-direction: column;
 	gap: 1em;
 }
 
@@ -162,7 +163,7 @@
 	background-color: var(--main-color);
 	border: none;
 	color: white;
-	padding: 0.5em 0;
+	padding: 0.5em 2em;
 	border-radius: 0.3em;
 }
 
@@ -175,32 +176,24 @@
 }
 
 .resultadosVentas {
-	padding: 1em;
 	border-radius: 0.3em;
+	gap: 1em;
+	display: flex;
+	align-items: start;
+}
+
+.resultadosVentas > table {
+	width: 70%;
+	border-radius: 0.5em;
 	background-color: white;
 	box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
 	-webkit-box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
-	max-height: 250px;
-	overflow-y: scroll;
 }
 
-.resultadosVentas::-webkit-scrollbar {
-	width: 8px; /* width of the entire scrollbar */
-}
-
-.resultadosVentas::-webkit-scrollbar-track {
-	background: white; /* color of the tracking area */
-}
-
-.resultadosVentas::-webkit-scrollbar-thumb {
-	background-color: rgb(208, 208, 208); /* color of the scroll thumb */
-	border-radius: 20px; /* roundness of the scroll thumb */
-	border: 1px solid white;
-}
-
-.resultadosVentas table {
-	width: 100%;
-	border-radius: 0.5em;
+.resultadosVentas > div {
+	background-color: white;
+	box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
 }
 
 .resultadosVentas table tr {
@@ -226,4 +219,14 @@
 	font-size: 0.9em;
 	font-weight: 600;
 	color: gray;
+}
+
+.form__commerce {
+	width: 30%;
+}
+
+.form__commerce form {
+	display: flex;
+	flex-direction: column;
+	padding: 2em;
 }

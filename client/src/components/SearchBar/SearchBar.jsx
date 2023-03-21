@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 
 // Actions
 import { fastProductSearch } from "../../redux/actions/index";
+import setCurrentPageProducts from "../../redux/actions/setCurrentPageProducts";
 
 // Styles
 import styles from "./SearchBar.module.css";
@@ -19,6 +20,7 @@ export default function SearchBar() {
 		e.preventDefault();
 		console.log(e.target.value);
 		dispatch(fastProductSearch(e.target.value));
+		dispatch(setCurrentPageProducts(1))
 		// setCurrentSearch(e.target.value);
 	}
 

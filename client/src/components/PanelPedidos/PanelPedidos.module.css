@@ -2,23 +2,22 @@
 	border-radius: 0.5em;
 	max-height: 800px;
 	overflow: hidden;
-	overflow-y: scroll;
 }
 
-.panel::-webkit-scrollbar {
-	width: 8px; /* width of the entire scrollbar */
+/* .panel::-webkit-scrollbar {
+	width: 8px;
 }
 
 .panel::-webkit-scrollbar-track {
 	border-radius: 0.5em;
-	background: white; /* color of the tracking area */
+	background: white; 
 }
 
 .panel::-webkit-scrollbar-thumb {
-	background-color: rgb(208, 208, 208); /* color of the scroll thumb */
-	border-radius: 20px; /* roundness of the scroll thumb */
+	background-color: rgb(208, 208, 208); 
+	border-radius: 20px; 
 	border: 1px solid white;
-}
+} */
 
 h3 {
 	font-size: 1.2em;
@@ -35,22 +34,20 @@ h3 {
 	display: flex;
 	width: 100% !important;
 	gap: 1em;
-	padding-right: 0.5em;
 }
 
-.panel .container::-webkit-scrollbar {
-	width: 8px; /* width of the entire scrollbar */
+/* .panel .container::-webkit-scrollbar {
+	width: 8px; 
 }
 
 .panel .container::-webkit-scrollbar-track {
-	background: white; /* color of the tracking area */
+	background: white;
 }
 
 .panel .container::-webkit-scrollbar-thumb {
-	background-color: rgb(208, 208, 208); /* color of the scroll thumb */
-	border-radius: 20px; /* roundness of the scroll thumb */
-	border: 1px solid white;
-}
+	background-color: rgb(208, 208, 208); 
+	border-radius: 20px; 
+} */
 
 .user__informacion {
 	width: 100%;
@@ -59,8 +56,8 @@ h3 {
 .user__informacion table {
 	width: 100%;
 	border-radius: 0.5em;
-	padding-top: 15px;
-	padding-bottom: 25px;
+	padding: 1em;
+	background-color: white;
 }
 
 .user__informacion table tr {
@@ -93,4 +90,10 @@ h3 {
 
 .view__container {
 	width: 100%;
+}
+
+.mispedidos {
+	display: flex;
+	width: 100% !important;
+	flex-direction: column;
 }

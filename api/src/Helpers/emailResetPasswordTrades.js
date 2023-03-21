@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 
-const sendMailConfirm = async(email,token) => {
+const sendMailReset = async(email,token) => {
     const config = {
         host: "smtp.gmail.com",
         port: 587,
@@ -15,7 +15,7 @@ const sendMailConfirm = async(email,token) => {
     const mensaje = {
         from: `${process.env.USER}`,
         to: email,
-        subject: "Confirma tu correo electronico",
+        subject: "Peticion para el cambio de tu contraseña",
         html: `<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
         <head>
             <meta charset="UTF-8">
@@ -41,9 +41,9 @@ const sendMailConfirm = async(email,token) => {
                                     <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;">
                                         <tr>
                                             <td style="padding:0 0 36px 0;color:#153643;">
-                                                <h1 style="font-size:24px;margin:0 0 20px 0;color:#ff441f">Confirma tu correo electronico</h1>
-                                                <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;">Gracias por su interes de crear una cuenta con nosotros. Para crear su cuenta. verifique su direccion de correo electronico haciendo click a continuacion.</p>
-                                                <p style="margin:0;font-size:16px;line-height:24px"><a href="https://servidor-pedivery.onrender.com/clients/confirm-email/${token}" style="color:#ff441f;text-decoration:underline;">Confirma el correo electronico</a></p>
+                                                <h1 style="font-size:24px;margin:0 0 20px 0;color:#ff441f">Comprobar la direccion de correo</h1>
+                                                <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;">Gracias por comprobar la direccion de correo ${email}. Accede al enlace que se incluye en este mensaje para restablecer tu contraseña..</p>
+                                                <p style="margin:0;font-size:16px;line-height:24px"><a href="https://servidor-pedivery.onrender.com/trades/newPassword/${token}" style="color:#ff441f;text-decoration:underline;">Confirma el correo electronico</a></p>
                                             </td>
                                         </tr>
                                     </table>
@@ -89,4 +89,4 @@ const sendMailConfirm = async(email,token) => {
 }
 
 
-module.exports = sendMailConfirm;
+module.exports = sendMailReset;

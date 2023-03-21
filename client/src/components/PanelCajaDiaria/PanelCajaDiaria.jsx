@@ -13,7 +13,9 @@ export default function PanelCajaDiaria() {
 	});
 
 	useEffect(() => {
-		const res = cajaDiaria.filter((x) => x.payment !== "Pago no recibido");
+		const res = cajaDiaria.filter(
+			(x) => x.payment !== "Pago no recibido" && x.payment !== "Devuelto"
+		);
 
 		setCaja({ ...caja, data: res });
 	}, [cajaDiaria]);

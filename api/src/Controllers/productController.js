@@ -1,10 +1,5 @@
-// const { trades } = require("../Auxiliares/comercios");
-const {
-  getAllTrades,
-} = require("../Controllers/tradesController");
-const Trade = require('../models/Trades')
-const Product = require('../models/Products');
-const ProductCategories = require ("../models/ProductCategory")
+const Product = require("../models/Products");
+const ProductCategories = require("../models/ProductCategory");
 
 // GETS
 // [{producto buscado}]

@@ -20,7 +20,7 @@ const orderSchema = Schema(
 		status: {
 			type: String,
 			require: false,
-			default: "Procesando pedido",
+			default: "Pendiente",
 		},
 
 		payment: {
