@@ -1,14 +1,31 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./SuperAdmin.module.css";
 import Header from "../../components/Header/Header";
 import { getTradesByName } from "../../redux/actions/getTradesByName";
 import { useDispatch, useSelector } from "react-redux";
+import { postCategory } from "../../redux/actions/postCategory";
+
 
 export default function SuperAdmin() {
 	const dispatch = useDispatch();
 
 	const allCommerces = useSelector((state) => state.allCommerces);
+	
+	const [newCategory, setNewCategory] = useState({
+		category:""
+	})
 
+	function handlerOnchangeCategory(e) {
+		setNewCategory({
+			...newCategory,
+			[e.target.name]: e.target.value
+		})
+	}
+
+	function handleSubmitCategory(e){
+		e.preventDefault()
+		dispatch(postCategory(newCategory))
+	}
 	function handlerFilterByName(e) {
 		dispatch(getTradesByName(e.target.value));
 	}
@@ -58,12 +75,20 @@ export default function SuperAdmin() {
 						</div>
 						<div>
 							<div>
+								<form onSubmit={(e) => handleSubmitCategory(e)}>
 								<h4>Crear Categoria</h4>
-								<input type="text" />
-								<input type="submit" />
+								<input 
+									type="text"
+									name="category"
+									value={newCategory.category}
+									onChange={handlerOnchangeCategory}
+									/>
+								<button type="submit"> Crear </button>
+								</form>
 							</div>
 							<div>
 								<h4>Crear Subcategoria</h4>
+								<input type="text" />
 								<input type="text" />
 								<input type="submit" />
 							</div>

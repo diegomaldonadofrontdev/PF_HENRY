@@ -14,7 +14,7 @@ const {
   deleteTrade,
   searchTradeByName,
   createSubcategory,
-  updateTrades
+  updateTrades,
 } = require("../Controllers/tradesController");
 const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
 const jwt = require("jsonwebtoken");
@@ -242,5 +242,5 @@ module.exports = {
   loginTradeHandler,
   deleteTradeHandler,
   getTradeByNameHandler,
-  putTradesHandler
+  putTradesHandler,
 };

@@ -311,5 +311,5 @@ module.exports = {
 	deleteTrade,
 	searchTradeByName,
 	createSubcategory,
-	updateTrades
+	updateTrades,
 };

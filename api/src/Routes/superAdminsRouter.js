@@ -19,7 +19,7 @@ const {
   getTradeHandler,
   getTradeByNameHandler,
   postSubcategoryHandler,
-  putTradesHandler
+  putTradesHandler,
 } = require("../Handlers/tradesHandler");
 const {
   validateCategory,
