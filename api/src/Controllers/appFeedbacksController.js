@@ -25,7 +25,19 @@ const createFeedback = async (clientId, body) => {  // FUNCIONANDO 12/03
   }
 };
 
+// DELETE
+const deleteFeedback = async (feedbackId) => { // OK
+  try { 
+    const fbDeleted = await Feedback.deleteOne({_id: feedbackId})
+    if (fbDeleted.deletedCount !== 0) return true
+    return false
+  } catch (error) {
+    throw new Error (error.message)
+  }
+}
+
 module.exports = {
     getFeedbacks,
-    createFeedback
+    createFeedback,
+    deleteFeedback
 }

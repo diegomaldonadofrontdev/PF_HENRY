@@ -39,6 +39,11 @@ const {
   updateClientHandler,
   deleteClientHandler
 } = require ("../Handlers/clientsHandler")
+const {
+  getFeedbacksHandler,
+  deleteAppFeedbacksHandler,
+  putFeedbackHandler
+} = require ("../Handlers/appFeedbacksHandler")
 
 const superAdminsRouter = Router();
 // BASE DE DATOS
@@ -88,9 +93,16 @@ superAdminsRouter.delete("/deleteorder/:orderId", deleteOrderHandler); // OK
 superAdminsRouter.get("/orders/search/:clientId", getOrdersHandler); // OK
 
 // REVIEWS
-// Ver reviews
-// Eliminar reviews
-// Deshabilitar reviews
+// Ver reviews de la app
+superAdminsRouter.get("/feedbacks/app/search", getFeedbacksHandler); // OK
+// Eliminar reviews de la app
+superAdminsRouter.delete("/deletefeedbacks/app/:feedbackId", deleteAppFeedbacksHandler); // OK
+// Deshabilitar/Modificar reviews de la app
+superAdminsRouter.put("/updatefeedback/app/:feedbackId", putFeedbackHandler) // OK
+// Ver reviews de la app
+
+// Eliminar reviews de la app
+// Deshabilitar reviews de la app
 
 // CLIENTES
 // Ver detalle del cliente

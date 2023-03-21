@@ -105,10 +105,19 @@ const putProductHandler = async (req, res) => { // OK
 	}
 };
 
+const putProductsHandler = async (req, res) => { // OK
+  const body = req.body
+	try {
+		const update = await updateProducts(body);
+		if (update) res.status(200).json(update);
+	} catch (error) {
+		res.status(404).json({ Error: `No se pudo actualizar el producto` });
+	}
+};
+
 
 // DELETE
-const deleteProductHandler = async (req, res) => {
-	// OK
+const deleteProductHandler = async (req, res) => {	// OK
   const {productId} = req.params
 	try {
 		const productDeleted = await deleteProduct(productId);
