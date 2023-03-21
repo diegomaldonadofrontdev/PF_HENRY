@@ -40,7 +40,7 @@ export default function RegistrationForm() {
 
 	const handleRegister = async (e) => {
 		e.preventDefault();
-		const {firstname, lastname, email, password, country, city, address, phone} = user
+		const { firstname, lastname, email, password, country, city, address, phone } = user
 		if (!firstname || !lastname || !email || !password || !country || !city || !address || !phone) {
 			swal({
 				title: "Error!",
@@ -49,16 +49,14 @@ export default function RegistrationForm() {
 				button: "Ok",
 			});
 		} else {
-		sigin(user);
-		swal({
-			title: "Listo!",
-			text: "Tu usuario fue registrado correctamente",
-			icon: "success",
-			button: "Ok",
-		});
-
+			sigin(user)
+			swal({
+				title: "Listo!",
+				text: "Tu usuario fue registrado correctamente",
+				icon: "success",
+				button: "Ok",
+			});
 		}
-		console.log(user);
 	}
 
 	const handleSiginWhitGoogle = (e) => {

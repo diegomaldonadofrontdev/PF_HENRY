@@ -70,7 +70,7 @@ export default function AdminOwner() {
 						<div className={styles.perfil}>
 							<div className={styles.perfil__header}>
 								<div className={styles.img__container}>
-									<img src={logo} alt="" />
+									<img src={currentTrade.image} alt="" />
 								</div>
 								<div className={styles.owner__info}>
 									<h4>{currentTrade.commerceName}</h4>

@@ -23,6 +23,7 @@ export default function Header() {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const token = window.localStorage.getItem("token");
+	const idTrade = window.localStorage.getItem("idTrade");
 
 	const handleClick = (e) => {
 		e.preventDefault();
@@ -55,14 +56,14 @@ export default function Header() {
 						</Link>
 					)}
 
-					{!token && !isAuthenticated && location.pathname !== "/login" && (
+					{!idTrade && !token && !isAuthenticated && location.pathname !== "/login" && (
 						<div>
 							<Link to="/login">
 								<ButtonPrimary texto="Login" />
 							</Link>
 						</div>
 					)}
-					{!token &&
+					{ !idTrade && !token &&
 						!isAuthenticated &&
 						location.pathname !== "/registration" && (
 							<Link to="/registration">
