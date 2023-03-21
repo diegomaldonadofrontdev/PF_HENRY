@@ -23,6 +23,8 @@ import {
 	EDIT_CLIENT,
 	GET_ORDERS_BY_COMMERCE,
 	PUT_ORDER_STATUS_PAYMENT,
+	UPDATE_PRODUCT,
+	POST_PRODUCT,
 } from "../actions/types";
 
 const initialState = {
@@ -328,7 +330,7 @@ export default function rootReducer(state = initialState, action) {
 			console.log(orders, action.payload);
 			return {
 				...state,
-				ordersCommerces: orders
+				ordersCommerces: orders,
 			};
 		}
 		case PUT_ORDER_STATUS_PAYMENT: {
@@ -347,17 +349,37 @@ export default function rootReducer(state = initialState, action) {
 				ordersCommerces: [...ordersCommerceCopy],
 			};
 		}
-		case 'CURRENT_PAGE_PRODUCTS': {
+		case "CURRENT_PAGE_PRODUCTS": {
 			return {
 				...state,
-				currentPageProducts: action.payload
-			}
+				currentPageProducts: action.payload,
+			};
 		}
-		case 'CURRENT_PAGE_TRADES': {
+		case "CURRENT_PAGE_TRADES": {
 			return {
 				...state,
-				currentPageTrades: action.payload
+				currentPageTrades: action.payload,
+			};
+		}
+		case UPDATE_PRODUCT: {
+			const copyProducts = state.products;
+			console.log(action.payload, copyProducts);
+			const index = copyProducts.findIndex((x) => x._id === action.payload.id);
+			console.log(index);
+			if (index !== -1) {
+				copyProducts[index] = action.payload;
 			}
+
+			return {
+				...state,
+				products: [...copyProducts],
+			};
+		}
+		case POST_PRODUCT: {
+			return {
+				...state,
+				products: [...state.products, action.payload],
+			};
 		}
 		default:
 			return state;

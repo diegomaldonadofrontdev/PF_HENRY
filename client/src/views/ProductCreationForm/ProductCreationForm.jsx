@@ -1,5 +1,5 @@
 // React and Hooks
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // React Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -16,26 +16,54 @@ import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
 
 // Styles
 import styles from "./ProductCreationForm.module.css";
+import { updateProduct } from "../../redux/actions/updateProduct";
 
-export default function ProductCreation() {
+export default function ProductCreation(props) {
 	const dispatch = useDispatch();
-    
+
+	useEffect(() => {
+		if (props.product) {
+			const { _id, name, category, description, price, image, stock, active } =
+				props.product;
+			setCurrentInput({
+				...currentInput,
+				id: _id,
+				name,
+				category,
+				description,
+				image,
+				price,
+				stock,
+				active,
+			});
+		} else {
+			setCurrentInput({
+				id: "",
+				name: "",
+				category: "",
+				description: "",
+				image: "",
+				price: "",
+				stock: 1,
+				active: true,
+			});
+		}
+	}, [props.product]);
+
 	const tradeId = localStorage.idTrade;
-	console.log(tradeId)
-	
+
 	// const [currentErrorsCategory, setCurrentErrorsCategory] = useState({})
 	//guarda los datos de los inputs
 	const [currentInput, setCurrentInput] = useState({
+		id: "",
 		name: "",
 		category: "",
 		description: "",
 		price: "",
 		image: "",
-		rating: "",
-		stock: "",
+		stock: 1,
 		active: true,
 	});
-	console.log(currentInput);
 
 	// useEffect(()=>{
 	// 	dispatch(getCategories())
@@ -43,13 +71,20 @@ export default function ProductCreation() {
 
 	//Registra los cambios en los inputs
 	const handleChangeInputs = (e) => {
-		setCurrentInput({ ...currentInput, [e.target.name]: e.target.value });
+		const { name, value } = e.target;
+		setCurrentInput({
+			...currentInput,
+			[name]: name === "stock" || name === "price" ? parseInt(value) : value,
+		});
 	};
+
+	function handlerChangeCheck(e) {
+		setCurrentInput({ ...currentInput, [e.target.name]: e.target.checked });
+	}
 
 	// Manejo la imagen con CLOUDINARY
 	const handleProductImgUpload = async (e) => {
 		const files = e.target.files;
-		console.log(files);
 		const datas = new FormData();
 		datas.append("file", files[0]);
 		datas.append("upload_preset", "PEDI-VERY");
@@ -67,17 +102,8 @@ export default function ProductCreation() {
 	//Envio los datos del form al BACK, actualiza, resetea el estado y captura errores
 	const handlerSubmit = (e) => {
 		e.preventDefault();
-		const { name, category, description, price, image, rating, stock } =
-			currentInput;
-		if (
-			!name ||
-			!category ||
-			!description ||
-			!price ||
-			!image ||
-			!rating ||
-			!stock
-		) {
+		const { name, category, description, price, image, stock } = currentInput;
+		if (!name || !category || !description || !price || !image || !stock) {
 			swal({
 				title: "Error!",
 				text: "Rellena todos los campos correctamente, por favor",
@@ -85,7 +111,18 @@ export default function ProductCreation() {
 				button: "Ok",
 			});
 		} else {
-			dispatch(postProduct(currentInput, tradeId));
+			console.log("llego");
+			if (props.product) {
+				dispatch(updateProduct(currentInput));
+				console.log("Update");
+
+				props.fc(null);
+			} else {
+				dispatch(postProduct(currentInput, tradeId));
+				console.log("Post");
+
+				props.fc(null);
+			}
 			swal({
 				title: "Listo!",
 				text: "Producto creado correctamente",
@@ -93,101 +130,102 @@ export default function ProductCreation() {
 				button: "Ok",
 			});
 			setCurrentInput({
+				id: "",
 				name: "",
 				category: "",
 				description: "",
 				price: "",
 				image: "",
-				rating: "",
-				stock: "",
-				status: true,
+				stock: 1,
+				active: true,
 			});
 		}
 	};
 
 	return (
 		<div className={styles.productCration__form}>
-			<Header />
+			<button
+				onClick={() => {
+					props.fc(null);
+				}}
+			>
+				X
+			</button>
 			<div className={styles.container}>
 				<form action="" className={styles.form} onSubmit={handlerSubmit}>
-					<div className={styles.twoColumns}>
-						<div className={styles.input__container}>
-							<label htmlFor="">Nombre</label>
-							<input
-								type="text"
-								placeholder="Nombre..."
-								name="name"
-								value={currentInput.name}
-								onChange={handleChangeInputs}
-							/>
-						</div>
-						<div className={styles.input__container}>
-							<label htmlFor="">Categoría</label>
-							<input
-								type="text"
-								placeholder=""
-								name="category"
-								value={currentInput.category}
-								onChange={handleChangeInputs}
-							/>
-						</div>
-					</div>
-					<div className={styles.twoColumns}>
-						<div className={styles.input__container}>
-							<label htmlFor="">Precio</label>
-							<input
-								type="text"
-								placeholder=""
-								name="price"
-								value={currentInput.price}
-								onChange={handleChangeInputs}
-							/>
-						</div>
-						<div className={styles.input__container}>
-							<label htmlFor="">Imagen</label>
-							<input
-								type="file"
-								accept="image/"
-								onChange={handleProductImgUpload}
-							/>
-						</div>
-					</div>
-					<div className={styles.twoColumns}>
-						<div className={styles.input__container}>
-							<label htmlFor="">Rating</label>
-							<input
-								type="text"
-								placeholder=""
-								name="rating"
-								value={currentInput.rating}
-								onChange={handleChangeInputs}
-							/>
-						</div>
-						<div className={styles.input__container}>
-							<label htmlFor="">Stock</label>
-							<input
-								type="text"
-								placeholder=""
-								name="stock"
-								value={currentInput.stock}
-								onChange={handleChangeInputs}
-							/>
-						</div>
-					</div>
+					<label htmlFor="">Nombre</label>
+					<input
+						type="text"
+						placeholder=""
+						name="name"
+						value={currentInput.name}
+						onChange={handleChangeInputs}
+					/>
 
-					<div className={styles.input__container}>
-						<label htmlFor="">Descripción</label>
-						<textarea
-							type="text"
-							placeholder=""
-							name="description"
-							value={currentInput.description}
-							onChange={handleChangeInputs}
+					<label htmlFor="">Categoría</label>
+					<input
+						type="text"
+						placeholder=""
+						name="category"
+						value={currentInput.category}
+						onChange={handleChangeInputs}
+					/>
+
+					<label htmlFor="">Precio</label>
+					<input
+						type="number"
+						placeholder=""
+						name="price"
+						value={currentInput.price}
+						onChange={handleChangeInputs}
+					/>
+
+					<label htmlFor="">Imagen</label>
+					<input
+						type="file"
+						accept="image/"
+						onChange={handleProductImgUpload}
+					/>
+
+					<label htmlFor="">Stock</label>
+					<input
+						type="number"
+						min={0}
+						placeholder=""
+						name="stock"
+						value={currentInput.stock}
+						onChange={handleChangeInputs}
+					/>
+
+					{props.product ? <label htmlFor="">Cambiar estado</label> : null}
+
+					{props.product ? (
+						<input
+							type="checkbox"
+							name="active"
+							checked={currentInput.active}
+							value={currentInput.active}
+							onChange={handlerChangeCheck}
 						/>
-					</div>
+					) : null}
+
+					<label htmlFor="">Descripción</label>
+					<textarea
+						type="text"
+						placeholder=""
+						name="description"
+						value={currentInput.description}
+						onChange={handleChangeInputs}
+					/>
 
 					<button type="submit">
-						<ButtonPrimary texto="REGISTRAR PRODUCTO" />
+						<ButtonPrimary
+							texto={
+								props.flag === "create"
+									? "REGISTRAR PRODUCTO"
+									: "EDITAR PRODUCTO"
+							}
+						/>
 					</button>
 				</form>
 			</div>

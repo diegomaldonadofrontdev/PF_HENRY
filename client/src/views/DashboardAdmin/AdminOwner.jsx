@@ -30,7 +30,6 @@ export default function AdminOwner() {
 	}, []);
 
 	const ordersCommerce = useSelector((state) => state.ordersCommerces);
-	console.log(ordersCommerce);
 
 	useEffect(() => {
 		if (idTrade) {
@@ -113,23 +112,13 @@ export default function AdminOwner() {
 								</a>
 							</div>
 							<div className={styles.perfil__resumen}>
-								<p>Tu negocio se encuentra:</p>
-								<div>
-									<p className={styles.status}>Abierto</p>
-									<a href="/">Cambiar</a>
-								</div>
 								<div className={styles.status__count}>
 									<p>
 										Tenés pedidos sin aceptar:<span>10</span>
 									</p>
-									<p>
-										Tenés pedidos sin enviar:<span>10</span>
-									</p>
 								</div>
 							</div>
 							<div className={styles.perfil__links}>
-								<a href="/">Pedido de prueba</a>
-								<a href="/">Tutoriales</a>
 								<a href="/">Soporte</a>
 							</div>
 							<button style={{ border: "none" }} onClick={logoutHandler}>
