@@ -27,8 +27,8 @@ export default function LoginTrade() {
 			<div className={styles.login}>
 				<Header />
 				<div className={styles.container}>
-					<h2>Inicio de sesion del comercio</h2>
-					<ButtonPrimary texto="Registra tu negocio" />
+					<h2>Inicia sesion con tu negocio o comercio</h2>
+					<Link to="/registration_commerce"><ButtonPrimary texto="Registra tu comercio" /></Link>
 					<form onSubmit={handleLogin} className={styles.form}>
 						<div className={styles.user}>
 							<label htmlFor="">Usuario</label>
@@ -39,7 +39,7 @@ export default function LoginTrade() {
 							<input type="password" value={password} name="password" placeholder="Ingresa tu contraseña" onChange={(e) => setPassword(e.target.value)} />
 						</div>
 						<div className={styles.options}>
-							<Link to="/registration/tradeboss"><ButtonPrimary texto="Sing In" /></Link>
+							<Link to="/s"><ButtonPrimary texto="Sing In" /></Link>
 							<button style={{ border: "none" }} ><ButtonPrimary texto="Login" /></button>
 						</div>
 					</form>
