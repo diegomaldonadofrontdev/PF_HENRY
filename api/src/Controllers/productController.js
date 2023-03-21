@@ -124,12 +124,25 @@ const updateProducts = async (body) => {  // OK
   }
 }
 
+const updateStock = async (productId, cantidad) => {
+  try {
+    const find = await Product.findById(productId)
+    const newStock = find.stock - cantidad
+    const update = await Product.findByIdAndUpdate(productId, {stock: newStock})
+    if (update) return true
+    return false
+  } catch (error) {
+    throw new Error(`Error al actualizar el stock del producto ${productId}`)
+  }
+}
+
 
 // DELETE
 const deleteProduct = async (productId) => { // OK
   try { 
     const productDeleted = await Product.deleteOne({_id: productId})
-    return true
+    if (productDeleted) return true
+    return false
   } catch (error) {
     return error.message
   }
@@ -147,4 +160,5 @@ module.exports = {
   updateProduct,
   updateProducts,
   deleteProduct,
+  updateStock
 }

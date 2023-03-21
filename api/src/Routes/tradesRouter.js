@@ -13,7 +13,8 @@ const {
   getProductsHandler,
   getProductHandler,
   putProductHandler,
-  deleteProductHandler
+  deleteProductHandler,
+  putStockProductHandler
 } = require("../Handlers/productsHandler");
 const {
   validateProduct,  
@@ -46,8 +47,8 @@ tradesRouter.get("/orders/actives/:tradeId", getActiveOrdersHandler); // FUNCION
 tradesRouter.get('/confirm-email/:token',confirmEmailHandler) // FUNCIONANDO
 
 // POST 
-tradesRouter.post("/newProduct/:tradeId", validateProduct, postProductHandler); // FUNCIONANDO
-tradesRouter.post("/login", validateLoginTrade, loginTradeHandler); // FUNCIONANDO
+tradesRouter.post("/newProduct/:tradeId", validateProduct, postProductHandler); // OK
+tradesRouter.post("/login", validateLoginTrade, loginTradeHandler); // OK
 tradesRouter.post ('/resetPassword',validateResetPassword,sendMailResetPassword);
 tradesRouter.post ('/newPassword/:token',validatePassword,resetPassword);
 
@@ -56,8 +57,9 @@ tradesRouter.post ('/newPassword/:token',validatePassword,resetPassword);
 tradesRouter.delete("/products/:productId", deleteProductHandler);
 
 // // PUT
-tradesRouter.put("/products/update/:productId", putProductHandler); // FUNCIONANDO
-tradesRouter.put("/trade/update/:tradeId", putTradeHandler); // FUNCIONANDO
+tradesRouter.put("/products/update/:productId", putProductHandler); // OK
+tradesRouter.put("/trade/update/:tradeId", putTradeHandler); // OK
+tradesRouter.put('/products/updatestock', putStockProductHandler)
 
 
 module.exports = tradesRouter;

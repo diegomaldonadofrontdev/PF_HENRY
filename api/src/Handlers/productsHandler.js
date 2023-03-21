@@ -7,7 +7,8 @@ const {
   updateProduct,
   deleteProduct,
   searchProductByName,
-  updateProducts
+  updateProducts,
+  updateStock
 } = require("../Controllers/productController");
 
 // GETS
@@ -115,6 +116,18 @@ const putProductsHandler = async (req, res) => { // OK
 	}
 };
 
+const putStockProductHandler = async (req, res) => {
+const products = req.body
+try {
+  for (let i = 0; i < products.length; i++) {
+    await updateStock(products[i].id, products[i].cantidad)
+  }
+  res.status(200).json(`Los stocks han sido actualizados exitosamente!`)
+} catch (error) {
+  res.status(404).json({Error: `Error al modificar el stock`})
+}
+}
+
 
 // DELETE
 const deleteProductHandler = async (req, res) => {	// OK
@@ -141,5 +154,6 @@ module.exports = {
   putProductHandler,  
   deleteProductHandler,
   getProductByNameHandler,
-  putProductsHandler
+  putProductsHandler,
+  putStockProductHandler
 };
