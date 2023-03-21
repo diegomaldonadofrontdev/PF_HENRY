@@ -1,6 +1,7 @@
 // React and Hooks
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 // Actions
 import { getTrades } from "../../redux/actions/index";
@@ -16,9 +17,15 @@ import Footer from "../../components/Footer/Footer";
 
 export default function Home() {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	const idUser = window.localStorage.getItem("idUser");
+	const idTrade = window.localStorage.getItem("idTrade");
 	const allCommerces = useSelector((state) => state.allCommerces);
+
+	useEffect(() => {
+		if(idTrade) navigate("/adminowner")
+	}, []);
 
 	useEffect(() => {
 		if (idUser) {

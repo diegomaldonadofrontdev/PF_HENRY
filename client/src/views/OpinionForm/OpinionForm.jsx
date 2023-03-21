@@ -33,7 +33,7 @@ export default function OpinionForm() {
 
 	//Estados
 	const loggedUser = useSelector((state) => state.currentClient);
-	console.log(loggedUser);
+	console.log(loggedUser._id);
 	const userId = localStorage.idUser;
 	console.log(userId);
 
@@ -43,8 +43,8 @@ export default function OpinionForm() {
 	const [nameInput, setNameInput] = useState("");
 
 	useEffect(() => {
-		dispatch(getCLient());
-	});
+		dispatch(getCLient(userId));
+	}, [dispatch]);
 
 	const handleClick = (value) => {
 		setCurrentValue(value);
@@ -60,32 +60,42 @@ export default function OpinionForm() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		if (!nameInput || !opinionInput || !currentValue) {
+		if (!userId){
 			swal({
 				title: "Review",
-				text: "Por favor llena los campos para darnos tu opinión",
+				text: "Por favor ingresa con tu Usuario antes de dejar tu opinión",
 				icon: "error",
 				button: "Ok",
 			});
 		} else {
-			const dataPost = {
-				name: nameInput,
-				opinion: opinionInput,
-				rating: currentValue,
-				image:
-					"https://cdn.pixabay.com/photo/2022/01/17/22/20/add-6945894_640.png",
-			};
-			dispatch(postReview(dataPost));
-			setOpinionInput("");
-			setNameInput("");
-			swal({
-				title: "Review",
-				text: "Tu comentario fue enviado correctamente",
-				icon: "success",
-				button: "Ok",
-			});
+			if (!nameInput || !opinionInput || !currentValue) {
+				swal({
+					title: "Review",
+					text: "Por favor llena los campos para darnos tu opinión",
+					icon: "error",
+					button: "Ok",
+				});
+			} else {
+				const dataPost = {
+					name: nameInput,
+					opinion: opinionInput,
+					rating: currentValue,
+					image:
+						"https://cdn.pixabay.com/photo/2022/01/17/22/20/add-6945894_640.png",
+				};
+				dispatch(postReview(dataPost, userId));
+				setOpinionInput("");
+				setNameInput("");
+				swal({
+					title: "Review",
+					text: "Tu comentario fue enviado correctamente",
+					icon: "success",
+					button: "Ok",
+				});
+			}
+		};
 		}
-	};
+		
 
 	const handleChangeOpinion = (e) => {
 		e.preventDefault();

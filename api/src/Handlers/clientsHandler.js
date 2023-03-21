@@ -3,6 +3,7 @@ const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
 
 const {
 	registerClient,
+	registerClientPerGoogle,
 	searchClientById,
 	updateClient,
 	searchClientExist,
@@ -41,11 +42,14 @@ const postClientHandler = async (req, res) => {
 	// FUNCIONANDO
 	const client = req.body;
 	try {
+
 		const token = jwt.sign({ email: client.email }, TOKEN_KEY, {
 			expiresIn: "2h",
 		});
 		const clientBDD = await registerClient(client, token);
-		res.status(200).json([clientBDD, { token: token }]);
+		if(!clientBDD) return res.status(400).json({error: "Ya existe el usuario, por favor inicia sesion!"})
+		else return res.status(200).json([clientBDD, { token: token }]);
+
 	} catch (error) {
 		res.status(404).json({ error: error.message });
 	}
@@ -78,7 +82,7 @@ const registerWhitGoogle = async (req, res) => {
 	const client = req.body;
 
 	try {
-		const clientBDD = await registerClient(client);
+		const clientBDD = await registerClientPerGoogle(client);
 
 		const token = jwt.sign(
 			{ name: client.firstname, email: client.email },

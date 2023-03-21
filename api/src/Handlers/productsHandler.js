@@ -55,9 +55,9 @@ const getCategoryProducts = async (req,res) => {
 //POST
 const postProductHandler = async (req,res) => { // FUNCIONANDO
   const body = req.body;
-  const {productId} = req.params
+  const {tradeId} = req.params
     try {
-      await createProduct(productId, body);
+      await createProduct(tradeId, body);
       res.status(200).json(`Se creo correctamente el producto`);
     } catch (error) {
       res.status(404).json({Error: 'Hubo un problema con el producto '})

@@ -22,7 +22,7 @@ const searchClientExist = async (email) => { // FUNCIONANDO
 
 const searchClientById = async (id) => { // FUNCIONANDO
   try {
-    const client = Clients.findById(id, {password:0})
+    const client = Clients.findById(id, { password: 0 })
     if (client !== null) {
       return client
     } else return []
@@ -40,20 +40,20 @@ const searchClient = async (email) => { // FUNCIONANDO
   }
 }
 
-const confirmEmail = async (token ) => { // FUNCIONANDO
+const confirmEmail = async (token) => { // FUNCIONANDO
   try {
-    const payload = jwt.verify(token,TOKEN_KEY)
-    
+    const payload = jwt.verify(token, TOKEN_KEY)
+
     let email = payload.email;
-    
-    const client = await Clients.findOne({email});
-    
+
+    const client = await Clients.findOne({ email });
+
     if (!client) return "No se encontro el usuario"
     if (client.emailVerified) return "El correo ya se encuentra registrado"
-    
+
     client.emailVerified = true;
     await client.save()
-    await sendMailWelcome(client.email,client.firstname,client.lastname);
+    await sendMailWelcome(client.email, client.firstname, client.lastname);
     return "El correo electronico ha sido verificado"
 
   } catch (error) {
@@ -62,7 +62,7 @@ const confirmEmail = async (token ) => { // FUNCIONANDO
 }
 
 // POSTS CONTROLLERS
-const registerClient = async (client,token) => { //FUNCIONANDO
+const registerClient = async (client, token) => { //FUNCIONANDO
 
   const { password } = client
   try {
@@ -73,13 +73,39 @@ const registerClient = async (client,token) => { //FUNCIONANDO
       const salt = bcrypt.genSaltSync(10);
       newClient.password = bcrypt.hashSync(password, salt)
       await newClient.save();
-      await sendMail(newClient.email,token);
+      await sendMail(newClient.email, token);
+      const clientBDD = await Clients.find({ email: client.email }, { password: 0 })
+      const dataClient = clientBDD[0]
+      return dataClient
+    }
+    // const dataClient = clientBDD[0]
+    // return dataClient
+    return false
+
+  } catch (error) {
+    return error.message
+  }
+}
+
+const registerClientPerGoogle = async (client, token) => { //FUNCIONANDO
+
+  const { password } = client
+  try {
+    const clientBDD = await Clients.find({ email: client.email }, { password: 0 })
+
+    if (!clientBDD.length) {
+      const newClient = new Clients(client);
+      const salt = bcrypt.genSaltSync(10);
+      newClient.password = bcrypt.hashSync(password, salt)
+      await newClient.save();
+      await sendMail(newClient.email, token);
       const clientBDD = await Clients.find({ email: client.email }, { password: 0 })
       const dataClient = clientBDD[0]
       return dataClient
     }
     const dataClient = clientBDD[0]
     return dataClient
+    // return false
 
   } catch (error) {
     return error.message
@@ -115,9 +141,9 @@ const updateClient = async (clientId, body) => { // FUNCIONANDO
 
 // DELETES CONTROLLERS
 
-const sendMailNewPassword = async (email,token) => {
+const sendMailNewPassword = async (email, token) => {
   try {
-    await sendMailReset(email,token)
+    await sendMailReset(email, token)
     return "Se ha enviado el link a tu email"
   } catch (error) {
     return "Error al enviar el email"
@@ -126,19 +152,19 @@ const sendMailNewPassword = async (email,token) => {
 
 const resetPasswordController = async (password, token) => {
   try {
-    const payload = jwt.verify(token,TOKEN_KEY)
+    const payload = jwt.verify(token, TOKEN_KEY)
 
     let email = payload.email;
 
     const salt = bcrypt.genSaltSync(10);
-    const client = await Clients.findOne({email})
-    
+    const client = await Clients.findOne({ email })
+
     let newPassword = bcrypt.hashSync(password, salt)
 
     client.password = newPassword;
 
     await client.save();
-    await sendMailResetSuccess(client.email,client.firstname,client.lastname);
+    await sendMailResetSuccess(client.email, client.firstname, client.lastname);
 
     return "Se actulizo la contraseña"
   } catch (error) {
@@ -149,9 +175,10 @@ const resetPasswordController = async (password, token) => {
 module.exports = {
   searchClientById,
   registerClient,
+  registerClientPerGoogle,
   searchClientExist,
   validatePasswordClient,
-  searchClient, 
+  searchClient,
   updateClient,
   confirmEmail,
   sendMailNewPassword,
