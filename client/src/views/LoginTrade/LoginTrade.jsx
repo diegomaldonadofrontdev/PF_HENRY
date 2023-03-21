@@ -39,7 +39,7 @@ export default function LoginTrade() {
 							<input type="password" value={password} name="password" placeholder="Ingresa tu contraseña" onChange={(e) => setPassword(e.target.value)} />
 						</div>
 						<div className={styles.options}>
-							<Link to="/registration/tradeboss"><ButtonPrimary texto="Sing In" /></Link>
+							<Link to="/s"><ButtonPrimary texto="Sing In" /></Link>
 							<button style={{ border: "none" }} ><ButtonPrimary texto="Login" /></button>
 						</div>
 					</form>
