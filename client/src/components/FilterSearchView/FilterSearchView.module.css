@@ -1,99 +1,95 @@
 .filterSearchView {
-  margin: 0 !important;
-  padding: 0 !important;
-  padding: 30px !important;
-  min-width: 400px;
+	margin: 0 !important;
+	padding: 0 !important;
+	padding: 30px !important;
+	min-width: 400px;
 }
 
 .filterSearchView h3 {
-  color: var(--main-text-color);
-  font-weight: 600;
+	color: var(--main-text-color);
+	font-weight: 600;
 }
 
 .filterSearchView .container {
-  display: flex;
-  flex-direction: column;
-  gap: 2em;
+	display: flex;
+	flex-direction: column;
+	gap: 2em;
 }
 
 /* prueba */
 
 .filter__container {
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
+	display: flex;
+	flex-direction: column;
+	gap: 1em;
 }
 
 .select__container {
-  display: flex;
-  gap: 1em;
-  align-items: center;
-  padding-bottom: 0.5em;
-  border-bottom: 1px solid rgb(255, 255, 255);
-  transition: all 0.3s ease-in-out;
+	display: flex;
+	gap: 1em;
+	align-items: center;
+	padding-bottom: 0.5em;
+	border-bottom: 1px solid rgb(255, 255, 255);
+	transition: all 0.3s ease-in-out;
 }
 
 .select__container:hover {
-  border-bottom: 1px solid rgb(222, 222, 222);
+	border-bottom: 1px solid rgb(222, 222, 222);
 }
 
 .select__container h4 {
-  width: 50%;
-  font-weight: 500;
+	width: 50%;
+	font-weight: 500;
 }
 
 .select__container select {
-  width: 50%;
-  border: 1px solid rgb(255, 255, 255);
-  border-radius: 0.2em;
-  padding: 0.3em;
-  outline: none;
+	width: 50%;
+	border: 1px solid rgb(255, 255, 255);
+	border-radius: 0.2em;
+	padding: 0.3em;
+	outline: none;
 }
 
 .select__container select:hover {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 .form {
-  margin: 0;
-  padding: 0;
+	margin: 0;
+	padding: 0;
 }
 
 .label_filtro {
-  font-size: 1.1em;
-  font-weight: 600;
-  margin-bottom: 10px;
+	font-size: 1.1em;
+	font-weight: 600;
+	margin-bottom: 10px;
 }
 
 .filterSearchView form {
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
-  font-size: 0.9em;
-  font-weight: 600;
+	display: flex;
+	flex-direction: column;
+	gap: 1em;
+	font-size: 0.9em;
+	font-weight: 600;
 }
 
 .filterSearchView form > div {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-}
-
-.filterSearchView .filters__p {
-  width: 155px;
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
 }
 
 .filterSearchView form > div select {
-  width: 150px !important;
-  border: 1px solid rgb(204, 204, 204) !important;
-  padding: 0.5em;
-  outline: none;
+	width: 200px !important;
+	border: 1px solid rgb(204, 204, 204) !important;
+	padding: 0.5em;
+	outline: none;
 }
 
 .filterSearchView form .submit {
-  background-color: var(--main-color);
-  border: none;
-  padding: 0.5em 0;
-  border-radius: 0.3em;
-  color: white;
+	background-color: var(--main-color);
+	border: none;
+	padding: 0.5em 0;
+	border-radius: 0.3em;
+	color: white;
 }

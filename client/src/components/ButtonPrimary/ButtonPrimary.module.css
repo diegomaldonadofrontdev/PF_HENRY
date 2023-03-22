@@ -25,13 +25,13 @@
 }
 
 @media (max-width: 900px) {
-  .buttonPrimary {
-    background-color: var(--main-color);
-    border: none;
-    font-size: 0.9em;
-    color: white;
-    padding: 0.4em 2em;
-    border-radius: 0.5em;
-    text-align: center;
-  }
+	.buttonPrimary {
+		background-color: var(--main-color);
+		border: none;
+		font-size: 0.9em;
+		color: white;
+		padding: 0.4em 2em;
+		border-radius: 0.5em;
+		text-align: center;
+	}
 }

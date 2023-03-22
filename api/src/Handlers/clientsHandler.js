@@ -16,7 +16,7 @@ const {
 } = require("../Controllers/clientsController");
 
 // GETS HANDLERS
-const getClientHandler = async (req, res) => {	// OK
+const getClientHandler = async (req, res) => {	// OK.
 	const { id } = req.params;
 	try {
 		const client = await searchClientById(id);
@@ -26,7 +26,7 @@ const getClientHandler = async (req, res) => {	// OK
 	}
 };
 
-const confirmEmailHandler = async (req, res) => {	// OK
+const getConfirmEmailHandler = async (req, res) => {	// ok.
 	const token = req.params.token;
 	try {
 		const confirm = await confirmEmail(token);
@@ -37,10 +37,9 @@ const confirmEmailHandler = async (req, res) => {	// OK
 };
 
 // POSTS HANDLERS
-const postClientHandler = async (req, res) => {	// ok
+const postClientHandler = async (req, res) => {	// OK.
 	const client = req.body;
 	try {
-
 		const token = jwt.sign({ email: client.email }, TOKEN_KEY, {
 			expiresIn: "2h",
 		});
@@ -53,7 +52,7 @@ const postClientHandler = async (req, res) => {	// ok
 	}
 };
 
-const login = async (req, res) => {	// OK
+const postClientLogin = async (req, res) => {	// OK.
 	const { email, password } = req.body;
 
 	const findEmail = await searchClientExist(email);
@@ -73,7 +72,7 @@ const login = async (req, res) => {	// OK
 	}
 };
 
-const registerWhitGoogle = async (req, res) => { // OK	
+const postRegisterClientWhitGoogle = async (req, res) => { // OK	
 	const client = req.body;
 	try {
 		const clientBDD = await registerClientPerGoogle(client);
@@ -88,7 +87,7 @@ const registerWhitGoogle = async (req, res) => { // OK
 	}
 };
 
-const sendMailResetPassword = async (req, res) => { // ?
+const postSendMailResetPassword = async (req, res) => { // ?
 	const { email } = req.body;
 	try {
 		const token = jwt.sign({ email: email }, TOKEN_KEY, { expiresIn: "2h" });
@@ -102,7 +101,7 @@ const sendMailResetPassword = async (req, res) => { // ?
 	}
 };
 
-const resetPassword = async (req, res) => { // ?
+const postResetClientPassword = async (req, res) => { // ?
 	const { password } = req.body;
 	const { token } = req.params;
 	console.log(token);
@@ -117,7 +116,7 @@ const resetPassword = async (req, res) => { // ?
 };
 
 // PUTS HANDLERS
-const updateClientHandler = async (req, res) => { // OK
+const putClientHandler = async (req, res) => { // OK
 	const { clientId } = req.params;
 	const body = req.body;
 
@@ -145,11 +144,11 @@ const deleteClientHandler = async (req, res) => {
 module.exports = {
 	postClientHandler,
 	getClientHandler,
-	updateClientHandler,
-	login,
-	registerWhitGoogle,
-	confirmEmailHandler,
-	sendMailResetPassword,
-	resetPassword,
+	getConfirmEmailHandler,
+	postClientLogin,
+	postRegisterClientWhitGoogle,
+	postSendMailResetPassword,
+	postResetClientPassword,
+	putClientHandler,
 	deleteClientHandler
 };
