@@ -136,7 +136,7 @@ export default function SuperAdmin() {
 	useEffect(() => {
 		dispatch(getAllClients())
 		dispatch(getReviewsSP())
-	}, [dispatch, clients, reviews])
+	}, [dispatch])
 
 	useEffect(() => {
 		dispatch(getTradesCategories());
