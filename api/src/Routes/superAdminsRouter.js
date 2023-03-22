@@ -19,7 +19,11 @@ const {
   getTradeHandler,
   getTradeByNameHandler,
   postSubcategoryHandler,
-  putTradesHandler
+  putTradesHandler,
+  postDeliveryZoneHandler,
+  deleteDeliveryZoneHandler,
+  deleteCategoryHandler,
+  deleteSubcategoryHandler
 } = require("../Handlers/tradesHandler");
 const {
   validateCategory,
@@ -44,6 +48,11 @@ const {
   deleteAppFeedbacksHandler,
   putFeedbackHandler
 } = require ("../Handlers/appFeedbacksHandler")
+const {
+  getFeedbackHandler,
+  deleteTradeFeedbacksHandler,
+  putTradeFeedbackHandler
+} = require ("../Handlers/tradeFeedbacksHandler")
 
 const superAdminsRouter = Router();
 // BASE DE DATOS
@@ -65,10 +74,16 @@ superAdminsRouter.get("/trades/search", getTradeByNameHandler); // OK
 superAdminsRouter.get("/trades/search/:id", getTradeHandler); // OK
 // Crear nueva categoria
 superAdminsRouter.post("/newCategory", validateCategory, postCategoryHandler); // OK
+// Eliminar categoría
+superAdminsRouter.delete("/deletecategory", deleteCategoryHandler); // OK
 // Crear nueva subcategoría
 superAdminsRouter.post("/newSubcategory", validateSubcategory, postSubcategoryHandler); // OK
+// Eliminar subcategoría
+superAdminsRouter.delete("/deletesubcategory", deleteSubcategoryHandler); // OK
 // Crear nueva deliveryZone
-superAdminsRouter.post("/newDeliveryZone", validateDeliveryZone, postSubcategoryHandler); // OK
+superAdminsRouter.post("/newDeliveryZone", validateDeliveryZone, postDeliveryZoneHandler); // OK
+// Eliminar deliveryZone
+superAdminsRouter.delete("/deleteDeliveryZone", deleteDeliveryZoneHandler); // OK
 
 // PRODUCTOS
 // Crear productos
@@ -99,10 +114,12 @@ superAdminsRouter.get("/feedbacks/app/search", getFeedbacksHandler); // OK
 superAdminsRouter.delete("/deletefeedbacks/app/:feedbackId", deleteAppFeedbacksHandler); // OK
 // Deshabilitar/Modificar reviews de la app
 superAdminsRouter.put("/updatefeedback/app/:feedbackId", putFeedbackHandler) // OK
-// Ver reviews de la app
-
-// Eliminar reviews de la app
-// Deshabilitar reviews de la app
+// Ver reviews de un comercio
+superAdminsRouter.get("/feedbacks/trade/search/:tradeId", getFeedbackHandler); // OK
+// Eliminar review de un comercio
+superAdminsRouter.delete("/deletefeedbacks/trade/:feedbackId", deleteTradeFeedbacksHandler); // OK
+// Deshabilitar/Modificar review de un comercio
+superAdminsRouter.put("/updatefeedback/trade/:feedbackId", putTradeFeedbackHandler) // OK
 
 // CLIENTES
 // Ver detalle del cliente

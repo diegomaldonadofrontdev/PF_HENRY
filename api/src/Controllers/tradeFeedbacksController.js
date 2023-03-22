@@ -2,7 +2,7 @@ const Feedback = require ("../models/TradeFeedback")
 const Client = require ("../models/Clients")
 
 // GETS
-const getFeedbacks = async (tradeId) => { // FUNCIONANDO
+const getFeedbacks = async (tradeId) => { // OK
     try {
         const feedbacks = await Feedback.find({tradeId: tradeId})
         if (feedbacks) {
@@ -14,7 +14,7 @@ const getFeedbacks = async (tradeId) => { // FUNCIONANDO
 }
 
 // POSTS
-const createFeedback = async ( clientId, tradeId, opinion, rating ) => {   // FUNCIONANDO
+const createFeedback = async ( clientId, tradeId, opinion, rating ) => {   // OK
     try {
         const client = await Client.findById(clientId)
         console.log(client);
@@ -35,7 +35,31 @@ const createFeedback = async ( clientId, tradeId, opinion, rating ) => {   // FU
   }
 };
 
+const deleteTradeFeedback = async (feedbackId) => { // OK
+    try { 
+        const fbDeleted = await Feedback.deleteOne({_id: feedbackId})
+        if (fbDeleted.deletedCount !== 0) return true
+        return false
+      } catch (error) {
+        throw new Error (error.message)
+      }
+}
+
+// PUTS
+const updateTradeFeedback = async (feedbackId, body) => { // OK
+    try {
+        const update = await Feedback.findByIdAndUpdate(feedbackId, body, { new: true })
+        if (update) return true
+        return false
+      } catch (error) {
+        throw new Error (error.message)
+      }
+}
+
+
 module.exports = {
     createFeedback,
-    getFeedbacks
+    getFeedbacks,
+    deleteTradeFeedback,
+    updateTradeFeedback
 }

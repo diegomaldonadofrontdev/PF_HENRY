@@ -14,7 +14,11 @@ const {
   deleteTrade,
   searchTradeByName,
   createSubcategory,
-  updateTrades
+  updateTrades,
+  createDeliveryZone,
+  deleteCaegory,
+  deleteSubcategory,
+  deleteDeliveryZone
 } = require("../Controllers/tradesController");
 const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
 const jwt = require("jsonwebtoken");
@@ -155,6 +159,17 @@ const postSubcategoryHandler = async (req, res) => { // OK
   }
 };
 
+const postDeliveryZoneHandler = async (req, res) => {
+  const {deliveryZone} = req.body
+  const deliZone = {name: deliveryZone}
+  try {
+    const create = await createDeliveryZone(deliZone)
+    res.status(200).json(create)
+  } catch (error) {
+    res.status(404).json({Error: `Error al crear la zona de delivery`})
+  }
+}
+
 const loginTradeHandler = async (req, res) => { // OK
   const { username, password } = req.body;
   try {
@@ -225,6 +240,34 @@ const deleteTradeHandler = async (req, res) => { // OK
   }
 };
 
+const deleteCategoryHandler = async (req, res) => {
+  const {category} = req.body
+  try {
+    const deleted = await deleteCaegory(category)
+    res.status(200).json(deleted)
+  } catch (error) {
+    res.status(404).json({Error: error.message})
+  }
+}
+const deleteSubcategoryHandler = async (req, res) => {
+  const {subcategory} = req.body
+  try {
+    const deleted = await deleteSubcategory(subcategory)
+    res.status(200).json(deleted)
+  } catch (error) {
+    res.status(404).json({Error: error.message})
+  }
+}
+const deleteDeliveryZoneHandler = async (req, res) => {
+  const {deliveryZone} = req.body
+  try {
+    const deleted = await deleteDeliveryZone(deliveryZone)
+    res.status(200).json(deleted)
+  } catch (error) {
+    res.status(404).json({Error: error.message})
+  }
+}
+
 module.exports = {
   getTradesHandler,
   getTradeHandler,
@@ -242,5 +285,9 @@ module.exports = {
   loginTradeHandler,
   deleteTradeHandler,
   getTradeByNameHandler,
-  putTradesHandler
+  putTradesHandler,
+  postDeliveryZoneHandler,
+  deleteCategoryHandler,
+  deleteSubcategoryHandler,
+  deleteDeliveryZoneHandler
 };

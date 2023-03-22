@@ -21,6 +21,7 @@ import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
 
 // Styles
 import styles from "./CommerceRegistrationForm.module.css";
+import { Link } from "react-router-dom";
 
 export default function CommerceRegistrationForm() {
 	const Validate = (currentInput) => {
@@ -107,9 +108,6 @@ export default function CommerceRegistrationForm() {
 	const stateCategories = useSelector((state) => state.tradesCategories);
 	const stateSubCategories = useSelector((state) => state.tradesSubCategories);
 	const stateZones = useSelector((state) => state.zones);
-	// const [subCat, setSubCat] = useState(stateSubCategories);
-	//Estado que maneja la imagen
-	// const [commerceImg, setCommerceImg] = useState("");
 	const [currentErrors, setCurrentErrors] = useState({});
 
 	const [currentInput, setCurrentInput] = useState({
@@ -495,6 +493,8 @@ export default function CommerceRegistrationForm() {
 					<button type="submit">
 						<ButtonPrimary texto="CREAR COMERCIO" />
 					</button>
+
+					<Link to="/login/trades"><h4 style={{color: "blue", textDecorationLine:"underline"}}>Si ya tienes un comercio registrado da click aqui para iniciar sesion</h4></Link>
 				</form>
 			</div>
 		</div>
