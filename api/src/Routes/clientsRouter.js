@@ -7,12 +7,12 @@ const {
 const {
 	postClientHandler,
 	getClientHandler,
-	updateClientHandler,
-	login,
-	registerWhitGoogle,
-	confirmEmailHandler,
-	sendMailResetPassword,
-	resetPassword,
+	putClientHandler,
+	postClientLogin,
+	postRegisterClientWhitGoogle,
+	getConfirmEmailHandler,
+	postSendMailResetPassword,
+	postResetClientPassword,
 } = require("../Handlers/clientsHandler");
 const {
 	getOrdersHandler,
@@ -57,7 +57,7 @@ clientsRouter.get("/app/feedbacks", getFeedbacksHandler); // FUNCIONANDO
 clientsRouter.get("/order/search", getOrdersHandler); // FUNCIONANDO
 clientsRouter.get("/order/search/:orderId", getOrderHandler); // FUNCIONANDO
 clientsRouter.get("/clients/search/:id", getClientHandler); // FUNCIONANDO
-clientsRouter.get("/confirm-email/:token", confirmEmailHandler); // FUNCIONANDO
+clientsRouter.get("/confirm-email/:token", getConfirmEmailHandler); // FUNCIONANDO
 
 // POST
 clientsRouter.post("/feedback", validateAppFeedback, postFeedbackHandler); // FUNCIONANDO 12/03
@@ -69,13 +69,13 @@ clientsRouter.post(
 	postFeedbacksHandler
 ); // FUNCIONANDO
 // LOGIN AND AUTHENTICATION
-clientsRouter.post("/login", validateClientLogin postClientLogin); // OK
+clientsRouter.post("/login", validateClientLogin, postClientLogin); // OK
 clientsRouter.post("/siginWhitGoogle", postRegisterClientWhitGoogle); // OK
 clientsRouter.post("/resetPassword", validateResetPassword,	postSendMailResetPassword);
 clientsRouter.post("/newPassword/:token", validatePassword, postResetClientPassword);
 
 // PUT
-clientsRouter.put("/update/:clientId", updateClientHandler); // FUNCIONANDO
+clientsRouter.put("/update/:clientId", putClientHandler); // FUNCIONANDO
 clientsRouter.put("/order/update/:orderId", updateOrderHandler);
 
 
