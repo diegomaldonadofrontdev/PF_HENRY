@@ -75,7 +75,7 @@ const postClientLogin = async (req, res) => {	// OK.
 			});
 			res.status(200).json([clientBDD, { token: token }]);
 		} else {
-			res.status(404).json("Usuario no encontrado")
+			res.status(404).json("Usuario o contraseña incorrectos")
 		}
 	} catch (error) {
 		res.status(400).json("Error al iniciar la sesion");

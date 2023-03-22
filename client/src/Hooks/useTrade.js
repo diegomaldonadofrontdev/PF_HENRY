@@ -8,7 +8,7 @@ export default function useTrade() {
     const login = useCallback(({ username, password }) => {
         loginService({ username, password })
             .then((data) => {
-                window.localStorage.setItem('idTrade', data)
+                window.localStorage.setItem('idTrade', data._id)
                 setId(data)
             })
             .catch((err) => {

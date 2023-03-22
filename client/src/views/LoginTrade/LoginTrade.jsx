@@ -4,6 +4,7 @@ import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
 import Header from "../../components/Header/Header";
 import { Link, useNavigate } from "react-router-dom";
 import useTrade from "../../Hooks/useTrade";
+import swal from "sweetalert";
 
 export default function LoginTrade() {
 
@@ -18,8 +19,16 @@ export default function LoginTrade() {
 
 	const handleLogin = async (e) => {
 		e.preventDefault();
-		login({ username, password });
-		// if(registro === true) navigate("/adminowner")
+		if (!username || !password) {
+			swal({
+				title: "Error!",
+				text: "Por favor rellene los dos campos",
+				icon: "error",
+				button: "Ok",
+			});
+		} else {
+			login({ username, password });
+		}
 	};
 
 	return (

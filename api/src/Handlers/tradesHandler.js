@@ -20,7 +20,9 @@ const {
   getAllSubcategories,
   createDeliveryZone,
   deleteSubcategory,
-  deleteDeliveryZone
+  deleteDeliveryZone,
+  searchTradeByUsername,
+  validatePasswordTrade
 } = require("../Controllers/tradesController");
 const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
 const jwt = require("jsonwebtoken");
@@ -184,9 +186,13 @@ const postDeliveryZoneHandler = async (req, res) => {
 const postLoginTradeHandler = async (req, res) => {
   // OK.
   const { username, password } = req.body;
+
+  const tradeBDD = await searchTradeByUsername(username);
+  const validate = await validatePasswordTrade(username, password);
   try {
-    const verify = await verifyTradeLog(username, password);
-    res.status(200).json(verify);
+    if(typeof tradeBDD === "object" && typeof validate === "object"){
+      return res.status(200).json(tradeBDD)
+    } else return res.status(404).json("Usuario o contraseña incorrectos")
   } catch (error) {
     res.status(404).json({ Error: error.message });
   }

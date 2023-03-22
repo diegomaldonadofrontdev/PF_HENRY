@@ -307,6 +307,37 @@ const verifyTradeLog = async (username, password) => { // ?
 	}
 }
 
+const searchTradeByUsername = async (username) => {
+	try {
+		const tradeBDD = await Trade.find({userName: username})
+		if(tradeBDD.length) {
+			return tradeBDD[0]
+		} else {
+			return "Usuario incorrecto"
+		}
+	} catch (error) {
+		return error.message
+	}
+}
+
+const validatePasswordTrade = async (username, password) => {
+	try {
+		const findTrade = await Trade.find({userName: username});
+		const trade = findTrade[0];
+
+		// VALIDAR CONTRASEÑA 
+		const pass = bcrypt.compareSync(password, trade.password)
+
+		if (pass) {
+			return { password: password }
+		  } else {
+			return "Contraseña incorrecta"
+		  }
+	} catch (error) {
+		return error.message
+	}
+}
+
 // DELETE
 const deleteTrade = async (id) => { //OK
 	try {
@@ -350,6 +381,8 @@ const deleteDeliveryZone = async (deliveryZone) => {
 }
 
 module.exports = {
+	searchTradeByUsername,
+	validatePasswordTrade,
 	getAllTrades,
 	searchByZone,
 	searchByZoneAndCat,	
