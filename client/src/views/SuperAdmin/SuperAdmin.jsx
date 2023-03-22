@@ -9,13 +9,9 @@ import {
 	commerceRegister,
 } from "../../redux/actions/index";
 import { useDispatch, useSelector } from "react-redux";
-<<<<<<< HEAD
-import { postCategory } from "../../redux/actions/postCategory";
-=======
 import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
 import swal from "sweetalert";
 
->>>>>>> fcc64a37e183e8d9d600eb691c2c287bc7c1db4a
 
 
 export default function SuperAdmin() {
@@ -308,7 +304,6 @@ export default function SuperAdmin() {
 		}
 	};
 
->>>>>>> fcc64a37e183e8d9d600eb691c2c287bc7c1db4a
 
 	function handlerOnchangeCategory(e) {
 		setNewCategory({

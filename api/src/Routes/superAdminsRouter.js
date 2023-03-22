@@ -20,13 +20,10 @@ const {
   getTradeByNameHandler,
   postSubcategoryHandler,
   putTradesHandler,
-<<<<<<< HEAD
-=======
   postDeliveryZoneHandler,
   deleteDeliveryZoneHandler,
   deleteCategoryHandler,
   deleteSubcategoryHandler
->>>>>>> fcc64a37e183e8d9d600eb691c2c287bc7c1db4a
 } = require("../Handlers/tradesHandler");
 const {
   validateCategory,

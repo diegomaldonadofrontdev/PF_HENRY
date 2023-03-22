@@ -286,11 +286,8 @@ module.exports = {
   deleteTradeHandler,
   getTradeByNameHandler,
   putTradesHandler,
-<<<<<<< HEAD
-=======
   postDeliveryZoneHandler,
   deleteCategoryHandler,
   deleteSubcategoryHandler,
   deleteDeliveryZoneHandler
->>>>>>> fcc64a37e183e8d9d600eb691c2c287bc7c1db4a
 };

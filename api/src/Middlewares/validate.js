@@ -176,7 +176,7 @@ const validateDeliveryZone = (req, res, next) => {
 };
 
 const validateCategoryProduct = (req, res, next) => {
-	const { category } = req.body;
+	const { productCategory } = req.body;
 
 	if (!productCategory)
 		return res
