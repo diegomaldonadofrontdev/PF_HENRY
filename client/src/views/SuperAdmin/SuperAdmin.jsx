@@ -99,6 +99,7 @@ export default function SuperAdmin() {
 
 		return currentErrors;
 	};
+	
 	const dispatch = useDispatch();
 	const stateCategories = useSelector((state) => state.tradesCategories);
 	const stateSubCategories = useSelector((state) => state.tradesSubCategories);
