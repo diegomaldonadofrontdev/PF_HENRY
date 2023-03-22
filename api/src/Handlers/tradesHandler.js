@@ -56,7 +56,7 @@ const getTradeHandler = async (req, res) => {  // OK
 };
 
 const getTradeByNameHandler = async (req, res) => { // OK
-    const {name} = req.body
+    const {name} = req.query
     try {
         const find = await searchTradeByName(name)
 		res.status(200).json(find)		
@@ -94,7 +94,7 @@ const getSubCategoriesHandler = async (req, res) => { // OK
 };
 
 const getSubcategoryHandler = async (req, res) => {
-  const {category} =req.body
+  const {category} =req.query
   try {
     const subcategories = await getAllSubcategories(category)
     res.status(200).json(subcategories)
@@ -114,7 +114,7 @@ const getDeliveryZoneHandler = async (req, res) => { // OK
   }
 };
 
-const confirmEmailHandler = async (req, res) => { // OK
+const getConfirmEmailHandler = async (req, res) => { // OK
   const token = req.params.token;
   try {
     const confirm = await confirmEmail(token);
@@ -179,7 +179,7 @@ const postDeliveryZoneHandler = async (req, res) => {
   }
 }
 
-const loginTradeHandler = async (req, res) => { // OK
+const postLoginTradeHandler = async (req, res) => { // OK
   const { username, password } = req.body;
   try {
     const verify = await verifyTradeLog(username, password);
@@ -189,7 +189,7 @@ const loginTradeHandler = async (req, res) => { // OK
   }
 };
 
-const sendMailResetPassword = async (req, res) => { // ?
+const postSendMailResetPassword = async (req, res) => { // ?
   const { email } = req.body;
   console.log(email);
   try {
@@ -203,7 +203,7 @@ const sendMailResetPassword = async (req, res) => { // ?
       .json({ Error: "No se ha enviado el link para resetear la contraseña" });
   }
 };
-const resetPassword = async (req, res) => { // ?
+const postResetPassword = async (req, res) => { // ?
   const { password } = req.body;
   const { token } = req.params;
   console.log(token);
@@ -281,24 +281,23 @@ module.exports = {
   getTradesHandler,
   getTradeHandler,
   getCategoriesHandler,
+  getCategoryHandler,
   getSubCategoriesHandler,
-  getSubCategoriesHandler,
+  getSubcategoryHandler,
   getDeliveryZoneHandler,
   getTradeByNameHandler,
-  getCategoryHandler,
+  getConfirmEmailHandler,
   postTradeHandler,
   postCategoryHandler,
   postSubcategoryHandler,
   postDeliveryZoneHandler,
+  postResetPassword,
+  postSendMailResetPassword,
+  postLoginTradeHandler,
   putTradeHandler,
   putTradesHandler,
-  confirmEmailHandler,
-  sendMailResetPassword,
-  resetPassword,
-  loginTradeHandler,
   deleteTradeHandler,
   deleteCategoryHandler,
   deleteSubcategoryHandler,
   deleteDeliveryZoneHandler,
-  getSubcategoryHandler
 };

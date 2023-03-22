@@ -18,7 +18,6 @@ const {
 	getOrdersHandler,
 	getOrderHandler,
 	postNewOrderHandler,
-	putOrderHandler,
 } = require("../Handlers/orderHandler");
 const {
 	getTradesHandler,
@@ -87,10 +86,9 @@ clientsRouter.post("/resetPassword", validateResetPassword,	postSendMailResetPas
 clientsRouter.post("/newPassword/:token", validatePassword, postResetClientPassword);
 
 // PUT
-// Actualizar un cliente
+// Actualizar un cliente (mi perfil)
 clientsRouter.put("/update/:clientId", putClientHandler); // OK
 
-clientsRouter.put("/order/update/:orderId", putOrderHandler); // OK
 
 
 module.exports = clientsRouter;

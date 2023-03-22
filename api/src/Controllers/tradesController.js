@@ -142,16 +142,24 @@ const getDeliveryZones = async () => {	// OK
 
 const getCategories = async () => {
 	try {
-		const categories = await Categories.find()
+		const categories = []
+		const categoriesDB = await Categories.find()
+		categoriesDB.forEach( (c) => {
+			categories.push(c.name)
+		});
 		return categories
 	} catch (error) {
 		throw new Error(error.message)
 	}
 }
 
-const getAllSubcategories = async () => {
+const getAllSubcategories = async (category) => {
 	try {
-		const subcategories = await Subcategories.find()
+		const subcategories = []
+		const subcategoriesDB = await Subcategories.find({category:category})
+		subcategoriesDB.forEach( (sc) => {
+			subcategories.push(sc.name)
+		})
 		return subcategories
 	} catch (error) {
 		throw new Error(error.message)

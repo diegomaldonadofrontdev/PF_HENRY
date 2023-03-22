@@ -38,7 +38,8 @@ const {
 const {
     getOrderHandler,
     deleteOrderHandler,
-    getOrdersHandler
+    getOrdersHandler,
+    putOrderHandler
 } = require ("../Handlers/orderHandler")
 const {
   getClientHandler,
@@ -62,8 +63,20 @@ superAdminsRouter.post("/create/tradesInDb", tradesInDbHandlers); // OK
 superAdminsRouter.post("/create/productsInDb", productsInDbHandlers); // OK
 
 // COMERCIOS
+superAdminsRouter.get("/trades/categories", getCategoryHandler); // OK
+// Traer todas las subcategorias de cada categoria
+superAdminsRouter.get("/trades/subcategories", getSubcategoryHandler); // OK
+// Buscar comercios
+superAdminsRouter.get("/trades/search", getTradeByNameHandler); // OK
+superAdminsRouter.get("/trades/search/:id", getTradeHandler); // OK
 // Crear comercios
 superAdminsRouter.post("/newTrade", validateTrade, postTradeHandler); // OK
+// Crear nueva categoria
+superAdminsRouter.post("/newCategory", validateCategory, postCategoryHandler); // OK
+// Crear nueva subcategoría
+superAdminsRouter.post("/newSubcategory", validateSubcategory, postSubcategoryHandler); // OK
+// Crear nueva deliveryZone
+superAdminsRouter.post("/newDeliveryZone", validateDeliveryZone, postDeliveryZoneHandler); // OK
 // Modificar comercios:
 //	password, active, cualquier otro
 superAdminsRouter.put("/updateTrade", putTradeHandler); // OK
@@ -71,25 +84,13 @@ superAdminsRouter.put("/updateTrade", putTradeHandler); // OK
 superAdminsRouter.put("/updateTrades", putTradesHandler) // OK
 // Eliminar comercio
 superAdminsRouter.delete("/deleteTrade/:id", deleteTradeHandler); // OK
-// Buscar comercios
-superAdminsRouter.get("/trades/search", getTradeByNameHandler); // OK
-superAdminsRouter.get("/trades/search/:id", getTradeHandler); // OK
-// Crear nueva categoria
-superAdminsRouter.post("/newCategory", validateCategory, postCategoryHandler); // OK
 // Eliminar categoría
 superAdminsRouter.delete("/deletecategory", deleteCategoryHandler); // OK
-// Crear nueva subcategoría
-superAdminsRouter.post("/newSubcategory", validateSubcategory, postSubcategoryHandler); // OK
 // Eliminar subcategoría
 superAdminsRouter.delete("/deletesubcategory", deleteSubcategoryHandler); // OK
-// Crear nueva deliveryZone
-superAdminsRouter.post("/newDeliveryZone", validateDeliveryZone, postDeliveryZoneHandler); // OK
 // Eliminar deliveryZone
 superAdminsRouter.delete("/deleteDeliveryZone", deleteDeliveryZoneHandler); // OK
 // Traer todas las categorias
-superAdminsRouter.get("/trades/categories", getCategoryHandler); // OK
-// Traer todas las subcategorias de cada categoria
-superAdminsRouter.get("/trades/subcategories", getSubcategoryHandler); // OK
 
 // PRODUCTOS
 // Crear productos
@@ -112,6 +113,8 @@ superAdminsRouter.get("/orders/search", getOrderHandler); // OK
 superAdminsRouter.delete("/deleteorder/:orderId", deleteOrderHandler); // OK
 // Buscar historial de pedidos del cliente 
 superAdminsRouter.get("/orders/search/:clientId", getOrdersHandler); // OK
+// Modificar pedidos
+superAdminsRouter.put("/order/update/:orderId", putOrderHandler); // OK
 
 // REVIEWS
 // Ver reviews de la app

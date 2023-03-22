@@ -85,16 +85,6 @@ const putOrderHandler = async (req, res) => { // ?
 	}
 };
 
-// const putOrderHandler = async (req, res) => { // <--------- VER PARA LOS COMERCIOS, EL CLIENTE NO PUEDE ACTUALIZAR EL PEDIDO
-//   const { orderId } = req.params;
-//   try {
-//     const order = await updateOrderC(id, req.body)
-//     res.status(200).json(`Se actualizo la orden`)
-//   } catch (error) {
-//     res.status(404).json(`Error al actualizar la orden`)
-//   }
-// }
-
 
 // DELETES
 const deleteOrderHandler = async (req, res) => { // OK
