@@ -124,12 +124,41 @@ const updateProducts = async (body) => {  // OK
   }
 }
 
+const updateStock = async (productId, cantidad) => { // OK
+  try {
+    const find = await Product.findById(productId)
+    const newStock = find.stock - cantidad
+    const update = await Product.findByIdAndUpdate(productId, {stock: newStock})
+    if (update) return true
+    return false
+  } catch (error) {
+    throw new Error(`Error al actualizar el stock del producto ${productId}`)
+  }
+}
+
+const addStock = async (productId, newStock) => { // OK
+  try {
+    try {
+      const find = await Product.findById(productId)
+      const stock = find.stock + newStock
+      const update = await Product.findByIdAndUpdate(productId, {stock: stock})
+      if (update) return `Se actualizó el stock correctamente`
+      return `El stock no pudo ser actualizado`
+    } catch (error) {
+      throw new Error(`Error al actualizar el stock del producto ${productId}`)
+    }
+  } catch (error) {
+    
+  }
+}
+
 
 // DELETE
 const deleteProduct = async (productId) => { // OK
   try { 
     const productDeleted = await Product.deleteOne({_id: productId})
-    return true
+    if (productDeleted) return true
+    return false
   } catch (error) {
     return error.message
   }
@@ -147,4 +176,6 @@ module.exports = {
   updateProduct,
   updateProducts,
   deleteProduct,
+  updateStock,
+  addStock
 }

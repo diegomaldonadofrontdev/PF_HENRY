@@ -1,8 +1,13 @@
-const {getFeedbacks, createFeedback} = require ("../Controllers/tradeFeedbacksController")
+const {
+  getFeedbacks, 
+  createFeedback,
+  deleteTradeFeedback,
+  updateTradeFeedback
+} = require ("../Controllers/tradeFeedbacksController")
 
 
 // GET 
-const getFeedbacksHandler = async (req, res) => { // FUNCIONANDO
+const getFeedbackHandler = async (req, res) => { // OK
     const {tradeId} = req.params
     try {
       const feedbacks = await getFeedbacks(tradeId);
@@ -13,7 +18,7 @@ const getFeedbacksHandler = async (req, res) => { // FUNCIONANDO
   };
   
   // POST 
-  const postFeedbacksHandler = async (req, res) => { // FUNCIONANDO
+  const postFeedbacksHandler = async (req, res) => { // OK
     const { opinion, rating } = req.body;
     const { clientId, tradeId } = req.query
     try {
@@ -24,8 +29,38 @@ const getFeedbacksHandler = async (req, res) => { // FUNCIONANDO
     }
   };
 
+  // DELETE
+  const deleteTradeFeedbacksHandler = async (req, res) => { // OK
+    const {feedbackId} = req.params
+    try {
+      const fbDeleted = await deleteTradeFeedback(feedbackId);
+      if (fbDeleted) res.status(200).json(`La opinión se eliminó correctamente`);
+      res.status(200).json(`No se pudo eliminar la opinión.`)
+    } catch (error) {
+      res.status(404).json({
+        Error: `Se produjo un problema al intentar eliminar el producto`,
+  })
+  }
+}
+
+// PUTS
+const putTradeFeedbackHandler = async (req, res) => { // OK
+  const {feedbackId} = req.params
+  const body = req.body
+	try {
+		const update = await updateTradeFeedback(feedbackId, body);
+		if (update) res.status(200).json(`La opinión se actualizó correctamente`);
+    res.status(200).json(`No se pudo actualizar la opinión`)
+	} catch (error) {
+    console.log(error.message);
+		res.status(404).json({ Error: `No se pudo actualizar la opinión!` });
+	}
+};
+
 
 module.exports = {
     postFeedbacksHandler,
-    getFeedbacksHandler
+    getFeedbackHandler,
+    deleteTradeFeedbacksHandler,
+    putTradeFeedbackHandler
   }
