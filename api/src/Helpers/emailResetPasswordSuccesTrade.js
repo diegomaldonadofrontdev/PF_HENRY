@@ -9,9 +9,7 @@ const sendMailResetSuccessTrade = async(email, username) => {
             user: `${process.env.USER}`,
             pass: `${process.env.PASS}`
         }
-    }
-
-    
+    }    
     const mensaje = {
         from: `${process.env.USER}`,
         to: email,
@@ -78,13 +76,12 @@ const sendMailResetSuccessTrade = async(email, username) => {
             </table>
         </body>
         </html>`
-    }
-    
+    }    
     const transport = nodemailer.createTransport(config);
     
     const info = await transport.sendMail(mensaje);
     
-    
+    return true
 
 }
 

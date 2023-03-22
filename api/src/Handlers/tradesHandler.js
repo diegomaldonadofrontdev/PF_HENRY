@@ -15,12 +15,7 @@ const {
   searchTradeByName,
   createSubcategory,
   updateTrades,
-  createDeliveryZone,
   deleteCaegory,
-  deleteSubcategory,
-  deleteDeliveryZone,
-  getCategories,
-  getAllSubcategories,
   getCategories,
   getAllSubcategories,
   createDeliveryZone,
@@ -46,7 +41,7 @@ const getTradesHandler = async (req, res) => {  // OK.
     const tradesFiltered = await searchTradesByFilters(tradesFilter);
     res.status(200).json(tradesFiltered);
   } catch (error) {
-    res.status(404).json({ error: `Error al buscar los comercios` });
+    res.status(404).json({ Error: error.message });
   }
 };
 
@@ -56,7 +51,7 @@ const getTradeHandler = async (req, res) => {  // OK.
     const result = await searchTradeById(id);
     res.status(200).json(result);
   } catch (error) {
-    res.status(404).json({ error: `Error al buscar el comercio` });
+    res.status(404).json({ Error: error.message });
   }
 };
 
@@ -75,7 +70,7 @@ const getCategoriesHandler = async (req, res) => { // OK.
     const categories = await getAllCategories();
     res.status(200).json(categories);
   } catch (error) {
-    res.status(400).json({ error: `Error al buscar las categorias` });
+    res.status(400).json({ Error: error.message });
   }
 };
 
@@ -84,7 +79,7 @@ const getCategoryHandler = async (req, res) => { //OK.
     const categories = await getCategories()
     res.status(200).json(categories)
   } catch (error) {
-    
+    res.status(404).json({Error: error.message})
   }
 }
 
@@ -94,7 +89,7 @@ const getSubCategoriesHandler = async (req, res) => { // OK.
     const subcategories = await getSubCategories(category);
     res.status(200).json(subcategories);
   } catch (error) {
-    res.status(400).json({ error: `Error al buscar las subcategorias` });
+    res.status(400).json({ Error: error.message });
   }
 };
 
@@ -104,7 +99,7 @@ const getSubcategoryHandler = async (req, res) => { //OK.
     const subcategories = await getAllSubcategories(category)
     res.status(200).json(subcategories)
   } catch (error) {
-    
+    res.status(404).json({Error: error.message})
   }
 }
 
@@ -113,9 +108,7 @@ const getDeliveryZoneHandler = async (req, res) => { // OK.
     const deliveryZones = await getDeliveryZones();
     res.status(200).json(deliveryZones);
   } catch (error) {
-    res.status(404).json({
-      error: `Ocurrió un error al obtener la lista de zonas de delivery`,
-    });
+    res.status(404).json({Error: error.message});
   }
 };
 
@@ -125,7 +118,7 @@ const getConfirmEmailHandler = async (req, res) => { // OK.
     const confirm = await confirmEmail(token);
     res.status(200).json({ confirm });
   } catch (error) {
-    res.status(400).json({ Error: "No existe ningun token" });
+    res.status(404).json({ Error: error.message });
   }
 };
 
@@ -135,14 +128,10 @@ const postTradeHandler = async (req, res) => {  // OK.
   const body = req.body;
   try {
     const newTrade = await createTrades(body);
-    if (newTrade)
-      return res
-        .status(200)
-        .json(`Se creo correctamente el comercio ${commerceName}`);
+    if (newTrade) res.status(200).json(`Se creo correctamente el comercio ${commerceName}`);
+    res.status(200).json(`No se pudo crear el comercio.`)
   } catch (error) {
-    res.status(404).json({
-      Error: `Error al registrar el comercio ${req.body.commerceName}`,
-    });
+    res.status(404).json({Error: error.message});
   }
 };
 
@@ -150,12 +139,13 @@ const postCategoryHandler = async (req, res) => { // OK.
   const { category } = req.body;
   const cat = { name: category };
   try {
-    await createCategory(cat);
-    res.status(200).json(`Se creo la categoria correctamente ${category}`);
+    const newCat = await createCategory(cat);
+    if (newCat) res.status(200).json(`Se creo correctamente la categoria ${category}`);
+    res.status(200).json(`No se creó la categoría.`);
   } catch (error) {
     res
       .status(404)
-      .json({ Error: `Error al registar la categoria ${category}` });
+      .json({ Error: error.message });
   }
 };
 
@@ -165,11 +155,10 @@ const postSubcategoryHandler = async (req, res) => { // OK.
 	const subCat = { category, name: subcategory }
   try {
     const createSubcat = await createSubcategory(subCat);
-    res
-      .status(200)
-      .json(createSubcat);
+    if (createSubcat) res.status(200).json(`Se creó correctamente la subcategoria ${subcategory}`);
+    res.status(200).json(`No se creo la subcategoría`)
   } catch (error) {
-    res.status(404).json({ Error: "Error al registar la subcategoría" });
+    res.status(404).json({ Error: error.message });
   }
 };
 
@@ -178,9 +167,10 @@ const postDeliveryZoneHandler = async (req, res) => { // OK.
   const deliZone = {name: deliveryZone}
   try {
     const create = await createDeliveryZone(deliZone)
-    res.status(200).json(create)
+    if (create) res.status(200).json(`Se creo correctamente la zona ${deliveryZone}`)
+    res.status(200).json(`No se pudo crear la zona.`)
   } catch (error) {
-    res.status(404).json({Error: `Error al crear la zona de delivery`})
+    res.status(404).json({Error: error.message})
   }
 }
 
@@ -189,37 +179,31 @@ const postLoginTradeHandler = async (req, res) => { // OK.
   try {
     const verify = await verifyTradeLog(username, password);
     if (verify) res.status(200).json(verify);
+    res.status(200).json(verify)
   } catch (error) {
-    res.status(404).json({ Error: `Usuario o contraseña incorrecto` });
+    res.status(404).json({ Error: error.message });
   }
 };
 
 const postSendMailResetPassword = async (req, res) => { // ok.
   const { email } = req.body;
-  console.log(email);
   try {
     const token = jwt.sign({ email: email }, TOKEN_KEY, { expiresIn: "2h" });
-    console.log(token);
     const sendMail = await sendMailNewPassword(email, token);
     res.status(200).json(sendMail);
   } catch (error) {
-    res
-      .status(404)
-      .json({ Error: "No se ha enviado el link para resetear la contraseña" });
+    res.status(404).json({ Error: error.message });
   }
 };
 
 const postResetPassword = async (req, res) => { // ok.
   const { password } = req.body;
   const { token } = req.params;
-  console.log(token);
-  console.log(password);
-
   try {
     const reset = await resetPasswordController(password, token);
     res.status(200).json(reset);
   } catch (error) {
-    res.status(404).json({ Error: "No se pudo cambiar la contraseña" });
+    res.status(404).json({ Error: error.message });
   }
 };
 
@@ -229,9 +213,9 @@ const putTradeHandler = async (req, res) => { // OK.
   const body = req.body;
   try {
     const trade = await updateTrade(tradeId, body);
-    if (trade) res.status(200).json(`Se actualizo el comercio`);
+    if (trade) res.status(200).json(trade);
   } catch (error) {
-    res.status(404).json(`Error al actualizar el comercio`);
+    res.status(404).json({Error: error.message});
   }
 };
 
@@ -264,6 +248,7 @@ const deleteCategoryHandler = async (req, res) => { // OK.
     res.status(404).json({Error: error.message})
   }
 }
+
 const deleteSubcategoryHandler = async (req, res) => { // OK.
   const {subcategory} = req.body
   try {
@@ -273,6 +258,7 @@ const deleteSubcategoryHandler = async (req, res) => { // OK.
     res.status(404).json({Error: error.message})
   }
 }
+
 const deleteDeliveryZoneHandler = async (req, res) => { // OK.
   const {deliveryZone} = req.body
   try {
