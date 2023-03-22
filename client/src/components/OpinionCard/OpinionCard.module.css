@@ -1,5 +1,5 @@
 .opinion__card {
-	height: 150px;
+	height: 170px;
 	display: flex;
 	justify-content: space-between;
 	width: 400px;
@@ -7,8 +7,8 @@
 	box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
 	-webkit-box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
 	align-items: center;
-	padding: 25px;
-	gap: 2em;
+	padding: 15px;
+	gap: 1em;
 	background-color: white;
 	position: relative;
 }
@@ -22,7 +22,7 @@
 
 .texto {
 	display: flex;
-	gap: 0.6em;
+	gap: 0.3em;
 	flex-direction: column;
 	text-align: start;
 }

@@ -1,24 +1,25 @@
 .header {
 	/* background-color: #f4eaeb; */
 	background-color: white;
-	padding: 10px 0;
-	position: fixed;
-	width: 100%;
-	z-index: 1;
-	display: flex;
-	padding: 10px 0;
-	text-align: center;
-	box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
-	-webkit-box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
+  padding: 10px 0;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+  display: flex;
+  padding: 10px 0;
+  text-align: center;
+  box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
 }
 
 .header .container {
 	display: flex;
-	margin: 0 auto !important;
-	width: 60%;
-	max-width: 60%;
-	align-items: center;
-	justify-content: space-between;
+  margin: 0 auto !important;
+  width: 60%;
+  max-width: 60%;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 0;
 }
 
 .header .container > div {
@@ -28,19 +29,19 @@
 
 .logo {
 	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-size: 1em;
-	padding: 5px 20px;
-	background: url("../../images/logo.png");
-	background-size: contain;
-	background-repeat: no-repeat;
-	color: white;
-	font-weight: bold;
-	border-radius: 10px;
-	text-indent: -1000px;
-	width: 150px;
-	overflow: hidden;
+  align-items: center;
+  justify-content: center;
+  font-size: 1em;
+  padding: 5px 20px;
+  background: url("../../images/logo.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  color: white;
+  font-weight: bold;
+  border-radius: 10px;
+  text-indent: -1000px;
+  width: 150px;
+  overflow: hidden;
 }
 
 .header .icon__menu {
@@ -59,54 +60,53 @@ h1 {
 
 @media (max-width: 900px) {
 	.header {
-		/* background-color: #f4eaeb; */
-		background-color: white;
-		padding: 10px 0;
-		position: fixed;
-		width: 100%;
-		z-index: 1;
-		display: flex;
-		padding: 10px 0;
-		text-align: center;
-		box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
-		-webkit-box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
-		position: relative;
+	/* background-color: #f4eaeb; */
+	background-color: white;
+	padding: 10px 0;
+	position: fixed;
+	width: 100%;
+	z-index: 1;
+	display: flex;
+	padding: 10px 0;
+	text-align: center;
+	box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
+	position: relative;
 	}
 
 	.header .container {
-		display: flex;
-		margin: auto;
-		width: 100%;
-		max-width: 80%;
-		align-items: center;
-		justify-content: space-between;
-		overflow: hidden;
-		flex-flow: row wrap;
-	}
+    display: flex;
+    margin: auto;
+    width: 100%;
+    max-width: 80%;
+    align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
+    flex-flow: row wrap;
+  }
 
 	.header .container > div {
-		display: flex;
-		flex-direction: column;
-		gap: 1em;
-	}
-
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+  }
 	.nav {
-		position: absolute;
-		z-index: -9;
-		left: -550px;
-		top: 45px;
-		background-color: white;
-		padding: 2em;
-		transition: all 0.5s ease-in-out;
-		border-radius: 0em 0 2em 0;
-	}
+    position: absolute;
+    z-index: -9;
+    left: -550px;
+    top: 45px;
+    background-color: white;
+    padding: 2em;
+    transition: all 0.5s ease-in-out;
+    border-radius: 0em 0 2em 0;
+  }
 
 	.nav.open {
-		left: 0px;
-	}
-	.header .icon__menu {
-		display: block !important;
-	}
+    left: 0px;
+  }
+  .header .icon__menu {
+    display: block !important;
+  }
 
 	.icon__menu i {
 		font-size: 1.8em;
