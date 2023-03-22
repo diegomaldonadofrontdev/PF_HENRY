@@ -1,18 +1,17 @@
 const Product = require("../models/Products");
 const ProductCategories = require("../models/ProductCategory");
+const Categories = require("../models/Categories");
 
 // GETS
 // [{producto buscado}]
 const getProductById = async (id) => { // OK
   try {
     const productById = await Product.findById(id);
-    if (productById !== null) {
-      return productById;
+    if (productById) {return productById
     } else return []
   } catch (error) {
-    return error.message
-  }
-  
+    throw new Error (`Error al buscar los productos.`)
+  }  
 };
 
 // [Todos los prodcutos del comercio]
@@ -21,9 +20,9 @@ const getAllProducts = async (tradeId) => { // OK
     const allProductsOfTrade = await Product.find({tradeId: tradeId, active: true})
     if (allProductsOfTrade.length) {
       return allProductsOfTrade
-    } else return `Vaya! Parece que el comercio no tiene ningún producto en este momento!`
+    } else return `No hemos encontrado productos en el comercio.`
   } catch (error) {
-    return error.message
+    throw new Error(`Error al buscar los productos del comercio.`)
   }  
 }
 
@@ -45,7 +44,6 @@ const searchProductByName = async (tradeId, name) => { // OK
 		let productFound = await Product.find({tradeId: tradeId})    
     if (productFound.length) {
       let productCoincidence = productFound.filter((t) => t.name.toLowerCase().includes(name.toLowerCase()))
-      console.log(productCoincidence);
       if (productCoincidence.length) return productCoincidence
       return `No se encontraron comercios.`
     } return `No se encontraron productos que pertenezcan al comercio.`
@@ -74,11 +72,21 @@ const getAllProductsCategories = async (tradeId) => { // OK
       const categoriesRepeat = []
       allProductsOfTrade.map(p => categoriesRepeat.push(p.category))
       return [...new Set(categoriesRepeat)]
-    } else return `Vaya! Parece que hubo un problema al buscar en la base de datos!`    
+    } else return `No se encontraron las categorias.`    
   } catch (error) {
-    return error.message
+    throw new Error (`Error al buscar las categorias.`)
   }
+}
 
+const getCategoriesProducts = async () => {
+  try {
+    const productCategories = await ProductCategories.find()
+    let categoryList = []
+    productCategories.forEach ((c) => categoryList.push(c.name))
+    return categoryList
+  } catch (error) {
+    throw new Error(`Error al buscar las categorias de los productos`)
+  }
 }
 
 // POSTS
@@ -170,8 +178,9 @@ module.exports = {
   searchProductByName,
   getAllProducts,
   getProductById,
-  createProduct,
   getAllProductsCategories,
+  getCategoriesProducts,
+  createProduct,
   createProductCategory,
   updateProduct,
   updateProducts,
