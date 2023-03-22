@@ -6,7 +6,6 @@ const {
 	registerClientPerGoogle,
 	searchClientById,
 	updateClient,
-	searchAllClients,
 	searchClientExist,
 	validatePasswordClient,
 	searchClient,
@@ -17,15 +16,6 @@ const {
 } = require("../Controllers/clientsController");
 
 // GETS HANDLERS
-const getAllClients = async (req, res) => {
-	try {
-		const clients = await searchAllClients();
-		res.status(200).json(clients);
-	} catch (error) {
-		res.status(404).json({ Error: "Error al obtener a los clientes" });
-	}
-}
-
 const getClientHandler = async (req, res) => {	// OK.
 	const { id } = req.params;
 	try {
@@ -153,7 +143,6 @@ const deleteClientHandler = async (req, res) => {
 
 module.exports = {
 	postClientHandler,
-	getAllClients,
 	getClientHandler,
 	getConfirmEmailHandler,
 	postClientLogin,

@@ -226,7 +226,10 @@ const validateLoginTrade = (req, res, next) => {
 }
 
 const validateClientLogin = (req, res, next) => {
-
+	const { email, password } = req.body;
+	// if(!email) return res.status(400).json({error: "No has ingresado el usuario"})
+	// if(!password) res.status(400).json({error: "No has ingresado la contraseña"})
+	next()
 }
 
 module.exports = {

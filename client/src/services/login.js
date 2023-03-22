@@ -1,4 +1,5 @@
 import axios from "axios";
+import swal from "sweetalert";
 
 const login = async credentials => {
     try {
@@ -7,7 +8,13 @@ const login = async credentials => {
         //     [{dataUser},{token}]
         return data;
     } catch (error) {
-        alert("Usuario o contraseña incorrectos!")
+        // error.response.data.error
+        swal({
+            title: "Error!",
+            text: "Usuario o contraseña incorrectas, pro favor verifica los datos",
+            icon: "error",
+            button: "Ok",
+        });
     }
 }
 
