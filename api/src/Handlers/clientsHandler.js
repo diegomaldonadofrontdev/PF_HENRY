@@ -54,7 +54,7 @@ const postClientHandler = async (req, res) => {	// OK.
 			expiresIn: "2h",
 		});
 		const clientBDD = await registerClient(client, token);
-		if(!clientBDD) return res.status(400).json({error: "Ya existe el usuario, por favor inicia sesion!"})
+		if (!clientBDD) return res.status(400).json({ error: "Ya existe el usuario, por favor inicia sesion!" })
 		else return res.status(200).json([clientBDD, { token: token }]);
 
 	} catch (error) {
@@ -65,18 +65,18 @@ const postClientHandler = async (req, res) => {	// OK.
 const postClientLogin = async (req, res) => {	// OK.
 	const { email, password } = req.body;
 
-	const findEmail = await searchClientExist(email);
-	if (!findEmail) res.status(404).json("No existe el usuario");
-
+	const clientBDD = await searchClient(email, password);
 	const validate = await validatePasswordClient(email, password);
-	if (!validate) res.status(404).json("Contraseña incorrecta");
-
-	const clientBDD = await searchClient(email);
 	try {
-		const token = jwt.sign({ username: clientBDD.email }, TOKEN_KEY, {
-			expiresIn: "2h",
-		});
-		res.status(200).json([clientBDD, { token: token }]);
+		if (typeof clientBDD === "object" && typeof validate === "object") {
+			
+			const token = jwt.sign({ username: clientBDD.email }, TOKEN_KEY, {
+				expiresIn: "2h",
+			});
+			res.status(200).json([clientBDD, { token: token }]);
+		} else {
+			res.status(404).json("Usuario no encontrado")
+		}
 	} catch (error) {
 		res.status(400).json("Error al iniciar la sesion");
 	}
@@ -140,13 +140,13 @@ const putClientHandler = async (req, res) => { // OK
 
 // DELETE HANDLERS
 const deleteClientHandler = async (req, res) => {
-	const {clientId} = req.params
+	const { clientId } = req.params
 	console.log("CLIENTE", clientId);
 	try {
 		const clientDeleted = await deleteClient(clientId)
 		res.status(200).json(clientDeleted)
 	} catch (error) {
-		res.status(404).json({Error: error.message})
+		res.status(404).json({ Error: error.message })
 	}
 }
 
