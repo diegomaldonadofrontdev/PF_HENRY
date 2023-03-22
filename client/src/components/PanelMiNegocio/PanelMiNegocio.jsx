@@ -5,31 +5,33 @@ import { getOrdersByCommerce } from "../../redux/actions/getOrdersByCommerce";
 
 import styles from "./PanelMiNegocio.module.css";
 import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
-import { updateCommerceInfo } from "../../redux/actions/updateCommerceInfo";
-import getTradesById from "../../redux/actions/getTradesById";
+import { updateCommerceInfo } from "../../redux/actions/updateCommerceInfo"
+import  getTradesById  from "../../redux/actions/getTradesById"
 import swal from "sweetalert";
 
 export default function PanelMiNegocio() {
 	const dispatch = useDispatch();
 	const tradeId = localStorage.idTrade;
-	console.log(tradeId);
-	const loggedTrade = useSelector((state) => state.currentTrade);
-	console.log(loggedTrade._id);
+	console.log(tradeId)
+	const loggedTrade = useSelector((state) => state.currentTrade)
+	console.log(loggedTrade._id)
+	
 
 	const [body, setBody] = useState({
 		commerceName: "",
 		description: "",
 		address: "",
 		phone: "",
-		image: "",
-	});
-	console.log(body);
+		image: ""
+	})
+	console.log(body)
 
 	useEffect(() => {
 		if (tradeId) {
 			dispatch(getTradesById(tradeId));
 		}
 	}, [dispatch, tradeId]);
+
 
 	useEffect(() => {
 		if (loggedTrade) {
@@ -76,6 +78,7 @@ export default function PanelMiNegocio() {
 				button: "Ok",
 			});
 		} else {
+
 			dispatch(updateCommerceInfo(tradeId, body));
 			swal({
 				title: "Listo!",
@@ -85,6 +88,9 @@ export default function PanelMiNegocio() {
 			});
 		}
 	}
+
+
+
 
 	const ordersCommerce = useSelector((state) => state.ordersCommerces);
 	console.log(ordersCommerce);
@@ -100,7 +106,7 @@ export default function PanelMiNegocio() {
 				<div className={styles.miNegocio__historial}>
 					<div className={styles.historial__filters}>
 						<h4>Buscar</h4>
-						<form action="">
+						<form action="" >
 							<div>
 								<input type="text" placeholder="Ingresar numero de orden" />
 							</div>
@@ -141,38 +147,41 @@ export default function PanelMiNegocio() {
 						<h4>Modificá tu información</h4>
 						<label htmlFor="">Nombre del Comercio</label>
 						<input
-							type="text"
-							name="commerceName"
-							placeholder={loggedTrade.commerceName}
-							onChange={handlerChange}
-						/>
+						 type="text"
+						 name="commerceName"
+						 placeholder={loggedTrade.commerceName}
+						  onChange={handlerChange}
+						  />
 						<label htmlFor="">Descripción</label>
 						<input
-							type="text"
-							name="description"
-							placeholder="Editá la descripción"
-							onChange={handlerChange}
-						/>
+						 type="text"
+						 name="description"
+						 placeholder="Editá la descripción"
+						  onChange={handlerChange}
+						  />
 						<label htmlFor="">Dirección</label>
 						<input
-							type="text"
-							name="address"
-							placeholder={loggedTrade.address}
-							onChange={handlerChange}
-						/>
+						 type="text"
+						 name="address"
+						 placeholder={loggedTrade.address}
+						  onChange={handlerChange}
+						  />
 						<label htmlFor="">Teléfono</label>
 						<input
-							type="text"
-							name="phone"
+							type="text" 
+							name="phone" 
 							placeholder={loggedTrade.phone}
 							onChange={handlerChange}
-						/>
+								/>
 						<label htmlFor="">Foto de Perfil</label>
-						<input type="file" onChange={handleCommerceImgUpdate} />
+						<input
+						 type="file"
+						  onChange={handleCommerceImgUpdate}
+						  />
 
 						<button type="submit">
-							<ButtonPrimary texto="Actualizar datos" />
-						</button>
+						<ButtonPrimary texto="Actualizar datos" />
+					</button>
 					</form>
 				</div>
 			</div>

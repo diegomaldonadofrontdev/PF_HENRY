@@ -1,25 +1,24 @@
 .responsePayment {
-  min-height: 10vh !important;
+	min-height: 100vh !important;
 }
 
 .success_view {
-  display: flex;
-  flex-direction: column;
-  min-height: 70vh !important;
-
-  max-width: 100%;
-  margin: auto;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  gap: 2em;
-  height: 100vh;
+	display: flex;
+	flex-direction: column;
+	min-height: 70vh !important;
+	padding-top: 50px;
+	max-width: 100%;
+	margin: auto;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	gap: 2em;
 }
 
 .success_view h2 {
-  font-size: 2em;
+	font-size: 2em;
 }
 
 .success_view img {
-  width: 250px;
+	width: 300px;
 }

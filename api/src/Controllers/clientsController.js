@@ -1,5 +1,4 @@
 const Clients = require('../models/Clients');
-const Order = require('../models/Order')
 const sendMail = require('../Helpers/email')
 const sendMailWelcome = require('../Helpers/emailRegisterClient')
 const sendMailOrder = require('../Helpers/emailCreateOrder')
@@ -31,7 +30,7 @@ const searchClientById = async (id) => { // FUNCIONANDO
   }
 }
 
-const searchClient = async (email) => { // FUNCIONANDO
+const searchClient = async (email) => { // OK
   try {
     const clientBDD = await Clients.find({ email: email }, { password: 0 })
     return clientBDD[0]
@@ -40,7 +39,7 @@ const searchClient = async (email) => { // FUNCIONANDO
   }
 }
 
-const confirmEmail = async (token) => { // FUNCIONANDO
+const confirmEmail = async (token) => { // OK
   try {
     const payload = jwt.verify(token, TOKEN_KEY)
 
@@ -77,11 +76,8 @@ const registerClient = async (client, token) => { // OK
       const clientBDD = await Clients.find({ email: client.email }, { password: 0 })
       const dataClient = clientBDD[0]
       return dataClient
-    }
-    // const dataClient = clientBDD[0]
-    // return dataClient
+    }   
     return false
-
   } catch (error) {
     return error.message
   }

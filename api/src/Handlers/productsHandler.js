@@ -13,6 +13,7 @@ const {
 } = require("../Controllers/productController");
 
 // GETS
+// 
 const getProductsHandler = async (req,res) => { // OK
   const {tradeId} = req.query
   try {    
