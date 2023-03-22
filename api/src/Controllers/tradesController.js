@@ -204,7 +204,7 @@ const createTrades = async (body) => { // OK
 		const salt = bcrypt.genSaltSync(10);
 		newTrade.password = bcrypt.hashSync(password, salt);
 		await newTrade.save();
-		sendMail(newTrade.email,token)
+		await sendMail(newTrade.email,token)
 
 		return true;
 	} catch (error) {

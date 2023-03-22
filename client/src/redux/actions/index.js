@@ -3,6 +3,7 @@ const { getTrades } = require("../actions/getTrades");
 const { getTradesByName } = require("../actions/getTradesByName");
 const { postNewPasswordTrades } = require('../actions/postNewPasswordTrades')
 const { postSendEmailPasswordTrades }= require('../actions/postSendEmailPasswordTrades')
+const { deleteTrade } = require("../actions/deleteTrade")
 
 // Categories
 const { getTradesCategories } = require("../actions/getTradesCategory");
@@ -87,5 +88,6 @@ module.exports = {
 	postNewPasswordTrades,
 	postSendEmailPasswordTrades,
 	getTradesCategory,
-	postSubcategory
+	postSubcategory,
+	deleteTrade
 };

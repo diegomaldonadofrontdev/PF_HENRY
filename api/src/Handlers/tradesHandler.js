@@ -160,16 +160,10 @@ const postCategoryHandler = async (req, res) => {
   }
 };
 
-<<<<<<< HEAD
-const postSubcategoryHandler = async (req, res) => { // OK
-	const subCat = req.body
-=======
 const postSubcategoryHandler = async (req, res) => {
   // OK.
-  const { category } = req.query;
-  const { subcategory } = req.body;
+  const { subcategory, category } = req.body;
   const subCat = { category, name: subcategory };
->>>>>>> 0847070097234de7c40e4761f87b9891b604173e
   try {
     const createSubcat = await createSubcategory(subCat);
     if (createSubcat) res.status(200).json(`Se creó correctamente la subcategoria ${subcategory}`);

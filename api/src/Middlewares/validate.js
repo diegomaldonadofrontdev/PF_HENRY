@@ -186,8 +186,8 @@ const validateCategoryProduct = (req, res, next) => {
 };
 
 const validateSubcategory = (req, res, next) => {
-	const { name, category } = req.body;
-	if (!name)
+	const { subcategory,category } = req.body;
+	if (!subcategory)
 		return res
 			.status(400)
 			.json({ Error: "No se ha recibido el nombre de la subcategoria" });

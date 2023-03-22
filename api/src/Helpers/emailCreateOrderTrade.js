@@ -42,7 +42,7 @@ const sendMailOrder = async(email,usernameTrade,firstname,lastName,productos,ord
                                         <tr>
                                             <td style="padding:0 0 36px 0;color:#153643;">
                                                 <h1 style="font-size:24px;margin:0 0 20px 0;color:#ff441f">Hola ${usernameTrade} has recibido un nuevo pedido</h1>
-                                                <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;">${firstname} ${lastName} ha realizado un pedido con los siguientes productos ${productos} por un total de $${total} con el numero de orden: ${orden}</p>
+                                                <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;">${firstname} ${lastName} ha realizado un pedido, con el numero de orden: ${orden}</p>
                                                 <p style="margin:0;font-size:16px;line-height:24px;color:#ff441f">PEDI-VERY</p>
                                             </td>
                                         </tr>

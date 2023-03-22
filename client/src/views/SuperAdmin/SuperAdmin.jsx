@@ -22,6 +22,8 @@ import {postCategory} from "../../redux/actions/postCategory"
 import { postDeliveryZone } from "../../redux/actions/postDeliveryZone";
 import { postProductCategory } from "../../redux/actions/postProductCategory"
 import { postSubcategory } from "../../redux/actions/postSubcategory";
+import { getTradesByNameSuperAdmin } from "../../redux/actions/getTradesByNameSuperAdmin"
+import { deleteTrade} from "../../redux/actions/deleteTrade"
 
 
 
@@ -112,12 +114,14 @@ export default function SuperAdmin() {
 	const stateSubCategories = useSelector((state) => state.tradesSubCategories);
 	const allCommerces = useSelector((state) => state.allCommerces);
 	const stateZones = useSelector((state) => state.zones);
+	console.log(stateZones);
 	const clients = useSelector((state) => state.allClients);
 	const client = useSelector((state) => state.clientForSP);
 	const reviews = useSelector((state) => state.feedback);
 	const review = useSelector((state) => state.feedbackById);
 	const stateSuperCategories = useSelector((state) => state.superCategories)
-
+	const stateTradesbyName =useSelector((state) => state.tradesSuperAdmin )
+	console.log(stateTradesbyName);
 	const [currentErrors, setCurrentErrors] = useState({});
 
 	const [currentInput, setCurrentInput] = useState({
@@ -443,7 +447,7 @@ export default function SuperAdmin() {
 	}
 
 	const [currentSubcategory, setCurrentSubcategory] = useState({
-		name: "",
+		subcategory: "",
 		category:""
 	})
 
@@ -464,7 +468,7 @@ export default function SuperAdmin() {
 
 	function handlerSubmitSubcategorySuper(e) {
 		e.preventDefault()
-		if (!currentSubcategory.name || !currentSubcategory.category ) {
+		if (!currentSubcategory.subcategory || !currentSubcategory.category ) {
 			swal({
 				title: "Error",
 				text: "No has llenado algun campo ",
@@ -480,16 +484,26 @@ export default function SuperAdmin() {
 			button: "Ok",
 		});
 		setCurrentSubcategory({
-			name: ""
+			subcategory: ""
 		})
 		}
 	}
 
 	function handlerOnSerchCommerce(e) {
-		dispatch(getTradesByName(e.target.value))
+		console.log(e.target.value);
+		dispatch(getTradesByNameSuperAdmin(e.target.value))
 	}
-
 	
+	function handlerDeleteCommerce(e) {
+		e.preventDefault()
+		dispatch(deleteTrade(e.target.value))
+		swal({
+			title: "Listo!",
+			text: "La categoria fue creada correctamente",
+			icon: "success",
+			button: "Ok",
+		});
+	}
 
 
 	//const trade = useSelector(state => state.filterCommerce);
@@ -523,8 +537,8 @@ export default function SuperAdmin() {
 								<option value="default" selected disabled>
 									Categoria
 								</option>
-								{stateCategories &&
-									stateCategories.map((e) => <option value={e}>{e}</option>)}
+								{/* {stateCategories &&
+									stateCategories.map((e) => <option value={e}>{e}</option>)} */}
 							</select>
 							{currentErrors.category && <p>{currentErrors.category}</p>}
 
@@ -606,8 +620,8 @@ export default function SuperAdmin() {
 								<option value="default" selected disabled>
 									Zona de Delivery
 								</option>
-								{stateZones &&
-									stateZones.map((e) => <option value={e}>{e}</option>)}
+								{/*stateZones &&
+									stateZones.map((e) => <option value={e}>{e}</option>)} */}
 							</select>
 							{currentErrors.deliveryZone && (
 								<p>{currentErrors.deliveryZone}</p>
@@ -681,12 +695,13 @@ export default function SuperAdmin() {
 								/>
 							</form>
 							<div className={styles.trades__container}>
+								<h4>Nombre</h4>
 								<div className={styles.sp_tradeCard}>
-									<h4>Nombre</h4>
-									{
-										
-									}
-									<i class="bx bx-trash"></i>
+									<p>
+										{
+											stateTradesbyName && stateTradesbyName.map((e) => <p>{e.commerceName}<button value={e._id} onClick={handlerDeleteCommerce}>Eliminar</button></p>)
+										}
+									</p>
 								</div>
 							</div>
 						</div>
@@ -708,8 +723,8 @@ export default function SuperAdmin() {
 								<h4>Crear Subcategoria</h4>
 								<input 
 									type="text"
-									name="name"
-									value={currentSubcategory.name}
+									name="subcategory"
+									value={currentSubcategory.subcategory}
 									onChange={(e) => handlerOnchangeSubcategory(e)}
 								/>
 								<select onChange={handlerOnchangeSubcategorySelect} >
