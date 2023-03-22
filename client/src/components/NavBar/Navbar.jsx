@@ -1,16 +1,16 @@
 import React from "react";
 import styles from "./Navbar.module.css";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 export default function Navbar() {
-	return (
-		<nav className={styles.nav}>
-			<Link className={styles.btn_market} to="/s">
+  return (
+    <nav className={styles.nav}>
+      {/* <Link className={styles.btn_market} to="/s">
 				<i class="bx bx-store"></i>
 				<span>Registrá tu negocio</span>
-			</Link>
-			{/* <i className={"bx bx-menu"}></i>
+			</Link> */}
+      {/* <i className={"bx bx-menu"}></i>
 			<i className={"bx bx-cart-alt"}></i> */}
-		</nav>
-	);
+    </nav>
+  );
 }

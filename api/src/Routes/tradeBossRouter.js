@@ -9,11 +9,9 @@ const { getTradeBossHandler,
 const tradeBossRouter = Router();
 
 // GET 
-// Busca un comerciante por id
 tradeBossRouter.get("/search/:id", getTradeBossHandler);
 
-// POST
-// Authentication
+// POST 
 tradeBossRouter.post("/login", loginTradeBossHandler);
 tradeBossRouter.post("/register", postTradeBossHandler);
 tradeBossRouter.post("/siginWhitGoogle", registerWhitGoogleTradeBosshandler)
