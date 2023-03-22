@@ -1,15 +1,17 @@
 .card__primary {
+  max-width: 282px;
   width: 400px;
-  border-radius: 0.5em;
+  height: 430px;
+  border-radius: 1em;
   overflow: hidden;
   background-color: white;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 .card__imgContainer {
-  height: 200px;
+  height: 50%;
 }
 
 .card__imgContainer img {
@@ -44,6 +46,7 @@
   padding: 1.5em;
   display: flex;
   gap: 2em;
+  height: 50%;
   flex-direction: column;
   justify-content: space-between;
 }

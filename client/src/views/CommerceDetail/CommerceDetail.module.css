@@ -15,16 +15,16 @@
 .container {
   max-width: 80%;
   margin: auto;
-  padding-top: 100px;
+  padding-top: 40px;
 }
 
 .comercio__header {
   display: flex;
   flex-direction: column;
-  padding: 50px 0;
+  padding: 70px 0;
   background: url("../../images/bg_detail.jpg");
   background-position: center center;
-  height: 400px;
+  height: 300px;
 }
 
 .comercio__header .container {
@@ -57,7 +57,7 @@
   flex-direction: row;
   flex-flow: row wrap;
   gap: 20px;
-  justify-content: flex-start;
+  justify-content: space-between;
 }
 
 .subcategorias {
@@ -196,4 +196,12 @@
   transform: scale(115%);
   box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
   -webkit-box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
+}
+
+.navigation__container {
+  width: 765px;
+  display: flex;
+  align-items: center;
+  gap: 100px;
+  justify-content: space-between;
 }

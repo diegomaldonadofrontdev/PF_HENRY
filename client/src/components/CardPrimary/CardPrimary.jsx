@@ -16,7 +16,10 @@ export default function CardPrimary(props) {
         </div>
         <div className={styles.btn__container}>
           <Link to={props.to}>
-            <ButtonPrimary texto="Conocer más" />
+            <ButtonPrimary
+              texto="Conocer más"
+              icon={<i class='bx bxs-chevron-right-circle' ></i>}
+            />
           </Link>
         </div>
       </div>

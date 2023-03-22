@@ -2,10 +2,18 @@
   background-color: var(--main-color);
   border: none;
   font-size: 1em;
+  min-width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   color: white;
-  padding: 0.5em 2em;
+  padding: 0.5em 1em;
   border-radius: 100px;
   text-align: center;
+}
+
+.buttonPrimary i {
+  color: white;
 }
 
 @media (max-width: 900px) {

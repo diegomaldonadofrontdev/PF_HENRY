@@ -34,7 +34,7 @@
 
 .features__container {
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-around;
 	padding-top: 50px;
 	gap: 2em;
 }

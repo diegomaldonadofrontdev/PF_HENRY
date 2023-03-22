@@ -35,7 +35,7 @@ export default function CommerceDetail() {
 
   // PAGINADO
   const currentPage = useSelector((state) => state.currentPageProducts);
-  const productsPerPage = 2;
+  const productsPerPage = 6;
   const totalProducts = products.length;
   const totalPages = Math.ceil(totalProducts / productsPerPage);
   const startIndex = (currentPage - 1) * productsPerPage;
@@ -106,9 +106,6 @@ export default function CommerceDetail() {
               Rating: {commerce?.rating} <i class="bx bxs-star"></i>
             </p>
           </div>
-          <Link to="/search" className={styles.btn__volver}>
-            <ButtonPrimary texto="Volver" />
-          </Link>
         </div>
       </div>
       <div className={styles.container}>
@@ -140,19 +137,29 @@ export default function CommerceDetail() {
             ))}
           </ul>
         </div>
-        <div className={styles.paginado}>
-          {totalPagesFilter ? (
-            <h4>
-              Pagina {currentPage} de {totalPagesFilter}
-            </h4>
-          ) : (
-            <h4>
-              Pagina {currentPage} de {totalPages}
-            </h4>
-          )}
-          <button onClick={prevHandler}>←</button>
-          <button onClick={nextHandler}>→</button>
+        <div className={styles.navigation__container}>
+          <Link to="/search" className={styles.btn__volver}>
+            <ButtonPrimary
+              texto="Volver"
+              icon={<i class="bx bxs-chevron-left"></i>}
+            />
+          </Link>
+
+          <div className={styles.paginado}>
+            {totalPagesFilter ? (
+              <h4>
+                Pagina {currentPage} de {totalPagesFilter}
+              </h4>
+            ) : (
+              <h4>
+                Pagina {currentPage} de {totalPages}
+              </h4>
+            )}
+            <button onClick={prevHandler}>←</button>
+            <button onClick={nextHandler}>→</button>
+          </div>
         </div>
+
         <div className={styles.results}>
           <div className={styles.productCard__container}>
             {productsFilter.length
@@ -179,6 +186,7 @@ export default function CommerceDetail() {
                   />
                 ))}
           </div>
+
           <Cart id={id} stateEpagos={commerce.epagos} />
         </div>
       </div>
