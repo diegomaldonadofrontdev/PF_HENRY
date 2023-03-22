@@ -6,7 +6,7 @@ const mercadopago = require("mercadopago");
 
 mercadopago.configure({ access_token: ACCESS_TOKEN_MP });
 
-const mercadoPagoController = async (req, res) => {
+const mercadoPagoController = async (req, res) => { // ok.
 	const carrito = req.body;
 
 	const { idCommerce, idUser } = req.query;

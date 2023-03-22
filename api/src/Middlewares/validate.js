@@ -225,6 +225,10 @@ const validateLoginTrade = (req, res, next) => {
 	next()
 }
 
+const validateClientLogin = (req, res, next) => {
+
+}
+
 module.exports = {
 	validateAppFeedback,
 	validateTradeFeedback,
@@ -238,5 +242,6 @@ module.exports = {
 	validateSubcategory,
 	validateResetPassword,
 	validatePassword,
-	validateLoginTrade
+	validateLoginTrade,
+	validateClientLogin
 };

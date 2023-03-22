@@ -53,23 +53,30 @@ tradesRouter.get("/clients/search/:id", getClientHandler);  // OK
 tradesRouter.get("/orders/search", getOrdersHandler); // OK
 // Devuelve todos los pedidos que no se encuentren en status:entregado (pedidos pendientes)
 tradesRouter.get("/orders/actives/:tradeId", getActiveOrdersHandler); // OK
-
+// Verifica si el correo se encuentra en la base y si está verificado. Si no lo está, lo verifica.
 tradesRouter.get('/confirm-email/:token', getConfirmEmailHandler) // OK
 
-// POST 
+// POST
+// Publicar nuevo producto
 tradesRouter.post("/newProduct/:tradeId", validateProduct, postProductHandler); // OK
+// Authentication
 tradesRouter.post("/login", validateLoginTrade, postLoginTradeHandler); // OK
 tradesRouter.post ('/resetPassword',validateResetPassword,postSendMailResetPassword);
 tradesRouter.post ('/newPassword/:token',validatePassword,postResetPassword);
 
 
 //DELETE
+// Elimina un producto
 tradesRouter.delete("/products/:productId", deleteProductHandler);
 
 // PUT
+// Actualizar un producto. Recibe un objeto con lo que se desea modificar ejemplo {price: 300, active: true}
 tradesRouter.put("/products/update/:productId", putProductHandler); // OK
+// Actualizar datos del comercio
 tradesRouter.put("/trade/update/:tradeId", putTradeHandler); // OK
+// Resta el stock de un producto (recibe carrito.data)
 tradesRouter.put('/products/reststock', putRestStockHandler)
+// Suma stock. Recibe el numero a sumar.
 tradesRouter.put('/products/addstock/:productId', putAddStockHandler)
 
 

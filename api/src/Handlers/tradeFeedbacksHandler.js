@@ -7,7 +7,7 @@ const {
 
 
 // GET 
-const getFeedbackHandler = async (req, res) => { // OK
+const getFeedbackHandler = async (req, res) => { // OK.
     const {tradeId} = req.params
     try {
       const feedbacks = await getFeedbacks(tradeId);
@@ -18,7 +18,7 @@ const getFeedbackHandler = async (req, res) => { // OK
   };
   
   // POST 
-  const postFeedbacksHandler = async (req, res) => { // OK
+  const postFeedbacksHandler = async (req, res) => { // OK.
     const { opinion, rating } = req.body;
     const { clientId, tradeId } = req.query
     try {

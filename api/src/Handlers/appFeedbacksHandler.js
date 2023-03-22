@@ -3,8 +3,8 @@ const {createFeedback,
     deleteFeedback
 } = require ("../Controllers/appFeedbacksController")
 
-// GET ------------> feedbacks
-const getFeedbacksHandler = async (req, res) => {
+// GET 
+const getFeedbacksHandler = async (req, res) => { // OK. 
     try {
       const feedbacks = await getFeedbacks();
       res.status(200).json(feedbacks);
@@ -13,8 +13,8 @@ const getFeedbacksHandler = async (req, res) => {
     }
   };
   
-  // POST -------> /feedback
-  const postFeedbackHandler = async (req, res) => {
+// POST 
+  const postFeedbackHandler = async (req, res) => { // OK.
     const body = req.body;
     const { clientId } = req.query
     try {
