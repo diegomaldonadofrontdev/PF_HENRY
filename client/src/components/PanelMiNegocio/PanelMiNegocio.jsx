@@ -24,7 +24,7 @@ export default function PanelMiNegocio() {
 		phone: "",
 		image: ""
 	})
-	console.log(body)
+	
 
 	useEffect(() => {
 		if (tradeId) {

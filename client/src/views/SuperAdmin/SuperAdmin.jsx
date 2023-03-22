@@ -7,6 +7,7 @@ import {
 	getTradesCategories,
 	getDeliveryZones,
 	commerceRegister,
+	updateCommerceInfo
 } from "../../redux/actions/index";
 import { useDispatch, useSelector } from "react-redux";
 import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
@@ -102,7 +103,7 @@ export default function SuperAdmin() {
 	const allCommerces = useSelector((state) => state.allCommerces);
 	const stateZones = useSelector((state) => state.zones);
 	const [currentErrors, setCurrentErrors] = useState({});
-
+//registro de comercio
 	const [currentInput, setCurrentInput] = useState({
 		commerceName: "",
 		category: "",
@@ -121,6 +122,18 @@ export default function SuperAdmin() {
 		epagos: "",
 		active: true,
 	});
+//Editar comercio
+	const [body, setBody] = useState({
+		commerceName: "",
+		description: "",
+		address: "",
+		phone: "",
+		image: ""
+	})
+
+
+
+
 
 	useEffect(() => {
 		dispatch(getTradesCategories());
@@ -230,7 +243,7 @@ export default function SuperAdmin() {
 	};
 
 	//Envio los datos del form al BACK, actualiza, resetea el estado y captura errores
-	const handlerSubmit = (e) => {
+	const handlerSubmitCreate = (e) => {
 		e.preventDefault();
 		const {
 			commerceName,
@@ -298,6 +311,54 @@ export default function SuperAdmin() {
 		}
 	};
 
+	//EDITAR COMERCIO 
+
+	const handleCommerceImgUpdate = async (e) => {
+		const files = e.target.files;
+		const datas = new FormData();
+		datas.append("file", files[0]);
+		datas.append("upload_preset", "PEDI-VERY");
+		const res = await fetch("https://api.cloudinary.com/v1_1/sebov96/upload", {
+			method: "POST",
+			body: datas,
+		});
+		const file = await res.json();
+		setBody({
+			...body,
+			image: file.secure_url,
+		});
+	};
+
+	
+	function handlerChange(e) {
+		const { name, value } = e.target;
+		setBody({ ...body, [name]: value });
+	}
+
+
+	// function handlerSubmitEdit(e) {
+	// 	e.preventDefault();
+	// 	const { phone, address, image, commerceName, description } = body;
+	// 	if (!phone || !address || !image || !commerceName || !description) {
+	// 		swal({
+	// 			title: "Error!",
+	// 			text: "Rellena todos los campos correctamente, por favor",
+	// 			icon: "error",
+	// 			button: "Ok",
+	// 		});
+	// 	} else {
+
+	// 		dispatch(updateCommerceInfo(tradeId, body));
+	// 		swal({
+	// 			title: "Listo!",
+	// 			text: "Los datos del comercio fueron actualizados",
+	// 			icon: "success",
+	// 			button: "Ok",
+	// 		});
+	// 	}
+	// }
+
+
 
 	function handlerFilterByName(e) {
 		dispatch(getTradesByName(e.target.value));
@@ -307,14 +368,14 @@ export default function SuperAdmin() {
 		<div className={styles.superadmin}>
 			<Header />
 			<div className={styles.container}>
-				<h2>Super admin</h2>
+				<h2>Super Admin</h2>
 
 				<div className={styles.content}>
 					<h3>Comercios</h3>
 					<div className={styles.grid}>
 						<div>
 							<h4>Crear Comercio</h4>
-							<form action="" onSubmit={handlerSubmit}>
+							<form action="" onSubmit={handlerSubmitCreate}>
 							<label htmlFor="">Nombre Del Comercio</label>
 							<input
 								type="text"
@@ -470,12 +531,41 @@ export default function SuperAdmin() {
 						<div>
 							<h4>Editar Comercio</h4>
 							<form action="">
-								
-								<input type="text" />
-								<input type="text" />
-								<input type="text" />
-								<input type="text" />
-								<input type="text" />
+							<label htmlFor="">Nombre Del Comercio</label>
+								<input
+						 type="text"
+						 name="commerceName"
+						//  placeholder={handlerChange}
+						   onChange={handlerChange}
+						  />
+							<label htmlFor="">Descripcón</label>
+								<input
+						 type="text"
+						 name="description"
+						 placeholder="Editá la descripción"
+						 onChange={handlerChange}
+						  />
+							<label htmlFor="">Dirección</label>
+								<input
+						 type="text"
+						 name="address"
+						//  placeholder={}
+						onChange={handlerChange}
+						  />
+							<label htmlFor="">Numero de Teléfono</label>
+								<input
+						 type="text"
+						 name="phone"
+						//  placeholder={}
+						onChange={handlerChange}
+						  />
+							<label htmlFor="">Imagen</label>
+								<input
+						 type="file"
+						 name="image"
+						//  placeholder={}
+						   onChange={handleCommerceImgUpdate}
+						  />
 								<button type="submit">
 						<ButtonPrimary texto="EDITAR COMERCIO" />
 					</button>
