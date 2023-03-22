@@ -11,6 +11,9 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
 import swal from "sweetalert";
+import {postCategory} from "../../redux/actions/postCategory"
+import { postDeliveryZone } from "../../redux/actions/postDeliveryZone";
+import { postProductCategory } from "../../redux/actions/postProductCategory";
 
 
 
@@ -121,6 +124,41 @@ export default function SuperAdmin() {
 		epagos: "",
 		active: true,
 	});
+
+	const [currentCategory, setCurrentCategory] = useState({
+		category: ""
+	})
+
+	function handlerOnchangeCategory(e){
+		setCurrentCategory({
+			...currentCategory,
+			[e.target.name]: e.target.value
+		})
+	}
+
+	function handlerSubmitCategory(e){
+		e.preventDefault()
+		if (!currentCategory.category) {
+			swal({
+				title: "Erros",
+				text: "No has llenado el campo ",
+				icon: "warning",
+				button: "Ok",
+			});	
+		}else {
+			dispatch(postCategory(currentCategory))
+		swal({
+			title: "Listo!",
+			text: "La categoria fue creada correctamente",
+			icon: "success",
+			button: "Ok",
+		});
+		setCurrentCategory({
+			category: ""
+		})
+		}
+		
+	}
 
 	useEffect(() => {
 		dispatch(getTradesCategories());
@@ -297,10 +335,77 @@ export default function SuperAdmin() {
 			});
 		}
 	};
-
-
 	function handlerFilterByName(e) {
 		dispatch(getTradesByName(e.target.value));
+	}
+
+	const [currentDeliveryZone, setCurrentDeliveryZone] = useState({
+		deliveryZone: "",
+	})
+
+	function handlerOnchangeDeliveryZone(e) {
+		setCurrentDeliveryZone({
+			[e.target.name] : e.target.value
+		})
+	}
+
+	function handlerSubmitDeliveryZone(e) {
+		e.preventDefault()
+		if (!currentDeliveryZone.deliveryZone) {
+			swal({
+				title: "Error",
+				text: "No has llenado el campo ",
+				icon: "warning",
+				button: "Ok",
+			});	
+		}else {
+			dispatch(postDeliveryZone(currentDeliveryZone))
+		swal({
+			title: "Listo!",
+			text: "La categoria fue creada correctamente",
+			icon: "success",
+			button: "Ok",
+		});
+		setCurrentDeliveryZone({
+			deliveryZone: ""
+		})
+		}
+		
+	}
+
+	const [currrentProductCategory, setCurrentProductCategory] = useState({
+		productCategory: ""
+	})
+
+	function handlerOnchangeProductCategory(e) {
+		setCurrentProductCategory({
+			[e.target.name] : e.target.value 
+		})
+	}
+
+	function handlerSubmitProductCategory(e) {
+		e.preventDefault()
+		if (!currrentProductCategory.productCategory) {
+			swal({
+				title: "Error",
+				text: "No has llenado el campo ",
+				icon: "warning",
+				button: "Ok",
+			});	
+		}else {
+			dispatch(postProductCategory(currrentProductCategory))
+		swal({
+			title: "Listo!",
+			text: "La categoria fue creada correctamente",
+			icon: "success",
+			button: "Ok",
+		});
+		setCurrentProductCategory({
+			productCategory: ""
+		})
+		
+		
+		}
 	}
 
 	return (
@@ -470,41 +575,12 @@ export default function SuperAdmin() {
 						<div>
 							<h4>Editar Comercio</h4>
 							<form action="">
-							<label htmlFor="">Nombre Del Comercio</label>
-								<input
-						 type="text"
-						 name="commerceName"
-						//  placeholder={}
-						//   onChange={}
-						  />
-							<label htmlFor="">Descripcón</label>
-								<input
-						 type="text"
-						 name="description"
-						 placeholder="Editá la descripción"
-						//   onChange={}
-						  />
-							<label htmlFor="">Dirección</label>
-								<input
-						 type="text"
-						 name="address"
-						//  placeholder={}
-						//   onChange={}
-						  />
-							<label htmlFor="">Numero de Teléfono</label>
-								<input
-						 type="text"
-						 name="phone"
-						//  placeholder={}
-						//   onChange={}
-						  />
-							<label htmlFor="">Imagen</label>
-								<input
-						 type="file"
-						 name="image"
-						//  placeholder={}
-						//   onChange={}
-						  />
+								
+								<input type="text" />
+								<input type="text" />
+								<input type="text" />
+								<input type="text" />
+								<input type="text" />
 								<button type="submit">
 						<ButtonPrimary texto="EDITAR COMERCIO" />
 					</button>
@@ -524,19 +600,34 @@ export default function SuperAdmin() {
 						</div>
 						<div>
 							<div>
+								<form  onSubmit={(e) => handlerSubmitCategory(e)}>
 								<h4>Crear Categoria</h4>
-								<input type="text" />
-								<input type="submit" />
+								<input 
+									type="text"
+									name="category"
+									value={currentCategory.category}
+									onChange={handlerOnchangeCategory}
+									/>
+								<button type="submit"> Crear </button>
+								</form>
 							</div>
 							<div>
 								<h4>Crear Subcategoria</h4>
 								<input type="text" />
+								<input type="text" />
 								<input type="submit" />
 							</div>
 							<div>
+								<form onSubmit={(e) => handlerSubmitDeliveryZone(e)}>
 								<h4>Crear DeliveryZone</h4>
-								<input type="text" />
-								<input type="submit" />
+								<input 
+									type="text"
+									name="deliveryZone"
+									value={currentDeliveryZone.deliveryZone} 
+									onChange={handlerOnchangeDeliveryZone}
+								/>
+								<button type="submit"> Crear </button>
+								</form>
 							</div>
 						</div>
 					</div>
@@ -574,9 +665,16 @@ export default function SuperAdmin() {
 						</div>
 						<div>
 							<div>
+								<form onSubmit={(e) => handlerSubmitProductCategory(e)}>
 								<h4>Crear Categoria de Producto</h4>
-								<input type="text" />
-								<input type="submit" />
+								<input 
+									type="text"
+									name="productCategory"
+									value={currrentProductCategory.productCategory}
+									onChange={handlerOnchangeProductCategory} 
+								/>
+								<button type="submit" > Crear</button>
+								</form>
 							</div>
 
 							<div>

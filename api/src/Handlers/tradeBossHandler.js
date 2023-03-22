@@ -7,23 +7,20 @@ const { searchTradeBossExist,
     searchTradeBossById,
     registerTradeBoss } = require("../Controllers/tradeBossController");
 
-// GET HANDLERS 
-const getTradeBossHandler = async (req, res) => {
+// GET 
+const getTradeBossHandler = async (req, res) => { // ok.
     const { id } = req.params
-
     try {
         const tradeBossBDD = await searchTradeBossById(id);
         res.status(200).json(tradeBossBDD);
     } catch (error) {
         res.status(400).json({ error: "Error al obtener al comerciante" })
     }
-
 }
 
 
-// POST HANDLERS 
-
-const loginTradeBossHandler = async (req, res) => {
+// POST
+const loginTradeBossHandler = async (req, res) => { // ok.
     const { email, password } = req.body;
 
     const findEmail = await searchTradeBossExist(email);
@@ -46,7 +43,7 @@ const loginTradeBossHandler = async (req, res) => {
     }
 }
 
-const postTradeBossHandler = async (req, res) => {
+const postTradeBossHandler = async (req, res) => { // ok.
     const tradeBoss = req.body;
     try {
         const token = jwt.sign(
@@ -61,7 +58,7 @@ const postTradeBossHandler = async (req, res) => {
     }
 }
 
-const registerWhitGoogleTradeBosshandler = async (req, res) => {
+const registerWhitGoogleTradeBosshandler = async (req, res) => { // ok.
     const tradeBoss = req.body;
 
     try {

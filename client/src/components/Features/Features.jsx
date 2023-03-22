@@ -29,7 +29,7 @@ export default function Features() {
 					/>
 					<CardPrimary
 						titulo={"Registrá tu comercio"}
-						texto="Accedé a los muchísimos usuario de Pedi-Very."
+						texto="Accedé a los muchísimos usuario de Pedi-Very y llegá a más personas."
 						img={
 							"https://d3nqlc6zkdn9bc.cloudfront.net/wp-content/uploads/2021/01/29181504/e-commerce-jelpit-marketing-digital.jpg"
 						}

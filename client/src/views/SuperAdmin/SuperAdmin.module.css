@@ -62,25 +62,4 @@
 .sp_tradeCard {
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
-	padding: 0em 1em;
-}
-
-.trades__container {
-	overflow-y: scroll;
-	height: 200px;
-}
-
-.grid > div {
-	width: 50% !important;
-}
-
-.containerReview {
-	width: 50% !important;
-}
-
-.dosColumnas {
-	display: flex;
-	gap: 1em;
-	align-items: center;
 }
