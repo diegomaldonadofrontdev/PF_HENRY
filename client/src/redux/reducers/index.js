@@ -27,7 +27,10 @@ import {
 	POST_PRODUCT,
 	UPDATE_COMMERCE,
 	GET_TRADES_BY_NAME,
-	POST_SEND_EMAIL_PASSWORD
+	POST_SEND_EMAIL_PASSWORD,
+	GET_ALL_CLIENTS,
+	GET_CLIENT_FORSP,
+	GET_REVIEW_BYID
 } from "../actions/types";
 
 const initialState = {
@@ -39,6 +42,7 @@ const initialState = {
 	tradesCategories: [],
 	tradesSubCategories: [],
 	feedback: [],
+	feedbackById: {},
 	zones: [],
 	filters: {
 		city: "default",
@@ -55,6 +59,8 @@ const initialState = {
 	currentPageTrades: 1,
 	currentPage: 1,
 	ordersCommerces: [],
+	allClients: [],
+	clientForSP: {}
 };
 
 function dateTransform(date) {
@@ -406,6 +412,23 @@ export default function rootReducer(state = initialState, action) {
 				...state,
 			};
 		}
+		case GET_ALL_CLIENTS: {
+			return {
+				...state,
+				allClients: [...action.payload]
+			}
+		}
+		case GET_CLIENT_FORSP: {
+			return {
+				...state,
+				clientForSP: {...action.payload}
+			}
+		}
+		case GET_REVIEW_BYID:
+			return {
+				...state,
+				feedbackById: {...action.payload}
+			}
 		default:
 			return state;
 	}

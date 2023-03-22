@@ -13,6 +13,17 @@ const getFeedbacks = async () => {
     }
 }
 
+const getFeedbacksById = async (id) => {
+  try {
+      const feedbacks = await Feedback.findById(id)
+      if (feedbacks) {
+          return feedbacks
+      } else return `No se pudieron recuperar feedbacks de la base de datos`
+  } catch (error) {
+      return error.message
+  }
+}
+
 // POSTS
 const createFeedback = async (clientId, body) => {  // FUNCIONANDO 12/03
   try {
@@ -29,8 +40,9 @@ const createFeedback = async (clientId, body) => {  // FUNCIONANDO 12/03
 const deleteFeedback = async (feedbackId) => { // OK
   try { 
     const fbDeleted = await Feedback.deleteOne({_id: feedbackId})
-    if (fbDeleted.deletedCount !== 0) return true
-    return false
+    if (fbDeleted.deletedCount !== 0) {
+      return `Feedback deleted`
+    } return `No se encontro el feedback`
   } catch (error) {
     throw new Error (error.message)
   }
@@ -38,6 +50,7 @@ const deleteFeedback = async (feedbackId) => { // OK
 
 module.exports = {
     getFeedbacks,
+    getFeedbacksById,
     createFeedback,
     deleteFeedback
 }
