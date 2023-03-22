@@ -45,23 +45,6 @@ const { postFeedbacksHandler } = require("../Handlers/tradeFeedbacksHandler");
 const clientsRouter = Router();
 
 // GET
-<<<<<<< HEAD
-clientsRouter.get("/trades/categories", getCategoriesHandler); // FUNCIONANDO 12/03
-clientsRouter.get("/trades/subcategories", getSubCategoriesHandler); // FUNCIONANDO 12/03
-clientsRouter.get("/trades/deliveryZone", getDeliveryZoneHandler); // FUNCIONANDO 12/03
-clientsRouter.get("/trades/search", getTradesHandler); // FUNCIONANDO 12/03
-clientsRouter.get("/trades/search/:id", getTradeHandler); // FUNCIONANDO 12/03
-clientsRouter.get("/products/search", getProductsHandler); // FUNCIONANDO 12/03
-clientsRouter.get("/products/search/:id", getProductHandler); // FUNCIONANDO 12/03
-clientsRouter.get("/products/categories", getProductCategoryHandler); // FUNCIONANDO 12/03
-clientsRouter.get("/app/feedbacks", getFeedbacksHandler); // FUNCIONANDO
-clientsRouter.get("/app/feedback/:id", getFeedbacksByIdHandler);
-clientsRouter.get("/order/search", getOrdersHandler); // FUNCIONANDO
-clientsRouter.get("/order/search/:orderId", getOrderHandler); // FUNCIONANDO
-clientsRouter.get("/all", getAllClients)
-clientsRouter.get("/clients/search/:id", getClientHandler); // FUNCIONANDO
-clientsRouter.get("/confirm-email/:token", confirmEmailHandler); // FUNCIONANDO
-=======
 // Obtener lista de categorias de comercios activos
 clientsRouter.get("/trades/categories", getCategoriesHandler); // OK
 // Obtener lista de subcategorias de las categorias de los comercios activos
@@ -84,11 +67,12 @@ clientsRouter.get("/app/feedbacks", getFeedbacksHandler); // OK
 clientsRouter.get("/order/search", getOrdersHandler); // OK
 // Devuelve el detalle de un pedido
 clientsRouter.get("/order/search/:orderId", getOrderHandler); // OK
+// Devuelve todos los clientes para renderizarlos en el dashboard superadmin
+clientsRouter.get("/all", getAllClients); // OK
 // Busca cliente por id
 clientsRouter.get("/clients/search/:id", getClientHandler); // OK
 // Comprueba si el mail ya se encuentra registrado. Si lo encuentra, activa su verificacion y le envia un correo al cliente.
 clientsRouter.get("/confirm-email/:token", getConfirmEmailHandler); // OK
->>>>>>> 56b8040ad112343a00a9e660ab50841473fa033b
 
 // POST
 // Publicar review de la aplicacion
