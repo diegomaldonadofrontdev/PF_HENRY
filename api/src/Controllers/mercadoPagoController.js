@@ -38,7 +38,7 @@ const mercadoPagoController = async (req, res) => { // ok.
 					default_installments: 1,
 				},
 				back_urls: {
-					success: "http://localhost:3000/responsepayment/success",
+					success: "https://pf-henry-two.vercel.app/responsepayment/success",
 					failure: "http://localhost:3000/responsepayment/failure",
 					pending: "http://localhost:3000/responsepayment/pending",
 				},
