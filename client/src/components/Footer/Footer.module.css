@@ -1,7 +1,6 @@
 .footer {
 	background-color: #191e29;
-	padding: 1em 0;
-	padding-top: 100px;
+	padding: 0;
 }
 .container {
 	max-width: 60%;
@@ -42,7 +41,6 @@
 
 .firma {
 	background-color: var(--main-color);
-
 	display: flex;
 	padding: 5px 0;
 	justify-content: center;
