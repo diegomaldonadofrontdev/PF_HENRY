@@ -40,7 +40,6 @@ const getConfirmEmailHandler = async (req, res) => {	// ok.
 const postClientHandler = async (req, res) => {	// OK.
 	const client = req.body;
 	try {
-
 		const token = jwt.sign({ email: client.email }, TOKEN_KEY, {
 			expiresIn: "2h",
 		});

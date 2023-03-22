@@ -1,95 +1,33 @@
 .registration__form {
-  width: 100%;
+	width: 100%;
 }
 
 .registration__form .container {
-  width: 80%;
-  padding: 150px 0;
-  gap: 5em;
-  margin: auto;
-  display: flex;
-  justify-content: center;
-}
-
-.registration__form .container .form {
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
+	width: 80%;
+	padding: 150px 0;
+	margin: auto;
+	display: flex;
+	justify-content: center;
 }
 
 .twoColumns {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  gap: 1em;
-}
-
-.registration__form .container .form .twoColumns:first-child {
-  gap: 1em;
-}
-
-.input__container {
-  display: flex;
-  flex-direction: column;
-  width: 50%;
-  padding: 0.5em 1em;
-  background-color: white;
-  border-radius: 1em;
-  justify-content: center;
-}
-
-.registration__form .container .form .input__container input {
-  border: none;
-  border-bottom: 1px solid rgb(199, 199, 199);
-}
-
-.input__container p {
-  font-size: 0.7em;
+	flex-direction: row;
+	gap: 1.5em;
 }
 
 .twoColumns div {
+	position: relative;
+	width: 100%;
 }
 .twoColumns div label {
+	font-size: 0.9em;
+	background-color: white;
+	position: absolute;
+	left: 10px;
+	top: -10px;
+	padding: 0 10px;
 }
 
 .twoColumns input {
-  outline: none;
-  height: 20px;
-}
-
-.registration__form .img__container {
-  width: 40%;
-  height: 600px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
-}
-
-.registration__form .form__footer {
-  display: flex;
-  width: 100%;
-  align-items: center;
-  gap: 1em;
-  justify-content: space-between;
-}
-
-.registration__form h4 {
-  color: gray !important;
-  width: 100%;
-  font-weight: 400;
-  text-align: center;
-  font-size: 0.9em;
-}
-
-.registration__form .form__footer button {
-  border: none;
-}
-
-.volver {
-  padding: 0.5em 2em;
-  background-color: var(--main-color);
-  border-radius: 100px;
-  color: white;
-  align-self: start;
+	width: 100%;
 }
