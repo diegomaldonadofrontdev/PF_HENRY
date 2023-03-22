@@ -61,7 +61,7 @@ const postNewOrderHandler = async (req, res) => {	// OK
 
 
 // PUTS
-const updateOrderHandler = async (req, res) => { // ?
+const putOrderHandler = async (req, res) => { // ?
 	const { payment, status } = req.body;
 	const { orderId } = req.params;
 
@@ -112,6 +112,6 @@ module.exports = {
 	getOrderHandler,
 	postNewOrderHandler,
 	getActiveOrdersHandler,
-	updateOrderHandler,
+	putOrderHandler,
 	deleteOrderHandler
 };

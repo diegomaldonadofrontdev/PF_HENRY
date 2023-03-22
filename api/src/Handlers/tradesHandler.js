@@ -18,7 +18,9 @@ const {
   createDeliveryZone,
   deleteCaegory,
   deleteSubcategory,
-  deleteDeliveryZone
+  deleteDeliveryZone,
+  getCategories,
+  getAllSubcategories
 } = require("../Controllers/tradesController");
 const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
 const jwt = require("jsonwebtoken");
@@ -72,6 +74,15 @@ const getCategoriesHandler = async (req, res) => { // OK
   }
 };
 
+const getCategoryHandler = async (req, res) => {
+  try {
+    const categories = await getCategories()
+    res.status(200).json(categories)
+  } catch (error) {
+    
+  }
+}
+
 const getSubCategoriesHandler = async (req, res) => { // OK
   const { category } = req.query;
   try {
@@ -81,6 +92,16 @@ const getSubCategoriesHandler = async (req, res) => { // OK
     res.status(400).json({ error: `Error al buscar las subcategorias` });
   }
 };
+
+const getSubcategoryHandler = async (req, res) => {
+  const {category} =req.body
+  try {
+    const subcategories = await getAllSubcategories(category)
+    res.status(200).json(subcategories)
+  } catch (error) {
+    
+  }
+}
 
 const getDeliveryZoneHandler = async (req, res) => { // OK
   try {
@@ -104,7 +125,7 @@ const confirmEmailHandler = async (req, res) => { // OK
 };
 
 // POST
-const postTradeHandler = async (req, res) => {  // ?
+const postTradeHandler = async (req, res) => {  // OK
   const { commerceName } = req.body;
   const body = req.body;
   try {
@@ -130,18 +151,6 @@ const postCategoryHandler = async (req, res) => { // OK
     res
       .status(404)
       .json({ Error: `Error al registar la categoria ${category}` });
-  }
-};
-
-const newDeliveryZone = async (req, res) => {
-  try {
-    const createDeliveryZone = await postCreateDeliveryZone(req.body);
-
-    res
-      .status(200)
-      .json(`Se creo la zona correctamente ${req.body.deliveryZoneName}`);
-  } catch (error) {
-    res.status(404).json({ Error: "Error al registar la zona" });
   }
 };
 
@@ -240,7 +249,7 @@ const deleteTradeHandler = async (req, res) => { // OK
   }
 };
 
-const deleteCategoryHandler = async (req, res) => {
+const deleteCategoryHandler = async (req, res) => { // OK
   const {category} = req.body
   try {
     const deleted = await deleteCaegory(category)
@@ -249,7 +258,7 @@ const deleteCategoryHandler = async (req, res) => {
     res.status(404).json({Error: error.message})
   }
 }
-const deleteSubcategoryHandler = async (req, res) => {
+const deleteSubcategoryHandler = async (req, res) => { // OK
   const {subcategory} = req.body
   try {
     const deleted = await deleteSubcategory(subcategory)
@@ -258,7 +267,7 @@ const deleteSubcategoryHandler = async (req, res) => {
     res.status(404).json({Error: error.message})
   }
 }
-const deleteDeliveryZoneHandler = async (req, res) => {
+const deleteDeliveryZoneHandler = async (req, res) => { // OK
   const {deliveryZone} = req.body
   try {
     const deleted = await deleteDeliveryZone(deliveryZone)
@@ -273,21 +282,23 @@ module.exports = {
   getTradeHandler,
   getCategoriesHandler,
   getSubCategoriesHandler,
+  getSubCategoriesHandler,
   getDeliveryZoneHandler,
+  getTradeByNameHandler,
+  getCategoryHandler,
   postTradeHandler,
   postCategoryHandler,
-  newDeliveryZone,
   postSubcategoryHandler,
+  postDeliveryZoneHandler,
   putTradeHandler,
+  putTradesHandler,
   confirmEmailHandler,
   sendMailResetPassword,
   resetPassword,
   loginTradeHandler,
   deleteTradeHandler,
-  getTradeByNameHandler,
-  putTradesHandler,
-  postDeliveryZoneHandler,
   deleteCategoryHandler,
   deleteSubcategoryHandler,
-  deleteDeliveryZoneHandler
+  deleteDeliveryZoneHandler,
+  getSubcategoryHandler
 };

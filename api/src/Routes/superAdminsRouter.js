@@ -23,7 +23,9 @@ const {
   postDeliveryZoneHandler,
   deleteDeliveryZoneHandler,
   deleteCategoryHandler,
-  deleteSubcategoryHandler
+  deleteSubcategoryHandler,
+  getCategoryHandler,
+  getSubcategoryHandler
 } = require("../Handlers/tradesHandler");
 const {
   validateCategory,
@@ -40,7 +42,7 @@ const {
 } = require ("../Handlers/orderHandler")
 const {
   getClientHandler,
-  updateClientHandler,
+  putClientHandler,
   deleteClientHandler
 } = require ("../Handlers/clientsHandler")
 const {
@@ -84,6 +86,10 @@ superAdminsRouter.delete("/deletesubcategory", deleteSubcategoryHandler); // OK
 superAdminsRouter.post("/newDeliveryZone", validateDeliveryZone, postDeliveryZoneHandler); // OK
 // Eliminar deliveryZone
 superAdminsRouter.delete("/deleteDeliveryZone", deleteDeliveryZoneHandler); // OK
+// Traer todas las categorias
+superAdminsRouter.get("/trades/categories", getCategoryHandler); // OK
+// Traer todas las subcategorias de cada categoria
+superAdminsRouter.get("/trades/subcategories", getSubcategoryHandler); // OK
 
 // PRODUCTOS
 // Crear productos
@@ -125,7 +131,7 @@ superAdminsRouter.put("/updatefeedback/trade/:feedbackId", putTradeFeedbackHandl
 // Ver detalle del cliente
 superAdminsRouter.get("/client/:clientId", getClientHandler); // OK
 // Modificar cliente - Deshabilitar client
-superAdminsRouter.put("/updateClient/:clientId", updateClientHandler) // OK
+superAdminsRouter.put("/updateClient/:clientId", putClientHandler) // OK
 // Eliminar
 superAdminsRouter.delete("/deleteClient/:clientId", deleteClientHandler); // OK
 
