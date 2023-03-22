@@ -7,6 +7,7 @@ const { postSendEmailPasswordTrades }= require('../actions/postSendEmailPassword
 // Categories
 const { getTradesCategories } = require("../actions/getTradesCategory");
 const {getTradesCategory} = require('../actions/getTradesCategorys')
+const {postSubcategory} = require('../actions/postSubcategory')
 
 // SubCategories
 const { getSubCategories } = require("../actions/getTradesSubCategories");
@@ -85,5 +86,6 @@ module.exports = {
 	postNewPassword,
 	postNewPasswordTrades,
 	postSendEmailPasswordTrades,
-	getTradesCategory
+	getTradesCategory,
+	postSubcategory
 };

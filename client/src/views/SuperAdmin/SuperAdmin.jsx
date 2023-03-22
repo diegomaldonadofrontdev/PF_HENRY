@@ -8,7 +8,6 @@ import {
 	getDeliveryZones,
 	commerceRegister,
 	getTradesCategory,
-	postSubcategory
 } from "../../redux/actions/index";
 import { useDispatch, useSelector } from "react-redux";
 import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
@@ -16,6 +15,7 @@ import swal from "sweetalert";
 import {postCategory} from "../../redux/actions/postCategory"
 import { postDeliveryZone } from "../../redux/actions/postDeliveryZone";
 import { postProductCategory } from "../../redux/actions/postProductCategory"
+import { postSubcategory } from "../../redux/actions/postSubcategory";
 
 
 
@@ -107,7 +107,9 @@ export default function SuperAdmin() {
 	const allCommerces = useSelector((state) => state.allCommerces);
 	const stateZones = useSelector((state) => state.zones);
 	const stateSuperCategories = useSelector((state) => state.superCategories)
-	console.log(stateSuperCategories);
+	const stateCommerce = useSelector((state) => state.filterCommerce)
+	console.log(stateCommerce);
+
 	const [currentErrors, setCurrentErrors] = useState({});
 
 	const [currentInput, setCurrentInput] = useState({
@@ -167,13 +169,13 @@ export default function SuperAdmin() {
 	useEffect(() => {
 		dispatch(getTradesCategories());
 		dispatch(getDeliveryZones());
-		dispatch(getTradesCategory());
+		
 
 	}, [dispatch]);
 
 	useEffect(()=>{
-
-	},[stateSuperCategories])
+		dispatch(getTradesCategory());
+	},[dispatch])
 
 	useEffect(() => {
 		if (currentInput.category !== "default" && currentInput.category) {
@@ -436,12 +438,47 @@ export default function SuperAdmin() {
 		setCurrentSubcategory({
 			[e.target.name]: e.target.value
 		})
+		
 	}
 
-	function handlerSubmitSubcategory(e) {
-		e.preventDefault()
-		dispatch(postSubcategory(currentCategory))
+	function handlerOnchangeSubcategorySelect(e) {
+		setCurrentSubcategory({
+			...currentSubcategory,
+			category: e.target.value
+		})
+		
 	}
+
+	function handlerSubmitSubcategorySuper(e) {
+		e.preventDefault()
+		if (!currentSubcategory.name || !currentSubcategory.category ) {
+			swal({
+				title: "Error",
+				text: "No has llenado algun campo ",
+				icon: "warning",
+				button: "Ok",
+			});	
+		}else {
+		dispatch(postSubcategory(currentSubcategory))
+		swal({
+			title: "Listo!",
+			text: "La categoria fue creada correctamente",
+			icon: "success",
+			button: "Ok",
+		});
+		setCurrentSubcategory({
+			name: ""
+		})
+		}
+	}
+
+	function handlerOnSerchCommerce(e) {
+		dispatch(getTradesByName(e.target.value))
+	}
+
+	
+
+
 	//const trade = useSelector(state => state.filterCommerce);
 
 	return (
@@ -627,12 +664,15 @@ export default function SuperAdmin() {
 							<form action="">
 								<input 
 									type="text" 
-									onChange={handlerFilterByName}
+									onChange={handlerOnSerchCommerce}
 								/>
 							</form>
 							<div className={styles.trades__container}>
 								<div className={styles.sp_tradeCard}>
 									<h4>Nombre</h4>
+									{
+										stateCommerce && stateCommerce.map((e) => <p>{console.log(e.commerceName)}</p>)
+									}
 									<i class="bx bx-trash"></i>
 								</div>
 							</div>
@@ -651,20 +691,20 @@ export default function SuperAdmin() {
 								</form>
 							</div>
 							<div>
-								<form onSubmit={ (e) => handlerSubmitSubcategory(e)  }>
+								<form onSubmit={ handlerSubmitSubcategorySuper }>
 								<h4>Crear Subcategoria</h4>
 								<input 
 									type="text"
 									name="name"
 									value={currentSubcategory.name}
-									onChange={handlerOnchangeSubcategory}
+									onChange={(e) => handlerOnchangeSubcategory(e)}
 								/>
-								<select>
+								<select onChange={handlerOnchangeSubcategorySelect} >
 								<option value="default" selected disabled>
 									Categoria
 								</option>
 							
-								{stateSuperCategories && stateSuperCategories.map( category => { return(<option value={category} name="category">{category}</option>)})
+								{stateSuperCategories && stateSuperCategories.map( (e) => <option value={e} name="category">{e}</option>)
 								}
 								</select>
 								<button type="submit">Crear</button>

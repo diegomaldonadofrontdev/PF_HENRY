@@ -402,7 +402,7 @@ export default function rootReducer(state = initialState, action) {
 		case GET_TRADES_SUPERADMINS_CATEGORIES: {
 			return {
 				...state,
-				superCategories: [...state.superCategories, action.payload]
+				superCategories: action.payload
 			};
 		}
 		default:
