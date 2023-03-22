@@ -147,7 +147,7 @@ export default function Cart({ id, stateEpagos }) {
                 handlerPostPayment();
               }}
             >
-              Efectivo
+             <i class="bx bx-money"></i> Efectivo
             </div>
           </Link>
         ) : (
