@@ -20,13 +20,18 @@ const {
   deleteSubcategory,
   deleteDeliveryZone,
   getCategories,
-  getAllSubcategories
+  getAllSubcategories,
+  getCategories,
+  getAllSubcategories,
+  createDeliveryZone,
+  deleteSubcategory,
+  deleteDeliveryZone
 } = require("../Controllers/tradesController");
 const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
 const jwt = require("jsonwebtoken");
 
 // GET
-const getTradesHandler = async (req, res) => {  // OK
+const getTradesHandler = async (req, res) => {  // OK.
   const def = "default";
   const { deliveryZone, category, subcategory, epagos } = req.query;
   try {
@@ -45,7 +50,7 @@ const getTradesHandler = async (req, res) => {  // OK
   }
 };
 
-const getTradeHandler = async (req, res) => {  // OK
+const getTradeHandler = async (req, res) => {  // OK.
   const { id } = req.params;
   try {
     const result = await searchTradeById(id);
@@ -55,7 +60,7 @@ const getTradeHandler = async (req, res) => {  // OK
   }
 };
 
-const getTradeByNameHandler = async (req, res) => { // OK
+const getTradeByNameHandler = async (req, res) => { // OK.
     const {name} = req.query
     try {
         const find = await searchTradeByName(name)
@@ -65,7 +70,7 @@ const getTradeByNameHandler = async (req, res) => { // OK
     }
 }
 
-const getCategoriesHandler = async (req, res) => { // OK
+const getCategoriesHandler = async (req, res) => { // OK.
   try {
     const categories = await getAllCategories();
     res.status(200).json(categories);
@@ -74,7 +79,7 @@ const getCategoriesHandler = async (req, res) => { // OK
   }
 };
 
-const getCategoryHandler = async (req, res) => {
+const getCategoryHandler = async (req, res) => { //OK.
   try {
     const categories = await getCategories()
     res.status(200).json(categories)
@@ -83,7 +88,7 @@ const getCategoryHandler = async (req, res) => {
   }
 }
 
-const getSubCategoriesHandler = async (req, res) => { // OK
+const getSubCategoriesHandler = async (req, res) => { // OK.
   const { category } = req.query;
   try {
     const subcategories = await getSubCategories(category);
@@ -93,7 +98,7 @@ const getSubCategoriesHandler = async (req, res) => { // OK
   }
 };
 
-const getSubcategoryHandler = async (req, res) => {
+const getSubcategoryHandler = async (req, res) => { //OK.
   const {category} =req.query
   try {
     const subcategories = await getAllSubcategories(category)
@@ -103,7 +108,7 @@ const getSubcategoryHandler = async (req, res) => {
   }
 }
 
-const getDeliveryZoneHandler = async (req, res) => { // OK
+const getDeliveryZoneHandler = async (req, res) => { // OK.
   try {
     const deliveryZones = await getDeliveryZones();
     res.status(200).json(deliveryZones);
@@ -114,7 +119,7 @@ const getDeliveryZoneHandler = async (req, res) => { // OK
   }
 };
 
-const getConfirmEmailHandler = async (req, res) => { // OK
+const getConfirmEmailHandler = async (req, res) => { // OK.
   const token = req.params.token;
   try {
     const confirm = await confirmEmail(token);
@@ -125,7 +130,7 @@ const getConfirmEmailHandler = async (req, res) => { // OK
 };
 
 // POST
-const postTradeHandler = async (req, res) => {  // OK
+const postTradeHandler = async (req, res) => {  // OK.
   const { commerceName } = req.body;
   const body = req.body;
   try {
@@ -141,7 +146,7 @@ const postTradeHandler = async (req, res) => {  // OK
   }
 };
 
-const postCategoryHandler = async (req, res) => { // OK
+const postCategoryHandler = async (req, res) => { // OK.
   const { category } = req.body;
   const cat = { name: category };
   try {
@@ -154,7 +159,7 @@ const postCategoryHandler = async (req, res) => { // OK
   }
 };
 
-const postSubcategoryHandler = async (req, res) => { // OK
+const postSubcategoryHandler = async (req, res) => { // OK.
 	const { category } = req.query
 	const { subcategory } = req.body
 	const subCat = { category, name: subcategory }
@@ -168,7 +173,7 @@ const postSubcategoryHandler = async (req, res) => { // OK
   }
 };
 
-const postDeliveryZoneHandler = async (req, res) => {
+const postDeliveryZoneHandler = async (req, res) => { // OK.
   const {deliveryZone} = req.body
   const deliZone = {name: deliveryZone}
   try {
@@ -179,7 +184,7 @@ const postDeliveryZoneHandler = async (req, res) => {
   }
 }
 
-const postLoginTradeHandler = async (req, res) => { // OK
+const postLoginTradeHandler = async (req, res) => { // OK.
   const { username, password } = req.body;
   try {
     const verify = await verifyTradeLog(username, password);
@@ -189,7 +194,7 @@ const postLoginTradeHandler = async (req, res) => { // OK
   }
 };
 
-const postSendMailResetPassword = async (req, res) => { // ?
+const postSendMailResetPassword = async (req, res) => { // ok.
   const { email } = req.body;
   console.log(email);
   try {
@@ -203,7 +208,8 @@ const postSendMailResetPassword = async (req, res) => { // ?
       .json({ Error: "No se ha enviado el link para resetear la contraseña" });
   }
 };
-const postResetPassword = async (req, res) => { // ?
+
+const postResetPassword = async (req, res) => { // ok.
   const { password } = req.body;
   const { token } = req.params;
   console.log(token);
@@ -218,7 +224,7 @@ const postResetPassword = async (req, res) => { // ?
 };
 
 // PUT
-const putTradeHandler = async (req, res) => { // OK
+const putTradeHandler = async (req, res) => { // OK.
   const { tradeId } = req.params;
   const body = req.body;
   try {
@@ -229,7 +235,7 @@ const putTradeHandler = async (req, res) => { // OK
   }
 };
 
-const putTradesHandler = async (req, res) => { // OK
+const putTradesHandler = async (req, res) => { // OK.
 	try {
 		const update = await updateTrades(req.body)
     if (update) res.status(200).json(update)
@@ -239,7 +245,7 @@ const putTradesHandler = async (req, res) => { // OK
 }
 
 // DELETE
-const deleteTradeHandler = async (req, res) => { // OK
+const deleteTradeHandler = async (req, res) => { // OK.
 	const {id} = req.params
   try {
     const tradeDeleted = await deleteTrade(id);
@@ -249,7 +255,7 @@ const deleteTradeHandler = async (req, res) => { // OK
   }
 };
 
-const deleteCategoryHandler = async (req, res) => { // OK
+const deleteCategoryHandler = async (req, res) => { // OK.
   const {category} = req.body
   try {
     const deleted = await deleteCaegory(category)
@@ -258,7 +264,7 @@ const deleteCategoryHandler = async (req, res) => { // OK
     res.status(404).json({Error: error.message})
   }
 }
-const deleteSubcategoryHandler = async (req, res) => { // OK
+const deleteSubcategoryHandler = async (req, res) => { // OK.
   const {subcategory} = req.body
   try {
     const deleted = await deleteSubcategory(subcategory)
@@ -267,7 +273,7 @@ const deleteSubcategoryHandler = async (req, res) => { // OK
     res.status(404).json({Error: error.message})
   }
 }
-const deleteDeliveryZoneHandler = async (req, res) => { // OK
+const deleteDeliveryZoneHandler = async (req, res) => { // OK.
   const {deliveryZone} = req.body
   try {
     const deleted = await deleteDeliveryZone(deliveryZone)
@@ -280,24 +286,29 @@ const deleteDeliveryZoneHandler = async (req, res) => { // OK
 module.exports = {
   getTradesHandler,
   getTradeHandler,
+  getCategoryHandler,
   getCategoriesHandler,
   getCategoryHandler,
   getSubCategoriesHandler,
   getSubcategoryHandler,
+  getSubcategoryHandler,
   getDeliveryZoneHandler,
+  getTradeByNameHandler,
+  getConfirmEmailHandler,
   getTradeByNameHandler,
   getConfirmEmailHandler,
   postTradeHandler,
   postCategoryHandler,
-  postSubcategoryHandler,
   postDeliveryZoneHandler,
-  postResetPassword,
+  postSubcategoryHandler,
   postSendMailResetPassword,
+  postResetPassword,
   postLoginTradeHandler,
   putTradeHandler,
   putTradesHandler,
+  putTradesHandler,
   deleteTradeHandler,
   deleteCategoryHandler,
-  deleteSubcategoryHandler,
   deleteDeliveryZoneHandler,
+  deleteSubcategoryHandler,
 };

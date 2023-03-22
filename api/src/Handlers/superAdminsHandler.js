@@ -7,7 +7,7 @@ const {products} = require ("../Auxiliares/products")
 
 // RELLENADO DE BASE DE DATOS
 // Comercios
-const tradesInDbHandlers = async (req, res) => { // OK
+const tradesInDbHandlers = async (req, res) => { // OK.
 try {
     const posteo = await createTradesInDb(trades)
     res.status(200).json(posteo);
@@ -18,7 +18,7 @@ try {
 // Productos
 // La fn toma los productos y los crea en la base de datos.
 // es necesario asignarle en products el id del comercio al que pertenecen una vez creados los comercios
-const productsInDbHandlers = async (req, res) => { // OK
+const productsInDbHandlers = async (req, res) => { // OK.
     try {
         const posteo = await createProductsInDB(products)
     res.status(200).json(posteo);
