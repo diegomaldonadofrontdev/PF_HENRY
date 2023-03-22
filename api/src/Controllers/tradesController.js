@@ -326,8 +326,8 @@ module.exports = {
 	searchTradeByName,
 	createSubcategory,
 	updateTrades,
-	createDeliveryZone,
-	deleteCaegory,
-	deleteSubcategory,
-	deleteDeliveryZone
+	// createDeliveryZone,
+	// deleteCaegory,
+	// deleteSubcategory,
+	// deleteDeliveryZone
 };

@@ -2,29 +2,9 @@ import React, { useEffect, useState } from "react";
 import styles from "./SuperAdmin.module.css";
 import Header from "../../components/Header/Header";
 import { getTradesByName } from "../../redux/actions/getTradesByName";
-<<<<<<< HEAD
-import { getTrades } from "../../redux/actions/getTrades";
-import getClientForSP from "../../redux/actions/getClientForSP";
 import getAllClients from "../../redux/actions/getAllClients";
-
-import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
-
-export default function SuperAdmin() {
-	const dispatch = useDispatch();
-	const commerces = useSelector((state) => state.filterCommerce);
-	const clients = useSelector((state) => state.allClients);
-	const client = useSelector((state) => state.clientForSP)
-	console.log(client);
-
-	useEffect(() => {
-		dispatch(getTrades());
-	}, []);
-
-	useEffect(() => {
-		dispatch(getAllClients())
-	}, [dispatch])
-=======
+import getClientForSP from "../../redux/actions/getClientForSP";
+import deleteClient from "../../redux/actions/deleteClient";
 import {
 	getSubCategories,
 	getTradesCategories,
@@ -34,8 +14,6 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
 import swal from "sweetalert";
-
-
 
 export default function SuperAdmin() {
 
@@ -119,11 +97,15 @@ export default function SuperAdmin() {
 
 		return currentErrors;
 	};
+
 	const dispatch = useDispatch();
 	const stateCategories = useSelector((state) => state.tradesCategories);
 	const stateSubCategories = useSelector((state) => state.tradesSubCategories);
-	const allCommerces = useSelector((state) => state.allCommerces);
+	const commerces = useSelector((state) => state.allCommerces);
 	const stateZones = useSelector((state) => state.zones);
+	const clients = useSelector((state) => state.allClients);
+	const client = useSelector((state) => state.clientForSP);
+
 	const [currentErrors, setCurrentErrors] = useState({});
 
 	const [currentInput, setCurrentInput] = useState({
@@ -144,6 +126,10 @@ export default function SuperAdmin() {
 		epagos: "",
 		active: true,
 	});
+
+	useEffect(() => {
+		dispatch(getAllClients())
+	},[dispatch])
 
 	useEffect(() => {
 		dispatch(getTradesCategories());
@@ -321,7 +307,6 @@ export default function SuperAdmin() {
 		}
 	};
 
->>>>>>> fcc64a37e183e8d9d600eb691c2c287bc7c1db4a
 
 	function handlerFilterByName(e) {
 		console.log(e.target.value);
@@ -329,7 +314,8 @@ export default function SuperAdmin() {
 	}
 
 	function deleteHandler (e) {
-		axios.delete(`/superadmins/deleteClient/${client._id}`)
+		dispatch(deleteClient(e.target.value))
+		dispatch(getAllClients())
 	}
 
 	return (
@@ -660,7 +646,7 @@ export default function SuperAdmin() {
 											</div>
 											<td>
 												<button onClick={() => dispatch(getClientForSP(c._id))}>Seleccionar</button>
-												<button onClick={() => axios.delete(`/superadmins/deleteClient/${client._id}`)} >Eliminar</button>
+												<button onClick={deleteHandler} value={c._id} >Eliminar</button>
 											</td>
 										</div>
 									)}
