@@ -1,15 +1,16 @@
 const {  
   getProductById,
-  createProduct,
-  createProductCategory,
+  getCategoriesProducts,
   getAllProductsCategories,
   getAllProducts,
-  updateProduct,
-  deleteProduct,
   searchProductByName,
+  createProduct,
+  createProductCategory,
+  updateProduct,
   updateProducts,
   updateStock,
-  addStock
+  addStock,
+  deleteProduct,
 } = require("../Controllers/productController");
 
 // GETS
@@ -20,7 +21,7 @@ const getProductsHandler = async (req,res) => { // OK.
     const products = await getAllProducts(tradeId);
     res.status(200).json(products)
   } catch (error) {
-    res.status(404).json({Error: "Error al obtener los productos"})
+    res.status(404).json({Error: error.message})
   }
 }
 
@@ -33,7 +34,7 @@ const getProductHandler = async (req, res) => { // OK.
   } catch (error) {
     res
       .status(404)
-      .json({ error: `No se pudo mostrar el producto especificada` });
+      .json({ error: error.message });
   }
 };
 
@@ -54,11 +55,11 @@ const getProductCategoryHandler = async (req, res) => { // OK.
     const categories = await getAllProductsCategories(tradeId)
     res.status(200).json(categories)
   } catch (error) {
-    res.status(404).json({error: `No se pudieron obtener las categorias de los productos`})
+    res.status(404).json({Error: error.message})
   }
 }
 
-const getCategoryProducts = async (req, res) => { // OK
+const getproductsCategoriesHandler = async (req, res) => { // OK
 	try {
 		const categories = await getCategoriesProducts();
 		res.status(200).json(categories);
@@ -163,7 +164,7 @@ module.exports = {
   postProductHandler,
   postProductCategoryHandler,
   getProductsHandler,
-  getCategoryProducts,
+  getproductsCategoriesHandler,
   putProductHandler,  
   deleteProductHandler,
   getProductByNameHandler,
