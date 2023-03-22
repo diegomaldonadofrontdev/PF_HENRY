@@ -1,9 +1,9 @@
 .responsePayment {
-	min-height: 10vh !important;
+  min-height: 10vh !important;
 }
 
 .success_view {
-	display: flex;
+  display: flex;
   flex-direction: column;
   min-height: 70vh !important;
 
@@ -17,9 +17,9 @@
 }
 
 .success_view h2 {
-	font-size: 2em;
+  font-size: 2em;
 }
 
 .success_view img {
-	width: 250px;
+  width: 250px;
 }

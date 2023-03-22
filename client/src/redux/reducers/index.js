@@ -27,8 +27,11 @@ import {
 	POST_PRODUCT,
 	UPDATE_COMMERCE,
 	GET_TRADES_BY_NAME,
+	POST_SEND_EMAIL_PASSWORD,
+	GET_ALL_CLIENTS,
+	GET_CLIENT_FORSP,
+	GET_REVIEW_BYID,
 	GET_TRADES_SUPERADMINS_CATEGORIES
-	
 } from "../actions/types";
 
 const initialState = {
@@ -40,6 +43,7 @@ const initialState = {
 	tradesCategories: [],
 	tradesSubCategories: [],
 	feedback: [],
+	feedbackById: {},
 	zones: [],
 	filters: {
 		city: "default",
@@ -56,6 +60,8 @@ const initialState = {
 	currentPageTrades: 1,
 	currentPage: 1,
 	ordersCommerces: [],
+	allClients: [],
+	clientForSP: {},
 	superCategories: []
 };
 
@@ -394,9 +400,13 @@ export default function rootReducer(state = initialState, action) {
 			}
 		}
 		case GET_TRADES_BY_NAME: {
+			console.log(action.payload);
+			const resCommerces = state.allCommerces.filter((x) =>
+				x.commerceName.toUpperCase().includes(action.payload.toUpperCase())
+			);
 			return {
 				...state,
-				filterCommerce: [...state.filterCommerce, action.payload],
+				filterCommerce: resCommerces,
 			};
 		}
 		case GET_TRADES_SUPERADMINS_CATEGORIES: {
@@ -405,6 +415,23 @@ export default function rootReducer(state = initialState, action) {
 				superCategories: action.payload
 			};
 		}
+		case GET_ALL_CLIENTS: {
+			return {
+				...state,
+				allClients: [...action.payload]
+			}
+		}
+		case GET_CLIENT_FORSP: {
+			return {
+				...state,
+				clientForSP: {...action.payload}
+			}
+		}
+		case GET_REVIEW_BYID:
+			return {
+				...state,
+				feedbackById: {...action.payload}
+			}
 		default:
 			return state;
 	}

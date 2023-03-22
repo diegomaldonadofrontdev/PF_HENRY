@@ -6,6 +6,7 @@ const {
 	registerClientPerGoogle,
 	searchClientById,
 	updateClient,
+	searchAllClients,
 	searchClientExist,
 	validatePasswordClient,
 	searchClient,
@@ -16,7 +17,16 @@ const {
 } = require("../Controllers/clientsController");
 
 // GETS HANDLERS
-const getClientHandler = async (req, res) => {	// OK
+const getAllClients = async (req, res) => {
+	try {
+		const clients = await searchAllClients();
+		res.status(200).json(clients);
+	} catch (error) {
+		res.status(404).json({ Error: "Error al obtener a los clientes" });
+	}
+}
+
+const getClientHandler = async (req, res) => {	// OK.
 	const { id } = req.params;
 	try {
 		const client = await searchClientById(id);
@@ -26,7 +36,7 @@ const getClientHandler = async (req, res) => {	// OK
 	}
 };
 
-const getConfirmEmailHandler = async (req, res) => {	// OK
+const getConfirmEmailHandler = async (req, res) => {	// ok.
 	const token = req.params.token;
 	try {
 		const confirm = await confirmEmail(token);
@@ -37,7 +47,7 @@ const getConfirmEmailHandler = async (req, res) => {	// OK
 };
 
 // POSTS HANDLERS
-const postClientHandler = async (req, res) => {	// ok
+const postClientHandler = async (req, res) => {	// OK.
 	const client = req.body;
 	try {
 		const token = jwt.sign({ email: client.email }, TOKEN_KEY, {
@@ -52,7 +62,7 @@ const postClientHandler = async (req, res) => {	// ok
 	}
 };
 
-const postClientLogin = async (req, res) => {	// OK
+const postClientLogin = async (req, res) => {	// OK.
 	const { email, password } = req.body;
 
 	const findEmail = await searchClientExist(email);
@@ -143,12 +153,13 @@ const deleteClientHandler = async (req, res) => {
 
 module.exports = {
 	postClientHandler,
+	getAllClients,
 	getClientHandler,
-	putClientHandler,
+	getConfirmEmailHandler,
 	postClientLogin,
 	postRegisterClientWhitGoogle,
-	getConfirmEmailHandler,
 	postSendMailResetPassword,
 	postResetClientPassword,
+	putClientHandler,
 	deleteClientHandler
 };

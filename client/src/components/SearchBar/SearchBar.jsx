@@ -43,7 +43,7 @@ export default function SearchBar() {
 			>
 				<input
 					type="text"
-					placeholder="Buscar lo que querés comer..."
+					placeholder="Buscar lo que querés comprar..."
 					onChange={(e) => {
 						handleInputChange(e);
 					}}

@@ -90,8 +90,15 @@ export default function ContainerSearchComercio() {
             </Link>
           ))}
         </div>
-        <div style={{ width: "250px" }}>
-          {selectPage.map(page => (<button onClick={() => dispatch(setCurrentPageTrades(page + 1))} style={{ width: "20px" }}>{page + 1}</button>))}
+        <div style={{ width: "250px" }} className={styles.paginado}>
+          {selectPage.map((page) => (
+            <button
+              onClick={() => dispatch(setCurrentPageTrades(page + 1))}
+              style={{ width: "20px" }}
+            >
+              {page + 1}
+            </button>
+          ))}
         </div>
       </div>
     );

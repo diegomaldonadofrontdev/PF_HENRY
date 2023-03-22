@@ -10,7 +10,7 @@ const {
 
 
 // GETS
-const getOrdersHandler = async (req, res) => {	// OK
+const getOrdersHandler = async (req, res) => {	// OK.
 	const { clientId, tradeId } = req.query;
 	let orders;
 	try {
@@ -26,7 +26,7 @@ const getOrdersHandler = async (req, res) => {	// OK
 	}
 };
 
-const getOrderHandler = async (req, res) => {	// OK
+const getOrderHandler = async (req, res) => {	// OK.
 	const { orderId } = req.params;
 	try {
 		const order = await getOrderByOrderId(orderId);
@@ -36,7 +36,7 @@ const getOrderHandler = async (req, res) => {	// OK
 	}
 };
 
-const getActiveOrdersHandler = async (req, res) => { // OK
+const getActiveOrdersHandler = async (req, res) => { // OK.
 	const { tradeId } = req.params;
 	try {
 		const activeOrders = await searchActiveOrders(tradeId);
@@ -48,7 +48,7 @@ const getActiveOrdersHandler = async (req, res) => { // OK
 
 
 // POSTS
-const postNewOrderHandler = async (req, res) => {	// OK
+const postNewOrderHandler = async (req, res) => {	// OK.
 	const carrito = req.body;
 	const { tradeId, clientId } = req.query;
 	try {

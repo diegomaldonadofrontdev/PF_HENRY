@@ -1,19 +1,19 @@
 .hero__main {
 	min-height: 70vh;
-	background-image: url("../../images/pattern.jpg");
-	background-size: cover;
-	background-position: center;
-	display: flex;
-	align-items: center;
+  background-image: url("../../images/bg_search2.jpg");
+  background-size: cover;
+  background-position: 0 0;
+  display: flex;
+  align-items: center;
 }
 
 .container {
 	margin: auto;
-	display: flex;
-	width: 100%;
-	min-height: 100% !important;
-	max-width: 1200px;
-	color: white;
+  display: flex;
+  width: 100%;
+  min-height: 100% !important;
+  max-width: 60%;
+  color: white;
 }
 
 .searchContainer {
@@ -24,37 +24,45 @@
 
 .hero__button {
 	align-self: self-start;
+  padding-top: 25px;
 }
 
 .searchContainer h2 {
 	color: white;
+  font-size: 2.5em;
 }
 
 .searchContainer p {
 	color: white;
+  width: 90%;
+}
+
+.searchContainer p span {
+  font-weight: bold;
+  color: white;
 }
 
 .buscador {
 	padding-top: 35px;
-	display: flex;
-	gap: 1em;
-	flex-direction: column;
+  display: flex;
+  gap: 1em;
+  flex-direction: column;
 }
 
 .buscador .input {
 	display: flex;
-	align-items: center;
-	background-color: white;
-	padding: 10px 20px;
-	margin-top: 10px;
-	border-radius: 100px;
+  align-items: center;
+  background-color: white;
+  padding: 10px 20px;
+  margin-top: 10px;
+  border-radius: 100px;
 }
 
 .buscador input {
 	border: none;
-	width: 100%;
-	outline: none;
-	font-size: 1em;
+  width: 100%;
+  outline: none;
+  font-size: 1em;
 }
 
 input::placeholder {

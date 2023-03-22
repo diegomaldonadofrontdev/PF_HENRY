@@ -14,7 +14,7 @@ const {
 
 // GETS
 // 
-const getProductsHandler = async (req,res) => { // OK
+const getProductsHandler = async (req,res) => { // OK.
   const {tradeId} = req.query
   try {    
     const products = await getAllProducts(tradeId);
@@ -25,7 +25,7 @@ const getProductsHandler = async (req,res) => { // OK
 }
 
 // GET 
-const getProductHandler = async (req, res) => { // OK
+const getProductHandler = async (req, res) => { // OK.
   const { id } = req.params;
   try {
     const product = await getProductById(id);
@@ -48,7 +48,7 @@ const getProductByNameHandler = async (req, res) => { // OK
   }
 }
 
-const getProductCategoryHandler = async (req, res) => { // OK
+const getProductCategoryHandler = async (req, res) => { // OK.
   const {tradeId} = req.query
   try {
     const categories = await getAllProductsCategories(tradeId)
@@ -68,7 +68,7 @@ const getCategoryProducts = async (req, res) => { // OK
 };
 
 //POST
-const postProductHandler = async (req, res) => {	// OK
+const postProductHandler = async (req, res) => {	// OK.
 	const body = req.body;
 	const { tradeId } = req.params;
 	try {
@@ -95,7 +95,7 @@ const postProductCategoryHandler = async (req, res) => { // OK
 };
 
 // PUT
-const putProductHandler = async (req, res) => { // OK
+const putProductHandler = async (req, res) => { // OK.
   const {productId} = req.params
   const body = req.body
 	try {
@@ -116,7 +116,7 @@ const putProductsHandler = async (req, res) => { // OK
 	}
 };
 
-const putRestStockHandler = async (req, res) => { // OK
+const putRestStockHandler = async (req, res) => { // OK.
 const products = req.body
 try {
   for (let i = 0; i < products.length; i++) {
@@ -128,7 +128,7 @@ try {
 }
 }
 
-const putAddStockHandler = async (req, res) => { // OK
+const putAddStockHandler = async (req, res) => { // OK.
   const {newStock} = req.body
   const {productId} = req.params
   try {   
@@ -141,7 +141,7 @@ const putAddStockHandler = async (req, res) => { // OK
 
 
 // DELETE
-const deleteProductHandler = async (req, res) => {	// OK
+const deleteProductHandler = async (req, res) => {	// OK.
   const {productId} = req.params
 	try {
 		const productDeleted = await deleteProduct(productId);
