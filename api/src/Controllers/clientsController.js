@@ -19,6 +19,15 @@ const searchClientExist = async (email) => { // FUNCIONANDO
   }
 }
 
+const searchAllClients = async () => {
+  try {
+    const client = Clients.find({}, {password: 0});
+    return client;
+  } catch (error) {
+    return error.message
+  }
+}
+
 const searchClientById = async (id) => { // FUNCIONANDO
   try {
     const client = Clients.findById(id, { password: 0 })
@@ -197,6 +206,7 @@ module.exports = {
   searchClientById,
   registerClient,
   registerClientPerGoogle,
+  searchAllClients,
   searchClientExist,
   validatePasswordClient,
   searchClient,
