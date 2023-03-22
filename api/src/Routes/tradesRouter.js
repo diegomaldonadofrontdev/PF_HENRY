@@ -2,10 +2,10 @@ const { Router } = require("express");
 const {
   getTradeHandler,
   getCategoriesHandler,  
-  confirmEmailHandler,
-  resetPassword,
-  sendMailResetPassword,
-  loginTradeHandler,
+  getConfirmEmailHandler,
+  postResetPassword,
+  postSendMailResetPassword,
+  postLoginTradeHandler,
   putTradeHandler,  
 } = require("../Handlers/tradesHandler");
 const {
@@ -37,27 +37,36 @@ const {
 const tradesRouter = Router();
 
 // GET
-tradesRouter.get("/trades/search/:id", getTradeHandler); // FUNCIONANDO
-tradesRouter.get("/products/search", getProductsHandler); // FUNCIONANDO
-tradesRouter.get("/products/search/:id", getProductHandler); // FUNCIONANDO
-tradesRouter.get("/trades/categories", getCategoriesHandler); // FUNCIONANDO
-tradesRouter.get("/feedbacks/search/:tradeId", getFeedbackHandler); // FUNCIONANDO
-tradesRouter.get("/clients/search/:id", getClientHandler);  // FUNCIONANDO
-tradesRouter.get("/orders/search", getOrdersHandler); // FUNCIONANDO
-tradesRouter.get("/orders/actives/:tradeId", getActiveOrdersHandler); // FUNCIONANDO
-tradesRouter.get('/confirm-email/:token',confirmEmailHandler) // FUNCIONANDO
+// Buscar comercio por id
+tradesRouter.get("/trades/search/:id", getTradeHandler); // OK
+// Trae un objetos con categorias (se mapea en el front)
+tradesRouter.get("/trades/categories", getCategoriesHandler); // OK
+// Trae todos los productos de un comercio (id por query)
+tradesRouter.get("/products/search", getProductsHandler); // OK
+// Detalle de un producto
+tradesRouter.get("/products/search/:id", getProductHandler); // OK
+// Devuuelve todas las reviews de todos los clientes para un comercio
+tradesRouter.get("/feedbacks/search/:tradeId", getFeedbackHandler); // OK
+// Busca un cliente por id
+tradesRouter.get("/clients/search/:id", getClientHandler);  // OK
+// Busca todos los pedidos (historial) de un comercio
+tradesRouter.get("/orders/search", getOrdersHandler); // OK
+// Devuelve todos los pedidos que no se encuentren en status:entregado (pedidos pendientes)
+tradesRouter.get("/orders/actives/:tradeId", getActiveOrdersHandler); // OK
+
+tradesRouter.get('/confirm-email/:token', getConfirmEmailHandler) // OK
 
 // POST 
 tradesRouter.post("/newProduct/:tradeId", validateProduct, postProductHandler); // OK
-tradesRouter.post("/login", validateLoginTrade, loginTradeHandler); // OK
-tradesRouter.post ('/resetPassword',validateResetPassword,sendMailResetPassword);
-tradesRouter.post ('/newPassword/:token',validatePassword,resetPassword);
+tradesRouter.post("/login", validateLoginTrade, postLoginTradeHandler); // OK
+tradesRouter.post ('/resetPassword',validateResetPassword,postSendMailResetPassword);
+tradesRouter.post ('/newPassword/:token',validatePassword,postResetPassword);
 
 
-// //DELETE
+//DELETE
 tradesRouter.delete("/products/:productId", deleteProductHandler);
 
-// // PUT
+// PUT
 tradesRouter.put("/products/update/:productId", putProductHandler); // OK
 tradesRouter.put("/trade/update/:tradeId", putTradeHandler); // OK
 tradesRouter.put('/products/reststock', putRestStockHandler)

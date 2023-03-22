@@ -1,93 +1,85 @@
 .hero__main {
-  min-height: 70vh;
-  background-image: url("../../images/bg_search2.jpg");
-  background-size: cover;
-  background-position: 0 0;
-  display: flex;
-  align-items: center;
+	min-height: 70vh;
+	background-image: url("../../images/pattern.jpg");
+	background-size: cover;
+	background-position: center;
+	display: flex;
+	align-items: center;
 }
 
 .container {
-  margin: auto;
-  display: flex;
-  width: 100%;
-  min-height: 100% !important;
-  max-width: 60%;
-  color: white;
+	margin: auto;
+	display: flex;
+	width: 100%;
+	min-height: 100% !important;
+	max-width: 1200px;
+	color: white;
 }
 
 .searchContainer {
-  width: 50%;
-  display: flex;
-  flex-direction: column;
+	width: 1000px;
+	display: flex;
+	flex-direction: column;
 }
 
 .hero__button {
-  align-self: self-start;
-  padding-top: 25px;
+	align-self: self-start;
 }
 
 .searchContainer h2 {
-  color: white;
-  font-size: 2.5em;
+	color: white;
 }
 
 .searchContainer p {
-  color: white;
-  width: 90%;
-}
-
-.searchContainer p span {
-  font-weight: bold;
-  color: white;
+	color: white;
 }
 
 .buscador {
-  padding-top: 35px;
-  display: flex;
-  gap: 1em;
-  flex-direction: column;
+	padding-top: 35px;
+	display: flex;
+	gap: 1em;
+	flex-direction: column;
 }
 
 .buscador .input {
-  display: flex;
-  align-items: center;
-  background-color: white;
-  padding: 10px 20px;
-  margin-top: 10px;
-  border-radius: 100px;
+	display: flex;
+	align-items: center;
+	background-color: white;
+	padding: 10px 20px;
+	margin-top: 10px;
+	border-radius: 100px;
 }
 
 .buscador input {
-  border: none;
-  width: 100%;
-  outline: none;
-  font-size: 1em;
+	border: none;
+	width: 100%;
+	outline: none;
+	font-size: 1em;
 }
 
 input::placeholder {
-  color: rgb(34, 34, 34);
+	color: rgb(34, 34, 34);
 }
 
 .buscador .input i {
-  color: rgb(34, 34, 34);
+	color: rgb(34, 34, 34);
 }
 
 @media (max-width: 900px) {
-  .hero__main {
-    min-height: 40vh;
-    background-position: center;
-    background-size: cover;
-    padding-top: 50px;
-    padding-bottom: 50px;
-  }
+	.hero__main {
+		min-height: 40vh;
+		background-position: center;
+		background-size: cover;
+		padding-top: 50px;
+		padding-bottom: 50px;
+	}
 
-  .container {
-    margin: auto;
-    display: flex;
-    width: 100%;
-    min-height: 100% !important;
-    max-width: 80%;
-    color: white;
-  }
+	.container {
+		margin: auto;
+		display: flex;
+		width: 100%;
+		min-height: 100% !important;
+		max-width: 80%;
+		color: white;
+	}
 }
