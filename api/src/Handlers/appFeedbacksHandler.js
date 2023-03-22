@@ -47,10 +47,9 @@ const deleteAppFeedbacksHandler = async (req, res) => { // OK
   const {feedbackId} = req.params
 	try {
 		const fbDeleted = await deleteFeedback(feedbackId);
-		if (fbDeleted) res.status(200).json(`La review se eliminó correctamente`);
-    res.status(200).json(`No se encontró el feedback`)
+		res.status(200).json(fbDeleted)
 	} catch (error) {
-		res.status(404).json({
+		res.status(400).json({
 			Error: `Se produjo un problema al intentar eliminar la review`
 		});
 	}

@@ -4,14 +4,15 @@ import Header from "../../components/Header/Header";
 import { getTradesByName } from "../../redux/actions/getTradesByName";
 import getAllClients from "../../redux/actions/getAllClients";
 import getClientForSP from "../../redux/actions/getClientForSP";
+import getReviewsSP from "../../redux/actions/getReviewsSP";
 import getReviewById from "../../redux/actions/getReviewById";
 import deleteClient from "../../redux/actions/deleteClient";
+import deleteReview from "../../redux/actions/deleteReview";
 import {
 	getSubCategories,
 	getTradesCategories,
 	getDeliveryZones,
-	commerceRegister,
-	getReviews,
+	commerceRegister
 } from "../../redux/actions/index";
 import { useDispatch, useSelector } from "react-redux";
 import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
@@ -134,8 +135,8 @@ export default function SuperAdmin() {
 
 	useEffect(() => {
 		dispatch(getAllClients())
-		dispatch(getReviews())
-	}, [dispatch])
+		dispatch(getReviewsSP())
+	}, [dispatch, clients, reviews])
 
 	useEffect(() => {
 		dispatch(getTradesCategories());
@@ -322,6 +323,11 @@ export default function SuperAdmin() {
 	function deleteClientHandler(e) {
 		dispatch(deleteClient(e.target.value))
 		dispatch(getAllClients())
+	}
+
+	function deleteReviewHandler (e) {
+		dispatch(deleteReview(e.target.value));
+		dispatch(getReviewsSP());
 	}
 
 	return (
@@ -626,7 +632,7 @@ export default function SuperAdmin() {
 											</div>
 											<td>
 												<button onClick={() => dispatch(getReviewById(r._id))}>Seleccionar</button>
-												{/* <button onClick={deleteReviewHandler} value={r._id} >Eliminar</button> */}
+												<button onClick={deleteReviewHandler} value={r._id} >Eliminar</button>
 											</td>
 										</div>
 
