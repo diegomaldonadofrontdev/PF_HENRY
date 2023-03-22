@@ -26,8 +26,7 @@ const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
 const jwt = require("jsonwebtoken");
 
 // GET
-const getTradesHandler = async (req, res) => {
-  // OK.
+const getTradesHandler = async (req, res) => {  // OK.
   const def = "default";
   const { deliveryZone, category, subcategory, epagos } = req.query;
   try {
@@ -134,12 +133,10 @@ const getConfirmEmailHandler = async (req, res) => {
 // POST
 const postTradeHandler = async (req, res) => {
   // OK.
-  const { commerceName } = req.body;
   const body = req.body;
   try {
     const newTrade = await createTrades(body);
-    if (newTrade) res.status(200).json(`Se creo correctamente el comercio ${commerceName}`);
-    res.status(200).json(`No se pudo crear el comercio.`)
+    res.status(200).json(newTrade);
   } catch (error) {
     res.status(404).json({Error: error.message});
   }
@@ -151,8 +148,7 @@ const postCategoryHandler = async (req, res) => {
   const cat = { name: category };
   try {
     const newCat = await createCategory(cat);
-    if (newCat) res.status(200).json(`Se creo correctamente la categoria ${category}`);
-    res.status(200).json(`No se creó la categoría.`);
+    res.status(200).json(newCat);
   } catch (error) {
     res
       .status(404)
@@ -166,8 +162,7 @@ const postSubcategoryHandler = async (req, res) => {
   const subCat = { category, name: subcategory };
   try {
     const createSubcat = await createSubcategory(subCat);
-    if (createSubcat) res.status(200).json(`Se creó correctamente la subcategoria ${subcategory}`);
-    res.status(200).json(`No se creo la subcategoría`)
+    res.status(200).json(createSubcat);
   } catch (error) {
     res.status(404).json({ Error: error.message });
   }
@@ -179,8 +174,7 @@ const postDeliveryZoneHandler = async (req, res) => {
   const deliZone = { name: deliveryZone };
   try {
     const create = await createDeliveryZone(deliZone)
-    if (create) res.status(200).json(`Se creo correctamente la zona ${deliveryZone}`)
-    res.status(200).json(`No se pudo crear la zona.`)
+    res.status(200).json(create)
   } catch (error) {
     res.status(404).json({Error: error.message})
   }
@@ -191,8 +185,7 @@ const postLoginTradeHandler = async (req, res) => {
   const { username, password } = req.body;
   try {
     const verify = await verifyTradeLog(username, password);
-    if (verify) res.status(200).json(verify);
-    res.status(200).json(verify)
+    res.status(200).json(verify);
   } catch (error) {
     res.status(404).json({ Error: error.message });
   }
@@ -229,7 +222,7 @@ const putTradeHandler = async (req, res) => {
   const body = req.body;
   try {
     const trade = await updateTrade(tradeId, body);
-    if (trade) res.status(200).json(trade);
+    res.status(200).json(trade);
   } catch (error) {
     res.status(404).json({Error: error.message});
   }

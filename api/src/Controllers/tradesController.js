@@ -200,13 +200,16 @@ const createTrades = async (body) => { // OK
 			{ expiresIn: "2h" }
 		)
 		const newTrade = new Trade(body);
-
 		const salt = bcrypt.genSaltSync(10);
 		newTrade.password = bcrypt.hashSync(password, salt);
 		await newTrade.save();
 		await sendMail(newTrade.email,token)
+<<<<<<< HEAD
 
 		return true;
+=======
+		return `El comercio se creó correctamente`;
+>>>>>>> a8d35c6575f729af898cbb795391bd7de811a31a
 	} catch (error) {
 		throw new Error(`Error al registrar el comercio ${body.commerceName}`);
 	}
@@ -269,7 +272,7 @@ const createCategory = async (category) => { // OK
   try {
     const newCategory = new Categories(category);    
     await newCategory.save()
-	return true;
+	return `La categoría se creó correctamente`;
   } catch (error) {
     throw new Error(`Error al registar la categoria ${category}`)
   }
@@ -279,7 +282,7 @@ const createSubcategory = async (subCat) => { // OK
 	try {
 		const newSubCat = new Subcategories(subCat)
 		await newSubCat.save()
-		return true
+		return `La subcategoría se creó correctamente`
 	} catch (error) {
 		throw new Error(`Error al crear la subcategoria ${subCat}`)
 	}
@@ -288,8 +291,8 @@ const createSubcategory = async (subCat) => { // OK
 const createDeliveryZone = async (deliZone) => { // OK 
 	try {
 		const newDZ = new DeliveryZone(deliZone)
-		newDZ.save()
-		return true
+		await newDZ.save()
+		return `La zona de reparto se creó correctamente.`
 	} catch (error) {
 		throw new Error(`Error al crear la delivery zone`)
 	}
@@ -298,8 +301,8 @@ const createDeliveryZone = async (deliZone) => { // OK
 const verifyTradeLog = async (username, password) => { // ?
 	try {
 		const existUser = await Trade.find({userName: username})
-		const trade = existUser[0]
 		if (existUser.length) {
+			const trade = existUser[0]
 			const pass = bcrypt.compareSync(password, trade.password);
     		if (pass) return trade._id
     		return `Contraseña incorrecta.`
@@ -344,7 +347,7 @@ const deleteSubcategory = async (subcategory) => {
 const deleteDeliveryZone = async (deliveryZone) => {
 	try {
 		const deleted = await DeliveryZone.findOneAndDelete({name: deliveryZone})
-		if (deleted) return `Se eliminó la zona ${deliveryZone}`
+		if (deleted.deletedCount !== 0) return `Se eliminó la zona ${deliveryZone}`
 		return `No fue posible eliminar la zona ${deliveryZone}`
 	} catch (error) {
 		throw new Error(`Ocurrió un error al eliminar la zona ${deliveryZone}`)

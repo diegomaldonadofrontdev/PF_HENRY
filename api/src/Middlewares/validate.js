@@ -225,7 +225,7 @@ const validateLoginTrade = (req, res, next) => {
 }
 
 const validateClientLogin = (req, res, next) => {
-
+	next();
 }
 
 module.exports = {

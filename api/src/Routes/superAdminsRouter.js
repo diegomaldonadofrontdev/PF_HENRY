@@ -9,7 +9,8 @@ const {
     putProductHandler,
     deleteProductHandler,
     getProductByNameHandler,
-    putProductsHandler
+    putProductsHandler,
+    getproductsCategoriesHandler
  } = require("../Handlers/productsHandler");
 const {
   postCategoryHandler,
@@ -107,6 +108,8 @@ superAdminsRouter.delete("/deleteproduct/:productId", deleteProductHandler); // 
 superAdminsRouter.get("/products/search", getProductByNameHandler); // OK
 // Crear nueva categoría
 superAdminsRouter.post("/newCategoryProducts", validateCategoryProduct, postProductCategoryHandler); // OK
+// Obtener la lista de categorias de productos
+superAdminsRouter.get("/products/categories", getproductsCategoriesHandler); // OK
 
 // PEDIDOS
 // Buscar pedidos por orden
