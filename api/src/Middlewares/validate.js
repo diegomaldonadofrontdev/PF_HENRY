@@ -166,9 +166,9 @@ const validateCategory = (req, res, next) => {
 };
 
 const validateDeliveryZone = (req, res, next) => {
-	const { deliveryZoneName } = req.body;
+	const { deliveryZone } = req.body;
 
-	if (!deliveryZoneName)
+	if (!deliveryZone)
 		return res
 			.status(400)
 			.json({ Error: "No se ha recibido el nombre de la zona" });
