@@ -6,6 +6,10 @@
 	text-align: center;
 }
 
+.opinion__form {
+	padding-top: 100px;
+}
+
 .opinion__form > form {
 	background-color: white;
 	padding: 25px;

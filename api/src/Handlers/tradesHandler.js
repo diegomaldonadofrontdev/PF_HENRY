@@ -26,7 +26,8 @@ const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
 const jwt = require("jsonwebtoken");
 
 // GET
-const getTradesHandler = async (req, res) => {  // OK.
+const getTradesHandler = async (req, res) => {
+  // OK.
   const def = "default";
   const { deliveryZone, category, subcategory, epagos } = req.query;
   try {
@@ -45,7 +46,8 @@ const getTradesHandler = async (req, res) => {  // OK.
   }
 };
 
-const getTradeHandler = async (req, res) => {  // OK.
+const getTradeHandler = async (req, res) => {
+  // OK.
   const { id } = req.params;
   try {
     const result = await searchTradeById(id);
@@ -55,17 +57,19 @@ const getTradeHandler = async (req, res) => {  // OK.
   }
 };
 
-const getTradeByNameHandler = async (req, res) => { // OK.
-    const {name} = req.query
-    try {
-        const find = await searchTradeByName(name)
-		res.status(200).json(find)		
-    } catch (error) {
-        res.status(404).json({Error: error.message})
-    }
-}
+const getTradeByNameHandler = async (req, res) => {
+  // OK.
+  const { name } = req.query;
+  try {
+    const find = await searchTradeByName(name);
+    res.status(200).json(find);
+  } catch (error) {
+    res.status(404).json({ Error: error.message });
+  }
+};
 
-const getCategoriesHandler = async (req, res) => { // OK.
+const getCategoriesHandler = async (req, res) => {
+  // OK.
   try {
     const categories = await getAllCategories();
     res.status(200).json(categories);
@@ -74,7 +78,8 @@ const getCategoriesHandler = async (req, res) => { // OK.
   }
 };
 
-const getCategoryHandler = async (req, res) => { //OK.
+const getCategoryHandler = async (req, res) => {
+  //OK.
   try {
     const categories = await getCategories()
     res.status(200).json(categories)
@@ -83,7 +88,8 @@ const getCategoryHandler = async (req, res) => { //OK.
   }
 }
 
-const getSubCategoriesHandler = async (req, res) => { // OK.
+const getSubCategoriesHandler = async (req, res) => {
+  // OK.
   const { category } = req.query;
   try {
     const subcategories = await getSubCategories(category);
@@ -93,8 +99,9 @@ const getSubCategoriesHandler = async (req, res) => { // OK.
   }
 };
 
-const getSubcategoryHandler = async (req, res) => { //OK.
-  const {category} =req.query
+const getSubcategoryHandler = async (req, res) => {
+  //OK.
+  const { category } = req.query;
   try {
     const subcategories = await getAllSubcategories(category)
     res.status(200).json(subcategories)
@@ -103,7 +110,8 @@ const getSubcategoryHandler = async (req, res) => { //OK.
   }
 }
 
-const getDeliveryZoneHandler = async (req, res) => { // OK.
+const getDeliveryZoneHandler = async (req, res) => {
+  // OK.
   try {
     const deliveryZones = await getDeliveryZones();
     res.status(200).json(deliveryZones);
@@ -112,7 +120,8 @@ const getDeliveryZoneHandler = async (req, res) => { // OK.
   }
 };
 
-const getConfirmEmailHandler = async (req, res) => { // OK.
+const getConfirmEmailHandler = async (req, res) => {
+  // OK.
   const token = req.params.token;
   try {
     const confirm = await confirmEmail(token);
@@ -123,7 +132,8 @@ const getConfirmEmailHandler = async (req, res) => { // OK.
 };
 
 // POST
-const postTradeHandler = async (req, res) => {  // OK.
+const postTradeHandler = async (req, res) => {
+  // OK.
   const { commerceName } = req.body;
   const body = req.body;
   try {
@@ -135,7 +145,8 @@ const postTradeHandler = async (req, res) => {  // OK.
   }
 };
 
-const postCategoryHandler = async (req, res) => { // OK.
+const postCategoryHandler = async (req, res) => {
+  // OK.
   const { category } = req.body;
   const cat = { name: category };
   try {
@@ -149,10 +160,11 @@ const postCategoryHandler = async (req, res) => { // OK.
   }
 };
 
-const postSubcategoryHandler = async (req, res) => { // OK.
-	const { category } = req.query
-	const { subcategory } = req.body
-	const subCat = { category, name: subcategory }
+const postSubcategoryHandler = async (req, res) => {
+  // OK.
+  const { category } = req.query;
+  const { subcategory } = req.body;
+  const subCat = { category, name: subcategory };
   try {
     const createSubcat = await createSubcategory(subCat);
     if (createSubcat) res.status(200).json(`Se creó correctamente la subcategoria ${subcategory}`);
@@ -162,9 +174,10 @@ const postSubcategoryHandler = async (req, res) => { // OK.
   }
 };
 
-const postDeliveryZoneHandler = async (req, res) => { // OK.
-  const {deliveryZone} = req.body
-  const deliZone = {name: deliveryZone}
+const postDeliveryZoneHandler = async (req, res) => {
+  // OK.
+  const { deliveryZone } = req.body;
+  const deliZone = { name: deliveryZone };
   try {
     const create = await createDeliveryZone(deliZone)
     if (create) res.status(200).json(`Se creo correctamente la zona ${deliveryZone}`)
@@ -172,9 +185,10 @@ const postDeliveryZoneHandler = async (req, res) => { // OK.
   } catch (error) {
     res.status(404).json({Error: error.message})
   }
-}
+};
 
-const postLoginTradeHandler = async (req, res) => { // OK.
+const postLoginTradeHandler = async (req, res) => {
+  // OK.
   const { username, password } = req.body;
   try {
     const verify = await verifyTradeLog(username, password);
@@ -185,7 +199,8 @@ const postLoginTradeHandler = async (req, res) => { // OK.
   }
 };
 
-const postSendMailResetPassword = async (req, res) => { // ok.
+const postSendMailResetPassword = async (req, res) => {
+  // ok.
   const { email } = req.body;
   try {
     const token = jwt.sign({ email: email }, TOKEN_KEY, { expiresIn: "2h" });
@@ -196,7 +211,8 @@ const postSendMailResetPassword = async (req, res) => { // ok.
   }
 };
 
-const postResetPassword = async (req, res) => { // ok.
+const postResetPassword = async (req, res) => {
+  // ok.
   const { password } = req.body;
   const { token } = req.params;
   try {
@@ -208,7 +224,8 @@ const postResetPassword = async (req, res) => { // ok.
 };
 
 // PUT
-const putTradeHandler = async (req, res) => { // OK.
+const putTradeHandler = async (req, res) => {
+  // OK.
   const { tradeId } = req.params;
   const body = req.body;
   try {
@@ -232,8 +249,8 @@ const putTradesHandler = async (req, res) => { // OK.
 const deleteTradeHandler = async (req, res) => { // OK.
 	const {id} = req.params
   try {
-    const tradeDeleted = await deleteTrade(id);
-    res.status(200).json(tradeDeleted)
+    const deleted = await deleteTrade(id);
+    res.status(200).json(deleted);
   } catch (error) {
     res.status(404).json({ Error: error.message });
   }
@@ -242,32 +259,33 @@ const deleteTradeHandler = async (req, res) => { // OK.
 const deleteCategoryHandler = async (req, res) => { // OK.
   const {category} = req.body
   try {
-    const deleted = await deleteCaegory(category)
-    res.status(200).json(deleted)
+    const deleted = await deleteCaegory(category);
+    res.status(200).json(deleted);
   } catch (error) {
-    res.status(404).json({Error: error.message})
+    res.status(404).json({ Error: error.message });
   }
 }
 
 const deleteSubcategoryHandler = async (req, res) => { // OK.
   const {subcategory} = req.body
   try {
-    const deleted = await deleteSubcategory(subcategory)
-    res.status(200).json(deleted)
+    const deleted = await deleteSubcategory(subcategory);
+    res.status(200).json(deleted);
   } catch (error) {
-    res.status(404).json({Error: error.message})
+    res.status(404).json({ Error: error.message });
   }
 }
 
 const deleteDeliveryZoneHandler = async (req, res) => { // OK.
   const {deliveryZone} = req.body
   try {
-    const deleted = await deleteDeliveryZone(deliveryZone)
-    res.status(200).json(deleted)
+    const deleted = await deleteDeliveryZone(deliveryZone);
+    res.status(200).json(deleted);
   } catch (error) {
-    res.status(404).json({Error: error.message})
+    res.status(404).json({ Error: error.message });
   }
-}
+};
+
 
 module.exports = {
   getTradesHandler,
