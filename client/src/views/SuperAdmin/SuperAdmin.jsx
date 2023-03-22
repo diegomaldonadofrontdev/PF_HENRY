@@ -7,7 +7,6 @@ import {
 	getTradesCategories,
 	getDeliveryZones,
 	commerceRegister,
-	updateCommerceInfo
 } from "../../redux/actions/index";
 import { useDispatch, useSelector } from "react-redux";
 import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
@@ -103,7 +102,7 @@ export default function SuperAdmin() {
 	const allCommerces = useSelector((state) => state.allCommerces);
 	const stateZones = useSelector((state) => state.zones);
 	const [currentErrors, setCurrentErrors] = useState({});
-//registro de comercio
+
 	const [currentInput, setCurrentInput] = useState({
 		commerceName: "",
 		category: "",
@@ -122,18 +121,6 @@ export default function SuperAdmin() {
 		epagos: "",
 		active: true,
 	});
-//Editar comercio
-	const [body, setBody] = useState({
-		commerceName: "",
-		description: "",
-		address: "",
-		phone: "",
-		image: ""
-	})
-
-
-
-
 
 	useEffect(() => {
 		dispatch(getTradesCategories());
@@ -311,29 +298,6 @@ export default function SuperAdmin() {
 		}
 	};
 
-	//EDITAR COMERCIO 
-
-	const handleCommerceImgUpdate = async (e) => {
-		const files = e.target.files;
-		const datas = new FormData();
-		datas.append("file", files[0]);
-		datas.append("upload_preset", "PEDI-VERY");
-		const res = await fetch("https://api.cloudinary.com/v1_1/sebov96/upload", {
-			method: "POST",
-			body: datas,
-		});
-		const file = await res.json();
-		setBody({
-			...body,
-			image: file.secure_url,
-		});
-	};
-
-	
-	function handlerChange(e) {
-		const { name, value } = e.target;
-		setBody({ ...body, [name]: value });
-	}
 
 	function handlerFilterByName(e) {
 		dispatch(getTradesByName(e.target.value));
@@ -510,29 +474,29 @@ export default function SuperAdmin() {
 								<input
 						 type="text"
 						 name="commerceName"
-						//  placeholder={handlerChange}
-						   onChange={handlerChange}
+						//  placeholder={}
+						//   onChange={}
 						  />
 							<label htmlFor="">Descripcón</label>
 								<input
 						 type="text"
 						 name="description"
 						 placeholder="Editá la descripción"
-						 onChange={handlerChange}
+						//   onChange={}
 						  />
 							<label htmlFor="">Dirección</label>
 								<input
 						 type="text"
 						 name="address"
 						//  placeholder={}
-						onChange={handlerChange}
+						//   onChange={}
 						  />
 							<label htmlFor="">Numero de Teléfono</label>
 								<input
 						 type="text"
 						 name="phone"
 						//  placeholder={}
-						onChange={handlerChange}
+						//   onChange={}
 						  />
 							<label htmlFor="">Imagen</label>
 								<input
