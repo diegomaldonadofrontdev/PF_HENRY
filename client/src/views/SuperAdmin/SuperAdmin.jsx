@@ -2,6 +2,12 @@ import React, { useEffect, useState } from "react";
 import styles from "./SuperAdmin.module.css";
 import Header from "../../components/Header/Header";
 import { getTradesByName } from "../../redux/actions/getTradesByName";
+import getAllClients from "../../redux/actions/getAllClients";
+import getClientForSP from "../../redux/actions/getClientForSP";
+import getReviewsSP from "../../redux/actions/getReviewsSP";
+import getReviewById from "../../redux/actions/getReviewsById";
+import deleteClient from "../../redux/actions/deleteClient";
+import deleteReview from "../../redux/actions/deleteReview";
 import {
 	getSubCategories,
 	getTradesCategories,
@@ -104,6 +110,12 @@ export default function SuperAdmin() {
 	const stateSubCategories = useSelector((state) => state.tradesSubCategories);
 	const allCommerces = useSelector((state) => state.allCommerces);
 	const stateZones = useSelector((state) => state.zones);
+	const clients = useSelector((state) => state.allClients);
+	const client = useSelector((state) => state.clientForSP);
+	const reviews = useSelector((state) => state.feedback);
+	const review = useSelector((state) => state.feedbackById);
+	console.log(client);
+
 	const [currentErrors, setCurrentErrors] = useState({});
 
 	const [currentInput, setCurrentInput] = useState({
@@ -159,6 +171,11 @@ export default function SuperAdmin() {
 		}
 		
 	}
+
+	useEffect(() => {
+		dispatch(getAllClients())
+		dispatch(getReviewsSP())
+	}, [dispatch])
 
 	useEffect(() => {
 		dispatch(getTradesCategories());
@@ -335,8 +352,19 @@ export default function SuperAdmin() {
 			});
 		}
 	};
+
 	function handlerFilterByName(e) {
 		dispatch(getTradesByName(e.target.value));
+	}
+
+	function deleteClientHandler(e) {
+		dispatch(deleteClient(e.target.value))
+		dispatch(getAllClients())
+	}
+
+	function deleteReviewHandler (e) {
+		dispatch(deleteReview(e.target.value));
+		dispatch(getReviewsSP());
 	}
 
 	const [currentDeliveryZone, setCurrentDeliveryZone] = useState({
@@ -700,14 +728,85 @@ export default function SuperAdmin() {
 				</div>
 				<div className={styles.content}>
 					<h3>Reviews</h3>
-					<div>
-						<div></div>
+					<div className={styles.grid}>
+						<div>
+							<h4>Ver reviews</h4>
+							<table>
+								<tr>
+									<th>Usuario</th>
+									<th>Rating</th>
+									<th>Accion</th>
+								</tr>
+								<tr>
+									{reviews?.map(r => (
+										<div style={{ display: "flex", flexDirection: "row" }}>
+											<div>
+												<td>{r?.name}</td>
+												<td>:    {r?.rating}</td>
+											</div>
+											<td>
+												<button onClick={() => dispatch(getReviewById(r._id))}>Seleccionar</button>
+												<button onClick={deleteReviewHandler} value={r._id} >Eliminar</button>
+											</td>
+										</div>
+									))}
+								</tr>
+							</table>
+						</div>
+
+						<div className={styles.containerReview}>
+							<h3>Resultados Reviews</h3>
+							<p>{review?.opinion}</p>
+						</div>
 					</div>
 				</div>
 				<div className={styles.content}>
 					<h3>Clientes</h3>
-					<div>
-						<div></div>
+					<div className={styles.grid}>
+						<div>
+							<h4>Clientes Registrados</h4>
+							<table>
+								<tr>
+									<th>Usuario</th>
+									<th>Review</th>
+									<th>Accion</th>
+								</tr>
+								<tr>
+									{clients?.map(c =>
+										<div style={{ display: "flex", flexDirection: "row" }}>
+											<div>
+												<td>{c.firstname}</td>
+												<td>{c.lastname}</td>
+											</div>
+											<td>
+												<button onClick={() => dispatch(getClientForSP(c._id))}>Seleccionar</button>
+												<button onClick={deleteClientHandler} value={c._id} >Eliminar</button>
+											</td>
+										</div>
+									)}
+								</tr>
+							</table>
+						</div>
+						<div>
+							<h3>Datos del usuario</h3>
+							<p>Nombre: {client?.firstname || "Undefined"}</p>
+							<p>Apellido: {client?.lastname || "Undefined"}</p>
+							<p>Email: {client?.email || "Undefined"}</p>
+							<p>Pais: {client?.country || "Undefined"}</p>
+							<p>Ciudad: {client?.city || "Undefined"}</p>
+							<p>Telefono: {client?.phone || "Undefined"}</p>
+							<p>Fecha de registro: {(client.createdAt) ? client.createdAt.slice(0, 10) : "No encontrada"}</p>
+							<hr />
+							<hr />
+							<h5>Editar</h5>
+							<form action="">
+								<input type="text" />
+								<input type="text" />
+								<input type="text" />
+								<input type="text" />
+								<input type="submit" value={'cambiar'} />
+							</form>
+						</div>
 					</div>
 				</div>
 			</div>
