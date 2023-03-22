@@ -155,9 +155,7 @@ const postCategoryHandler = async (req, res) => { // OK
 };
 
 const postSubcategoryHandler = async (req, res) => { // OK
-	const { category } = req.query
-	const { subcategory } = req.body
-	const subCat = { category, name: subcategory }
+	const subCat = req.body
   try {
     const createSubcat = await createSubcategory(subCat);
     res
