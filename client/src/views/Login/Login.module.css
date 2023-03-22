@@ -1,49 +1,75 @@
 .login {
-	display: flex;
-	width: 100%;
+  display: flex;
+  width: 100%;
 }
 
 .login .container {
-	padding: 150px 0;
-	margin: auto;
-	width: 80%;
-	display: flex;
-	flex-direction: column;
-	gap: 2em;
-	align-items: center;
+  padding: 150px 0;
+  margin: auto;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  align-items: center;
 }
 
 .form {
-	border-radius: 0.3em;
-	display: flex;
-	flex-direction: column;
-	gap: 1em;
-	width: 500px;
-	padding: 50px;
-	align-items: center;
+  border-radius: 0.3em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  width: 500px;
+  align-items: center;
+}
+
+.login .container .user input,
+.login .container .password input {
+  padding: 0.5em;
+  border: 1px solid gray;
+  outline: none;
 }
 
 .form > div {
-	width: 100%;
-	display: flex;
-	flex-direction: column;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .login .options {
-	display: none;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
+  display: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .login .other {
-	display: flex;
-	flex-direction: column;
-	width: 500px;
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  border: none !important;
+}
+
+.login .other:hover {
+  border: none !important;
 }
 
 .resetpassword {
-	border: 1px solid var(--main-color);
-	padding: 0.3em 2em;
-	border-radius: 2em;
+  border: 1px solid var(--main-color);
+  padding: 0.3em 2em;
+  border-radius: 2em;
+  transition: all 0.1s ease-in-out;
+}
+
+.resetpassword:hover {
+  background-color: var(--main-color);
+  color: white;
+}
+
+.faqs {
+  display: flex;
+  gap: 1em;
+}
+
+.login button {
+  cursor: pointer;
 }
