@@ -27,7 +27,8 @@ import {
 	POST_PRODUCT,
 	UPDATE_COMMERCE,
 	GET_TRADES_BY_NAME,
-	POST_SEND_EMAIL_PASSWORD
+	GET_TRADES_SUPERADMINS_CATEGORIES
+	
 } from "../actions/types";
 
 const initialState = {
@@ -55,6 +56,7 @@ const initialState = {
 	currentPageTrades: 1,
 	currentPage: 1,
 	ordersCommerces: [],
+	superCategories: []
 };
 
 function dateTransform(date) {
@@ -397,9 +399,10 @@ export default function rootReducer(state = initialState, action) {
 				filterCommerce: [...state.filterCommerce, action.payload],
 			};
 		}
-		case POST_SEND_EMAIL_PASSWORD: {
+		case GET_TRADES_SUPERADMINS_CATEGORIES: {
 			return {
 				...state,
+				superCategories: [...state.superCategories, action.payload]
 			};
 		}
 		default:

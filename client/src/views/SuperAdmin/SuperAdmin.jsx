@@ -7,13 +7,15 @@ import {
 	getTradesCategories,
 	getDeliveryZones,
 	commerceRegister,
+	getTradesCategory,
+	postSubcategory
 } from "../../redux/actions/index";
 import { useDispatch, useSelector } from "react-redux";
 import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
 import swal from "sweetalert";
 import {postCategory} from "../../redux/actions/postCategory"
 import { postDeliveryZone } from "../../redux/actions/postDeliveryZone";
-import { postProductCategory } from "../../redux/actions/postProductCategory";
+import { postProductCategory } from "../../redux/actions/postProductCategory"
 
 
 
@@ -104,6 +106,8 @@ export default function SuperAdmin() {
 	const stateSubCategories = useSelector((state) => state.tradesSubCategories);
 	const allCommerces = useSelector((state) => state.allCommerces);
 	const stateZones = useSelector((state) => state.zones);
+	const stateSuperCategories = useSelector((state) => state.superCategories)
+	console.log(stateSuperCategories);
 	const [currentErrors, setCurrentErrors] = useState({});
 
 	const [currentInput, setCurrentInput] = useState({
@@ -163,7 +167,13 @@ export default function SuperAdmin() {
 	useEffect(() => {
 		dispatch(getTradesCategories());
 		dispatch(getDeliveryZones());
+		dispatch(getTradesCategory());
+
 	}, [dispatch]);
+
+	useEffect(()=>{
+
+	},[stateSuperCategories])
 
 	useEffect(() => {
 		if (currentInput.category !== "default" && currentInput.category) {
@@ -339,6 +349,17 @@ export default function SuperAdmin() {
 		dispatch(getTradesByName(e.target.value));
 	}
 
+	const [currentName, setCurrentName] = useState({
+		name: ""
+	})
+
+	function handlerOnchangeFilterName(e) {
+		setCurrentName({
+			[e.target.name] : e.target.value
+		})
+	}
+
+
 	const [currentDeliveryZone, setCurrentDeliveryZone] = useState({
 		deliveryZone: "",
 	})
@@ -403,10 +424,25 @@ export default function SuperAdmin() {
 		setCurrentProductCategory({
 			productCategory: ""
 		})
-		
-		
 		}
 	}
+
+	const [currentSubcategory, setCurrentSubcategory] = useState({
+		name: "",
+		category:""
+	})
+
+	function handlerOnchangeSubcategory(e) {
+		setCurrentSubcategory({
+			[e.target.name]: e.target.value
+		})
+	}
+
+	function handlerSubmitSubcategory(e) {
+		e.preventDefault()
+		dispatch(postSubcategory(currentCategory))
+	}
+	//const trade = useSelector(state => state.filterCommerce);
 
 	return (
 		<div className={styles.superadmin}>
@@ -589,7 +625,10 @@ export default function SuperAdmin() {
 						<div>
 							<h4>Buscar Comercio y eliminar</h4>
 							<form action="">
-								<input type="text" onChange={handlerFilterByName} />
+								<input 
+									type="text" 
+									onChange={handlerFilterByName}
+								/>
 							</form>
 							<div className={styles.trades__container}>
 								<div className={styles.sp_tradeCard}>
@@ -612,10 +651,24 @@ export default function SuperAdmin() {
 								</form>
 							</div>
 							<div>
+								<form onSubmit={ (e) => handlerSubmitSubcategory(e)  }>
 								<h4>Crear Subcategoria</h4>
-								<input type="text" />
-								<input type="text" />
-								<input type="submit" />
+								<input 
+									type="text"
+									name="name"
+									value={currentSubcategory.name}
+									onChange={handlerOnchangeSubcategory}
+								/>
+								<select>
+								<option value="default" selected disabled>
+									Categoria
+								</option>
+							
+								{stateSuperCategories && stateSuperCategories.map( category => { return(<option value={category} name="category">{category}</option>)})
+								}
+								</select>
+								<button type="submit">Crear</button>
+								</form>
 							</div>
 							<div>
 								<form onSubmit={(e) => handlerSubmitDeliveryZone(e)}>
