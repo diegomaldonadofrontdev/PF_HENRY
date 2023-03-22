@@ -41,6 +41,7 @@ const { commerceRegister } = require("../actions/commerceRegister");
 const { postProduct } = require("../actions/postProduct");
 const { postReview } = require("../actions/postReview");
 
+
 // Search Product
 
 const { fastProductSearch } = require("../actions/fastProductSearch");
@@ -83,5 +84,6 @@ module.exports = {
 	postSendEmailPassword,
 	postNewPassword,
 	postNewPasswordTrades,
-	postSendEmailPasswordTrades
+	postSendEmailPasswordTrades,
+	
 };
