@@ -1,11 +1,27 @@
 .buttonPrimary {
-	background-color: var(--main-color);
-	border: none;
-	font-size: 1em;
-	color: white;
-	padding: 0.5em 2em;
-	border-radius: 0.5em;
-	text-align: center;
+  background-color: var(--main-color);
+  border: none;
+  font-size: 1em;
+  min-width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  padding: 0.5em 1em;
+  border-radius: 100px;
+  text-align: center;
+  transition: all 0.1s ease-in-out;
+  cursor: pointer;
+}
+
+.buttonPrimary i {
+  color: white;
+}
+
+.buttonPrimary:hover {
+  box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
+  transform: scale(101%);
 }
 
 @media (max-width: 900px) {
