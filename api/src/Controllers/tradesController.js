@@ -1,7 +1,6 @@
 const Trade = require("../models/Trades");
 const Categories = require("../models/Categories");
-const Subcategories = require ("../models/Subcategory")
-const DeliveryZone = require ("../models/DeliveryZone")
+const Subcategories = require("../models/Subcategory");
 const bcrypt = require("bcryptjs");
 const sendMail = require("../Helpers/emailTrade");
 const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
@@ -11,16 +10,19 @@ const sendMailResetSuccess = require('../Helpers/emailResetPasswordSuccesTrade')
 const sendMailReset = require('../Helpers/emailResetPasswordTrades')
 
 
-// GET
-
-const getAllTrades = async () => {	// OK
+// GET COMERCIOS
+// [Todos los comercios de todas las categorias]
+const getAllTrades = async () => {
+	// OK
 	const alltrades = await Trade.find();
 	if (alltrades.length) {
 		return alltrades;
 	} else return `Ocurrió un error: No hay comercios en nuestra Base de Datos`;
 };
 
-const searchByZone = async (deliveryZone) => {	// OK
+// [Todos los comercios con reparto en la ciudad especificada]
+const searchByZone = async (deliveryZone) => {
+	// OK
 	try {
 		const tradesFound = await Trade.find({ deliveryZone: deliveryZone });
 		if (tradesFound.length) {
@@ -31,7 +33,9 @@ const searchByZone = async (deliveryZone) => {	// OK
 	}
 };
 
-const searchByZoneAndCat = async (deliveryZone, category) => {	// OK
+// [Todos los comercios con reparto en la zona y de la categoria especificada]
+const searchByZoneAndCat = async (deliveryZone, category) => {
+	// OK
 	try {
 		const tradesFound = await Trade.find({
 			deliveryZone: deliveryZone,
@@ -45,7 +49,9 @@ const searchByZoneAndCat = async (deliveryZone, category) => {	// OK
 	}
 };
 
-const searchByZoneAndCatAndEpagos = async (deliveryZone, category, epagos) => {	// OK
+// [Todos los comercios con reparto en la zona, de la categoria y tipo de pago especificado]
+const searchByZoneAndCatAndEpagos = async (deliveryZone, category, epagos) => {
+	// OK
 	try {
 		const tradesFound = await Trade.find({
 			deliveryZone: deliveryZone,
@@ -60,9 +66,11 @@ const searchByZoneAndCatAndEpagos = async (deliveryZone, category, epagos) => {	
 	}
 };
 
-const searchTradesByFilters = async (tradesFilter) => {	// OK
-	try {		
-		const tradesFound = await Trade.find(tradesFilter); 
+// [Todos los comercios con todos los filtros activados]
+const searchTradesByFilters = async (tradesFilter) => {
+	// OK
+	try {
+		const tradesFound = await Trade.find(tradesFilter);
 		if (tradesFound.length) {
 			return tradesFound;
 		} else return [];
@@ -71,7 +79,9 @@ const searchTradesByFilters = async (tradesFilter) => {	// OK
 	}
 };
 
-const searchTradeById = async (id) => {	// OK
+// [El comercio que corresponde con el ID]
+const searchTradeById = async (id) => {
+	// OK
 	try {
 		const tradeById = await Trade.findById(id);
 		if (tradeById) {
@@ -96,9 +106,11 @@ const searchTradeByName = async (name) => {
 	}
 };
 
-const getAllCategories = async () => {	// OK
+// [Lista de categorias sin repetir para poder mapear en un select en el front]
+const getAllCategories = async () => {
+	// OK
 	try {
-		const allTrades = await Trade.find({active: true}, "category");
+		const allTrades = await Trade.find({}, "category");
 		if (allTrades.length) {
 			const categoriesRepeat = [];
 			allTrades.forEach((trade) => {
@@ -111,9 +123,11 @@ const getAllCategories = async () => {	// OK
 	}
 };
 
-const getSubCategories = async (category) => {	// OK
+// [Lista de subcategorias sin repetir que corresponden a la categoria seleccionada]
+const getSubCategories = async (category) => {
+	// OK
 	try {
-		const allTrades = await Trade.find({ category: category, active: true }, "subcategory");
+		const allTrades = await Trade.find({ category: category }, "subcategory");
 		if (allTrades.length) {
 			const subcategoriesRepeat = [];
 			allTrades.forEach((trade) => {
@@ -126,9 +140,11 @@ const getSubCategories = async (category) => {	// OK
 	}
 };
 
-const getDeliveryZones = async () => {	// OK
+// [Lista de zonas de delivery disponibles] [{deliveryZone: []}, {deliveryZone: []}]
+const getDeliveryZones = async () => {
+	// OK
 	try {
-		const allTrades = await Trade.find({active:true}, "deliveryZone");
+		const allTrades = await Trade.find({}, "deliveryZone");
 		if (allTrades.length) {
 			const deliveryZonesRepeat = [];
 			for (let i = 0; i < allTrades.length; i++) {
@@ -142,33 +158,6 @@ const getDeliveryZones = async () => {	// OK
 		return error.message;
 	}
 };
-
-const getCategories = async () => {
-	try {
-		const categories = []
-		const categoriesDB = await Categories.find()
-		categoriesDB.forEach( (c) => {
-			categories.push(c.name)
-		});
-		return categories
-	} catch (error) {
-		throw new Error(error.message)
-	}
-}
-
-const getAllSubcategories = async (category) => {
-	try {
-		const subcategories = []
-		const subcategoriesDB = await Subcategories.find({category:category})
-		subcategoriesDB.forEach( (sc) => {
-			subcategories.push(sc.name)
-		})
-		return subcategories
-	} catch (error) {
-		throw new Error(error.message)
-	}
-}
-
 
 // PUTS
 const updateTrade = async (tradeId, body) => { // OK
@@ -241,17 +230,8 @@ const sendMailNewPassword = async (email, token) => {
 	}
 };
 
-const createDeliveryZone = async (deliZone) => { // OK 
-	try {
-		const newDZ = new DeliveryZone(deliZone)
-		newDZ.save()
-		return `Se creo la deliveryZone correctamente`
-	} catch (error) {
-		throw new Error(`Error al crear la delivery zone`)
-	}
-}
-
-const verifyTradeLog = async (username, password) => { // ?
+const resetPasswordController = async (password, token) => {
+	// ?
 	try {
 		const payload = jwt.verify(token, TOKEN_KEY);
 
@@ -326,36 +306,6 @@ const deleteTrade = async (id) => {
 	}
 };
 
-const deleteCaegory = async (category) => {
-try {
-	const deleted = await Categories.findOneAndDelete({name: category})
-	if (deleted) return `Se eliminó la categoría ${category}`
-	return `No fue posible eliminar la categoría ${category}`
-} catch (error) {
-	throw new Error(`Ocurrió un error al eliminar la categoría ${category}`)
-}
-}
-
-const deleteSubcategory = async (subcategory) => {
-	try {
-		const deleted = await Subcategories.findOneAndDelete({name: subcategory})
-		if (deleted) return `Se eliminó la subcategoría ${subcategory}`
-		return `No fue posible eliminar la subcategoría ${subcategory}`
-	} catch (error) {
-		throw new Error(`Ocurrió un error al eliminar la subcategoría ${subcategory}`)
-	}
-}
-
-const deleteDeliveryZone = async (deliveryZone) => {
-	try {
-		const deleted = await DeliveryZone.findOneAndDelete({name: deliveryZone})
-		if (deleted) return `Se eliminó la zona ${deliveryZone}`
-		return `No fue posible eliminar la zona ${deliveryZone}`
-	} catch (error) {
-		throw new Error(`Ocurrió un error al eliminar la zona ${deliveryZone}`)
-	}
-}
-
 module.exports = {
 	getAllTrades,
 	searchByZone,
@@ -376,11 +326,5 @@ module.exports = {
 	deleteTrade,
 	searchTradeByName,
 	createSubcategory,
-	updateTrades,
-	createDeliveryZone,
-	deleteCaegory,
-	deleteSubcategory,
-	deleteDeliveryZone,
-	getCategories,
-	getAllSubcategories
+	updateTrades
 };
