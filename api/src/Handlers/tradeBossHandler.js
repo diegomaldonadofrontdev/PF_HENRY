@@ -7,19 +7,22 @@ const { searchTradeBossExist,
     searchTradeBossById,
     registerTradeBoss } = require("../Controllers/tradeBossController");
 
-// GET 
+// GET HANDLERS 
 const getTradeBossHandler = async (req, res) => {
     const { id } = req.params
+
     try {
         const tradeBossBDD = await searchTradeBossById(id);
         res.status(200).json(tradeBossBDD);
     } catch (error) {
         res.status(400).json({ error: "Error al obtener al comerciante" })
     }
+
 }
 
 
-// POST
+// POST HANDLERS 
+
 const loginTradeBossHandler = async (req, res) => {
     const { email, password } = req.body;
 

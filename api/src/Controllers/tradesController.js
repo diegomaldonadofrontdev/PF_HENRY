@@ -11,8 +11,8 @@ const sendMailResetSuccess = require('../Helpers/emailResetPasswordSuccesTrade')
 const sendMailReset = require('../Helpers/emailResetPasswordTrades')
 
 
-// GET
-
+// GET COMERCIOS
+// [Todos los comercios de todas las categorias]
 const getAllTrades = async () => {	// OK
 	const alltrades = await Trade.find();
 	if (alltrades.length) {
@@ -20,6 +20,7 @@ const getAllTrades = async () => {	// OK
 	} else return `Ocurrió un error: No hay comercios en nuestra Base de Datos`;
 };
 
+// [Todos los comercios con reparto en la ciudad especificada]
 const searchByZone = async (deliveryZone) => {	// OK
 	try {
 		const tradesFound = await Trade.find({ deliveryZone: deliveryZone });
@@ -31,6 +32,7 @@ const searchByZone = async (deliveryZone) => {	// OK
 	}
 };
 
+// [Todos los comercios con reparto en la zona y de la categoria especificada]
 const searchByZoneAndCat = async (deliveryZone, category) => {	// OK
 	try {
 		const tradesFound = await Trade.find({
@@ -45,6 +47,7 @@ const searchByZoneAndCat = async (deliveryZone, category) => {	// OK
 	}
 };
 
+// [Todos los comercios con reparto en la zona, de la categoria y tipo de pago especificado]
 const searchByZoneAndCatAndEpagos = async (deliveryZone, category, epagos) => {	// OK
 	try {
 		const tradesFound = await Trade.find({
@@ -60,6 +63,7 @@ const searchByZoneAndCatAndEpagos = async (deliveryZone, category, epagos) => {	
 	}
 };
 
+// [Todos los comercios con todos los filtros activados]
 const searchTradesByFilters = async (tradesFilter) => {	// OK
 	try {		
 		const tradesFound = await Trade.find(tradesFilter); 
@@ -71,6 +75,7 @@ const searchTradesByFilters = async (tradesFilter) => {	// OK
 	}
 };
 
+// [El comercio que corresponde con el ID]
 const searchTradeById = async (id) => {	// OK
 	try {
 		const tradeById = await Trade.findById(id);
@@ -93,9 +98,10 @@ const searchTradeByName = async (name) => { // OK
 	}
 }
 
+// [Lista de categorias sin repetir para poder mapear en un select en el front]
 const getAllCategories = async () => {	// OK
 	try {
-		const allTrades = await Trade.find({active: true}, "category");
+		const allTrades = await Trade.find({}, "category");
 		if (allTrades.length) {
 			const categoriesRepeat = [];
 			allTrades.forEach((trade) => {
@@ -108,9 +114,10 @@ const getAllCategories = async () => {	// OK
 	}
 };
 
+// [Lista de subcategorias sin repetir que corresponden a la categoria seleccionada]
 const getSubCategories = async (category) => {	// OK
 	try {
-		const allTrades = await Trade.find({ category: category, active: true }, "subcategory");
+		const allTrades = await Trade.find({ category: category }, "subcategory");
 		if (allTrades.length) {
 			const subcategoriesRepeat = [];
 			allTrades.forEach((trade) => {
@@ -123,9 +130,10 @@ const getSubCategories = async (category) => {	// OK
 	}
 };
 
+// [Lista de zonas de delivery disponibles] [{deliveryZone: []}, {deliveryZone: []}]
 const getDeliveryZones = async () => {	// OK
 	try {
-		const allTrades = await Trade.find({active:true}, "deliveryZone");
+		const allTrades = await Trade.find({}, "deliveryZone");
 		if (allTrades.length) {
 			const deliveryZonesRepeat = [];
 			for (let i = 0; i < allTrades.length; i++) {
@@ -139,32 +147,6 @@ const getDeliveryZones = async () => {	// OK
 		return error.message;
 	}
 };
-
-const getCategories = async () => {
-	try {
-		const categories = []
-		const categoriesDB = await Categories.find()
-		categoriesDB.forEach( (c) => {
-			categories.push(c.name)
-		});
-		return categories
-	} catch (error) {
-		throw new Error(error.message)
-	}
-}
-
-const getAllSubcategories = async (category) => {
-	try {
-		const subcategories = []
-		const subcategoriesDB = await Subcategories.find({category:category})
-		subcategoriesDB.forEach( (sc) => {
-			subcategories.push(sc.name)
-		})
-		return subcategories
-	} catch (error) {
-		throw new Error(error.message)
-	}
-}
 
 
 // PUTS
@@ -374,7 +356,5 @@ module.exports = {
 	createDeliveryZone,
 	deleteCaegory,
 	deleteSubcategory,
-	deleteDeliveryZone,
-	getCategories,
-	getAllSubcategories
+	deleteDeliveryZone
 };
