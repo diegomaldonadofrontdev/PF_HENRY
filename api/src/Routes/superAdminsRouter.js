@@ -42,12 +42,14 @@ const {
     putOrderHandler
 } = require ("../Handlers/orderHandler")
 const {
+  getAllClients,
   getClientHandler,
   putClientHandler,
   deleteClientHandler
 } = require ("../Handlers/clientsHandler")
 const {
   getFeedbacksHandler,
+  getFeedbacksByIdHandler,
   deleteAppFeedbacksHandler,
   putFeedbackHandler
 } = require ("../Handlers/appFeedbacksHandler")
@@ -119,6 +121,8 @@ superAdminsRouter.put("/order/update/:orderId", putOrderHandler); // OK
 // REVIEWS
 // Ver reviews de la app
 superAdminsRouter.get("/feedbacks/app/search", getFeedbacksHandler); // OK
+// Ver una review por id
+superAdminsRouter.get("/feedbacks/app/searh/:id", getFeedbacksByIdHandler)
 // Eliminar reviews de la app
 superAdminsRouter.delete("/deletefeedbacks/app/:feedbackId", deleteAppFeedbacksHandler); // OK
 // Deshabilitar/Modificar reviews de la app
@@ -131,6 +135,8 @@ superAdminsRouter.delete("/deletefeedbacks/trade/:feedbackId", deleteTradeFeedba
 superAdminsRouter.put("/updatefeedback/trade/:feedbackId", putTradeFeedbackHandler) // OK
 
 // CLIENTES
+// Ver todos los clientes en panel superadmin
+superAdminsRouter.get("/all", getAllClients)
 // Ver detalle del cliente
 superAdminsRouter.get("/client/:clientId", getClientHandler); // OK
 // Modificar cliente - Deshabilitar client

@@ -84,8 +84,7 @@ const sendMailReset = async(email,token) => {
     
     const info = await transport.sendMail(mensaje);
     
-    
-
+    return true
 }
 
 

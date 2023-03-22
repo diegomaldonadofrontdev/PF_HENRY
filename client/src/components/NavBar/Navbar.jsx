@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 
 export default function Navbar() {
 	return (
-		<nav className={styles.nav}>
-			<Link className={styles.btn_market} to="/s">
+    <nav className={styles.nav}>
+      {/* <Link className={styles.btn_market} to="/s">
 				<i class="bx bx-store"></i>
 				<span>Registrá tu negocio</span>
 			</Link>

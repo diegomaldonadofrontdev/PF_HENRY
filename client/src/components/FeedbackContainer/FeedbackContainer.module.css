@@ -1,3 +1,8 @@
+.opiniones__container {
+	padding-bottom: 150px;
+}
+
+
 .container {
 	max-width: 80%;
 	margin: auto;
@@ -12,6 +17,7 @@
 .carrusel__container {
 	width: 100%;
 	overflow: hidden;
+	padding-top: 50px;
 }
 
 .opiniones__container .container > .carrusel__container > div {
