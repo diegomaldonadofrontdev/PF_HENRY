@@ -59,7 +59,7 @@ const getOrdersForTrade = async (tradeId) => { // OK
 				});
 			}
 			return ordersCompilated;
-		} else return `No se encontraron pedidos para su comercio`;
+		} else return [];
 	} catch (error) {
 		return error.message;
 	}
