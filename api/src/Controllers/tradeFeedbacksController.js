@@ -38,8 +38,9 @@ const createFeedback = async ( clientId, tradeId, opinion, rating ) => {   // OK
 const deleteTradeFeedback = async (feedbackId) => { // OK
     try { 
         const fbDeleted = await Feedback.deleteOne({_id: feedbackId})
-        if (fbDeleted.deletedCount !== 0) return true
-        return false
+        if (fbDeleted.deletedCount !== 0) {
+          return `Feedback eliminada correctamente`
+        } return `No se encontro el feedback`
       } catch (error) {
         throw new Error (error.message)
       }

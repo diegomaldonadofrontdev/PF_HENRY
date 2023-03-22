@@ -23,7 +23,7 @@ const products = [
     },
 ]
 
-const paymentsHandler = (req, res) => {
+const paymentsHandler = (req, res) => { // ok.
 
     const { name } = req.body;
     let searhProduct = products.find(p => p.name === name);
@@ -53,7 +53,7 @@ const paymentsHandler = (req, res) => {
         .catch((error) => res.status(400).send({ error: error.message }))
 }
 
-const getProducts = (req, res) => {
+const getProducts = (req, res) => { // ok.
     try {
         if(!products.length) return res.status(404).json({message: "No se encontraron productos"})
         return res.status(200).json(products)

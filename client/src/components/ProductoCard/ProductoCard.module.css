@@ -1,9 +1,9 @@
 .product__card {
 	display: flex;
-	width: 250px;
+	width: 225px;
 	flex-flow: row wrap;
 	align-items: start;
-	padding: 25px;
+	padding: 15px;
 	gap: 1em;
 	background-color: white;
 	border-radius: 1em;

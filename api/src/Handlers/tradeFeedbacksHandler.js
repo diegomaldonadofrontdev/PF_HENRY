@@ -7,7 +7,7 @@ const {
 
 
 // GET 
-const getFeedbackHandler = async (req, res) => { // OK
+const getFeedbackHandler = async (req, res) => { // OK.
     const {tradeId} = req.params
     try {
       const feedbacks = await getFeedbacks(tradeId);
@@ -18,7 +18,7 @@ const getFeedbackHandler = async (req, res) => { // OK
   };
   
   // POST 
-  const postFeedbacksHandler = async (req, res) => { // OK
+  const postFeedbacksHandler = async (req, res) => { // OK.
     const { opinion, rating } = req.body;
     const { clientId, tradeId } = req.query
     try {
@@ -34,8 +34,7 @@ const getFeedbackHandler = async (req, res) => { // OK
     const {feedbackId} = req.params
     try {
       const fbDeleted = await deleteTradeFeedback(feedbackId);
-      if (fbDeleted) res.status(200).json(`La opinión se eliminó correctamente`);
-      res.status(200).json(`No se pudo eliminar la opinión.`)
+      res.status(200).json(fbDeleted)
     } catch (error) {
       res.status(404).json({
         Error: `Se produjo un problema al intentar eliminar el producto`,
