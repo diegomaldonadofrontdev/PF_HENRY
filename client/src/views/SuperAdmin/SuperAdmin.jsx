@@ -4,12 +4,14 @@ import Header from "../../components/Header/Header";
 import { getTradesByName } from "../../redux/actions/getTradesByName";
 import getAllClients from "../../redux/actions/getAllClients";
 import getClientForSP from "../../redux/actions/getClientForSP";
+import getReviewById from "../../redux/actions/getReviewById";
 import deleteClient from "../../redux/actions/deleteClient";
 import {
 	getSubCategories,
 	getTradesCategories,
 	getDeliveryZones,
 	commerceRegister,
+	getReviews,
 } from "../../redux/actions/index";
 import { useDispatch, useSelector } from "react-redux";
 import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
@@ -105,6 +107,9 @@ export default function SuperAdmin() {
 	const stateZones = useSelector((state) => state.zones);
 	const clients = useSelector((state) => state.allClients);
 	const client = useSelector((state) => state.clientForSP);
+	const reviews = useSelector((state) => state.feedback);
+	const review = useSelector((state) => state.feedbackById);
+	console.log(review);
 
 	const [currentErrors, setCurrentErrors] = useState({});
 
@@ -129,7 +134,8 @@ export default function SuperAdmin() {
 
 	useEffect(() => {
 		dispatch(getAllClients())
-	},[dispatch])
+		dispatch(getReviews())
+	}, [dispatch])
 
 	useEffect(() => {
 		dispatch(getTradesCategories());
@@ -313,7 +319,7 @@ export default function SuperAdmin() {
 		dispatch(getTradesByName(e.target.value));
 	}
 
-	function deleteHandler (e) {
+	function deleteClientHandler(e) {
 		dispatch(deleteClient(e.target.value))
 		dispatch(getAllClients())
 	}
@@ -330,170 +336,170 @@ export default function SuperAdmin() {
 						<div>
 							<h4>Crear Comercio</h4>
 							<form action="" onSubmit={handlerSubmit}>
-							<label htmlFor="">Nombre Del Comercio</label>
-							<input
-								type="text"
-								placeholder=""
-								name="commerceName"
-								value={currentInput.commerceName}
-								onChange={handleChangeInputs}
-							/>
+								<label htmlFor="">Nombre Del Comercio</label>
+								<input
+									type="text"
+									placeholder=""
+									name="commerceName"
+									value={currentInput.commerceName}
+									onChange={handleChangeInputs}
+								/>
 
-							{currentErrors.commerceName && (
-								<p>{currentErrors.commerceName}</p>
-							)}
+								{currentErrors.commerceName && (
+									<p>{currentErrors.commerceName}</p>
+								)}
 
-							<select onChange={handleSelectCategories}>
-								<option value="default" selected disabled>
-									Categoria
-								</option>
-								{stateCategories &&
-									stateCategories.map((e) => <option value={e}>{e}</option>)}
-							</select>
-							{currentErrors.category && <p>{currentErrors.category}</p>}
+								<select onChange={handleSelectCategories}>
+									<option value="default" selected disabled>
+										Categoria
+									</option>
+									{stateCategories &&
+										stateCategories.map((e) => <option value={e}>{e}</option>)}
+								</select>
+								{currentErrors.category && <p>{currentErrors.category}</p>}
 
-							<select onChange={handleSelectSubCategories}>
-								<option
-									value="default"
-									selected={currentInput.category === "default"}
-								>
-									Subcategoria
-								</option>
+								<select onChange={handleSelectSubCategories}>
+									<option
+										value="default"
+										selected={currentInput.category === "default"}
+									>
+										Subcategoria
+									</option>
 
-								{currentInput.category && currentInput.category !== "default"
-									? stateSubCategories &&
-									  stateSubCategories?.map((e) => (
+									{currentInput.category && currentInput.category !== "default"
+										? stateSubCategories &&
+										stateSubCategories?.map((e) => (
 											<option value={e}>{e}</option>
-									  ))
-									: null}
-							</select>
-							{currentErrors.subcategory && <p>{currentErrors.subcategory}</p>}
+										))
+										: null}
+								</select>
+								{currentErrors.subcategory && <p>{currentErrors.subcategory}</p>}
 
-							<label htmlFor="">Descripción</label>
+								<label htmlFor="">Descripción</label>
 								<input
-								type="text"
-								placeholder=""
-								name="description"
-								value={currentInput.description}
-								onChange={handleChangeInputs}
-							/>
-							{currentErrors.description && <p>{currentErrors.description}</p>}
+									type="text"
+									placeholder=""
+									name="description"
+									value={currentInput.description}
+									onChange={handleChangeInputs}
+								/>
+								{currentErrors.description && <p>{currentErrors.description}</p>}
 
-							<label htmlFor="">Imagen</label>
+								<label htmlFor="">Imagen</label>
 								<input
-								type="file"
-								placeholder=""
-								onChange={handleCommerceImgUpload}
-							/>
-							{currentErrors.image && <p>{currentErrors.image}</p>}
+									type="file"
+									placeholder=""
+									onChange={handleCommerceImgUpload}
+								/>
+								{currentErrors.image && <p>{currentErrors.image}</p>}
 
-							<label htmlFor="">Provincia</label>
-							<input
-								type="text"
-								placeholder=""
-								name="province"
-								value={currentInput.province}
-								onChange={handleChangeInputs}
-							/>
+								<label htmlFor="">Provincia</label>
+								<input
+									type="text"
+									placeholder=""
+									name="province"
+									value={currentInput.province}
+									onChange={handleChangeInputs}
+								/>
 
-							<label htmlFor="">Ciudad</label>
-							<input
-								type="text"
-								placeholder=""
-								name="city"
-								value={currentInput.city}
-								onChange={handleChangeInputs}
-							/>
-							{currentErrors.city && <p>{currentErrors.city}</p>}
+								<label htmlFor="">Ciudad</label>
+								<input
+									type="text"
+									placeholder=""
+									name="city"
+									value={currentInput.city}
+									onChange={handleChangeInputs}
+								/>
+								{currentErrors.city && <p>{currentErrors.city}</p>}
 
-							<label htmlFor="">Dirección</label>
-							<input
-								type="text"
-								placeholder=""
-								name="address"
-								value={currentInput.address}
-								onChange={handleChangeInputs}
-							/>
-							{currentErrors.address && <p>{currentErrors.address}</p>}
+								<label htmlFor="">Dirección</label>
+								<input
+									type="text"
+									placeholder=""
+									name="address"
+									value={currentInput.address}
+									onChange={handleChangeInputs}
+								/>
+								{currentErrors.address && <p>{currentErrors.address}</p>}
 
-							<label htmlFor="">Teléfono</label>
-							<input
-								type="text"
-								placeholder=""
-								name="phone"
-								value={currentInput.phone}
-								onChange={handleChangeInputs}
-							/>
-							{currentErrors.phone && <p>{currentErrors.phone}</p>}
+								<label htmlFor="">Teléfono</label>
+								<input
+									type="text"
+									placeholder=""
+									name="phone"
+									value={currentInput.phone}
+									onChange={handleChangeInputs}
+								/>
+								{currentErrors.phone && <p>{currentErrors.phone}</p>}
 
 								<select onChange={handleSelecDeliveryZone}>
-								<option value="default" selected disabled>
-									Zona de Delivery
-								</option>
-								{stateZones &&
-									stateZones.map((e) => <option value={e}>{e}</option>)}
-							</select>
-							{currentErrors.deliveryZone && (
-								<p>{currentErrors.deliveryZone}</p>
-							)}
+									<option value="default" selected disabled>
+										Zona de Delivery
+									</option>
+									{stateZones &&
+										stateZones.map((e) => <option value={e}>{e}</option>)}
+								</select>
+								{currentErrors.deliveryZone && (
+									<p>{currentErrors.deliveryZone}</p>
+								)}
 
-							<label htmlFor="">Nombre de Usuario</label>
-							<input
-								type="text"
-								placeholder=""
-								name="userName"
-								value={currentInput.userName}
-								onChange={handleChangeInputs}
-							/>
-							{currentErrors.userName && <p>{currentErrors.userName}</p>}
+								<label htmlFor="">Nombre de Usuario</label>
+								<input
+									type="text"
+									placeholder=""
+									name="userName"
+									value={currentInput.userName}
+									onChange={handleChangeInputs}
+								/>
+								{currentErrors.userName && <p>{currentErrors.userName}</p>}
 
-							<label htmlFor="">Contraseña</label>
-							<input
-								type="password"
-								placeholder=""
-								name="password"
-								value={currentInput.password}
-								onChange={handleChangeInputs}
-							/>
-							{currentErrors.password && <p>{currentErrors.password}</p>}
+								<label htmlFor="">Contraseña</label>
+								<input
+									type="password"
+									placeholder=""
+									name="password"
+									value={currentInput.password}
+									onChange={handleChangeInputs}
+								/>
+								{currentErrors.password && <p>{currentErrors.password}</p>}
 
-							<label htmlFor="">Email</label>
-							<input
-								type="text"
-								placeholder=""
-								name="email"
-								value={currentInput.email}
-								onChange={handleChangeInputs}
-							/>
-							{currentErrors.email && <p>{currentErrors.email}</p>}
+								<label htmlFor="">Email</label>
+								<input
+									type="text"
+									placeholder=""
+									name="email"
+									value={currentInput.email}
+									onChange={handleChangeInputs}
+								/>
+								{currentErrors.email && <p>{currentErrors.email}</p>}
 
-							<select onChange={handleSelectEpagos}>
-								<option value="default" selected disabled>
-									Medio de Pago
-								</option>
-								<option>Sólo efectivo</option>
-								<option>Sólo tarjetas</option>
-								<option>Efectivo/Tarjetas</option>
-							</select>
-							{currentErrors.epagos && <p>{currentErrors.epagos}</p>}
+								<select onChange={handleSelectEpagos}>
+									<option value="default" selected disabled>
+										Medio de Pago
+									</option>
+									<option>Sólo efectivo</option>
+									<option>Sólo tarjetas</option>
+									<option>Efectivo/Tarjetas</option>
+								</select>
+								{currentErrors.epagos && <p>{currentErrors.epagos}</p>}
 
-							<button type="submit">
-						<ButtonPrimary texto="CREAR COMERCIO" />
-					</button>
+								<button type="submit">
+									<ButtonPrimary texto="CREAR COMERCIO" />
+								</button>
 							</form>
 						</div>
 						<div>
 							<h4>Editar Comercio</h4>
 							<form action="">
-								
+
 								<input type="text" />
 								<input type="text" />
 								<input type="text" />
 								<input type="text" />
 								<input type="text" />
 								<button type="submit">
-						<ButtonPrimary texto="EDITAR COMERCIO" />
-					</button>
+									<ButtonPrimary texto="EDITAR COMERCIO" />
+								</button>
 							</form>
 						</div>
 						<div>
@@ -608,21 +614,30 @@ export default function SuperAdmin() {
 							<table>
 								<tr>
 									<th>Usuario</th>
-									<th>Review</th>
+									<th>Rating</th>
 									<th>Accion</th>
 								</tr>
 								<tr>
-									<td>John</td>
-									<td>Doe</td>
-									<td>
-										<button>Eliminar</button>
-									</td>
+									{reviews?.map(r => (
+										<div style={{ display: "flex", flexDirection: "row" }}>
+											<div>
+												<td>{r?.name}</td>
+												<td>:    {r?.rating}</td>
+											</div>
+											<td>
+												<button onClick={() => dispatch(getReviewById(r._id))}>Seleccionar</button>
+												{/* <button onClick={deleteReviewHandler} value={r._id} >Eliminar</button> */}
+											</td>
+										</div>
+
+									))}
 								</tr>
 							</table>
 						</div>
 
 						<div className={styles.containerReview}>
 							<h3>Resultados Reviews</h3>
+							<p>{review?.opinion}</p>
 						</div>
 					</div>
 				</div>
@@ -646,7 +661,7 @@ export default function SuperAdmin() {
 											</div>
 											<td>
 												<button onClick={() => dispatch(getClientForSP(c._id))}>Seleccionar</button>
-												<button onClick={deleteHandler} value={c._id} >Eliminar</button>
+												<button onClick={deleteClientHandler} value={c._id} >Eliminar</button>
 											</td>
 										</div>
 									)}
@@ -661,7 +676,7 @@ export default function SuperAdmin() {
 							<p>Pais: {client?.country || "Undefined"}</p>
 							<p>Ciudad: {client?.city || "Undefined"}</p>
 							<p>Telefono: {client?.phone || "Undefined"}</p>
-							<p>Fecha de registro: {(client.createdAt) ? client.createdAt.slice(0,10) : "No encontrada"}</p>
+							<p>Fecha de registro: {(client.createdAt) ? client.createdAt.slice(0, 10) : "No encontrada"}</p>
 							<hr />
 							<hr />
 							<h5>Editar</h5>

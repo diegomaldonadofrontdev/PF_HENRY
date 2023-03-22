@@ -1,6 +1,7 @@
 const {createFeedback,
     getFeedbacks,
-    deleteFeedback
+    deleteFeedback,
+    getFeedbacksById
 } = require ("../Controllers/appFeedbacksController")
 
 // GET ------------> feedbacks
@@ -13,6 +14,16 @@ const getFeedbacksHandler = async (req, res) => {
     }
   };
   
+  const getFeedbacksByIdHandler = async(req, res) => {
+    const { id } = req.params;
+    try {
+      const feedback = await getFeedbacksById(id);
+      res.status(200).json(feedback);
+    } catch (error) {
+      res.status(404).json({ error: `Error al importar los feedbacks de los clientes` });
+    }
+  }
+
   // POST -------> /feedback
   const postFeedbackHandler = async (req, res) => {
     const body = req.body;
@@ -48,6 +59,7 @@ const deleteAppFeedbacksHandler = async (req, res) => { // OK
 
   module.exports = {
     getFeedbacksHandler,
+    getFeedbacksByIdHandler,
     postFeedbackHandler,
     deleteAppFeedbacksHandler,
     putFeedbackHandler

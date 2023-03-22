@@ -29,7 +29,8 @@ import {
 	GET_TRADES_BY_NAME,
 	POST_SEND_EMAIL_PASSWORD,
 	GET_ALL_CLIENTS,
-	GET_CLIENT_FORSP
+	GET_CLIENT_FORSP,
+	GET_REVIEW_BYID
 } from "../actions/types";
 
 const initialState = {
@@ -41,6 +42,7 @@ const initialState = {
 	tradesCategories: [],
 	tradesSubCategories: [],
 	feedback: [],
+	feedbackById: {},
 	zones: [],
 	filters: {
 		city: "default",
@@ -423,6 +425,11 @@ export default function rootReducer(state = initialState, action) {
 				clientForSP: {...action.payload}
 			}
 		}
+		case GET_REVIEW_BYID:
+			return {
+				...state,
+				feedbackById: {...action.payload}
+			}
 		default:
 			return state;
 	}

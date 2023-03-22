@@ -39,6 +39,7 @@ const {
 const {
 	postFeedbackHandler,
 	getFeedbacksHandler,
+	getFeedbacksByIdHandler
 } = require("../Handlers/appFeedbacksHandler");
 const { postFeedbacksHandler } = require("../Handlers/tradeFeedbacksHandler");
 
@@ -54,6 +55,7 @@ clientsRouter.get("/products/search", getProductsHandler); // FUNCIONANDO 12/03
 clientsRouter.get("/products/search/:id", getProductHandler); // FUNCIONANDO 12/03
 clientsRouter.get("/products/categories", getProductCategoryHandler); // FUNCIONANDO 12/03
 clientsRouter.get("/app/feedbacks", getFeedbacksHandler); // FUNCIONANDO
+clientsRouter.get("/app/feedback/:id", getFeedbacksByIdHandler);
 clientsRouter.get("/order/search", getOrdersHandler); // FUNCIONANDO
 clientsRouter.get("/order/search/:orderId", getOrderHandler); // FUNCIONANDO
 clientsRouter.get("/all", getAllClients)

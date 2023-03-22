@@ -13,6 +13,17 @@ const getFeedbacks = async () => {
     }
 }
 
+const getFeedbacksById = async (id) => {
+  try {
+    const feedback = await Feedback.findById(id);
+    if(feedback){
+      return feedback
+    } else return `No se encontro el feedback ${id}`
+  } catch (error) {
+    return error.message
+  }
+}
+
 // POSTS
 const createFeedback = async (clientId, body) => {  // FUNCIONANDO 12/03
   try {
@@ -38,6 +49,7 @@ const deleteFeedback = async (feedbackId) => { // OK
 
 module.exports = {
     getFeedbacks,
+    getFeedbacksById,
     createFeedback,
     deleteFeedback
 }
