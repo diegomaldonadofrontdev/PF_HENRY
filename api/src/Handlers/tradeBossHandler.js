@@ -10,12 +10,14 @@ const { searchTradeBossExist,
 // GET 
 const getTradeBossHandler = async (req, res) => { // ok.
     const { id } = req.params
+
     try {
         const tradeBossBDD = await searchTradeBossById(id);
         res.status(200).json(tradeBossBDD);
     } catch (error) {
         res.status(400).json({ error: "Error al obtener al comerciante" })
     }
+
 }
 
 

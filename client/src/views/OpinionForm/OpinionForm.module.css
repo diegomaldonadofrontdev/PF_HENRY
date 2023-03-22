@@ -1,3 +1,7 @@
+.opinion__form {
+	padding-top: 100px;
+}
+
 .container {
 	display: flex;
 	justify-content: center;
@@ -71,7 +75,7 @@
 	padding: 20px 0;
 }
 
-.opinion__form  .label_rating {
+.opinion__form .label_rating {
 	position: initial;
 }
 

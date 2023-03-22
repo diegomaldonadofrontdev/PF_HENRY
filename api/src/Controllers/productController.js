@@ -69,7 +69,7 @@ const searchByNameAndPoductCat = async (tradeId, productCategory, productName) =
 // [Todas las categorias de productos existentes del comercio]
 const getAllProductsCategories = async (tradeId) => { // OK
   try {
-    const allProductsOfTrade = await Product.find({tradeId: tradeId, active:true}, "category")
+    const allProductsOfTrade = await Product.find({tradeId: tradeId}, "category")
     if (allProductsOfTrade.length) {
       const categoriesRepeat = []
       allProductsOfTrade.map(p => categoriesRepeat.push(p.category))

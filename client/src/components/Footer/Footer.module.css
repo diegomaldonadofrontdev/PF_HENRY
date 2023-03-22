@@ -1,7 +1,5 @@
 .footer {
-	background-color: var(--main-color);
-	padding: 1em 0;
-	padding-top: 100px;
+	background-color: #191e29;
 }
 .container {
 	max-width: 60%;
@@ -9,16 +7,11 @@
 	color: white;
 	font-weight: 600;
 }
-.footer .container:last-child {
-	margin-top: 50px;
-}
-
-.footer .container:last-child p {
-	text-align: start;
-}
 
 .faqs {
 	display: flex;
+	align-items: center;
+	padding: 50px 0;
 	flex-direction: row;
 	gap: 2em;
 	font-size: 0.9em;
@@ -26,7 +19,6 @@
 }
 
 .faqs div {
-	padding-top: 25px;
 	display: flex;
 	flex-direction: column;
 	gap: 0.5em;
@@ -36,6 +28,22 @@
 .faq {
 	color: white;
 	font-weight: 500;
+}
+
+.firma {
+	background-color: var(--main-color);
+
+	display: flex;
+	padding: 5px 0;
+	justify-content: center;
+}
+
+.firma p {
+	color: white;
+}
+
+.footer .logo {
+	width: 250px;
 }
 
 @media (max-width: 700px) {

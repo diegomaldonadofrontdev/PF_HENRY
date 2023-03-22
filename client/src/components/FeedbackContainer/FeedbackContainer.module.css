@@ -1,3 +1,7 @@
+.opiniones__container {
+	padding-bottom: 150px;
+}
+
 .container {
 	max-width: 80%;
 	margin: auto;
@@ -11,6 +15,7 @@
 
 .carrusel__container {
 	width: 100%;
+	padding-top: 50px;
 	overflow: hidden;
 }
 
@@ -20,14 +25,12 @@
 	width: 100%;
 	justify-content: center;
 	gap: 1em;
-	padding: 50px 0;
 	align-items: center;
 }
 
 .opiniones__container .container__button {
 	display: flex;
 	justify-content: center;
-	margin-bottom: 50px;
 }
 
 .btn__arrow {

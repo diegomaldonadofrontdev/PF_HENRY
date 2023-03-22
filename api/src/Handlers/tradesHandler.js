@@ -14,13 +14,7 @@ const {
   deleteTrade,
   searchTradeByName,
   createSubcategory,
-  updateTrades,
-  createDeliveryZone,
-  deleteCaegory,
-  deleteSubcategory,
-  deleteDeliveryZone,
-  getCategories,
-  getAllSubcategories
+  updateTrades
 } = require("../Controllers/tradesController");
 const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
 const jwt = require("jsonwebtoken");
@@ -203,6 +197,7 @@ const postSendMailResetPassword = async (req, res) => { // ok.
       .json({ Error: "No se ha enviado el link para resetear la contraseña" });
   }
 };
+
 const postResetPassword = async (req, res) => { // ok.
   const { password } = req.body;
   const { token } = req.params;
@@ -280,8 +275,8 @@ const deleteDeliveryZoneHandler = async (req, res) => { // OK.
 module.exports = {
   getTradesHandler,
   getTradeHandler,
-  getCategoriesHandler,
   getCategoryHandler,
+  getCategoriesHandler,
   getSubCategoriesHandler,
   getSubcategoryHandler,
   getDeliveryZoneHandler,
@@ -289,15 +284,15 @@ module.exports = {
   getConfirmEmailHandler,
   postTradeHandler,
   postCategoryHandler,
-  postSubcategoryHandler,
   postDeliveryZoneHandler,
-  postResetPassword,
+  postSubcategoryHandler,
   postSendMailResetPassword,
+  postResetPassword,
   postLoginTradeHandler,
   putTradeHandler,
   putTradesHandler,
   deleteTradeHandler,
   deleteCategoryHandler,
-  deleteSubcategoryHandler,
   deleteDeliveryZoneHandler,
+  deleteSubcategoryHandler,
 };

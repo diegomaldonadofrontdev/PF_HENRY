@@ -2,10 +2,10 @@ const { Router } = require("express");
 const {
   getTradeHandler,
   getCategoriesHandler,  
-  getConfirmEmailHandler,
-  postResetPassword,
-  postSendMailResetPassword,
-  postLoginTradeHandler,
+  confirmEmailHandler,
+  resetPassword,
+  sendMailResetPassword,
+  loginTradeHandler,
   putTradeHandler,  
 } = require("../Handlers/tradesHandler");
 const {

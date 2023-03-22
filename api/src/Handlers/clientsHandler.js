@@ -40,6 +40,7 @@ const getConfirmEmailHandler = async (req, res) => {	// ok.
 const postClientHandler = async (req, res) => {	// OK.
 	const client = req.body;
 	try {
+
 		const token = jwt.sign({ email: client.email }, TOKEN_KEY, {
 			expiresIn: "2h",
 		});
@@ -72,7 +73,7 @@ const postClientLogin = async (req, res) => {	// OK.
 	}
 };
 
-const postRegisterClientWhitGoogle = async (req, res) => { // OK	
+const registerWhitGoogle = async (req, res) => { // OK	
 	const client = req.body;
 	try {
 		const clientBDD = await registerClientPerGoogle(client);
@@ -87,7 +88,7 @@ const postRegisterClientWhitGoogle = async (req, res) => { // OK
 	}
 };
 
-const postSendMailResetPassword = async (req, res) => { // ?
+const sendMailResetPassword = async (req, res) => { // ?
 	const { email } = req.body;
 	try {
 		const token = jwt.sign({ email: email }, TOKEN_KEY, { expiresIn: "2h" });
@@ -101,7 +102,7 @@ const postSendMailResetPassword = async (req, res) => { // ?
 	}
 };
 
-const postResetClientPassword = async (req, res) => { // ?
+const resetPassword = async (req, res) => { // ?
 	const { password } = req.body;
 	const { token } = req.params;
 	console.log(token);
@@ -116,7 +117,7 @@ const postResetClientPassword = async (req, res) => { // ?
 };
 
 // PUTS HANDLERS
-const putClientHandler = async (req, res) => { // OK
+const updateClientHandler = async (req, res) => { // OK
 	const { clientId } = req.params;
 	const body = req.body;
 
@@ -144,11 +145,11 @@ const deleteClientHandler = async (req, res) => {
 module.exports = {
 	postClientHandler,
 	getClientHandler,
-	putClientHandler,
+	updateClientHandler,
 	postClientLogin,
-	postRegisterClientWhitGoogle,
+	registerWhitGoogle,
 	getConfirmEmailHandler,
-	postSendMailResetPassword,
-	postResetClientPassword,
+	sendMailResetPassword,
+	resetPassword,
 	deleteClientHandler
 };

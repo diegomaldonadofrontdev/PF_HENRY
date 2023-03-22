@@ -20,6 +20,7 @@ import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
 
 // Styles
 import styles from "./OpinionForm.module.css";
+import Header from "../../components/Header/Header";
 
 const colors = {
 	orange: "#ffef5a",
@@ -58,7 +59,7 @@ export default function OpinionForm() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		if (!userId){
+		if (!userId) {
 			swal({
 				title: "Review",
 				text: "Por favor ingresa con tu Usuario antes de dejar tu opinión",
@@ -91,9 +92,8 @@ export default function OpinionForm() {
 					button: "Ok",
 				});
 			}
-		};
 		}
-		
+	};
 
 	const handleChangeOpinion = (e) => {
 		e.preventDefault();
@@ -105,58 +105,61 @@ export default function OpinionForm() {
 	};
 
 	return (
-		<div className={styles.opinion__form}>
-			<div className={styles.container}>
-				<form onSubmit={handleSubmit} action="">
-					<h3>Dejanos tu opinion</h3>
-					<div className={styles.input__nombreLocal}>
-						<label htmlFor="">Nombre</label>
-						<input
-							onChange={(e) => handleChangeName(e)}
-							type="text"
-							value={nameInput}
-						/>
-					</div>
-					<div className={styles.input__negocio}>
-						<label htmlFor="">Opinion</label>
-						<textarea
-							onChange={(e) => handleChangeOpinion(e)}
-							type="text"
-							value={opinionInput}
-						/>
-					</div>
-					<div className={styles.estrellas}>
-						<label htmlFor="" className={styles.label_rating}>
-							Rating: {currentValue}/5
-						</label>
-						{stars.map((_, index) => {
-							return (
-								<FaStar
-									key={index}
-									size={24}
-									style={{
-										marginRight: 10,
-										cursor: "pointer",
-									}}
-									color={
-										(hoverValue || currentValue) > index
-											? colors.orange
-											: colors.grey
-									}
-									onClick={() => handleClick(index + 1)}
-									onMouseOver={() => handleMouseOver(index + 1)}
-									onMouseLeave={handleMouseLeave}
-								/>
-							);
-						})}
-					</div>
+		<>
+			<Header />
+			<div className={styles.opinion__form}>
+				<div className={styles.container}>
+					<form onSubmit={handleSubmit} action="">
+						<h3>Dejanos tu opinion</h3>
+						<div className={styles.input__nombreLocal}>
+							<label htmlFor="">Nombre</label>
+							<input
+								onChange={(e) => handleChangeName(e)}
+								type="text"
+								value={nameInput}
+							/>
+						</div>
+						<div className={styles.input__negocio}>
+							<label htmlFor="">Opinion</label>
+							<textarea
+								onChange={(e) => handleChangeOpinion(e)}
+								type="text"
+								value={opinionInput}
+							/>
+						</div>
+						<div className={styles.estrellas}>
+							<label htmlFor="" className={styles.label_rating}>
+								Rating: {currentValue}/5
+							</label>
+							{stars.map((_, index) => {
+								return (
+									<FaStar
+										key={index}
+										size={24}
+										style={{
+											marginRight: 10,
+											cursor: "pointer",
+										}}
+										color={
+											(hoverValue || currentValue) > index
+												? colors.orange
+												: colors.grey
+										}
+										onClick={() => handleClick(index + 1)}
+										onMouseOver={() => handleMouseOver(index + 1)}
+										onMouseLeave={handleMouseLeave}
+									/>
+								);
+							})}
+						</div>
 
-					<button className={styles.form__button}>Enviar</button>
-					<Link to="/">
-						<ButtonPrimary texto="Volver" />
-					</Link>
-				</form>
+						<button className={styles.form__button}>Enviar</button>
+						<Link to="/">
+							<ButtonPrimary texto="Volver" />
+						</Link>
+					</form>
+				</div>
 			</div>
-		</div>
+		</>
 	);
 }
