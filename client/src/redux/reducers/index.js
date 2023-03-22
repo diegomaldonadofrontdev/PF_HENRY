@@ -392,9 +392,14 @@ export default function rootReducer(state = initialState, action) {
 			}
 		}
 		case GET_TRADES_BY_NAME: {
+			console.log(action.payload);
+			const resCommerces = state.allCommerces.filter((x) =>
+				x.commerceName.toUpperCase().includes(action.payload.toUpperCase())
+			);
+
 			return {
 				...state,
-				filterCommerce: [...state.filterCommerce, action.payload],
+				filterCommerce: resCommerces,
 			};
 		}
 		case POST_SEND_EMAIL_PASSWORD: {

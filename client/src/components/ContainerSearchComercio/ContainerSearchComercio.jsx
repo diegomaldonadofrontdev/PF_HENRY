@@ -23,7 +23,6 @@ export default function ContainerSearchComercio() {
     dispatch(getTrades());
   }, [dispatch]);
 
-
   const comercios = useSelector((state) => state.allCommerces);
   const { city, category, subcategory, epagos } = useSelector(
     (state) => state.filters
@@ -31,7 +30,7 @@ export default function ContainerSearchComercio() {
 
   useEffect(() => {
     dispatch(setCurrentPageTrades(1));
-  }, [comercios, dispatch])
+  }, [comercios, dispatch]);
 
   // PAGINADO
   const currentPage = useSelector((state) => state.currentPageTrades);
@@ -44,7 +43,7 @@ export default function ContainerSearchComercio() {
   const selectPage = [];
 
   for (let i = 0; i < totalPages; i++) {
-    selectPage.push(i)
+    selectPage.push(i);
   }
 
   // console.log(selectPage);
@@ -90,8 +89,15 @@ export default function ContainerSearchComercio() {
             </Link>
           ))}
         </div>
-        <div style={{ width: "250px" }}>
-          {selectPage.map(page => (<button onClick={() => dispatch(setCurrentPageTrades(page + 1))} style={{ width: "20px" }}>{page + 1}</button>))}
+        <div style={{ width: "250px" }} className={styles.paginado}>
+          {selectPage.map((page) => (
+            <button
+              onClick={() => dispatch(setCurrentPageTrades(page + 1))}
+              style={{ width: "20px" }}
+            >
+              {page + 1}
+            </button>
+          ))}
         </div>
       </div>
     );
