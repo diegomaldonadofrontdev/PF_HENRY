@@ -212,14 +212,20 @@ const createTrades = async (body) => {
 	// OK
 	const { password, email } = body;
 	try {
+		console.log("1:", body);
 		const token = jwt.sign({ email: email }, TOKEN_KEY, { expiresIn: "2h" });
 		const newTrade = new Trade(body);
+		console.log("3:", newTrade);
+
 		const salt = bcrypt.genSaltSync(10);
+
 		newTrade.password = bcrypt.hashSync(password, salt);
 		await newTrade.save();
 		await sendMail(newTrade.email, token);
+
 		return `El comercio se creó correctamente`;
 	} catch (error) {
+		console.log(error);
 		throw new Error(`Error al registrar el comercio ${body.commerceName}`);
 	}
 };
