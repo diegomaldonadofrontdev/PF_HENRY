@@ -1,18 +1,17 @@
 const Product = require("../models/Products");
 const ProductCategories = require("../models/ProductCategory");
+const Categories = require("../models/Categories");
 
 // GETS
 // [{producto buscado}]
 const getProductById = async (id) => { // OK
   try {
     const productById = await Product.findById(id);
-    if (productById !== null) {
-      return productById;
+    if (productById) {return productById
     } else return []
   } catch (error) {
-    return error.message
-  }
-  
+    throw new Error (`Error al buscar los productos.`)
+  }  
 };
 
 // [Todos los prodcutos del comercio]
@@ -21,9 +20,9 @@ const getAllProducts = async (tradeId) => { // OK
     const allProductsOfTrade = await Product.find({tradeId: tradeId, active: true})
     if (allProductsOfTrade.length) {
       return allProductsOfTrade
-    } else return `Vaya! Parece que el comercio no tiene ningún producto en este momento!`
+    } else return `No hemos encontrado productos en el comercio.`
   } catch (error) {
-    return error.message
+    throw new Error(`Error al buscar los productos del comercio.`)
   }  
 }
 
@@ -45,10 +44,20 @@ const searchProductByName = async (tradeId, name) => { // OK
 		let productFound = await Product.find({tradeId: tradeId})    
     if (productFound.length) {
       let productCoincidence = productFound.filter((t) => t.name.toLowerCase().includes(name.toLowerCase()))
-      console.log(productCoincidence);
       if (productCoincidence.length) return productCoincidence
       return `No se encontraron comercios.`
     } return `No se encontraron productos que pertenezcan al comercio.`
+	} catch (error) {
+		throw new Error(`Ocurrió un problema al buscar los productos.`)
+	}
+}
+
+const searchProductsByName = async (name) => { // OK
+	try {
+		let productFound = await Product.find()        
+      let productCoincidence = productFound.filter((t) => t.name.toLowerCase().includes(name.toLowerCase()))
+      if (productCoincidence.length) return productCoincidence
+      return `No se encontraron comercios.`    
 	} catch (error) {
 		throw new Error(`Ocurrió un problema al buscar los productos.`)
 	}
@@ -74,11 +83,21 @@ const getAllProductsCategories = async (tradeId) => { // OK
       const categoriesRepeat = []
       allProductsOfTrade.map(p => categoriesRepeat.push(p.category))
       return [...new Set(categoriesRepeat)]
-    } else return `Vaya! Parece que hubo un problema al buscar en la base de datos!`    
+    } else return `No se encontraron las categorias.`    
   } catch (error) {
-    return error.message
+    throw new Error (`Error al buscar las categorias.`)
   }
+}
 
+const getCategoriesProducts = async () => {
+  try {
+    const productCategories = await ProductCategories.find()
+    let categoryList = []
+    productCategories.forEach ((c) => categoryList.push(c.name))
+    return categoryList
+  } catch (error) {
+    throw new Error(`Error al buscar las categorias de los productos`)
+  }
 }
 
 // POSTS
@@ -89,7 +108,7 @@ const createProduct = async (id, body) => { // OK
     await newProduct.save()  
     return `El producto ${body.name} se creo correctamente`
   } catch (error) {
-    return error.message
+    throw new Error (`Error al crear el producto`)
   }
 }
 
@@ -97,9 +116,9 @@ const createProductCategory = async (productCat) => { // OK
   try {
     const newCategory = new ProductCategories(productCat);    
     await newCategory.save()
-	return true;
+	  return `Se creo correctamente la categoria ${newCategory.name}`;
   } catch (error) {
-    return error.message
+    throw new Error(`Error al crear la categoría.`)
   }
 }
 
@@ -107,26 +126,26 @@ const createProductCategory = async (productCat) => { // OK
 const updateProduct = async (productId, body) => {  // OK
   try {
     const productUpdate = await Product.findByIdAndUpdate(productId, body, { new: true })
-    if (productUpdate) return true
-    return false
+    if (productUpdate) return `El producto se actualizó correctamente`
+    return `No se pudo actualizar el producto.`
   } catch (error) {
-    return error.message
+    throw new Error (`Error al actualizar el producto`)
   }
 }
 
 const updateProducts = async (body) => {  // OK
   try {
-    const productUpdate = await Product.updateMany({}, body)
-    if (productUpdate) return `Productos actualizados`
-    return `Problema al actualizar los productos`
+    await Product.updateMany({}, body)
+    return `Productos actualizados`    
   } catch (error) {
-    return error.message
+    throw new Error (`Error al actualizar todos los productos.`)
   }
 }
 
 const updateStock = async (productId, cantidad) => { // OK
   try {
     const find = await Product.findById(productId)
+    if(!find) return false
     const newStock = find.stock - cantidad
     const update = await Product.findByIdAndUpdate(productId, {stock: newStock})
     if (update) return true
@@ -136,20 +155,17 @@ const updateStock = async (productId, cantidad) => { // OK
   }
 }
 
-const addStock = async (productId, newStock) => { // OK
-  try {
+const addStock = async (productId, newStock) => { // OK  
     try {
       const find = await Product.findById(productId)
+      if(!find) return `No se encontró el producto.`
       const stock = find.stock + newStock
       const update = await Product.findByIdAndUpdate(productId, {stock: stock})
       if (update) return `Se actualizó el stock correctamente`
       return `El stock no pudo ser actualizado`
     } catch (error) {
       throw new Error(`Error al actualizar el stock del producto ${productId}`)
-    }
-  } catch (error) {
-    
-  }
+    }  
 }
 
 
@@ -157,10 +173,10 @@ const addStock = async (productId, newStock) => { // OK
 const deleteProduct = async (productId) => { // OK
   try { 
     const productDeleted = await Product.deleteOne({_id: productId})
-    if (productDeleted) return true
-    return false
+    if (productDeleted) return `El producto fue eliminado.`
+    return `No se encontró el producto.`
   } catch (error) {
-    return error.message
+    throw new Error (`Error al intentar eliminar el producto.`)
   }
 }
 
@@ -170,12 +186,14 @@ module.exports = {
   searchProductByName,
   getAllProducts,
   getProductById,
-  createProduct,
   getAllProductsCategories,
+  getCategoriesProducts,
+  createProduct,
   createProductCategory,
   updateProduct,
   updateProducts,
   deleteProduct,
   updateStock,
-  addStock
+  addStock,
+  searchProductsByName
 }
