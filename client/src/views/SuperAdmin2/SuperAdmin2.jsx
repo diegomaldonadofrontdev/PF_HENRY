@@ -367,7 +367,7 @@ export default function SuperAdmin2() {
 
 		setCurrentInput({
 			...currentInput,
-			deliveryZone: [currentInput.deliveryZone, e.target.value],
+			deliveryZone: [...currentInput.deliveryZone, e.target.value],
 		});
 		setCurrentErrors(
 			Validate({
