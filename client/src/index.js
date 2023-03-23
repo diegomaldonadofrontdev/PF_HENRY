@@ -16,9 +16,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Auth0Provider
     // DEPLOY
-     domain="dev-02jhh1joe0mz1mh7.us.auth0.com"
-     clientId="1UAhEzTQyzEDbBLoFnNdlfl1w9IXrEoy"
-
+     domain="dev-n5pcldegmz2zwlq8.us.auth0.com"
+     clientId="jpmaiZHJuVVCzvF2tK59k8ZijhqXnVsp"
+    
     // LOCAL
     //domain="dev-zpzzomv5vnift4jo.us.auth0.com"
     //clientId="JhaLDMR8rgrFZRYqHEz38bgscOHZCeIP"
