@@ -85,7 +85,7 @@ const getCategoryHandler = async (req, res) => {
     const categories = await getCategories()
     res.status(200).json(categories)
   } catch (error) {
-    res.status(404).json({Error: error.message})
+    res.status(404).json({ Error: error.message })
   }
 }
 
@@ -107,7 +107,7 @@ const getSubcategoryHandler = async (req, res) => {
     const subcategories = await getAllSubcategories(category)
     res.status(200).json(subcategories)
   } catch (error) {
-    res.status(404).json({Error: error.message})
+    res.status(404).json({ Error: error.message })
   }
 }
 
@@ -117,7 +117,7 @@ const getDeliveryZoneHandler = async (req, res) => {
     const deliveryZones = await getDeliveryZones();
     res.status(200).json(deliveryZones);
   } catch (error) {
-    res.status(404).json({Error: error.message});
+    res.status(404).json({ Error: error.message });
   }
 };
 
@@ -140,7 +140,7 @@ const postTradeHandler = async (req, res) => {
     const newTrade = await createTrades(body);
     res.status(200).json(newTrade);
   } catch (error) {
-    res.status(404).json({Error: error.message});
+    res.status(404).json({ Error: error.message });
   }
 };
 
@@ -179,23 +179,27 @@ const postDeliveryZoneHandler = async (req, res) => {
     const create = await createDeliveryZone(deliZone)
     res.status(200).json(create)
   } catch (error) {
-    res.status(404).json({Error: error.message})
+    res.status(404).json({ Error: error.message })
   }
 };
 
 const postLoginTradeHandler = async (req, res) => {	// OK.
-	const { username, password } = req.body;
-	const tradeBDD = await searchTradeByUsername(username);
-  const validate = (password === tradeBDD[0].password) ? true : false;
-	try {
-		if (typeof tradeBDD[0] === "object" && validate) {
-			res.status(200).json(tradeBDD[0]._id);
-		} else {
-			res.status(404).json("Usuario no encontrado")
-		}
-	} catch (error) {
-		res.status(400).json("Error al iniciar la sesion");
-	}
+  const { username, password } = req.body;
+  const tradeBDD = await searchTradeByUsername(username);
+  try {
+    if (typeof tradeBDD[0] === "object") {
+      const validate = (password === tradeBDD[0].password) ? true : false;
+      if(validate) {
+        res.status(200).json(tradeBDD[0]._id);
+      } else {
+        res.status(400).json("Contraseña incorrecta")
+      }
+    } else {
+      res.status(400).json("Usuario no encontrado")
+    }
+  } catch (error) {
+    res.status(400).json("Error al iniciar la sesion");
+  }
 };
 
 const postSendMailResetPassword = async (req, res) => {
@@ -231,22 +235,22 @@ const putTradeHandler = async (req, res) => {
     const trade = await updateTrade(tradeId, body);
     res.status(200).json(trade);
   } catch (error) {
-    res.status(404).json({Error: error.message});
+    res.status(404).json({ Error: error.message });
   }
 };
 
 const putTradesHandler = async (req, res) => { // OK.
-	try {
-		const update = await updateTrades(req.body)
+  try {
+    const update = await updateTrades(req.body)
     if (update) res.status(200).json(update)
-	} catch (error) {
-		res.status(404).json({Error: error.message})
-	}
+  } catch (error) {
+    res.status(404).json({ Error: error.message })
+  }
 }
 
 // DELETE
 const deleteTradeHandler = async (req, res) => { // OK.
-	const {id} = req.params
+  const { id } = req.params
   try {
     const deleted = await deleteTrade(id);
     res.status(200).json(deleted);
@@ -256,7 +260,7 @@ const deleteTradeHandler = async (req, res) => { // OK.
 };
 
 const deleteCategoryHandler = async (req, res) => { // OK.
-  const {category} = req.body
+  const { category } = req.body
   try {
     const deleted = await deleteCaegory(category);
     res.status(200).json(deleted);
@@ -266,7 +270,7 @@ const deleteCategoryHandler = async (req, res) => { // OK.
 }
 
 const deleteSubcategoryHandler = async (req, res) => { // OK.
-  const {subcategory} = req.body
+  const { subcategory } = req.body
   try {
     const deleted = await deleteSubcategory(subcategory);
     res.status(200).json(deleted);
@@ -276,7 +280,7 @@ const deleteSubcategoryHandler = async (req, res) => { // OK.
 }
 
 const deleteDeliveryZoneHandler = async (req, res) => { // OK.
-  const {deliveryZone} = req.body
+  const { deliveryZone } = req.body
   try {
     const deleted = await deleteDeliveryZone(deliveryZone);
     res.status(200).json(deleted);
