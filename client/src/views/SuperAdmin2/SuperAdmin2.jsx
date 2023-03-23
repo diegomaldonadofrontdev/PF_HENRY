@@ -90,6 +90,9 @@ export default function SuperAdmin2() {
 		dispatch(getTradesCategories());
 		dispatch(getDeliveryZones());
 	}, [dispatch]);
+	useEffect(() => {
+		dispatch(getTradesCategory());
+	}, [dispatch]);
 
 	useEffect(() => {
 		if (currentInput.category !== "default" && currentInput.category) {

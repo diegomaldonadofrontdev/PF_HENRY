@@ -47,7 +47,7 @@ function App() {
 				<Route path="/login" element={<Login />} />
 				<Route path="/login/trades" element={<LoginTrade />} />
 				<Route path="/login/tradeboss" element={<LoginTradeBoss />} />
-				<Route path="/s" element={<HomeLocal />} />
+				<Route path="/s" element={<RegistrationForm/>} />
 				<Route path="/search" element={<UserSearch />} />
 				<Route path="/opinion" element={<OpinionForm />} />
 				<Route path="/comercio/:id" element={<CommerceDetail />} />
