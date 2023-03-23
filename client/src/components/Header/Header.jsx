@@ -11,6 +11,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 // Components
 import Navbar from "../NavBar/Navbar";
 import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
+import ButtonDashboard from "../ButtonDashboard/ButtonDashboard";
 
 // Styles
 import styles from "./Header.module.css";
@@ -54,12 +55,12 @@ export default function Header() {
 						location.pathname !== "/registration_commerce" &&
 						location.pathname !== "/adminowner" && <Navbar />}
 
-					{ !idTrade && (token || isAuthenticated) && (
+					{!idTrade && (token || isAuthenticated) && (
 						<div className={styles.loggedButtons} onClick={handleClick}>
 							<ButtonPrimary texto="Logout" />
 						</div>
 					)}
-					{ !idTrade && (token || isAuthenticated) && (
+					{!idTrade && (token || isAuthenticated) && (
 						<Link to="/useradmin">
 							<ButtonPrimary texto="Mi Perfil" />
 						</Link>
@@ -85,7 +86,19 @@ export default function Header() {
 								<ButtonPrimary texto="Registrarse" />
 							</Link>
 						)}
+					{/* {!idTrade && !token && !isAuthenticated &&
+						(
+							<Link to="/login/trades">
+								<ButtonDashboard texto="Iniciar sesión como comercio" />
+							</Link>
+						)} */}
 				</div>
+				{!idTrade && !token && !isAuthenticated &&
+						(
+							<Link to="/login/trades">
+								<ButtonDashboard texto="Inicio de sesión de comercio" />
+							</Link>
+						)}
 				<div className={styles.icon__menu} onClick={() => setIsOpen(!isOpen)}>
 					<i class="bx bx-menu"></i>
 				</div>
