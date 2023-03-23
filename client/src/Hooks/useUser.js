@@ -17,7 +17,6 @@ export default function useUser() {
 			})
 			.catch((err) => {
 				window.localStorage.removeItem("token");
-				console.log(err);
 			});
 	}, []);
 
@@ -30,7 +29,6 @@ export default function useUser() {
 			})
 			.catch((err) => {
 				window.localStorage.removeItem("token");
-				console.log(err)
 			});
 	}, []);
 
@@ -50,7 +48,6 @@ export default function useUser() {
 			})
 			.catch((err) => {
 				window.localStorage.removeItem("token");
-				console.log(err);
 			});
 	}, [user]);
 

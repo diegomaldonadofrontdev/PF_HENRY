@@ -35,28 +35,12 @@ export default function PanelMisProductos() {
 		<div className={styles.panel__misProductos}>
 			<div className={styles.container}>
 				<div className={styles.misProductos__header}>
-					<div className={styles.buscador__producto}>
-						<p>Buscar Por Producto</p>
-						<form action="">
-							<input type="text" />
-							<input type="submit" value={"buscar"} className={styles.button} />
-						</form>
-					</div>
 					<div className={styles.header__buttons}>
-						<a href="#" className={styles.button}>
-							Disponibles
-						</a>
-						<a href="#" className={styles.button}>
-							No Disponibles
-						</a>
-						<a href="#" className={styles.button}>
-							Ver todos
-						</a>
-
 						<a
 							onClick={() => {
 								handlerFlag("create");
 							}}
+							className={styles.button}
 						>
 							Agregar Producto
 						</a>

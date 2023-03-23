@@ -16,7 +16,7 @@ export default function ResponsePaymentCash() {
         <h2>Compra realizada con éxito</h2>
 
         <div>
-          <Link to="/">
+          <Link to="/search">
             <ButtonPrimary texto="Seguir comprando" />
           </Link>
         </div>
