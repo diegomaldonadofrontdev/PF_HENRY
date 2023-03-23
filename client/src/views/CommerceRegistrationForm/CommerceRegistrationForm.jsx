@@ -67,8 +67,8 @@ export default function CommerceRegistrationForm() {
 		if (!currentInput.phone) {
 			currentErrors.phone = "Ingresa tu número de teléfono";
 		}
-		if (!RegExInputCommerceNum.test(currentInput.telephone)) {
-			currentErrors.telephone = "Solo números, por favor";
+		if (!RegExInputCommerceNum.test(currentInput.phone)) {
+			currentErrors.phone = "Solo números, por favor";
 		}
 		//Validacion deliveryZone
 		if (!currentInput.deliveryZone) {
@@ -223,7 +223,8 @@ export default function CommerceRegistrationForm() {
 				deliveryZone: [...currentInput.deliveryZone, e.target.value],
 			})
 		);
-	};
+    }	
+;
 
 	const handleSelectEpagos = (e) => {
 		e.preventDefault();
@@ -238,6 +239,7 @@ export default function CommerceRegistrationForm() {
 			})
 		);
 	};
+
 
 	//Envio los datos del form al BACK, actualiza, resetea el estado y captura errores
 	const handlerSubmit = (e) => {
@@ -456,13 +458,14 @@ export default function CommerceRegistrationForm() {
 					</div>
 					<div className={styles.twoColumns}>
 						<div className={styles.input__container}>
-							<select onChange={handleSelecDeliveryZone}>
+							<select name="deliveryZone"onChange={handleSelecDeliveryZone}>
 								<option value="default" selected disabled>
 									Zona de Delivery
 								</option>
 								{stateZones &&
 									stateZones.map((e) => <option value={e}>{e}</option>)}
 							</select>
+				
 							{currentErrors.deliveryZone && (
 								<p>{currentErrors.deliveryZone}</p>
 							)}
