@@ -193,12 +193,7 @@ const updateTrades = async (body) => {  // OK
 //POST
 const createTrades = async (body) => { // OK
 	const {password, email} = body
-	try {
-		const token = jwt.sign(
-			{ email: email },
-			TOKEN_KEY,
-			{ expiresIn: "2h" }
-		)
+	try {	
 		const newTrade = new Trade(body);
 		const salt = bcrypt.genSaltSync(10);
 		newTrade.password = bcrypt.hashSync(password, salt);
