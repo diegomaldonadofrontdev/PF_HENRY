@@ -95,6 +95,9 @@
 
 .superAdmin2 table td {
 	min-width: 150px;
+	max-width: 250px;
+	display: flex;
+	align-items: center;
 }
 
 .superAdmin2 table tr div {
