@@ -199,7 +199,9 @@ export default function SuperAdmin2() {
 				button: "Ok",
 			});
 		} else {
+			console.log(currentInput);
 			dispatch(commerceRegister(currentInput));
+
 			// setConfiguracion({ ...configuracion, create: false });
 			swal({
 				title: "Listo!",
@@ -963,25 +965,25 @@ export default function SuperAdmin2() {
 								<tr>
 									<th>Usuario</th>
 									<th>Rating</th>
+									<th>Comentario</th>
 									<th>Accion</th>
 								</tr>
-								<tr>
-									{reviews?.map((r) => (
-										<div className={styles.tableContenido}>
-											<td>{r?.name}</td>
-											<td> {r?.rating}</td>
 
-											<td className={styles.tdaccion}>
-												<button onClick={() => dispatch(getReviewById(r._id))}>
-													Seleccionar
-												</button>
-												<button onClick={deleteReviewHandler} value={r._id}>
-													Eliminar
-												</button>
-											</td>
-										</div>
-									))}
-								</tr>
+								{reviews?.map((r) => (
+									<tr>
+										<td>{r?.name}</td>
+										<td> {r?.rating}</td>
+										<td> {r?.opinion}</td>
+										<td className={styles.tdaccion}>
+											<button onClick={() => dispatch(getReviewById(r._id))}>
+												Seleccionar
+											</button>
+											<button onClick={deleteReviewHandler} value={r._id}>
+												Eliminar
+											</button>
+										</td>
+									</tr>
+								))}
 							</table>
 						</div>
 					) : null}
