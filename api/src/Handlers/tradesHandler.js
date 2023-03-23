@@ -1,3 +1,5 @@
+const bcrypt = require("bcryptjs");
+
 const {
   searchTradeById,
   searchTradesByFilters,
@@ -9,7 +11,6 @@ const {
   confirmEmail,
   resetPasswordController,
   sendMailNewPassword,
-  verifyTradeLog,
   updateTrade,
   deleteTrade,
   searchTradeByName,
@@ -20,7 +21,8 @@ const {
   getAllSubcategories,
   createDeliveryZone,
   deleteSubcategory,
-  deleteDeliveryZone
+  deleteDeliveryZone,
+  searchTradeByUsername,
 } = require("../Controllers/tradesController");
 const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
 const jwt = require("jsonwebtoken");
@@ -181,15 +183,19 @@ const postDeliveryZoneHandler = async (req, res) => {
   }
 };
 
-const postLoginTradeHandler = async (req, res) => {
-  // OK.
-  const { username, password } = req.body;
-  try {
-    const verify = await verifyTradeLog(username, password);
-    res.status(200).json(verify);
-  } catch (error) {
-    res.status(404).json({ Error: error.message });
-  }
+const postLoginTradeHandler = async (req, res) => {	// OK.
+	const { username, password } = req.body;
+	const tradeBDD = await searchTradeByUsername(username);
+  const validate = (password === tradeBDD[0].password) ? true : false;
+	try {
+		if (typeof tradeBDD[0] === "object" && validate) {
+			res.status(200).json(tradeBDD[0]._id);
+		} else {
+			res.status(404).json("Usuario no encontrado")
+		}
+	} catch (error) {
+		res.status(400).json("Error al iniciar la sesion");
+	}
 };
 
 const postSendMailResetPassword = async (req, res) => {
