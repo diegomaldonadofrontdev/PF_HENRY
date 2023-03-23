@@ -63,7 +63,7 @@ export default function LoginTrade() {
 							/>
 						</div>
 						<div className={styles.options}>
-							<Link to="/s">
+							<Link to="/registration_commerce">
 								<ButtonPrimary texto="Sing In" />
 							</Link>
 							<button style={{ border: "none" }}>
