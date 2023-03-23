@@ -45,6 +45,9 @@ const getOrdersForTrade = async (tradeId) => {
 		if (orders.length) {
 			for (let j = 0; j < orders.length; j++) {
 				const client = await Clients.findById(orders[j].clientId);
+				console.log('ALGO:',client);
+				console.log('ALGO222:',orders[j].clientId);
+
 				let total = 0;
 				orders[j].products.forEach((x) => (total += x.price * x.cantidad));
 				ordersCompilated.push({

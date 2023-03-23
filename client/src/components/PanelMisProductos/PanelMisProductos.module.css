@@ -46,6 +46,7 @@
 	font-size: 0.9em;
 	background-color: var(--main-color);
 	border-radius: 0.5em;
+	cursor: pointer;
 }
 
 .button a {

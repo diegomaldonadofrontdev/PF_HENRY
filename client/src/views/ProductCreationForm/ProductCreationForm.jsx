@@ -197,7 +197,7 @@ export default function ProductCreation(props) {
 						onChange={handleChangeInputs}
 					/>
 
-					{props.product ? <label htmlFor="">Cambiar estado</label> : null}
+					{props.product ? <label htmlFor="">Cambiar disponibilidad</label> : null}
 
 					{props.product ? (
 						<input
