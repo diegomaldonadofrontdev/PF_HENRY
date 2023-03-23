@@ -186,8 +186,7 @@ const validateCategoryProduct = (req, res, next) => {
 };
 
 const validateSubcategory = (req, res, next) => {
-	const { subcategory } = req.body;
-	const { category } = req.query;
+	const { subcategory,category } = req.body;
 	if (!subcategory)
 		return res
 			.status(400)

@@ -13,14 +13,19 @@ import {
 	getTradesCategories,
 	getDeliveryZones,
 	commerceRegister,
+	getTradesCategory,
 } from "../../redux/actions/index";
 import { useDispatch, useSelector } from "react-redux";
 import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
 import swal from "sweetalert";
 import {postCategory} from "../../redux/actions/postCategory"
 import { postDeliveryZone } from "../../redux/actions/postDeliveryZone";
-import { postProductCategory } from "../../redux/actions/postProductCategory";
-
+import { postProductCategory } from "../../redux/actions/postProductCategory"
+import { postSubcategory } from "../../redux/actions/postSubcategory";
+import { getTradesByNameSuperAdmin } from "../../redux/actions/getTradesByNameSuperAdmin"
+import { deleteTrade} from "../../redux/actions/deleteTrade"
+import {getProductsByNameSuperAdmin } from "../../redux/actions/getProductByNameSuperAdmin"
+import { deleteProduct} from "../../redux/actions/deleteProduct"
 
 
 export default function SuperAdmin() {
@@ -110,12 +115,16 @@ export default function SuperAdmin() {
 	const stateSubCategories = useSelector((state) => state.tradesSubCategories);
 	const allCommerces = useSelector((state) => state.allCommerces);
 	const stateZones = useSelector((state) => state.zones);
+	console.log(stateZones);
 	const clients = useSelector((state) => state.allClients);
 	const client = useSelector((state) => state.clientForSP);
 	const reviews = useSelector((state) => state.feedback);
 	const review = useSelector((state) => state.feedbackById);
-	console.log(client);
-
+	const stateSuperCategories = useSelector((state) => state.superCategories)
+	const stateTradesbyName =useSelector((state) => state.tradesSuperAdmin )
+	const stateProductbyName =useSelector((state) => state.productsSuperAdmin )
+	console.log(stateProductbyName);
+	console.log(stateTradesbyName);
 	const [currentErrors, setCurrentErrors] = useState({});
 
 	const [currentInput, setCurrentInput] = useState({
@@ -180,7 +189,13 @@ export default function SuperAdmin() {
 	useEffect(() => {
 		dispatch(getTradesCategories());
 		dispatch(getDeliveryZones());
+		
+
 	}, [dispatch]);
+
+	useEffect(()=>{
+		dispatch(getTradesCategory());
+	},[dispatch])
 
 	useEffect(() => {
 		if (currentInput.category !== "default" && currentInput.category) {
@@ -431,10 +446,85 @@ export default function SuperAdmin() {
 		setCurrentProductCategory({
 			productCategory: ""
 		})
-		
-		
 		}
 	}
+
+	const [currentSubcategory, setCurrentSubcategory] = useState({
+		subcategory: "",
+		category:""
+	})
+
+	function handlerOnchangeSubcategory(e) {
+		setCurrentSubcategory({
+			[e.target.name]: e.target.value
+		})
+		
+	}
+
+	function handlerOnchangeSubcategorySelect(e) {
+		setCurrentSubcategory({
+			...currentSubcategory,
+			category: e.target.value
+		})
+		
+	}
+
+	function handlerSubmitSubcategorySuper(e) {
+		e.preventDefault()
+		if (!currentSubcategory.subcategory || !currentSubcategory.category ) {
+			swal({
+				title: "Error",
+				text: "No has llenado algun campo ",
+				icon: "warning",
+				button: "Ok",
+			});	
+		}else {
+		dispatch(postSubcategory(currentSubcategory))
+		swal({
+			title: "Listo!",
+			text: "La categoria fue creada correctamente",
+			icon: "success",
+			button: "Ok",
+		});
+		setCurrentSubcategory({
+			subcategory: ""
+		})
+		}
+	}
+
+	function handlerOnSerchCommerce(e) {
+		console.log(e.target.value);
+		dispatch(getTradesByNameSuperAdmin(e.target.value))
+	}
+	
+	function handlerDeleteCommerce(e) {
+		e.preventDefault()
+		dispatch(deleteTrade(e.target.value))
+		swal({
+			title: "Listo!",
+			text: "La categoria fue creada correctamente",
+			icon: "success",
+			button: "Ok",
+		});
+	}
+
+	function handlerOnSearchProducts(e){
+		dispatch(getProductsByNameSuperAdmin(e.target.value))
+	}
+
+	function handlerDeleteProduct(e) {
+		e.preventDefault()
+		dispatch(deleteProduct(e.target.value))
+		swal({
+			title: "Listo!",
+			text: "La categoria fue creada correctamente",
+			icon: "success",
+			button: "Ok",
+		});
+	}
+
+
+	//const trade = useSelector(state => state.filterCommerce);
 
 	return (
 		<div className={styles.superadmin}>
@@ -549,7 +639,7 @@ export default function SuperAdmin() {
 									Zona de Delivery
 								</option>
 								{stateZones &&
-									stateZones.map((e) => <option value={e}>{e}</option>)}
+									stateZones.map((e) => <option value={e}>{e}</option>)} 
 							</select>
 							{currentErrors.deliveryZone && (
 								<p>{currentErrors.deliveryZone}</p>
@@ -617,12 +707,19 @@ export default function SuperAdmin() {
 						<div>
 							<h4>Buscar Comercio y eliminar</h4>
 							<form action="">
-								<input type="text" onChange={handlerFilterByName} />
+								<input 
+									type="text" 
+									onChange={handlerOnSerchCommerce}
+								/>
 							</form>
 							<div className={styles.trades__container}>
+								<h4>Nombre</h4>
 								<div className={styles.sp_tradeCard}>
-									<h4>Nombre</h4>
-									<i class="bx bx-trash"></i>
+									<p>
+										{
+											stateTradesbyName && stateTradesbyName.map((e) => <p>{e.commerceName}<button value={e._id} onClick={handlerDeleteCommerce}>Eliminar</button></p>)
+										}
+									</p>
 								</div>
 							</div>
 						</div>
@@ -640,10 +737,24 @@ export default function SuperAdmin() {
 								</form>
 							</div>
 							<div>
+								<form onSubmit={ handlerSubmitSubcategorySuper }>
 								<h4>Crear Subcategoria</h4>
-								<input type="text" />
-								<input type="text" />
-								<input type="submit" />
+								<input 
+									type="text"
+									name="subcategory"
+									value={currentSubcategory.subcategory}
+									onChange={(e) => handlerOnchangeSubcategory(e)}
+								/>
+								<select onChange={handlerOnchangeSubcategorySelect} >
+								<option value="default" selected disabled>
+									Categoria
+								</option>
+							
+								{stateSuperCategories && stateSuperCategories.map( (e) => <option value={e} name="category">{e}</option>)
+								}
+								</select>
+								<button type="submit">Crear</button>
+								</form>
 							</div>
 							<div>
 								<form onSubmit={(e) => handlerSubmitDeliveryZone(e)}>
@@ -688,7 +799,19 @@ export default function SuperAdmin() {
 						<div>
 							<h4>Buscar Producto y eliminar</h4>
 							<form action="">
-								<input type="text" />
+								<input 
+									type="text"
+									onChange={handlerOnSearchProducts}
+								/>
+								<h4>Producto</h4>
+								<div className={styles.sp_tradeCard}>
+									<p>
+										{
+											stateProductbyName && stateProductbyName.map((e) => <p>{e.name}<button value={e._id} onClick={handlerDeleteProduct}>Eliminar</button></p>)
+										}
+									</p>
+								</div>
+
 							</form>
 						</div>
 						<div>
