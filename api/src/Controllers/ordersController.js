@@ -5,15 +5,17 @@ const Clients = require("../models/Clients");
 const sendMailOrderTrade = require("../Helpers/emailCreateOrderTrade");
 const ObjectId = require("mongoose").ObjectId;
 
-
 // GETS
-const getOrdersForClient = async (clientId) => { // OK
+const getOrdersForClient = async (clientId) => {
+	// OK
 	try {
 		const orders = await Order.find({ clientId: clientId });
+		console.log(orders);
 		const ordersCompilated = [];
 		if (orders.length) {
 			for (let i = 0; i < orders.length; i++) {
-				const trade = await Trade.findById(orders[i].tradeId, "commerceName");
+				const trade = await Trade.findById(orders[i].tradeId);
+				console.log(trade);
 				let total = 0;
 				ordersCompilated.push({
 					orderId: orders[i]._id,
@@ -35,7 +37,8 @@ const getOrdersForClient = async (clientId) => { // OK
 	}
 };
 
-const getOrdersForTrade = async (tradeId) => { // OK
+const getOrdersForTrade = async (tradeId) => {
+	// OK
 	try {
 		const orders = await Order.find({ tradeId: tradeId });
 		const ordersCompilated = [];
@@ -65,7 +68,8 @@ const getOrdersForTrade = async (tradeId) => { // OK
 	}
 };
 
-const getOrderByOrderId = async (orderId) => { 	// OK
+const getOrderByOrderId = async (orderId) => {
+	// OK
 	try {
 		const order = await Order.findById(orderId);
 		const trade = await Trade.findById(
@@ -87,7 +91,8 @@ const getOrderByOrderId = async (orderId) => { 	// OK
 	}
 };
 
-const searchActiveOrders = async (tradeId) => { // OK
+const searchActiveOrders = async (tradeId) => {
+	// OK
 	try {
 		const search = await Order.find({
 			tradeId: tradeId,
@@ -101,7 +106,8 @@ const searchActiveOrders = async (tradeId) => { // OK
 };
 
 // POSTS
-const createOrder = async (tradeId, clientId, products) => {	// OK
+const createOrder = async (tradeId, clientId, products) => {
+	// OK
 	try {
 		const newOrder = new Order({ tradeId, clientId, products: products.data });
 		await newOrder.save();
@@ -159,17 +165,19 @@ const updateOrderController = async (orderId, payment, status) => {
 // }
 
 // DELETES
-const deleteOrder = async (orderId) => { // OK
+const deleteOrder = async (orderId) => {
+	// OK
 	try {
-		const orderDeleted = await Order.deleteOne({_id: orderId})
+		const orderDeleted = await Order.deleteOne({ _id: orderId });
 		if (orderDeleted.deletedCount !== 0) {
-			return `Pedido eliminado!`
-		} return `No se encontró el pedido.`
+			return `Pedido eliminado!`;
+		}
+		return `No se encontró el pedido.`;
 	} catch (error) {
 		console.log(error.message);
-		throw new Error(`Ocurrio un error al intentar eliminar el pedido`)
+		throw new Error(`Ocurrio un error al intentar eliminar el pedido`);
 	}
-}
+};
 
 module.exports = {
 	getOrdersForClient,
@@ -178,5 +186,5 @@ module.exports = {
 	createOrder,
 	searchActiveOrders,
 	updateOrderController,
-	deleteOrder
+	deleteOrder,
 };
