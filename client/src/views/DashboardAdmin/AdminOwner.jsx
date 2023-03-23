@@ -18,12 +18,23 @@ export default function AdminOwner() {
 	const { isLoggedTradeBoss, logoutTradeBoss } = useTradeBoss();
 	const { logoutTrade } = useTrade();
 
+	const algo = useSelector((state) => state.ordersCommerces);
+
+	const [pendientes, setPendientes] = useState(0);
+
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
 	const [currentTab, setCurrentTab] = useState({ id: 0, title: "" });
 
 	const idTrade = window.localStorage.getItem("idTrade");
+
+	useEffect(() => {
+		if (algo) {
+			const newArray = algo.filter((x) => x.status === "Pendiente");
+			newArray && setPendientes(newArray.length);
+		}
+	}, [algo]);
 
 	useEffect(() => {
 		dispatch(getOrdersByCommerce(idTrade));
@@ -114,14 +125,14 @@ export default function AdminOwner() {
 							<div className={styles.perfil__resumen}>
 								<div className={styles.status__count}>
 									<p>
-										Tenés pedidos sin aceptar:<span>10</span>
+										Tenés pedidos sin aceptar:
+										<span>{pendientes}</span>
 									</p>
 								</div>
 							</div>
 							<div className={styles.perfil__links}>
 								<a href="/">Soporte</a>
 							</div>
-						
 						</div>
 						<div className={styles.panel}>
 							{currentTab.id === 1 ? (

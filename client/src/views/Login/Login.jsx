@@ -5,6 +5,7 @@ import Header from "../../components/Header/Header";
 import { Link, useNavigate } from "react-router-dom";
 import useUser from "../../Hooks/useUser";
 import { useAuth0 } from "@auth0/auth0-react";
+import swal from "sweetalert";
 
 export default function Login() {
   const { isAuthenticated, loginWithPopup } = useAuth0();
@@ -31,7 +32,16 @@ export default function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    login({ email, password });
+    if(!email || !password) {
+      swal({
+				title: "Error!",
+				text: "Por favor rellene los dos campos",
+				icon: "error",
+				button: "Ok",
+			});
+    } else {
+      login({ email, password });
+    }
   };
 
   const handleSiginWhitGoogle = (e) => {

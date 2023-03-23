@@ -39,10 +39,19 @@ const searchClientById = async (id) => { // FUNCIONANDO
   }
 }
 
-const searchClient = async (email) => { // OK
+const searchClient = async (email, password) => { // OK
   try {
     const clientBDD = await Clients.find({ email: email }, { password: 0 })
-    return clientBDD[0]
+
+    const validate = validatePasswordClient(email, password);
+
+    if (validate) {
+      return clientBDD[0]
+    } else {
+      return "Usuario o contraseña incorrectos"
+    }
+
+
   } catch (error) {
     return error.message
   }
@@ -85,7 +94,7 @@ const registerClient = async (client, token) => { // OK
       const clientBDD = await Clients.find({ email: client.email }, { password: 0 })
       const dataClient = clientBDD[0]
       return dataClient
-    }   
+    }
     return false
   } catch (error) {
     return error.message
@@ -125,8 +134,11 @@ const validatePasswordClient = async (email, password) => { // OK
     // VALIDAR CONTRASEÑA
     const pass = bcrypt.compareSync(password, client.password);
 
-    if (pass) return true
-    return false
+    if (pass) {
+      return { password: password }
+    } else {
+      return "Contraseña incorrecta"
+    }
 
   } catch (error) {
     return error.message
@@ -178,11 +190,11 @@ const updateClient = async (clientId, body) => { // FUNCIONANDO
 // DELETES CONTROLLERS
 const deleteClient = async (id) => {
   try {
-    const clientDeleted = await Clients.deleteOne({_id: id})
+    const clientDeleted = await Clients.deleteOne({ _id: id })
     console.log(clientDeleted);
-		if (clientDeleted.deletedCount !== 0) {
-			return `Cliente eliminado!`
-		} return `No se encontró el cliente.`
+    if (clientDeleted.deletedCount !== 0) {
+      return `Cliente eliminado!`
+    } return `No se encontró el cliente.`
   } catch (error) {
     throw new Error(error.message)
   }
@@ -192,9 +204,9 @@ const deleteClient = async (id) => {
 
 module.exports = {
   searchClientById,
-  searchAllClients,
   registerClient,
   registerClientPerGoogle,
+  searchAllClients,
   searchClientExist,
   validatePasswordClient,
   searchClient,
