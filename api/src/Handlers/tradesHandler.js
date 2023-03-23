@@ -62,8 +62,10 @@ const getTradeByNameHandler = async (req, res) => {
   // OK.
   const { name } = req.query;
   try {
+    if (name) {
     const find = await searchTradeByName(name);
     res.status(200).json(find);
+    }
   } catch (error) {
     res.status(404).json({ Error: error.message });
   }

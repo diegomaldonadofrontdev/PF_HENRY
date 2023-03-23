@@ -198,7 +198,7 @@ const createTrades = async (body) => { // OK
 			{ email: email },
 			TOKEN_KEY,
 			{ expiresIn: "2h" }
-		)
+		)	
 		const newTrade = new Trade(body);
 		const salt = bcrypt.genSaltSync(10);
 		newTrade.password = bcrypt.hashSync(password, salt);
