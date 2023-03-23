@@ -16,6 +16,7 @@
 
 .card__imgContainer img {
   height: 100%;
+  width: 100%;
   object-fit: cover;
 }
 
@@ -24,14 +25,10 @@
   font-size: 1.2em;
 }
 
-.card__primary img {
-  width: 100%;
-}
-
 .card__info {
   display: flex;
   flex-direction: column;
-  gap: 0em;
+
   color: var(--main-text-color);
 }
 
@@ -39,15 +36,13 @@
   font-size: 1em;
 }
 
-.btn__container {
-  padding: 1.5em;
-}
-
 .card__bottom {
   padding: 1.5em;
   display: flex;
-  gap: 2em;
   height: 50%;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-between !important;
+}
+
+.btn__container {
 }

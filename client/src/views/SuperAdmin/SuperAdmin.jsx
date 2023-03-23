@@ -13,18 +13,21 @@ import {
 	getTradesCategories,
 	getDeliveryZones,
 	commerceRegister,
+	getTradesCategory,
 } from "../../redux/actions/index";
 import { useDispatch, useSelector } from "react-redux";
 import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
 import swal from "sweetalert";
-import {postCategory} from "../../redux/actions/postCategory"
+import { postCategory } from "../../redux/actions/postCategory";
 import { postDeliveryZone } from "../../redux/actions/postDeliveryZone";
 import { postProductCategory } from "../../redux/actions/postProductCategory";
-
-
+import { postSubcategory } from "../../redux/actions/postSubcategory";
+import { getTradesByNameSuperAdmin } from "../../redux/actions/getTradesByNameSuperAdmin";
+import { deleteTrade } from "../../redux/actions/deleteTrade";
+import { getProductsByNameSuperAdmin } from "../../redux/actions/getProductByNameSuperAdmin";
+import { deleteProduct } from "../../redux/actions/deleteProduct";
 
 export default function SuperAdmin() {
-
 	const Validate = (currentInput) => {
 		let currentErrors = {};
 		let RegExInputCommerceEmail =
@@ -110,12 +113,16 @@ export default function SuperAdmin() {
 	const stateSubCategories = useSelector((state) => state.tradesSubCategories);
 	const allCommerces = useSelector((state) => state.allCommerces);
 	const stateZones = useSelector((state) => state.zones);
+	console.log(stateZones);
 	const clients = useSelector((state) => state.allClients);
 	const client = useSelector((state) => state.clientForSP);
 	const reviews = useSelector((state) => state.feedback);
 	const review = useSelector((state) => state.feedbackById);
-	console.log(client);
-
+	const stateSuperCategories = useSelector((state) => state.superCategories);
+	const stateTradesbyName = useSelector((state) => state.tradesSuperAdmin);
+	const stateProductbyName = useSelector((state) => state.productsSuperAdmin);
+	console.log(stateProductbyName);
+	console.log(stateTradesbyName);
 	const [currentErrors, setCurrentErrors] = useState({});
 
 	const [currentInput, setCurrentInput] = useState({
@@ -138,48 +145,51 @@ export default function SuperAdmin() {
 	});
 
 	const [currentCategory, setCurrentCategory] = useState({
-		category: ""
-	})
+		category: "",
+	});
 
-	function handlerOnchangeCategory(e){
+	function handlerOnchangeCategory(e) {
 		setCurrentCategory({
 			...currentCategory,
-			[e.target.name]: e.target.value
-		})
+			[e.target.name]: e.target.value,
+		});
 	}
 
-	function handlerSubmitCategory(e){
-		e.preventDefault()
+	function handlerSubmitCategory(e) {
+		e.preventDefault();
 		if (!currentCategory.category) {
 			swal({
 				title: "Erros",
 				text: "No has llenado el campo ",
 				icon: "warning",
 				button: "Ok",
-			});	
-		}else {
-			dispatch(postCategory(currentCategory))
-		swal({
-			title: "Listo!",
-			text: "La categoria fue creada correctamente",
-			icon: "success",
-			button: "Ok",
-		});
-		setCurrentCategory({
-			category: ""
-		})
+			});
+		} else {
+			dispatch(postCategory(currentCategory));
+			swal({
+				title: "Listo!",
+				text: "La categoria fue creada correctamente",
+				icon: "success",
+				button: "Ok",
+			});
+			setCurrentCategory({
+				category: "",
+			});
 		}
-		
 	}
 
 	useEffect(() => {
-		dispatch(getAllClients())
-		dispatch(getReviewsSP())
-	}, [dispatch])
+		dispatch(getAllClients());
+		dispatch(getReviewsSP());
+	}, [dispatch]);
 
 	useEffect(() => {
 		dispatch(getTradesCategories());
 		dispatch(getDeliveryZones());
+	}, [dispatch]);
+
+	useEffect(() => {
+		dispatch(getTradesCategory());
 	}, [dispatch]);
 
 	useEffect(() => {
@@ -358,83 +368,154 @@ export default function SuperAdmin() {
 	}
 
 	function deleteClientHandler(e) {
-		dispatch(deleteClient(e.target.value))
-		dispatch(getAllClients())
+		dispatch(deleteClient(e.target.value));
+		dispatch(getAllClients());
 	}
 
-	function deleteReviewHandler (e) {
+	function deleteReviewHandler(e) {
 		dispatch(deleteReview(e.target.value));
 		dispatch(getReviewsSP());
 	}
 
 	const [currentDeliveryZone, setCurrentDeliveryZone] = useState({
 		deliveryZone: "",
-	})
+	});
 
 	function handlerOnchangeDeliveryZone(e) {
 		setCurrentDeliveryZone({
-			[e.target.name] : e.target.value
-		})
+			[e.target.name]: e.target.value,
+		});
 	}
 
 	function handlerSubmitDeliveryZone(e) {
-		e.preventDefault()
+		e.preventDefault();
 		if (!currentDeliveryZone.deliveryZone) {
 			swal({
 				title: "Error",
 				text: "No has llenado el campo ",
 				icon: "warning",
 				button: "Ok",
-			});	
-		}else {
-			dispatch(postDeliveryZone(currentDeliveryZone))
-		swal({
-			title: "Listo!",
-			text: "La categoria fue creada correctamente",
-			icon: "success",
-			button: "Ok",
-		});
-		setCurrentDeliveryZone({
-			deliveryZone: ""
-		})
+			});
+		} else {
+			dispatch(postDeliveryZone(currentDeliveryZone));
+			swal({
+				title: "Listo!",
+				text: "La categoria fue creada correctamente",
+				icon: "success",
+				button: "Ok",
+			});
+			setCurrentDeliveryZone({
+				deliveryZone: "",
+			});
 		}
-		
 	}
 
 	const [currrentProductCategory, setCurrentProductCategory] = useState({
-		productCategory: ""
-	})
+		productCategory: "",
+	});
 
 	function handlerOnchangeProductCategory(e) {
 		setCurrentProductCategory({
-			[e.target.name] : e.target.value 
-		})
+			[e.target.name]: e.target.value,
+		});
 	}
 
 	function handlerSubmitProductCategory(e) {
-		e.preventDefault()
+		e.preventDefault();
 		if (!currrentProductCategory.productCategory) {
 			swal({
 				title: "Error",
 				text: "No has llenado el campo ",
 				icon: "warning",
 				button: "Ok",
-			});	
-		}else {
-			dispatch(postProductCategory(currrentProductCategory))
+			});
+		} else {
+			dispatch(postProductCategory(currrentProductCategory));
+			swal({
+				title: "Listo!",
+				text: "La categoria fue creada correctamente",
+				icon: "success",
+				button: "Ok",
+			});
+			setCurrentProductCategory({
+				productCategory: "",
+			});
+		}
+	}
+
+	const [currentSubcategory, setCurrentSubcategory] = useState({
+		subcategory: "",
+		category: "",
+	});
+
+	function handlerOnchangeSubcategory(e) {
+		setCurrentSubcategory({
+			[e.target.name]: e.target.value,
+		});
+	}
+
+	function handlerOnchangeSubcategorySelect(e) {
+		setCurrentSubcategory({
+			...currentSubcategory,
+			category: e.target.value,
+		});
+	}
+
+	function handlerSubmitSubcategorySuper(e) {
+		e.preventDefault();
+		if (!currentSubcategory.subcategory || !currentSubcategory.category) {
+			swal({
+				title: "Error",
+				text: "No has llenado algun campo ",
+				icon: "warning",
+				button: "Ok",
+			});
+		} else {
+			dispatch(postSubcategory(currentSubcategory));
+			swal({
+				title: "Listo!",
+				text: "La categoria fue creada correctamente",
+				icon: "success",
+				button: "Ok",
+			});
+			setCurrentSubcategory({
+				subcategory: "",
+			});
+		}
+	}
+
+	function handlerOnSerchCommerce(e) {
+		console.log(e.target.value);
+		dispatch(getTradesByNameSuperAdmin(e.target.value));
+	}
+
+	function handlerDeleteCommerce(e) {
+		e.preventDefault();
+		dispatch(deleteTrade(e.target.value));
 		swal({
 			title: "Listo!",
 			text: "La categoria fue creada correctamente",
 			icon: "success",
 			button: "Ok",
 		});
-		setCurrentProductCategory({
-			productCategory: ""
-		})
-		
-		
-		}
 	}
+
+	function handlerOnSearchProducts(e) {
+		dispatch(getProductsByNameSuperAdmin(e.target.value));
+	}
+
+	function handlerDeleteProduct(e) {
+		e.preventDefault();
+		dispatch(deleteProduct(e.target.value));
+		swal({
+			title: "Listo!",
+			text: "La categoria fue creada correctamente",
+			icon: "success",
+			button: "Ok",
+		});
+	}
+
+	//const trade = useSelector(state => state.filterCommerce);
 
 	return (
 		<div className={styles.superadmin}>
@@ -448,213 +529,244 @@ export default function SuperAdmin() {
 						<div>
 							<h4>Crear Comercio</h4>
 							<form action="" onSubmit={handlerSubmit}>
-							<label htmlFor="">Nombre Del Comercio</label>
-							<input
-								type="text"
-								placeholder=""
-								name="commerceName"
-								value={currentInput.commerceName}
-								onChange={handleChangeInputs}
-							/>
-
-							{currentErrors.commerceName && (
-								<p>{currentErrors.commerceName}</p>
-							)}
-
-							<select onChange={handleSelectCategories}>
-								<option value="default" selected disabled>
-									Categoria
-								</option>
-								{stateCategories &&
-									stateCategories.map((e) => <option value={e}>{e}</option>)}
-							</select>
-							{currentErrors.category && <p>{currentErrors.category}</p>}
-
-							<select onChange={handleSelectSubCategories}>
-								<option
-									value="default"
-									selected={currentInput.category === "default"}
-								>
-									Subcategoria
-								</option>
-
-								{currentInput.category && currentInput.category !== "default"
-									? stateSubCategories &&
-									  stateSubCategories?.map((e) => (
-											<option value={e}>{e}</option>
-									  ))
-									: null}
-							</select>
-							{currentErrors.subcategory && <p>{currentErrors.subcategory}</p>}
-
-							<label htmlFor="">Descripción</label>
+								<label htmlFor="">Nombre Del Comercio</label>
 								<input
-								type="text"
-								placeholder=""
-								name="description"
-								value={currentInput.description}
-								onChange={handleChangeInputs}
-							/>
-							{currentErrors.description && <p>{currentErrors.description}</p>}
+									type="text"
+									placeholder=""
+									name="commerceName"
+									value={currentInput.commerceName}
+									onChange={handleChangeInputs}
+								/>
 
-							<label htmlFor="">Imagen</label>
+								{currentErrors.commerceName && (
+									<p>{currentErrors.commerceName}</p>
+								)}
+
+								<select onChange={handleSelectCategories}>
+									<option value="default" selected disabled>
+										Categoria
+									</option>
+									{stateCategories &&
+										stateCategories.map((e) => <option value={e}>{e}</option>)}
+								</select>
+								{currentErrors.category && <p>{currentErrors.category}</p>}
+
+								<select onChange={handleSelectSubCategories}>
+									<option
+										value="default"
+										selected={currentInput.category === "default"}
+									>
+										Subcategoria
+									</option>
+
+									{currentInput.category && currentInput.category !== "default"
+										? stateSubCategories &&
+										  stateSubCategories?.map((e) => (
+												<option value={e}>{e}</option>
+										  ))
+										: null}
+								</select>
+								{currentErrors.subcategory && (
+									<p>{currentErrors.subcategory}</p>
+								)}
+
+								<label htmlFor="">Descripción</label>
 								<input
-								type="file"
-								placeholder=""
-								onChange={handleCommerceImgUpload}
-							/>
-							{currentErrors.image && <p>{currentErrors.image}</p>}
+									type="text"
+									placeholder=""
+									name="description"
+									value={currentInput.description}
+									onChange={handleChangeInputs}
+								/>
+								{currentErrors.description && (
+									<p>{currentErrors.description}</p>
+								)}
 
-							<label htmlFor="">Provincia</label>
-							<input
-								type="text"
-								placeholder=""
-								name="province"
-								value={currentInput.province}
-								onChange={handleChangeInputs}
-							/>
+								<label htmlFor="">Imagen</label>
+								<input
+									type="file"
+									placeholder=""
+									onChange={handleCommerceImgUpload}
+								/>
+								{currentErrors.image && <p>{currentErrors.image}</p>}
 
-							<label htmlFor="">Ciudad</label>
-							<input
-								type="text"
-								placeholder=""
-								name="city"
-								value={currentInput.city}
-								onChange={handleChangeInputs}
-							/>
-							{currentErrors.city && <p>{currentErrors.city}</p>}
+								<label htmlFor="">Provincia</label>
+								<input
+									type="text"
+									placeholder=""
+									name="province"
+									value={currentInput.province}
+									onChange={handleChangeInputs}
+								/>
 
-							<label htmlFor="">Dirección</label>
-							<input
-								type="text"
-								placeholder=""
-								name="address"
-								value={currentInput.address}
-								onChange={handleChangeInputs}
-							/>
-							{currentErrors.address && <p>{currentErrors.address}</p>}
+								<label htmlFor="">Ciudad</label>
+								<input
+									type="text"
+									placeholder=""
+									name="city"
+									value={currentInput.city}
+									onChange={handleChangeInputs}
+								/>
+								{currentErrors.city && <p>{currentErrors.city}</p>}
 
-							<label htmlFor="">Teléfono</label>
-							<input
-								type="text"
-								placeholder=""
-								name="phone"
-								value={currentInput.phone}
-								onChange={handleChangeInputs}
-							/>
-							{currentErrors.phone && <p>{currentErrors.phone}</p>}
+								<label htmlFor="">Dirección</label>
+								<input
+									type="text"
+									placeholder=""
+									name="address"
+									value={currentInput.address}
+									onChange={handleChangeInputs}
+								/>
+								{currentErrors.address && <p>{currentErrors.address}</p>}
+
+								<label htmlFor="">Teléfono</label>
+								<input
+									type="text"
+									placeholder=""
+									name="phone"
+									value={currentInput.phone}
+									onChange={handleChangeInputs}
+								/>
+								{currentErrors.phone && <p>{currentErrors.phone}</p>}
 
 								<select onChange={handleSelecDeliveryZone}>
-								<option value="default" selected disabled>
-									Zona de Delivery
-								</option>
-								{stateZones &&
-									stateZones.map((e) => <option value={e}>{e}</option>)}
-							</select>
-							{currentErrors.deliveryZone && (
-								<p>{currentErrors.deliveryZone}</p>
-							)}
+									<option value="default" selected disabled>
+										Zona de Delivery
+									</option>
+									{stateZones &&
+										stateZones.map((e) => <option value={e}>{e}</option>)}
+								</select>
+								{currentErrors.deliveryZone && (
+									<p>{currentErrors.deliveryZone}</p>
+								)}
 
-							<label htmlFor="">Nombre de Usuario</label>
-							<input
-								type="text"
-								placeholder=""
-								name="userName"
-								value={currentInput.userName}
-								onChange={handleChangeInputs}
-							/>
-							{currentErrors.userName && <p>{currentErrors.userName}</p>}
+								<label htmlFor="">Nombre de Usuario</label>
+								<input
+									type="text"
+									placeholder=""
+									name="userName"
+									value={currentInput.userName}
+									onChange={handleChangeInputs}
+								/>
+								{currentErrors.userName && <p>{currentErrors.userName}</p>}
 
-							<label htmlFor="">Contraseña</label>
-							<input
-								type="password"
-								placeholder=""
-								name="password"
-								value={currentInput.password}
-								onChange={handleChangeInputs}
-							/>
-							{currentErrors.password && <p>{currentErrors.password}</p>}
+								<label htmlFor="">Contraseña</label>
+								<input
+									type="password"
+									placeholder=""
+									name="password"
+									value={currentInput.password}
+									onChange={handleChangeInputs}
+								/>
+								{currentErrors.password && <p>{currentErrors.password}</p>}
 
-							<label htmlFor="">Email</label>
-							<input
-								type="text"
-								placeholder=""
-								name="email"
-								value={currentInput.email}
-								onChange={handleChangeInputs}
-							/>
-							{currentErrors.email && <p>{currentErrors.email}</p>}
+								<label htmlFor="">Email</label>
+								<input
+									type="text"
+									placeholder=""
+									name="email"
+									value={currentInput.email}
+									onChange={handleChangeInputs}
+								/>
+								{currentErrors.email && <p>{currentErrors.email}</p>}
 
-							<select onChange={handleSelectEpagos}>
-								<option value="default" selected disabled>
-									Medio de Pago
-								</option>
-								<option>Sólo efectivo</option>
-								<option>Sólo tarjetas</option>
-								<option>Efectivo/Tarjetas</option>
-							</select>
-							{currentErrors.epagos && <p>{currentErrors.epagos}</p>}
+								<select onChange={handleSelectEpagos}>
+									<option value="default" selected disabled>
+										Medio de Pago
+									</option>
+									<option>Sólo efectivo</option>
+									<option>Sólo tarjetas</option>
+									<option>Efectivo/Tarjetas</option>
+								</select>
+								{currentErrors.epagos && <p>{currentErrors.epagos}</p>}
 
-							<button type="submit">
-						<ButtonPrimary texto="CREAR COMERCIO" />
-					</button>
+								<button type="submit">
+									<ButtonPrimary texto="CREAR COMERCIO" />
+								</button>
 							</form>
 						</div>
 						<div>
 							<h4>Editar Comercio</h4>
 							<form action="">
-								
 								<input type="text" />
 								<input type="text" />
 								<input type="text" />
 								<input type="text" />
 								<input type="text" />
 								<button type="submit">
-						<ButtonPrimary texto="EDITAR COMERCIO" />
-					</button>
+									<ButtonPrimary texto="EDITAR COMERCIO" />
+								</button>
 							</form>
 						</div>
 						<div>
 							<h4>Buscar Comercio y eliminar</h4>
 							<form action="">
-								<input type="text" onChange={handlerFilterByName} />
+								<input type="text" onChange={handlerOnSerchCommerce} />
 							</form>
 							<div className={styles.trades__container}>
+								<h4>Nombre</h4>
 								<div className={styles.sp_tradeCard}>
-									<h4>Nombre</h4>
-									<i class="bx bx-trash"></i>
+									<p>
+										{stateTradesbyName &&
+											stateTradesbyName.map((e) => (
+												<p>
+													{e.commerceName}
+													<button value={e._id} onClick={handlerDeleteCommerce}>
+														Eliminar
+													</button>
+												</p>
+											))}
+									</p>
 								</div>
 							</div>
 						</div>
 						<div>
 							<div>
-								<form  onSubmit={(e) => handlerSubmitCategory(e)}>
-								<h4>Crear Categoria</h4>
-								<input 
-									type="text"
-									name="category"
-									value={currentCategory.category}
-									onChange={handlerOnchangeCategory}
+								<form onSubmit={(e) => handlerSubmitCategory(e)}>
+									<h4>Crear Categoria</h4>
+									<input
+										type="text"
+										name="category"
+										value={currentCategory.category}
+										onChange={handlerOnchangeCategory}
 									/>
-								<button type="submit"> Crear </button>
+									<button type="submit"> Crear </button>
 								</form>
 							</div>
 							<div>
-								<h4>Crear Subcategoria</h4>
-								<input type="text" />
-								<input type="text" />
-								<input type="submit" />
+								<form onSubmit={handlerSubmitSubcategorySuper}>
+									<h4>Crear Subcategoria</h4>
+									<input
+										type="text"
+										name="subcategory"
+										value={currentSubcategory.subcategory}
+										onChange={(e) => handlerOnchangeSubcategory(e)}
+									/>
+									<select onChange={handlerOnchangeSubcategorySelect}>
+										<option value="default" selected disabled>
+											Categoria
+										</option>
+
+										{stateSuperCategories &&
+											stateSuperCategories.map((e) => (
+												<option value={e} name="category">
+													{e}
+												</option>
+											))}
+									</select>
+									<button type="submit">Crear</button>
+								</form>
 							</div>
 							<div>
 								<form onSubmit={(e) => handlerSubmitDeliveryZone(e)}>
-								<h4>Crear DeliveryZone</h4>
-								<input 
-									type="text"
-									name="deliveryZone"
-									value={currentDeliveryZone.deliveryZone} 
-									onChange={handlerOnchangeDeliveryZone}
-								/>
-								<button type="submit"> Crear </button>
+									<h4>Crear DeliveryZone</h4>
+									<input
+										type="text"
+										name="deliveryZone"
+										value={currentDeliveryZone.deliveryZone}
+										onChange={handlerOnchangeDeliveryZone}
+									/>
+									<button type="submit"> Crear </button>
 								</form>
 							</div>
 						</div>
@@ -688,20 +800,34 @@ export default function SuperAdmin() {
 						<div>
 							<h4>Buscar Producto y eliminar</h4>
 							<form action="">
-								<input type="text" />
+								<input type="text" onChange={handlerOnSearchProducts} />
+								<h4>Producto</h4>
+								<div className={styles.sp_tradeCard}>
+									<p>
+										{stateProductbyName &&
+											stateProductbyName.map((e) => (
+												<p>
+													{e.name}
+													<button value={e._id} onClick={handlerDeleteProduct}>
+														Eliminar
+													</button>
+												</p>
+											))}
+									</p>
+								</div>
 							</form>
 						</div>
 						<div>
 							<div>
 								<form onSubmit={(e) => handlerSubmitProductCategory(e)}>
-								<h4>Crear Categoria de Producto</h4>
-								<input 
-									type="text"
-									name="productCategory"
-									value={currrentProductCategory.productCategory}
-									onChange={handlerOnchangeProductCategory} 
-								/>
-								<button type="submit" > Crear</button>
+									<h4>Crear Categoria de Producto</h4>
+									<input
+										type="text"
+										name="productCategory"
+										value={currrentProductCategory.productCategory}
+										onChange={handlerOnchangeProductCategory}
+									/>
+									<button type="submit"> Crear</button>
 								</form>
 							</div>
 
@@ -738,15 +864,19 @@ export default function SuperAdmin() {
 									<th>Accion</th>
 								</tr>
 								<tr>
-									{reviews?.map(r => (
+									{reviews?.map((r) => (
 										<div style={{ display: "flex", flexDirection: "row" }}>
 											<div>
 												<td>{r?.name}</td>
-												<td>:    {r?.rating}</td>
+												<td>: {r?.rating}</td>
 											</div>
 											<td>
-												<button onClick={() => dispatch(getReviewById(r._id))}>Seleccionar</button>
-												<button onClick={deleteReviewHandler} value={r._id} >Eliminar</button>
+												<button onClick={() => dispatch(getReviewById(r._id))}>
+													Seleccionar
+												</button>
+												<button onClick={deleteReviewHandler} value={r._id}>
+													Eliminar
+												</button>
 											</td>
 										</div>
 									))}
@@ -772,30 +902,39 @@ export default function SuperAdmin() {
 									<th>Accion</th>
 								</tr>
 								<tr>
-									{clients?.map(c =>
+									{clients?.map((c) => (
 										<div style={{ display: "flex", flexDirection: "row" }}>
 											<div>
 												<td>{c.firstname}</td>
 												<td>{c.lastname}</td>
 											</div>
 											<td>
-												<button onClick={() => dispatch(getClientForSP(c._id))}>Seleccionar</button>
-												<button onClick={deleteClientHandler} value={c._id} >Eliminar</button>
+												<button onClick={() => dispatch(getClientForSP(c._id))}>
+													Seleccionar
+												</button>
+												<button onClick={deleteClientHandler} value={c._id}>
+													Eliminar
+												</button>
 											</td>
 										</div>
-									)}
+									))}
 								</tr>
 							</table>
 						</div>
 						<div>
 							<h3>Datos del usuario</h3>
-							<p>Nombre: {client?.firstname || "Undefined"}</p>
-							<p>Apellido: {client?.lastname || "Undefined"}</p>
-							<p>Email: {client?.email || "Undefined"}</p>
-							<p>Pais: {client?.country || "Undefined"}</p>
-							<p>Ciudad: {client?.city || "Undefined"}</p>
-							<p>Telefono: {client?.phone || "Undefined"}</p>
-							<p>Fecha de registro: {(client.createdAt) ? client.createdAt.slice(0, 10) : "No encontrada"}</p>
+							<p>Nombre: {client?.firstname || "Sin registros"}</p>
+							<p>Apellido: {client?.lastname || "Sin registros"}</p>
+							<p>Email: {client?.email || "Sin registros"}</p>
+							<p>Pais: {client?.country || "Sin registros"}</p>
+							<p>Ciudad: {client?.city || "Sin registros"}</p>
+							<p>Telefono: {client?.phone || "Sin registros"}</p>
+							<p>
+								Fecha de registro:{" "}
+								{client.createdAt
+									? client.createdAt.slice(0, 10)
+									: "No encontrada"}
+							</p>
 							<hr />
 							<hr />
 							<h5>Editar</h5>
@@ -804,7 +943,7 @@ export default function SuperAdmin() {
 								<input type="text" />
 								<input type="text" />
 								<input type="text" />
-								<input type="submit" value={'cambiar'} />
+								<input type="submit" value={"cambiar"} />
 							</form>
 						</div>
 					</div>
