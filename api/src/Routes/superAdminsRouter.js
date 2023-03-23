@@ -86,7 +86,7 @@ superAdminsRouter.put("/updateTrade", putTradeHandler); // OK
 // Modificar / Agregar una prop a todos los comercios de la base de datos
 superAdminsRouter.put("/updateTrades", putTradesHandler) // OK
 // Eliminar comercio
-superAdminsRouter.delete("/deleteTrade/:id", deleteTradeHandler); // OK
+// superAdminsRouter.delete("/deleteTrade/:id", deleteTradeHandler); // OK
 // Eliminar categoría
 superAdminsRouter.delete("/deletecategory", deleteCategoryHandler); // OK
 // Eliminar subcategoría
