@@ -130,9 +130,6 @@ export default function AdminOwner() {
 									</p>
 								</div>
 							</div>
-							<div className={styles.perfil__links}>
-								<a href="/">Soporte</a>
-							</div>
 						</div>
 						<div className={styles.panel}>
 							{currentTab.id === 1 ? (
