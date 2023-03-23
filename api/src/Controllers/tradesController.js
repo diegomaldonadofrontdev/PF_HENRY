@@ -1,7 +1,7 @@
 const Trade = require("../models/Trades");
 const Categories = require("../models/Categories");
-const Subcategories = require ("../models/Subcategory")
-const DeliveryZone = require ("../models/DeliveryZone")
+const Subcategories = require("../models/Subcategory")
+const DeliveryZone = require("../models/DeliveryZone")
 const bcrypt = require("bcryptjs");
 const sendMail = require('../Helpers/emailTrade')
 const TOKEN_KEY = "17318cd9-78c9-49ab-b6bd-9f6ca4ebc818";
@@ -61,8 +61,8 @@ const searchByZoneAndCatAndEpagos = async (deliveryZone, category, epagos) => {	
 };
 
 const searchTradesByFilters = async (tradesFilter) => {	// OK
-	try {		
-		const tradesFound = await Trade.find(tradesFilter); 
+	try {
+		const tradesFound = await Trade.find(tradesFilter);
 		if (tradesFound.length) {
 			return tradesFound;
 		} else return [];
@@ -87,7 +87,7 @@ const searchTradeByName = async (name) => { // OK
 		let tradeFound = await Trade.find()
 		let tradeCoincidence = tradeFound.filter((t) => t.commerceName.toLowerCase().includes(name.toLowerCase()))
 		if (tradeCoincidence.length) return tradeCoincidence
-		return `No se encontraron comercios`		
+		return `No se encontraron comercios`
 	} catch (error) {
 		throw new Error(`Ocurrió un problema al buscar el comercio.`)
 	}
@@ -95,7 +95,7 @@ const searchTradeByName = async (name) => { // OK
 
 const getAllCategories = async () => {	// OK
 	try {
-		const allTrades = await Trade.find({active: true}, "category");
+		const allTrades = await Trade.find({ active: true }, "category");
 		if (allTrades.length) {
 			const categoriesRepeat = [];
 			allTrades.forEach((trade) => {
@@ -125,7 +125,7 @@ const getSubCategories = async (category) => {	// OK
 
 const getDeliveryZones = async () => {	// OK
 	try {
-		const allTrades = await Trade.find({active:true}, "deliveryZone");
+		const allTrades = await Trade.find({ active: true }, "deliveryZone");
 		if (allTrades.length) {
 			const deliveryZonesRepeat = [];
 			for (let i = 0; i < allTrades.length; i++) {
@@ -136,7 +136,7 @@ const getDeliveryZones = async () => {	// OK
 			return [...new Set(deliveryZonesRepeat)];
 		} else return `No se encontraron comercios.`;
 	} catch (error) {
-		throw new Error (`Error al buscar los comercios.`);
+		throw new Error(`Error al buscar los comercios.`);
 	}
 };
 
@@ -145,9 +145,9 @@ const getCategories = async () => {
 		const categories = []
 		const categoriesDB = await Categories.find()
 		if (categoriesDB.length) {
-		categoriesDB.forEach( (c) => {
-			categories.push(c.name)
-		});
+			categoriesDB.forEach((c) => {
+				categories.push(c.name)
+			});
 		}
 		return categories
 	} catch (error) {
@@ -158,8 +158,8 @@ const getCategories = async () => {
 const getAllSubcategories = async (category) => {
 	try {
 		const subcategories = []
-		const subcategoriesDB = await Subcategories.find({category:category})
-		subcategoriesDB.forEach( (sc) => {
+		const subcategoriesDB = await Subcategories.find({ category: category })
+		subcategoriesDB.forEach((sc) => {
 			subcategories.push(sc.name)
 		})
 		return subcategories
@@ -171,102 +171,112 @@ const getAllSubcategories = async (category) => {
 
 // PUTS
 const updateTrade = async (tradeId, body) => { // OK
-  try {
-    const updateTrade = await Trade.findByIdAndUpdate(tradeId, body, { new: true });
-    if (updateTrade) return `Se actualizó correctamente el comercio.`
-	return `No se pudo actualizar el comercio`
-  } catch (error) {
-    throw new Error (`Error al actualizar el comercio.`);
-  }
+	try {
+		const updateTrade = await Trade.findByIdAndUpdate(tradeId, body, { new: true });
+		if (updateTrade) return `Se actualizó correctamente el comercio.`
+		return `No se pudo actualizar el comercio`
+	} catch (error) {
+		throw new Error(`Error al actualizar el comercio.`);
+	}
 }
 
 const updateTrades = async (body) => {  // OK
 	try {
-	  const tradeUpdate = await Trade.updateMany({}, body)
-	  if (tradeUpdate) return `Comercios actualizados.`
-	  return `No se pudo actualizar los comercios.`
+		const tradeUpdate = await Trade.updateMany({}, body)
+		if (tradeUpdate) return `Comercios actualizados.`
+		return `No se pudo actualizar los comercios.`
 	} catch (error) {
-	  throw new Error (`Error al intentar actualizar todos los comercios.`)
+		throw new Error(`Error al intentar actualizar todos los comercios.`)
 	}
-  }
+}
 
 //POST
 const createTrades = async (body) => { // OK
-	const {password, email} = body
-	try {	
+	const { password, email } = body
+	try {
+		const token = jwt.sign(
+			{ email: email },
+			TOKEN_KEY,
+			{ expiresIn: "2h" }
+		)	
 		const newTrade = new Trade(body);
 		const salt = bcrypt.genSaltSync(10);
 		newTrade.password = bcrypt.hashSync(password, salt);
 		await newTrade.save();
+<<<<<<< HEAD
 		await sendMail(newTrade.email,token)
 
 		return true;
+=======
+		await sendMail(newTrade.email, token)
+		return `El comercio se creó correctamente`;
+>>>>>>> 54dedea3942b3a167af28541ab9973d16ea14cfa
 	} catch (error) {
 		throw new Error(`Error al registrar el comercio ${body.commerceName}`);
 	}
 };
 
-const confirmEmail = async (token ) => { // OK
+const confirmEmail = async (token) => { // OK
 	try {
-		const payload = jwt.verify(token,TOKEN_KEY)
-		
+		const payload = jwt.verify(token, TOKEN_KEY)
+
 		let email = payload.email;
-		
-		const trades = await Trade.findOne({email});
-		
+
+		const trades = await Trade.findOne({ email });
+
 		if (!trades) return "No se encontro el usuario"
 		if (trades.emailVerified) return "El correo ya se encuentra verificado"
-		
+
 		trades.emailVerified = true;
 		await trades.save()
-		await sendMailWelcome(trades.email,trades.username);
+		await sendMailWelcome(trades.email, trades.username);
 		return "El correo electronico ha sido verificado"
-  
-	} catch (error) {
-	  throw new Error(`Error al verificar el correo.`);
-	}
-  }
 
-const sendMailNewPassword = async (email,token) => { // ?
-	try {
-	  const sendMail = await sendMailReset(email,token)
-	  if (sendMail) return "Se ha enviado el link a tu email"
-	  return "No se pudo enviar el link a tu email."
 	} catch (error) {
-	  throw new Error ("Error al enviar el email")
+		throw new Error(`Error al verificar el correo.`);
 	}
-  }
-  
+}
+
+const sendMailNewPassword = async (email, token) => { // ?
+	try {
+		const sendMail = await sendMailReset(email, token)
+		if (sendMail) return "Se ha enviado el link a tu email"
+		return "No se pudo enviar el link a tu email."
+	} catch (error) {
+		throw new Error("Error al enviar el email")
+	}
+}
+
 const resetPasswordController = async (password, token) => { // ?
 	try {
-	  const payload = jwt.verify(token,TOKEN_KEY)	
-	  let email = payload.email;  
-	  const salt = bcrypt.genSaltSync(10);
+		const payload = jwt.verify(token, TOKEN_KEY)
+		let email = payload.email;
+		const salt = bcrypt.genSaltSync(10);
 
-	  const trade = await Trade.findOne({email})
-	  if (!trade) return `No hemos encontrado un comercio con ese correo electrónico.`
-	  
-	  let newPassword = bcrypt.hashSync(password, salt)  
-	  trade.password = newPassword;
-  
-	  await trade.save();
-	  const sendMail = await sendMailResetSuccess(trade.email,trade.userName);
-	  if (sendMail) `Se actualizó la contraseña. Le hemos enviado un mail.`  
-	  return `No se pudo actualizar la contraseña.`
+		const trade = await Trade.findOne({ email })
+		if (!trade) return `No hemos encontrado un comercio con ese correo electrónico.`
+
+		let newPassword = bcrypt.hashSync(password, salt)
+		trade.password = newPassword;
+
+		await trade.save();
+		const sendMail = await sendMailResetSuccess(trade.email, trade.userName);
+		if (sendMail)`Se actualizó la contraseña. Le hemos enviado un mail.`
+		return `No se pudo actualizar la contraseña.`
 	} catch (error) {
-	  throw new Error(`Error al actualizar la contraseña.`)
+		throw new Error(`Error al actualizar la contraseña.`)
 	}
-  }
-  
+}
+
 
 const createCategory = async (category) => { // OK
-  try {
-    const newCategory = new Categories(category);    
-    await newCategory.save()
-	return `La categoría se creó correctamente`;
-  } catch (error) {
-    throw new Error(`Error al registar la categoria ${category}`)
-  }
+	try {
+		const newCategory = new Categories(category);
+		await newCategory.save()
+		return `La categoría se creó correctamente`;
+	} catch (error) {
+		throw new Error(`Error al registar la categoria ${category}`)
+	}
 };
 
 const createSubcategory = async (subCat) => { // OK
@@ -289,24 +299,21 @@ const createDeliveryZone = async (deliZone) => { // OK
 	}
 }
 
-const verifyTradeLog = async (username, password) => { // ?
+
+const searchTradeByUsername = async (username) => { // OK
 	try {
-		const existUser = await Trade.find({userName: username})
-		if (existUser.length) {
-			const trade = existUser[0]
-			const pass = bcrypt.compareSync(password, trade.password);
-    		if (pass) return trade._id
-    		return `Contraseña incorrecta.`
-		} return `El usuario no existe.`
+		const tradeBDD = await Trade.find({ userName: username })
+		return tradeBDD;
+
 	} catch (error) {
-		throw new Error(`Error al verificar usuario y contraseña.`)
+		return error.message
 	}
 }
 
 // DELETE
 const deleteTrade = async (id) => { //OK
 	try {
-		const tradeDeleted = await Trade.deleteOne({_id: id})
+		const tradeDeleted = await Trade.deleteOne({ _id: id })
 		if (tradeDeleted.deletedCount !== 0) {
 			return `Comercio eliminado!`
 		} return `No se encontró el comercio.`
@@ -316,18 +323,18 @@ const deleteTrade = async (id) => { //OK
 }
 
 const deleteCaegory = async (category) => {
-try {
-	const deleted = await Categories.findOneAndDelete({name: category})
-	if (deleted.deletedCount !== 0) return `Se eliminó la categoría ${category}`
-	return `No fue posible eliminar la categoría ${category}`
-} catch (error) {
-	throw new Error(`Ocurrió un error al eliminar la categoría ${category}`)
-}
+	try {
+		const deleted = await Categories.findOneAndDelete({ name: category })
+		if (deleted.deletedCount !== 0) return `Se eliminó la categoría ${category}`
+		return `No fue posible eliminar la categoría ${category}`
+	} catch (error) {
+		throw new Error(`Ocurrió un error al eliminar la categoría ${category}`)
+	}
 }
 
 const deleteSubcategory = async (subcategory) => {
 	try {
-		const deleted = await Subcategories.findOneAndDelete({name: subcategory})
+		const deleted = await Subcategories.findOneAndDelete({ name: subcategory })
 		if (deleted.deletedCount !== 0) return `Se eliminó la subcategoría ${subcategory}`
 		return `No fue posible eliminar la subcategoría ${subcategory}`
 	} catch (error) {
@@ -337,7 +344,7 @@ const deleteSubcategory = async (subcategory) => {
 
 const deleteDeliveryZone = async (deliveryZone) => {
 	try {
-		const deleted = await DeliveryZone.findOneAndDelete({name: deliveryZone})
+		const deleted = await DeliveryZone.findOneAndDelete({ name: deliveryZone })
 		if (deleted.deletedCount !== 0) return `Se eliminó la zona ${deliveryZone}`
 		return `No fue posible eliminar la zona ${deliveryZone}`
 	} catch (error) {
@@ -348,7 +355,7 @@ const deleteDeliveryZone = async (deliveryZone) => {
 module.exports = {
 	getAllTrades,
 	searchByZone,
-	searchByZoneAndCat,	
+	searchByZoneAndCat,
 	searchByZoneAndCatAndEpagos,
 	searchTradesByFilters,
 	searchTradeById,
@@ -360,7 +367,6 @@ module.exports = {
 	confirmEmail,
 	resetPasswordController,
 	sendMailNewPassword,
-	verifyTradeLog,
 	updateTrade,
 	deleteTrade,
 	searchTradeByName,
@@ -371,5 +377,6 @@ module.exports = {
 	deleteSubcategory,
 	deleteDeliveryZone,
 	getCategories,
-	getAllSubcategories
+	getAllSubcategories,
+	searchTradeByUsername
 };

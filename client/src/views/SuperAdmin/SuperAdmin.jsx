@@ -555,8 +555,8 @@ export default function SuperAdmin() {
 								<option value="default" selected disabled>
 									Categoria
 								</option>
-								{/* {stateCategories &&
-									stateCategories.map((e) => <option value={e}>{e}</option>)} */}
+								{stateCategories &&
+									stateCategories.map((e) => <option value={e}>{e}</option>)}
 							</select>
 							{currentErrors.category && <p>{currentErrors.category}</p>}
 
@@ -638,8 +638,8 @@ export default function SuperAdmin() {
 								<option value="default" selected disabled>
 									Zona de Delivery
 								</option>
-								{/*stateZones &&
-									stateZones.map((e) => <option value={e}>{e}</option>)} */}
+								{stateZones &&
+									stateZones.map((e) => <option value={e}>{e}</option>)} 
 							</select>
 							{currentErrors.deliveryZone && (
 								<p>{currentErrors.deliveryZone}</p>

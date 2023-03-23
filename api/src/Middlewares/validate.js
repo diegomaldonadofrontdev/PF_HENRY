@@ -219,8 +219,8 @@ const validatePassword = (req, res, next) => {
 
 const validateLoginTrade = (req, res, next) => {
 	const {username, password} = req.body
-	if (!username) return res.status(400).json({ Error: "No se ha recibido el usuario" });
-	if (!password) return res.status(400).json({ Error: "No se ha recibido la constraseña" });
+	// if (!username) return res.status(400).json({ Error: "No se ha recibido el usuario" });
+	// if (!password) return res.status(400).json({ Error: "No se ha recibido la constraseña" });
 	next()
 }
 
