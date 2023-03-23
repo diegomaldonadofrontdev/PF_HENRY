@@ -30,7 +30,10 @@ import {
 	POST_SEND_EMAIL_PASSWORD,
 	GET_ALL_CLIENTS,
 	GET_CLIENT_FORSP,
-	GET_REVIEW_BYID
+	GET_REVIEW_BYID,
+	GET_TRADES_SUPERADMINS_CATEGORIES,
+	GET_TRADES_BY_NAME_SUPERADMIN,
+	GET_PRODUCT_BY_NAME_SUPERADMIN
 } from "../actions/types";
 
 const initialState = {
@@ -60,7 +63,11 @@ const initialState = {
 	currentPage: 1,
 	ordersCommerces: [],
 	allClients: [],
-	clientForSP: {}
+	clientForSP: {},
+	superCategories: [],
+	tradesSuperAdmin: [],
+	productsSuperAdmin: []
+
 };
 
 function dateTransform(date) {
@@ -407,9 +414,10 @@ export default function rootReducer(state = initialState, action) {
 				filterCommerce: resCommerces,
 			};
 		}
-		case POST_SEND_EMAIL_PASSWORD: {
+		case GET_TRADES_SUPERADMINS_CATEGORIES: {
 			return {
 				...state,
+				superCategories: action.payload
 			};
 		}
 		case GET_ALL_CLIENTS: {
@@ -428,6 +436,16 @@ export default function rootReducer(state = initialState, action) {
 			return {
 				...state,
 				feedbackById: {...action.payload}
+			}
+		case GET_TRADES_BY_NAME_SUPERADMIN:
+			return {
+				...state,
+				tradesSuperAdmin: action.payload
+			}
+		case GET_PRODUCT_BY_NAME_SUPERADMIN:
+			return {
+				...state,
+				productsSuperAdmin: action.payload
 			}
 		default:
 			return state;
