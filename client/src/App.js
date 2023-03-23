@@ -24,58 +24,59 @@ import ResetPassword from "./views/ResetPassword/ResetPassword";
 import SendEmailTrades from "./views/SendEmailTrades/SendEmail";
 import ResetPasswordTrades from "./views/ResetPasswordTrades/ResetPassword";
 import ResponsePaymentCash from "./views/ResponsePaymentCash/ResponsePaymentCash";
+import SuperAdmin2 from "./views/SuperAdmin2/SuperAdmin2";
 
 function App() {
-  const dispatch = useDispatch();
+	const dispatch = useDispatch();
 
-  const currentUser = useSelector((state) => state.currentClient);
+	const currentUser = useSelector((state) => state.currentClient);
 
-  useEffect(() => {
-    const idUser = window.localStorage.getItem("idUser");
-    if (idUser) {
-      dispatch(getCLient(idUser));
-    }
-  }, []);
+	useEffect(() => {
+		const idUser = window.localStorage.getItem("idUser");
+		if (idUser) {
+			dispatch(getCLient(idUser));
+		}
+	}, []);
 
-  return (
-    <div className="App">
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/adminowner" element={<AdminOwner />} />
-        <Route path="/useradmin" element={<DashboardClient />} />
-
-        <Route path="/login" element={<Login />} />
-        <Route path="/login/trades" element={<LoginTrade />} />
-        <Route path="/login/tradeboss" element={<LoginTradeBoss />} />
-        <Route path="/s" element={<HomeLocal />} />
-        <Route path="/search" element={<UserSearch />} />
-        <Route path="/opinion" element={<OpinionForm />} />
-        <Route path="/comercio/:id" element={<CommerceDetail />} />
-        <Route path="/registration" element={<RegistrationForm />} />
-        <Route path="/registration_product" element={<ProductCreationForm />} />
-        <Route
-          path="/registration/tradeboss"
-          element={<RegistrationTradeBoss />}
-        />
-        <Route path="/registration_product" element={<ProductCreationForm />} />
-        <Route
-          path="/registration_commerce"
-          element={<CommerceRegistrationForm />}
-        />
-        <Route path="/responsepayment/:status" element={<ResponsePayment />} />
-        {/* <Route path="/responsepayment/:status" element={<ResponsePayment />} /> */}
-        <Route path="/superadmin" element={<SuperAdmin />} />
-        <Route path="/resetpassword" element={<SendEmail />} />
-        <Route path="/resetpassword2/:token" element={<ResetPassword />} />
-        <Route path="/trades/resetpassword" element={<SendEmailTrades />} />
-        <Route
-          path="/trades/resetpassword2/:token"
-          element={<ResetPasswordTrades />}
-        />
-        <Route path="/responsepaymentcash" element={<ResponsePaymentCash />} />
-      </Routes>
-    </div>
-  );
+	return (
+		<div className="App">
+			<Routes>
+				<Route path="/" element={<Home />} />
+				<Route path="/adminowner" element={<AdminOwner />} />
+				<Route path="/useradmin" element={<DashboardClient />} />
+				<Route path="/login" element={<Login />} />
+				<Route path="/login/trades" element={<LoginTrade />} />
+				<Route path="/login/tradeboss" element={<LoginTradeBoss />} />
+				<Route path="/s" element={<RegistrationForm/>} />
+				<Route path="/search" element={<UserSearch />} />
+				<Route path="/opinion" element={<OpinionForm />} />
+				<Route path="/comercio/:id" element={<CommerceDetail />} />
+				<Route path="/registration" element={<RegistrationForm />} />
+				<Route path="/registration_product" element={<ProductCreationForm />} />
+				<Route
+					path="/registration/tradeboss"
+					element={<RegistrationTradeBoss />}
+				/>
+				<Route path="/registration_product" element={<ProductCreationForm />} />
+				<Route
+					path="/registration_commerce"
+					element={<CommerceRegistrationForm />}
+				/>
+				<Route path="/responsepayment/:status" element={<ResponsePayment />} />
+				{/* <Route path="/responsepayment/:status" element={<ResponsePayment />} /> */}
+				<Route path="/superadmin" element={<SuperAdmin />} />
+				<Route path="/resetpassword" element={<SendEmail />} />
+				<Route path="/resetpassword2/:token" element={<ResetPassword />} />
+				<Route path="/trades/resetpassword" element={<SendEmailTrades />} />
+				<Route
+					path="/trades/resetpassword2/:token"
+					element={<ResetPasswordTrades />}
+				/>
+				<Route path="/responsepaymentcash" element={<ResponsePaymentCash />} />
+				<Route path="/superadmins" element={<SuperAdmin2 />} />
+			</Routes>
+		</div>
+	);
 }
 
 export default App;

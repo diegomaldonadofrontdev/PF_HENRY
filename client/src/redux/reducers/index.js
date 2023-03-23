@@ -33,7 +33,7 @@ import {
 	GET_REVIEW_BYID,
 	GET_TRADES_SUPERADMINS_CATEGORIES,
 	GET_TRADES_BY_NAME_SUPERADMIN,
-	GET_PRODUCT_BY_NAME_SUPERADMIN
+	GET_PRODUCT_BY_NAME_SUPERADMIN,
 } from "../actions/types";
 
 const initialState = {
@@ -62,12 +62,12 @@ const initialState = {
 	currentPageTrades: 1,
 	currentPage: 1,
 	ordersCommerces: [],
+	ordersClients: [],
 	allClients: [],
 	clientForSP: {},
 	superCategories: [],
 	tradesSuperAdmin: [],
-	productsSuperAdmin: []
-
+	productsSuperAdmin: [],
 };
 
 function dateTransform(date) {
@@ -274,6 +274,13 @@ export default function rootReducer(state = initialState, action) {
 			};
 
 		case GET_ORDERS_CLIENT: {
+			if (action.payload.data === "No se encontraron pedidos con su usuario") {
+				return {
+					...state,
+					currentClient: { ...state.currentClient, orders: [] },
+					ordersClients: [],
+				};
+			}
 			const copyData = action.payload.data;
 			const orders = copyData.map((x) => ({
 				...x,
@@ -282,6 +289,7 @@ export default function rootReducer(state = initialState, action) {
 			return {
 				...state,
 				currentClient: { ...state.currentClient, orders: orders },
+				ordersClients: orders,
 			};
 		}
 		case SET_FILTER_CATEGORY_COMMERCE:
@@ -321,8 +329,17 @@ export default function rootReducer(state = initialState, action) {
 			};
 
 		case EDIT_CLIENT: {
+			let copiAllClients = state.allClients;
+
+			const resClient = copiAllClients.findIndex(
+				(x) => x._id === action.payload.id
+			);
+
+			copiAllClients[resClient] = action.payload.body;
+
 			return {
 				...state,
+				allClients: [...copiAllClients],
 				currentClient: { ...state.currentClient, ...action.payload.body },
 			};
 		}
@@ -344,7 +361,6 @@ export default function rootReducer(state = initialState, action) {
 				...x,
 				createdAt: dateTransform(x.createdAt),
 			}));
-			console.log(orders, action.payload);
 			return {
 				...state,
 				ordersCommerces: orders,
@@ -399,10 +415,19 @@ export default function rootReducer(state = initialState, action) {
 			};
 		}
 		case UPDATE_COMMERCE: {
+			let copiAllCommerces = state.allCommerces;
+
+			const resCommerce = copiAllCommerces.findIndex(
+				(x) => x._id === action.payload.id
+			);
+
+			copiAllCommerces[resCommerce] = action.payload.body;
+
 			return {
 				...state,
+				allCommerces: [...copiAllCommerces],
 				currentTrade: { ...state.currentTrade, ...action.payload.body },
-			}
+			};
 		}
 		case GET_TRADES_BY_NAME: {
 			console.log(action.payload);
@@ -417,39 +442,76 @@ export default function rootReducer(state = initialState, action) {
 		case GET_TRADES_SUPERADMINS_CATEGORIES: {
 			return {
 				...state,
-				superCategories: action.payload
+				superCategories: action.payload,
 			};
 		}
 		case GET_ALL_CLIENTS: {
 			return {
 				...state,
-				allClients: [...action.payload]
-			}
+				allClients: [...action.payload],
+			};
 		}
 		case GET_CLIENT_FORSP: {
 			return {
 				...state,
-				clientForSP: {...action.payload}
-			}
+				clientForSP: { ...action.payload },
+			};
 		}
 		case GET_REVIEW_BYID:
 			return {
 				...state,
-				feedbackById: {...action.payload}
-			}
+				feedbackById: { ...action.payload },
+			};
 		case GET_TRADES_BY_NAME_SUPERADMIN:
 			return {
 				...state,
-				tradesSuperAdmin: action.payload
-			}
+				tradesSuperAdmin: action.payload,
+			};
 		case GET_PRODUCT_BY_NAME_SUPERADMIN:
 			return {
 				...state,
-				productsSuperAdmin: action.payload
+				productsSuperAdmin: action.payload,
+			};
+		case "DELETE_PRODUCT_BY_ID":
+			let copyProductCommerce = state.products;
+			copyProductCommerce = copyProductCommerce.filter(
+				(x) => x._id !== action.payload
+			);
+			if (copyProductCommerce.length) {
+				return { ...state, products: [...copyProductCommerce] };
 			}
+			return { ...state };
+		case "DELETE_CLIENT":
+			let copyAllClients = state.allClients;
+
+			copyAllClients = copyAllClients.filter((x) => x._id !== action.payload);
+			if (copyAllClients.length) {
+				return { ...state, allClients: [...copyAllClients] };
+			}
+			return { ...state };
+
+		case "DELETE_TRADE":
+			let copyAllTrades = state.allCommerces;
+
+			copyAllTrades = copyAllTrades.filter((x) => x._id !== action.payload);
+			if (copyAllTrades.length) {
+				return { ...state, allCommerces: [...copyAllTrades] };
+			}
+			return { ...state };
+		case "DELETE_REVIEW":
+			let copyAllReviews = state.feedback;
+
+			copyAllReviews = copyAllReviews.filter((x) => x._id !== action.payload);
+			if (copyAllReviews.length) {
+				return { ...state, feedback: [...copyAllReviews] };
+			}
+			return { ...state };
+		case "CREATE_TRADE_":
+			return {
+				...state,
+				allCommerces: [...state.allCommerces, action.payload],
+			};
 		default:
 			return state;
 	}
 }
-
-	

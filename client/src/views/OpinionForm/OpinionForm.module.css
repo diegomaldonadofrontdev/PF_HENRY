@@ -1,86 +1,66 @@
-.container {
-	display: flex;
-	justify-content: center;
-	width: 80%;
-	margin: auto;
-	text-align: center;
-}
-
 .opinion__form {
-	padding-top: 100px;
+  padding-top: 150px;
 }
 
-.opinion__form > form {
-	background-color: white;
-	padding: 25px;
-	display: flex;
-	flex-direction: column;
-	gap: 3em;
-	width: 50%;
+.container {
+  display: flex;
+  justify-content: center;
+  width: 80%;
+  margin: auto;
+  text-align: center;
 }
 
-.texto__form {
-	background-color: rgba(0, 0, 0, 0.649);
-	padding: 25px;
-	width: 50%;
-	color: white;
-	display: flex;
-	flex-direction: column;
-	gap: 2em;
+.opinion__form .container form {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  width: 350px;
 }
 
-.texto__form h2 {
-	color: white;
-	font-weight: 400;
+.opinion__form .container form h3 {
+  font-size: 2em;
 }
 
-.texto__form h2 span {
-	font-weight: 700;
-	color: white;
+.opinion__form .container .input__nombreLocal input {
+  width: 100%;
+  padding: 0.5em 0;
 }
 
-.opinion__form form > div {
-	display: flex;
-	flex-direction: column;
-	position: relative;
+.opinion__form .container .input__negocio {
+  width: 100%;
 }
 
-.opinion__form form > div > label {
-	font-size: 0.9em;
-	background-color: white;
-	position: absolute;
-	left: 10px;
-	top: -10px;
-	padding: 0 10px;
+.opinion__form .container .input__negocio textarea {
+  width: 100% !important;
+  height: 200px;
 }
 
-.opinion__form form > div input {
-	font-size: 1em;
-	height: 30px;
-	border: 1px solid rgb(212, 212, 212);
-	padding: 25px 20px;
+.opinion__form .container form label {
+  position: initial !important;
+  font-weight: 500;
+  width: 100% !important;
+  display: flex;
+  text-align: start !important;
+  background-color: rgba(240, 248, 255, 0) !important;
+  font-size: 1em !important;
 }
 
-.opinion__form textarea {
-	resize: none;
-	height: 200px;
-	font-size: 1em;
-	padding: 25px 15px;
+.estrellas {
+  display: flex;
 }
 
-.form__button {
-	border: none;
-	background-color: #f54749;
-	color: white;
-	padding: 20px 0;
+.opinion__form button {
+  border: 1px solid var(--main-color);
+  padding: 0.5em 0;
+  border-radius: 100px;
+  transition: all 0.1s ease-in-out;
+  cursor: pointer;
 }
 
-.opinion__form  .label_rating {
-	position: initial;
-}
-
-.opinion__form .estrellas {
-	align-items: center;
-	display: flex !important;
-	flex-direction: row;
+.opinion__form button:hover {
+  background-color: var(--main-color);
+  color: white;
+  box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.5);
+  transform: scale(102%);
 }

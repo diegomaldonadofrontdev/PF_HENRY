@@ -25,7 +25,6 @@ export default function DashboardClient() {
 	const dispatch = useDispatch();
 
 	const idUser = window.localStorage.getItem("idUser");
-	console.log(idUser)
 
 	const [body, setBody] = useState({
 		firstname: "",

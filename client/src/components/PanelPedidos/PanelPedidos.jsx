@@ -7,7 +7,6 @@ import PedidoCard from "../PedidoCard/PedidoCard";
 import styles from "./PanelPedidos.module.css";
 
 export default function PanelPedidos(props) {
-	const [statePedido, setStatePedido] = useState("");
 
 	const [statusPedido, setStatusPedido] = useState([
 		{ texto: "Pasar a pendiente", status: "Pendiente" },
