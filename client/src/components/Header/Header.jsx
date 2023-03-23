@@ -74,7 +74,7 @@ export default function Header() {
 					{!idTrade && !token && !isAuthenticated && location.pathname !== "/login" && (
 						<div>
 							<Link to="/login">
-								<ButtonPrimary texto="Login" />
+								<ButtonPrimary texto="Iniciar Sesión" />
 							</Link>
 						</div>
 					)}
@@ -82,7 +82,7 @@ export default function Header() {
 						!isAuthenticated &&
 						location.pathname !== "/registration" && (
 							<Link to="/registration">
-								<ButtonPrimary texto="Register" />
+								<ButtonPrimary texto="Registrarse" />
 							</Link>
 						)}
 				</div>

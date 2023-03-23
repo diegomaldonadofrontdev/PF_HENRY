@@ -114,7 +114,7 @@ export default function AdminOwner() {
 							<div className={styles.perfil__resumen}>
 								<div className={styles.status__count}>
 									<p>
-										Tenés pedidos sin aceptar:<span>10</span>
+										Tenés pedidos sin aceptar:<span>{ordersCommerce.length}</span>
 									</p>
 								</div>
 							</div>

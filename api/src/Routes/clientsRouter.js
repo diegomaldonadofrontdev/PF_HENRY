@@ -81,7 +81,7 @@ clientsRouter.post("/order/newOrder", validateOrder, postNewOrderHandler); // OK
 // Publicar una review de un comercio
 clientsRouter.post("/trades/feedback", validateTradeFeedback, postFeedbacksHandler); // OK
 // LOGIN AND AUTHENTICATION
-clientsRouter.post("/login", validateClientLogin, postClientLogin); // OK
+clientsRouter.post("/login", /* validateClientLogin, */ postClientLogin); // OK
 clientsRouter.post("/siginWhitGoogle", postRegisterClientWhitGoogle); // OK
 clientsRouter.post("/resetPassword", validateResetPassword,	postSendMailResetPassword);
 clientsRouter.post("/newPassword/:token", validatePassword, postResetClientPassword);

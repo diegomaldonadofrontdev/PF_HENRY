@@ -43,7 +43,6 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/adminowner" element={<AdminOwner />} />
         <Route path="/useradmin" element={<DashboardClient />} />
-
         <Route path="/login" element={<Login />} />
         <Route path="/login/trades" element={<LoginTrade />} />
         <Route path="/login/tradeboss" element={<LoginTradeBoss />} />
