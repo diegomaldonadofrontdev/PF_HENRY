@@ -52,6 +52,17 @@ const searchProductByName = async (tradeId, name) => { // OK
 	}
 }
 
+const searchProductsByName = async (name) => { // OK
+	try {
+		let productFound = await Product.find()        
+      let productCoincidence = productFound.filter((t) => t.name.toLowerCase().includes(name.toLowerCase()))
+      if (productCoincidence.length) return productCoincidence
+      return `No se encontraron comercios.`    
+	} catch (error) {
+		throw new Error(`Ocurrió un problema al buscar los productos.`)
+	}
+}
+
 // [Todos los productos de un comercio que coinciden con la categoria del producto e incluyen el nombre]
 const searchByNameAndPoductCat = async (tradeId, productCategory, productName) => { // OK
   try {
@@ -183,5 +194,6 @@ module.exports = {
   updateProducts,
   deleteProduct,
   updateStock,
-  addStock
+  addStock,
+  searchProductsByName
 }

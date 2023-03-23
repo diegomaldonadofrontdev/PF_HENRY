@@ -11,6 +11,7 @@ const {
   updateStock,
   addStock,
   deleteProduct,
+  searchProductsByName
 } = require("../Controllers/productController");
 
 // GETS
@@ -43,6 +44,16 @@ const getProductByNameHandler = async (req, res) => { // OK
   const {tradeId} = req.query
   try {
       const find = await searchProductByName(tradeId, name)
+      res.status(200).json(find)
+  } catch (error) {
+      res.status(404).json({Error: error.message})
+  }
+}
+
+const getProductsByNameHandler = async (req, res) => { // 
+  const {name} = req.query
+  try {
+      const find = await searchProductsByName(name)
       res.status(200).json(find)
   } catch (error) {
       res.status(404).json({Error: error.message})
@@ -164,5 +175,6 @@ module.exports = {
   getProductByNameHandler,
   putProductsHandler,
   putRestStockHandler,
-  putAddStockHandler
+  putAddStockHandler,
+  getProductsByNameHandler
 };
