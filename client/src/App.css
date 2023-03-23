@@ -23,3 +23,12 @@
 body {
 	background-color: #efefef;
 }
+
+button {
+	background-color: var(--main-color);
+	border: none;
+	color: white;
+	margin: 0 0.5em;
+	padding: 0.5em;
+	border-radius: 0.5em;
+}
