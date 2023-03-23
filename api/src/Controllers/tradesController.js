@@ -203,14 +203,8 @@ const createTrades = async (body) => { // OK
 		const salt = bcrypt.genSaltSync(10);
 		newTrade.password = bcrypt.hashSync(password, salt);
 		await newTrade.save();
-<<<<<<< HEAD
-		await sendMail(newTrade.email,token)
-
-		return true;
-=======
 		await sendMail(newTrade.email, token)
 		return `El comercio se creó correctamente`;
->>>>>>> 54dedea3942b3a167af28541ab9973d16ea14cfa
 	} catch (error) {
 		throw new Error(`Error al registrar el comercio ${body.commerceName}`);
 	}
