@@ -43,7 +43,7 @@ const sendMailWelcome = async(email,firstname,lastname) => {
                                             <td style="padding:0 0 36px 0;color:#153643;">
                                                 <h1 style="font-size:24px;margin:0 0 20px 0;color:#ff441f">Bienvenidos a PEDI-VERY ${firstname} ${lastname}</h1>
                                                 <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;">Te damos la bienvenida a PEDI-VERY, Pedí lo que quieras! Restaurantes, mercados, farmacias, kioscos y mucho más.</p>
-                                                <p style="margin:0;font-size:16px;line-height:24px"><a href="https://pedivery.netlify.app/login" style="color:#ff441f;text-decoration:underline;">Ingresa ahora</a></p>
+                                                <p style="margin:0;font-size:16px;line-height:24px"><a href="https://pf-henry-two.vercel.app/login" style="color:#ff441f;text-decoration:underline;">Ingresa ahora</a></p>
                                             </td>
                                         </tr>
                                     </table>
