@@ -13,6 +13,10 @@ import { editClient } from "../../redux/actions/editClient";
 import deleteReview from "../../redux/actions/deleteReview";
 import getReviewsSP from "../../redux/actions/getReviewsSP";
 import getReviewById from "../../redux/actions/getReviewsById";
+import { postCategory } from "../../redux/actions/postCategory";
+import { postSubcategory } from "../../redux/actions/postSubcategory";
+import { postDeliveryZone } from "../../redux/actions/postDeliveryZone";
+
 import {
 	getSubCategories,
 	getTradesCategories,
@@ -24,6 +28,7 @@ import Header from "../../components/Header/Header";
 
 export default function SuperAdmin2() {
 	const dispatch = useDispatch();
+	const stateSuperCategories = useSelector((state) => state.superCategories);
 	const review = useSelector((state) => state.feedbackById);
 	const reviews = useSelector((state) => state.feedback);
 	const allCommerces = useSelector((state) => state.allCommerces);
@@ -38,7 +43,13 @@ export default function SuperAdmin2() {
 	const stateCategories = useSelector((state) => state.tradesCategories);
 	const stateSubCategories = useSelector((state) => state.tradesSubCategories);
 	const stateZones = useSelector((state) => state.zones);
-
+	const [currentDeliveryZone, setCurrentDeliveryZone] = useState({
+		deliveryZone: "",
+	});
+	const [currentSubcategory, setCurrentSubcategory] = useState({
+		subcategory: "",
+		category: "",
+	});
 	const [configuracion, setConfiguracion] = useState({
 		seleccionado: "",
 		editar: false,
@@ -46,6 +57,9 @@ export default function SuperAdmin2() {
 		name: "",
 		orders: false,
 		create: false,
+	});
+	const [currentCategory, setCurrentCategory] = useState({
+		category: "",
 	});
 
 	const [currentInput, setCurrentInput] = useState({
@@ -82,7 +96,18 @@ export default function SuperAdmin2() {
 			dispatch(getSubCategories(currentInput.category));
 		}
 	}, [currentInput.category]);
+	function handlerOnchangeSubcategory(e) {
+		setCurrentSubcategory({
+			[e.target.name]: e.target.value,
+		});
+	}
 
+	function handlerOnchangeSubcategorySelect(e) {
+		setCurrentSubcategory({
+			...currentSubcategory,
+			category: e.target.value,
+		});
+	}
 	function handlerView(e) {
 		e.preventDefault();
 		setConfiguracion({
@@ -99,6 +124,34 @@ export default function SuperAdmin2() {
 		} else {
 			setBody({});
 			setLoggedTrade({});
+		}
+	}
+	function handlerOnchangeCategory(e) {
+		setCurrentCategory({
+			...currentCategory,
+			[e.target.name]: e.target.value,
+		});
+	}
+	function handlerSubmitSubcategorySuper(e) {
+		e.preventDefault();
+		if (!currentSubcategory.subcategory || !currentSubcategory.category) {
+			swal({
+				title: "Error",
+				text: "No has llenado algun campo ",
+				icon: "warning",
+				button: "Ok",
+			});
+		} else {
+			dispatch(postSubcategory(currentSubcategory));
+			swal({
+				title: "Listo!",
+				text: "La categoria fue creada correctamente",
+				icon: "success",
+				button: "Ok",
+			});
+			setCurrentSubcategory({
+				subcategory: "",
+			});
 		}
 	}
 
@@ -170,6 +223,29 @@ export default function SuperAdmin2() {
 			});
 		}
 	};
+
+	function handlerSubmitCategory(e) {
+		e.preventDefault();
+		if (!currentCategory.category) {
+			swal({
+				title: "Erros",
+				text: "No has llenado el campo ",
+				icon: "warning",
+				button: "Ok",
+			});
+		} else {
+			dispatch(postCategory(currentCategory));
+			swal({
+				title: "Listo!",
+				text: "La categoria fue creada correctamente",
+				icon: "success",
+				button: "Ok",
+			});
+			setCurrentCategory({
+				category: "",
+			});
+		}
+	}
 
 	function handlerSelect(id, name) {
 		setConfiguracion({
@@ -473,6 +549,28 @@ export default function SuperAdmin2() {
 			});
 		}
 	}
+	function handlerSubmitDeliveryZone(e) {
+		e.preventDefault();
+		if (!currentDeliveryZone.deliveryZone) {
+			swal({
+				title: "Error",
+				text: "No has llenado el campo ",
+				icon: "warning",
+				button: "Ok",
+			});
+		} else {
+			dispatch(postDeliveryZone(currentDeliveryZone));
+			swal({
+				title: "Listo!",
+				text: "La categoria fue creada correctamente",
+				icon: "success",
+				button: "Ok",
+			});
+			setCurrentDeliveryZone({
+				deliveryZone: "",
+			});
+		}
+	}
 
 	function deleteReviewHandler(e) {
 		dispatch(deleteReview(e.target.value));
@@ -481,6 +579,12 @@ export default function SuperAdmin2() {
 
 	function handlerCreate() {
 		setConfiguracion({ ...configuracion, create: !configuracion.create });
+	}
+
+	function handlerOnchangeDeliveryZone(e) {
+		setCurrentDeliveryZone({
+			[e.target.name]: e.target.value,
+		});
 	}
 
 	return (
@@ -849,7 +953,7 @@ export default function SuperAdmin2() {
 					) : null}
 
 					{configuracion.seleccionado === "review" ? (
-						<div>
+						<div className={styles.reviews}>
 							<h3>Reviews</h3>
 
 							<table>
@@ -860,12 +964,11 @@ export default function SuperAdmin2() {
 								</tr>
 								<tr>
 									{reviews?.map((r) => (
-										<div style={{ display: "flex", flexDirection: "row" }}>
-											<div>
-												<td>{r?.name}</td>
-												<td>: {r?.rating}</td>
-											</div>
-											<td>
+										<div className={styles.tableContenido}>
+											<td>{r?.name}</td>
+											<td> {r?.rating}</td>
+
+											<td className={styles.tdaccion}>
 												<button onClick={() => dispatch(getReviewById(r._id))}>
 													Seleccionar
 												</button>
@@ -1002,19 +1105,58 @@ export default function SuperAdmin2() {
 							</table>
 						</div>
 					) : null}
+				</div>
+			</div>
+			<div className={styles.container}>
+				<div>
+					<div>
+						<form onSubmit={(e) => handlerSubmitCategory(e)}>
+							<h4>Crear Categoria</h4>
+							<input
+								type="text"
+								name="category"
+								value={currentCategory.category}
+								onChange={handlerOnchangeCategory}
+							/>
+							<button type="submit"> Crear </button>
+						</form>
+					</div>
+					<div>
+						<form onSubmit={handlerSubmitSubcategorySuper}>
+							<h4>Crear Subcategoria</h4>
+							<input
+								type="text"
+								name="subcategory"
+								value={currentSubcategory.subcategory}
+								onChange={(e) => handlerOnchangeSubcategory(e)}
+							/>
+							<select onChange={handlerOnchangeSubcategorySelect}>
+								<option value="default" selected disabled>
+									Categoria
+								</option>
 
-					{/* <div>
-				<h3>Categorias</h3>
-				<form action=""></form>
-			</div>
-			<div>
-				<h3>Subcategoria</h3>
-				<form action=""></form>
-			</div>
-			<div>
-				<h3>Delivery Zone</h3>
-				<form action=""></form>
-			</div> */}
+								{stateSuperCategories &&
+									stateSuperCategories.map((e) => (
+										<option value={e} name="category">
+											{e}
+										</option>
+									))}
+							</select>
+							<button type="submit">Crear</button>
+						</form>
+					</div>
+					<div>
+						<form onSubmit={(e) => handlerSubmitDeliveryZone(e)}>
+							<h4>Crear DeliveryZone</h4>
+							<input
+								type="text"
+								name="deliveryZone"
+								value={currentDeliveryZone.deliveryZone}
+								onChange={handlerOnchangeDeliveryZone}
+							/>
+							<button type="submit"> Crear </button>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>

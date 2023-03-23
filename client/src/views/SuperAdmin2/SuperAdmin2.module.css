@@ -48,6 +48,8 @@
 .superAdmin2 .container > .contenido > div > div ul li {
 	display: flex;
 	gap: 2em;
+	border: 1px solid gray;
+	padding: 0.5em;
 }
 
 .superAdmin2 .container > .contenido > div > div ul i {
@@ -62,10 +64,61 @@
 	font-size: 1.2em;
 }
 
+.superAdmin2 .container > .contenido > div > div > {
+}
+
 .superAdmin2 .container form {
 	background-color: white;
 	padding: 2em;
 	display: flex;
 	flex-direction: column;
 	gap: 1em;
+}
+
+.superAdmin2 .reviews {
+	background-color: white;
+	padding: 2em;
+}
+
+.superAdmin2 table {
+	display: flex;
+	flex-direction: column;
+	gap: 1em;
+}
+
+.superAdmin2 table tr {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	text-align: center;
+}
+
+.superAdmin2 table td {
+	min-width: 150px;
+}
+
+.superAdmin2 table tr div {
+}
+
+.superAdmin2 table th {
+	padding: 0.3em 1em;
+	background-color: var(--main-color);
+	color: white;
+	min-width: 200px;
+}
+
+.tableContenido {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.tableContenido td {
+	min-width: 150px;
+	text-align: center;
+}
+
+.tdaccion {
+	width: 200px;
+	text-align: center;
 }
