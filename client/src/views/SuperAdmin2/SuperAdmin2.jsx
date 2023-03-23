@@ -202,7 +202,7 @@ export default function SuperAdmin2() {
 			console.log(currentInput);
 			dispatch(commerceRegister(currentInput));
 
-			// setConfiguracion({ ...configuracion, create: false });
+			setConfiguracion({ ...configuracion, create: false });
 			swal({
 				title: "Listo!",
 				text: "El comercio fue creado correctamente",
@@ -223,6 +223,7 @@ export default function SuperAdmin2() {
 				userName: "",
 				password: "",
 				email: "",
+				rating: "",
 				epagos: "",
 				active: true,
 			});
