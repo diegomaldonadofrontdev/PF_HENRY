@@ -32,7 +32,8 @@ import {
 	GET_CLIENT_FORSP,
 	GET_REVIEW_BYID,
 	GET_TRADES_SUPERADMINS_CATEGORIES,
-	GET_TRADES_BY_NAME_SUPERADMIN
+	GET_TRADES_BY_NAME_SUPERADMIN,
+	GET_PRODUCT_BY_NAME_SUPERADMIN
 } from "../actions/types";
 
 const initialState = {
@@ -64,7 +65,9 @@ const initialState = {
 	allClients: [],
 	clientForSP: {},
 	superCategories: [],
-	tradesSuperAdmin: []
+	tradesSuperAdmin: [],
+	productsSuperAdmin: []
+
 };
 
 function dateTransform(date) {
@@ -438,6 +441,11 @@ export default function rootReducer(state = initialState, action) {
 			return {
 				...state,
 				tradesSuperAdmin: action.payload
+			}
+		case GET_PRODUCT_BY_NAME_SUPERADMIN:
+			return {
+				...state,
+				productsSuperAdmin: action.payload
 			}
 		default:
 			return state;

@@ -24,7 +24,8 @@ import { postProductCategory } from "../../redux/actions/postProductCategory"
 import { postSubcategory } from "../../redux/actions/postSubcategory";
 import { getTradesByNameSuperAdmin } from "../../redux/actions/getTradesByNameSuperAdmin"
 import { deleteTrade} from "../../redux/actions/deleteTrade"
-
+import {getProductsByNameSuperAdmin } from "../../redux/actions/getProductByNameSuperAdmin"
+import { deleteProduct} from "../../redux/actions/deleteProduct"
 
 
 export default function SuperAdmin() {
@@ -121,6 +122,8 @@ export default function SuperAdmin() {
 	const review = useSelector((state) => state.feedbackById);
 	const stateSuperCategories = useSelector((state) => state.superCategories)
 	const stateTradesbyName =useSelector((state) => state.tradesSuperAdmin )
+	const stateProductbyName =useSelector((state) => state.productsSuperAdmin )
+	console.log(stateProductbyName);
 	console.log(stateTradesbyName);
 	const [currentErrors, setCurrentErrors] = useState({});
 
@@ -505,6 +508,21 @@ export default function SuperAdmin() {
 		});
 	}
 
+	function handlerOnSearchProducts(e){
+		dispatch(getProductsByNameSuperAdmin(e.target.value))
+	}
+
+	function handlerDeleteProduct(e) {
+		e.preventDefault()
+		dispatch(deleteProduct(e.target.value))
+		swal({
+			title: "Listo!",
+			text: "La categoria fue creada correctamente",
+			icon: "success",
+			button: "Ok",
+		});
+	}
+
 
 	//const trade = useSelector(state => state.filterCommerce);
 
@@ -781,7 +799,19 @@ export default function SuperAdmin() {
 						<div>
 							<h4>Buscar Producto y eliminar</h4>
 							<form action="">
-								<input type="text" />
+								<input 
+									type="text"
+									onChange={handlerOnSearchProducts}
+								/>
+								<h4>Producto</h4>
+								<div className={styles.sp_tradeCard}>
+									<p>
+										{
+											stateProductbyName && stateProductbyName.map((e) => <p>{e.name}<button value={e._id} onClick={handlerDeleteProduct}>Eliminar</button></p>)
+										}
+									</p>
+								</div>
+
 							</form>
 						</div>
 						<div>
