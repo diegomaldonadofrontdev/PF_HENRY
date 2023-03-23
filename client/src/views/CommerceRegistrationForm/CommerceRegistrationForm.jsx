@@ -306,6 +306,7 @@ export default function CommerceRegistrationForm() {
         active: true,
       });
     }
+    
   };
 
   return (
@@ -313,7 +314,7 @@ export default function CommerceRegistrationForm() {
       <Header />
       <div className={styles.header}>
         <h2>REGISTRÁ TU COMERCIO</h2>
-        <Link to="/home">
+        <Link to="/">
           <ButtonPrimary texto="Volver" />
         </Link>
       </div>
