@@ -120,7 +120,7 @@ export default function PanelMiNegocio() {
 							<td>{x.orderId}</td>
 							<td>{x.client.fullname}</td>
 							<td>{x.products.map((x) => x.name)}</td>
-							<td>{x.total}</td>
+							<td>${x.total}</td>
 							<td>{x.createdAt}</td>
 						</tr>
 					))}
