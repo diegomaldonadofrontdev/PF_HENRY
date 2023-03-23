@@ -97,7 +97,7 @@ const createProduct = async (id, body) => { // OK
     await newProduct.save()  
     return `El producto ${body.name} se creo correctamente`
   } catch (error) {
-    return error.message
+    throw new Error (`Error al crear el producto`)
   }
 }
 
@@ -105,9 +105,9 @@ const createProductCategory = async (productCat) => { // OK
   try {
     const newCategory = new ProductCategories(productCat);    
     await newCategory.save()
-	return true;
+	  return `Se creo correctamente la categoria ${newCategory.name}`;
   } catch (error) {
-    return error.message
+    throw new Error(`Error al crear la categoría.`)
   }
 }
 
@@ -115,26 +115,26 @@ const createProductCategory = async (productCat) => { // OK
 const updateProduct = async (productId, body) => {  // OK
   try {
     const productUpdate = await Product.findByIdAndUpdate(productId, body, { new: true })
-    if (productUpdate) return true
-    return false
+    if (productUpdate) return `El producto se actualizó correctamente`
+    return `No se pudo actualizar el producto.`
   } catch (error) {
-    return error.message
+    throw new Error (`Error al actualizar el producto`)
   }
 }
 
 const updateProducts = async (body) => {  // OK
   try {
-    const productUpdate = await Product.updateMany({}, body)
-    if (productUpdate) return `Productos actualizados`
-    return `Problema al actualizar los productos`
+    await Product.updateMany({}, body)
+    return `Productos actualizados`    
   } catch (error) {
-    return error.message
+    throw new Error (`Error al actualizar todos los productos.`)
   }
 }
 
 const updateStock = async (productId, cantidad) => { // OK
   try {
     const find = await Product.findById(productId)
+    if(!find) return false
     const newStock = find.stock - cantidad
     const update = await Product.findByIdAndUpdate(productId, {stock: newStock})
     if (update) return true
@@ -144,20 +144,17 @@ const updateStock = async (productId, cantidad) => { // OK
   }
 }
 
-const addStock = async (productId, newStock) => { // OK
-  try {
+const addStock = async (productId, newStock) => { // OK  
     try {
       const find = await Product.findById(productId)
+      if(!find) return `No se encontró el producto.`
       const stock = find.stock + newStock
       const update = await Product.findByIdAndUpdate(productId, {stock: stock})
       if (update) return `Se actualizó el stock correctamente`
       return `El stock no pudo ser actualizado`
     } catch (error) {
       throw new Error(`Error al actualizar el stock del producto ${productId}`)
-    }
-  } catch (error) {
-    
-  }
+    }  
 }
 
 
@@ -165,10 +162,10 @@ const addStock = async (productId, newStock) => { // OK
 const deleteProduct = async (productId) => { // OK
   try { 
     const productDeleted = await Product.deleteOne({_id: productId})
-    if (productDeleted) return true
-    return false
+    if (productDeleted) return `El producto fue eliminado.`
+    return `No se encontró el producto.`
   } catch (error) {
-    return error.message
+    throw new Error (`Error al intentar eliminar el producto.`)
   }
 }
 
